@@ -19,7 +19,14 @@
     <!-- Header -->
     <!-- Header -->
     <style>
-
+        @media only screen and (min-width: 1400px) {
+            .container {
+                max-width: 1460px;
+            }
+        }
+        body {
+            background:white;
+        }
         /* navbar css starts from here */
         nav {
             height: 100px;
@@ -28,6 +35,7 @@
         nav .nav-item img {
             height: 12px;
             width: 12px;
+            display:none;
         }
         nav .nav-item span {
             margin-right:2px;
@@ -74,7 +82,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/') }}">
-                            <span>Sale Cloud</span>
+                            <span>Sales Cloud</span>
                             <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
@@ -125,13 +133,138 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container">
+    <main class="container-fluid px-0">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        &copy; {{ date('Y') }} {{ config('app.name') }}
+     <style>
+        footer {
+            padding-top: 80px;
+            background: #f7f7f7;
+            padding-bottom: 50px;
+            font-family:'Montserrat';
+        }
+        footer .upper-container .first-column p {
+            font-weight:600;
+            line-height: 28px;
+        }
+        footer .upper-container .first-column a {
+            text-decoration:none;
+            color: #5D5D5D;
+            font-weight:bolder;
+        }
+        footer .upper-container ul {
+            padding-left: 0px;
+            list-style-type:none;
+        }
+        footer .upper-container ul li:not(:last-child) {
+            margin-bottom: 16px;
+        }
+        footer .upper-container ul li a {
+            color: #5d5d5d;
+            font-weight: bolder;
+            font-size: 16px;
+            text-decoration:none;
+        }
+        footer .upper-container h5 {
+            font-family:"Montserrat";
+            margin-bottom: 20px;
+            font-weight: bolder;
+        }
+        footer .upper-container p.first-col-p {
+            font-size: 16px;
+            margin-bottom: 80px;
+        }
+        footer .address,
+        footer .customer-service {
+            color: #5d5d5d;
+            line-height: 24px;
+            font-weight:bolder;
+        }
+        footer .privacy-terms-wrapper {
+            width: calc(100% - 60px);
+        }
+        footer .lower-container button.social-button {
+            color: #5D5D5D;
+            border: 1px solid #5D5D5D;
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-weight:bolder;
+            transition: 0.2s;
+            background:transparent;
+        }
+        footer .lower-container button.social-button:hover {
+            color:white;
+            background: #0A66C2;
+            border-color: #0A66C2;
+        }
+        footer .lower-container {
+            padding-top: 14px;
+        }
+        footer .social-buttons-wrapper {
+            gap: 8px;
+        }
+     </style>
+    <footer>
+        <div class="upper-container container">
+            <div class="row">
+                <div class="col-lg-3 first-column">
+                    <p class="text-start first-col-p">DevXcloud is a powerful Performance <br> Management Software for Employees <br> and a cloud-based HR Platform</p>
+                    <div class="privacy-terms-wrapper d-flex align-items-center justify-content-between">
+                        <a href="javascript:void(0);" class="privacy">Privacy Policy</a>
+                        <a href="javascript:void(0);" class="terms">Terms & Conditions</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-1">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="javascript:void(0);">Why Us</a></li>
+                        <li><a href="javascript:void(0);">Products</a></li>
+                        <li><a href="javascript:void(0);">Insights</a></li>
+                        <li><a href="javascript:void(0);">Pricing</a></li>
+                        <li><a href="javascript:void(0);">About Us</a></li>
+                        <li><a href="javascript:void(0);">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Other Link</h5>
+                    <ul>
+                        <li><a href="javascript:void(0);">Contact</a></li>
+                        <li><a href="javascript:void(0);">Benefits</a></li>
+                        <li><a href="javascript:void(0);">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contact</h5>
+                    <div class="address-wrapper d-flex align-items-start justify-content-start">
+                        <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2 mt-1" width="18" height="18">
+                        <p class="address"><b>Office 3202, The One Tower, Barsha <br> Heights, PO BOX 500033, UAE.</b></p>
+                    </div>
+                    <h5 class="mt-4">Customer Service</h5>
+                    <p class="customer-service mb-2 pb-1">
+                        <img src="{{ asset('images/call.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
+                        +971 52 2183074 &nbsp;&nbsp;&nbsp; +971 44 466308
+                    </p>
+                    <p class="customer-service">
+                        <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
+                        sales@gulfhr.ae
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr class="container">
+        <div class="container lower-container d-flex align-items-center justify-content-between">
+            <p>© 2023 gulfHR. &nbsp;&nbsp; All rights reserved.</p>
+            <div class="social-buttons-wrapper d-flex align-items-center justify-content-end">
+                <button class="social-button">Facebook</button>
+                <button class="social-button">Twitter</button>
+                <button class="social-button">Gmail</button>
+                <button class="social-button">Linkedin</button>
+                <button class="social-button">Instagram</button>
+                <button class="social-button">Tiktok</button>
+            </div>
+        </div>
     </footer>
 
     <!-- Bootstrap JS CDN -->

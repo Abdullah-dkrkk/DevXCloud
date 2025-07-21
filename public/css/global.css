@@ -1,12 +1,33 @@
 /* global.css */
 
+/* Helvetica Regular */
+@font-face {
+  font-family: 'Nunito-Regular';
+  /* src: url('../fonts/nunito/Nunito-Regular.ttf') format('truetype'); */
+  src: url('../fonts/AvantGardeForSalesforceW05-Dm.woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Bold */
+@font-face {
+  font-family: 'Nunito-Bold';
+  src: url('../fonts/dm-sans/DMSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f8f9fa;
 }
 
 h1, h2, h3, h4, h5 {
-    font-weight: 600;
+    /* font-weight: 600; */
+    font-family: 'Nunito-Regular';
 }
 
 footer {
