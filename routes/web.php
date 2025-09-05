@@ -35,3 +35,6 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/commerce-ai', function () {
+    return view('commerce-ai'); // yahan .blade.php likhne ki zarurat nahi
+});

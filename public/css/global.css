@@ -4,7 +4,8 @@
 @font-face {
   font-family: 'Nunito-Regular';
   /* src: url('../fonts/nunito/Nunito-Regular.ttf') format('truetype'); */
-  src: url('../fonts/AvantGardeForSalesforceW05-Dm.woff2');
+  /* src: url('../fonts/AvantGardeForSalesforceW05-Dm.woff2'); */
+  src: url('../fonts/bricolage-grotesque/BricolageGrotesque-SemiBold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
