@@ -6,7 +6,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Google Font: Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -48,8 +48,8 @@
         nav .theme__btn {
             background: #0176D3;
             color:#ffffff !important;
-            border-radius: 10px;
-            padding: 10px 14px !important;
+            border-radius: 100px;
+            padding: 10px 24px !important;
             line-height: 24px;
             font-weight: 600;
             margin-left: 30px;
@@ -58,10 +58,10 @@
         }
         /* navbar css ends here */
     </style>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg" id="navbar">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="150">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="130">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -269,5 +269,21 @@
 
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbar = document.getElementById("navbar");
+
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 150) {
+                // scroll 100 se zyada → navbar fade out
+                navbar.classList.add("hidden");
+                } else {
+                // scroll 100 se kam → navbar fade in
+                navbar.classList.remove("hidden");
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
