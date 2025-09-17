@@ -89,14 +89,10 @@
                 </div>
             </div>
             <div class="row bottom-section">
-               <div class="col-lg-4 px-0">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
-               </div>
-               <div class="col-lg-5 px-0 d-flex align-items-center justify-content-center flex-column">
-                    <h3 class="text-center theme__color-secondary">Not sure which growth engine is right for you?</h3>
-                    <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
-                    <button class="theme__btn">Let’s Build Your Custom Plan Together</button>
-               </div>
+               <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
+               <h3>Not sure which growth engine <br> is right for you?</h3>
+               <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
+               <button class="theme__btn">Discover our Growth Engine</button>
             </div>
         </div>
     </section>
@@ -109,18 +105,18 @@
                 <h2 class="text-center">Here’s How We Build Your Custom Growth Engine</h2>
                 <p class="text-center head-para mx-auto">From strategic discovery to execution and optimization everything we do is purpose built to move your business forward powered by data and AI.</p>
             </div>
-            <div class="row">
+            <div class="row cards-row">
                 <div class="col custom-col-1 d-flex align-items-center justify-content-start flex-column">
-                    <img src="{{ asset('images/design-1.svg') }}" alt="Design 1" class="counter-img" height="40" width="40">
-                    <img src="{{ asset('images/design-search-icon.svg') }}" alt="Search Icon">
+                    <span class="count">1</span>
+                    <img src="{{ asset('illustrations/i-growth-strategy-discovery.svg') }}" alt="Growth Strategy Discovery" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Growth Strategy Discovery
                     </h5>
                     <p class="text-center">We start with deep research into your goals, blockers, competition, and market.</p>
                 </div>
                 <div class="col custom-col-2 d-flex align-items-center justify-content-start flex-column">
-                    <img src="{{ asset('images/design-2.svg') }}" alt="Design 2" class="counter-img" height="40" width="40">
-                    <img src="{{ asset('images/ai-icon.svg') }}" alt="AI Icon">
+                    <span class="count">2</span>
+                    <img src="{{ asset('illustrations/i-custom-system-blueprint.svg') }}" alt="Custom System Blueprint" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Custom System Blueprint
                     </h5>
@@ -129,8 +125,8 @@
                     </p>
                 </div>
                 <div class="col custom-col-3 d-flex align-items-center justify-content-start flex-column">
-                    <img src="{{ asset('images/design-3.svg') }}" alt="Design 3" class="counter-img" height="40" width="40">
-                    <img src="{{ asset('images/blazing-settings-icon.svg') }}" alt="Blazing Settings">
+                    <span class="count">3</span>
+                    <img src="{{ asset('illustrations/i-smart-implementation.svg') }}" alt="Smart Implementation" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Smart Implementation
                     </h5>
@@ -139,8 +135,8 @@
                     </p>
                 </div>
                 <div class="col custom-col-4 d-flex align-items-center justify-content-start flex-column">
-                    <img src="{{ asset('images/design-4.svg') }}" alt="Design 4" class="counter-img" height="40" width="40">
-                    <img src="{{ asset('images/chart-icon.svg') }}" alt="Chart Icon">
+                    <span class="count">4</span>
+                    <img src="{{ asset('illustrations/i-live-optimization-and-reporting.svg') }}" alt="Live Optimization & Reporting" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Live Optimization & Reporting
                     </h5>
@@ -149,8 +145,8 @@
                     </p>
                 </div>
                 <div class="col custom-col-5 d-flex align-items-center justify-content-start flex-column">
-                    <img src="{{ asset('images/design-5.svg') }}" alt="Design 5" class="counter-img" height="40" width="40">
-                    <img src="{{ asset('images/trend-icon.svg') }}" alt="Trend Icon">
+                    <span class="count">5</span>
+                    <img src="{{ asset('illustrations/i-scale-or-extend.svg') }}" alt="Scale or Extend" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">Scale or Extend</h5>
                     <p class="text-center">
                         As your business evolves, we help expand your system adding features, automations, and verticals as needed.
@@ -158,14 +154,13 @@
                 </div>
             </div>
             <div class="row robot-row">
-                <div class="col d-flex align-items-center justify-content-end">
-                    <div class="d-flex align-items-end flex-column justify-content-center">
-                        <h3 class="text-end">Want a custom growth system tailored to your business?</h3>
-                        <button class="new__design-btn ms-auto">
-                            Let’s Build It Together
-                        </button>
+                <div class="col d-flex align-items-center justify-content-center flex-column">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot Image" height="500" width="500">
+                    <div class="d-flex align-items-center flex-column justify-content-center">
+                        <h3 class="text-center">Want a custom growth system tailored to your business?</h3>
+                        <button class="theme__btn">Discover our Growth Engine</button>
                     </div>
-                    <img src="{{ asset('images/robot-with-bg.png') }}" alt="Robot Image">
+                    
                 </div>
             </div>
         </div>
@@ -238,7 +233,7 @@
             <div class="row d-flex align-items-center justify-content-center">
                 <h4 class="text-center">Ready to build your growth engine?</h4>
                 <div class="button-wrapper d-flex align-items-center justify-content-center">
-                    <button class="new__design-btn">Let’s Talk Strategy</button>
+                    <button class="theme__btn">Let's talk strategy</button>
                 </div>
             </div>
         </div>
@@ -304,56 +299,51 @@
             <div class="row mx-auto">
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <div class="rounded-img"></div>
+                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100">        
                         <h3>CommerceAI</h3>
                         <p>For eCommerce brands scaling with personalization, bundling, and smart inventory.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
-                            <span>Explore the System</span>
-                            <img src="{{ asset('images/blue-arrow.svg') }}" alt="Random Square" height="12" width="12">
+                            <button class="theme__btn">Explore the System</button>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <div class="rounded-img"></div>
+                        <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>LaunchPadAI</h3>
                         <p>For founders launching smarter with AI onboarding, UX, and predictive dashboards.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
-                            <span>Explore the System</span>
-                            <img src="{{ asset('images/blue-arrow.svg') }}" alt="Random Square" height="12" width="12">
+                            <button class="theme__btn">Explore the System</button>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <div class="rounded-img"></div>
+                        <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>ScaleCloud</h3>
                         <p>For SaaS companies automating infrastructure, reporting, and real-time optimization.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
-                            <span>Explore the System</span>
-                            <img src="{{ asset('images/blue-arrow.svg') }}" alt="Random Square" height="12" width="12">
+                            <button class="theme__btn">Explore the System</button>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 offset-2">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <div class="rounded-img"></div>
+                        <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>EliteScale</h3>
                         <p>For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
-                            <span>Explore the System</span>
-                            <img src="{{ asset('images/blue-arrow.svg') }}" alt="Random Square" height="12" width="12">
+                            <button class="theme__btn">Explore the System</button>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <div class="rounded-img"></div>
+                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>GreenScale Formula™</h3>
                         <p>For ethical or plant-based brands scaling smarter with bundle optimization and retention flows.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
-                            <span>Explore the System</span>
-                            <img src="{{ asset('images/blue-arrow.svg') }}" alt="Random Square" height="12" width="12">
+                            <button class="theme__btn">Explore the System</button>
                         </a>
                     </div>
                 </div>
@@ -372,11 +362,11 @@
                         <p class="text-start">
                             We don’t sell random services. We build systems designed to grow with you powered by AI, personalization,and strategy.
                         </p>
-                        <button class="new__design-btn">Let’s Build It Together</button>
+                        <button class="theme__btn">Let’s Build It Together</button>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="{{ asset('images/robot-with-bg.png') }}" alt="Robot With BG">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
     <!-- Global CSS -->
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 </head>
-<body>  
+<body class="@if(request()->is('/')) custom-home @elseif(request()->is('commerce-ai')) custom-commerce-ai @else custom-{{ str_replace('/', '-', request()->path()) }} @endif">
 
     <!-- Header -->
     <!-- Header -->
@@ -142,7 +142,7 @@
         footer {
             padding-top: 80px;
             background: #f7f7f7;
-            padding-bottom: 50px;
+            padding-bottom: 34px;
             font-family:'Montserrat';
         }
         footer .upper-container .first-column p {
@@ -163,27 +163,30 @@
         }
         footer .upper-container ul li a {
             color: #5d5d5d;
-            font-weight: bolder;
+            font-weight: 600;
             font-size: 16px;
             text-decoration:none;
         }
         footer .upper-container h5 {
-            font-family:"Montserrat";
+            font-family:"Bricolage-Grotesque";
             margin-bottom: 20px;
             font-weight: bolder;
         }
         footer .upper-container p.first-col-p {
             font-size: 16px;
-            margin-bottom: 80px;
+            margin-bottom: 40px;
+            font-family:"Bricolage-Grotesque";
         }
         footer .address,
         footer .customer-service {
             color: #5d5d5d;
             line-height: 24px;
+            font-family:"Bricolage-Grotesque";
             font-weight:bolder;
         }
         footer .privacy-terms-wrapper {
             width: calc(100% - 60px);
+            font-family:"Bricolage-Grotesque";
         }
         footer .lower-container button.social-button {
             color: #5D5D5D;
@@ -201,6 +204,7 @@
         }
         footer .lower-container {
             padding-top: 14px;
+            font-family:"Bricolage-Grotesque";
         }
         footer .social-buttons-wrapper {
             gap: 8px;
@@ -239,7 +243,7 @@
                     <h5>Contact</h5>
                     <div class="address-wrapper d-flex align-items-start justify-content-start">
                         <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2 mt-1" width="18" height="18">
-                        <p class="address"><b>Office 3202, The One Tower, Barsha <br> Heights, PO BOX 500033, UAE.</b></p>
+                        <p class="address">Office 3202, The One Tower, Barsha <br> Heights, PO BOX 500033, UAE.</p>
                     </div>
                     <h5 class="mt-4">Customer Service</h5>
                     <p class="customer-service mb-2 pb-1">

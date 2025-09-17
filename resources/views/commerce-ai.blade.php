@@ -3,16 +3,27 @@
 @section('content')
 
     <style>
-        .hero-section {
+        /* .hero-section {
             background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
-            /* min-height: 500px; */
             display: flex;
             padding-top: 140px;
             padding-bottom: 140px;
             align-items: center;
+        } */
+        .custom-commerce-ai nav .navbar-brand {
+            filter:brightness(0) invert(1);
+        }
+        .custom-commerce-ai nav .navbar-nav .nav-link {
+            color:var(--theme-white);
+        }
+        section.hero-section.commerce-ai {
+            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .hero-section h1 {
             font-weight: 700;
@@ -40,17 +51,33 @@
         .hero-section .content-section {
             gap: 14px;
         }
+        section.hero-section.commerce-ai .theme__btn + a {
+            background:white;
+            color: #0176d3 !important;
+            border-radius: 100px;
+            padding: 10px 24px !important;
+            line-height: 24px;
+            font-weight: bolder;
+            font-family:"Bricolage-Grotesque";
+            font-size: 14px;
+            text-transform: uppercase;
+            border: none;
+        }
+        /* section.hero-section.commerce-ai h1,
+        section.hero-section.commerce-ai p{
+            color:var(--theme-dark);
+        } */
     </style>
-    <section class="hero-section">
+    <section class="hero-section commerce-ai">
         <div class="container">
             <div class="row px-0">
                 <div class="col-lg-6 d-flex flex-column align-items-start justify-content-center content-section">
-                    <h1 class="mb-0">Custom-Built AI <br> Growth Engine <br> for eCommerce</h1>
+                    <h1 class="mb-0">Custom-Built AI Growth <br> Engine for eCommerce</h1>
                     <p>
                         CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
                     </p>
                     <div class="buttons-wrapper d-flex align-items-center justfy-content-center">
-                        <a href="javascript:void(0);">Get Your Growth Blueprint</a>
+                        <button class="theme__btn" href="javascript:void(0);">Get Your Growth Blueprint</button>
                         <a href="javascript:void(0);">Watch Demo</a>
                     </div>
                 </div>
@@ -98,6 +125,7 @@
         .commerce-ai-turns .cards-wrapper .header h4 {
             color:white;
             font-size: 20px;
+            line-height: 30px;
         }
         .commerce-ai-turns .cards-wrapper .header{
             gap: 20px;
@@ -113,16 +141,16 @@
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
                     <h2 class="mb-0">How CommerceAI Turns Data into Growth</h2>
                     <p>
-                        Most AI tools automate tasks. Most agencies run ads. But neither builds a system around how your brand actually sells, retains, and grows. <br> CommerceAI is a fully-managed, strategy-first growth engine custom-built for each eCommerce brand. From forecasting inventory to on-site personalization and automated retention flows, every part of the system is tailored to your products, audience, and offers — not pulled from a playbook.
+                        Most AI tools automate tasks. Most agencies run ads. But neither builds a system around how your brand actually sells, retains, and grows. CommerceAI is a fully-managed, strategy-first growth engine custom-built for each eCommerce brand. From forecasting inventory to on-site personalization and automated retention flows, every part of the system is tailored to your products, audience, and offers — not pulled from a playbook.
                     </p>
                 </div>
             </div>
             <div class="row cards-wrapper d-flex align-items-center justify-content-center mx-auto">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <div class="header d-flex align-items-center justify-content-start">
+                        <div class="header flex-column d-flex align-items-start justify-content-center">
                             <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
-                            <h4 class="mb-0">Strategic <br> Foundation First</h4>
+                            <h4 class="mb-0">Strategic Foundation First</h4>
                         </div>
                         <div class="content">
                             Every store is different. So before we automate anything, we start with a custom strategy built around your products, customers, and conversion paths.
@@ -131,23 +159,23 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <div class="header d-flex align-items-center justify-content-start">
-                            <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
-                            <h4 class="mb-0">Strategic <br> Foundation First</h4>
+                        <div class="header flex-column d-flex align-items-start justify-content-center">
+                            <img src="{{ asset('images/commerce-ai/adaptive-ai-infrastructure.svg') }}" alt="">
+                            <h4 class="mb-0">Adaptive AI <br> Infrastructure</h4>
                         </div>
                         <div class="content">
-                            Every store is different. So before we automate anything, we start with a custom strategy built around your products, customers, and conversion paths.
+                            CommerceAI doesn’t plug in it’s built around your business. From forecasting to personalization, every layer adapts to how your store sells, restocks, and grows.
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <div class="header d-flex align-items-center justify-content-start">
-                            <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
-                            <h4 class="mb-0">Strategic <br> Foundation First</h4>
+                        <div class="header flex-column d-flex align-items-start justify-content-center">
+                            <img src="{{ asset('images/commerce-ai/ai-powered-growth.svg') }}" alt="">
+                            <h4 class="mb-0">AI-Powered Growth <br> Execution</h4>
                         </div>
                         <div class="content">
-                            Every store is different. So before we automate anything, we start with a custom strategy built around your products, customers, and conversion paths.
+                            You don’t need another report or a half-working flow. CommerceAI delivers a fully-managed system that acts on your data and keeps improving every week.
                         </div>
                     </div>
                 </div>
@@ -400,6 +428,12 @@
             padding-top: 100px;
             padding-bottom: 260px;
         }
+        section.engine-stack .theme__btn{ 
+            font-family: "Bricolage-Grotesque";
+            border-radius: 100px;
+            text-transform:uppercase;
+            letter-spacing: 0.3px !important;
+        }
         section.engine-stack .engine-stack-first-row  p {
             margin-bottom: 0px;
         }
@@ -510,7 +544,7 @@
                 </div>
             </div>
             <div class="row d-flex align-items-center justify-content-center">
-                <a href="javascript:void(0);">Get Your Custom Growth Blueprint</a>
+                <a href="javascript:void(0);" class="theme__btn">Get Your Custom Growth Blueprint</a>
             </div>
         </div>
     </section>
@@ -588,25 +622,25 @@
             </div>
             <div class="row strategy-grid">
                 <div class="col">
-                    <img src="{{ asset('images/commerce-ai/strategy-1.png') }}">
+                    <img src="{{ asset('illustrations/i-step-1.svg') }}">
                     <span class="step">Step 1</span>
                     <h3>Growth Discovery Call</h3>
                     <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('images/commerce-ai/strategy-2.png') }}">
+                    <img src="{{ asset('illustrations/i-step-2.svg') }}">
                     <span class="step">Step 2</span>
                     <h3>Custom Growth Blueprint</h3>
                     <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('images/commerce-ai/strategy-3.png') }}">
+                    <img src="{{ asset('illustrations/i-step-3.svg') }}">
                     <span class="step">Step 3</span>
                     <h3>Stack Setup + Smart Systems</h3>
                     <p>We install predictive tools, automation flows, conversion-boosting systems, and your marketing stack everything aligned to your growth blueprint.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('images/commerce-ai/strategy-4.png') }}">
+                    <img src="{{ asset('illustrations/i-step-4.svg') }}">
                     <span class="step">Step 4</span>
                     <h3>Weekly Optimization + Reporting</h3>
                     <p>Every week, we test, review, and improve refining campaigns, updating dashboards, and helping you scale smarter with data.</p>
