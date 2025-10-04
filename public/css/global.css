@@ -69,11 +69,11 @@ nav.navbar-expand-lg .container {
     padding-left: 24px;
 }
 nav.navbar-expand-lg {
-    max-width: 1460px;
-    border-radius: 100px;
-    margin: auto;
-    position: sticky;
-    top: 24px;
+    /* max-width: 1460px; */
+    /* border-radius: 100px; */
+    /* margin: auto; */
+    background: white;
+    /* top: 24px; */
 }
 body nav .nav-item span {
     font-family: "Bricolage-Grotesque";
@@ -82,9 +82,9 @@ body nav .nav-item span {
     cursor: pointer;
     letter-spacing: 0.2px;
 }
-body.custom-commerce-ai nav .nav-item span::after {
+/* body.custom-commerce-ai nav .nav-item span::after {
     background-color: var(--theme-white);
-}
+} */
 body nav .nav-item span::after {
     content: "";
     position: absolute;
@@ -131,10 +131,14 @@ section.hero-section {
     background-position: center;
     margin-top: -80px;
 }
+section.hero-section video {
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
 .hero-section .theme__btn {
     background: #0176d3;
     color: #ffffff !important;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     line-height: 24px;
     font-weight: 600;
@@ -148,7 +152,7 @@ section.hero-section {
     font-family: "Bricolage-Grotesque";
     background: white;
     color: #0176d3;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px;
     line-height: 24px;
     font-size: 14px;
@@ -171,7 +175,7 @@ section.hero-section {
 .hero-section h1 {
     font-size: 44px;
     line-height: 60px;
-    margin-top: -40px;
+    /* margin-top: -40px; */
     margin-bottom: 0px;
 }
 
@@ -266,7 +270,7 @@ section.hero-section {
 
 .explore-growth-engine .cards-wrapper a {
     background: #0052cc;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     text-decoration: none;
     color: white;
@@ -289,43 +293,42 @@ section.hero-section {
     gap: 10px;
 }
 
-.explore-growth-engine .bottom-section img {
-    height: 150px;
-    width: 160px;
+.bottom-section img {
+    height: 350px;
+    width: 360px;
+    transform: scale(1.1);
 }
-.explore-growth-engine .bottom-section {
+.bottom-section {
     margin-top: 60px;
     background-image: url("../images/commerce-ai/hero-background.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     border-radius: 34px;
-    display: flex;
-    padding: 20px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    padding: 60px 140px;
+    /* flex-direction: column; */
     box-shadow: 0px 0px 30px #d6d6d6;
     min-height: 300px;
     max-height: fit-content;
 }
-.explore-growth-engine .bottom-section .theme__btn {
+.bottom-section .theme__btn {
     max-width: fit-content;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     margin-bottom: 30px;
 }
-.explore-growth-engine .bottom-section p {
+.bottom-section p {
     font-size: 18px;
     margin-bottom: 28px;
+    text-align: start !important;
     margin-top: -10px;
     color: var(--theme-white);
 }
 
-.explore-growth-engine .bottom-section h3 {
+.bottom-section h3 {
     font-size: 32px;
     margin-bottom: 28px;
-    text-align: center;
+    text-align: start;
     min-width: 100%;
     color: var(--theme-white);
     margin-top: 16px;
@@ -403,7 +406,7 @@ section.how-we-build .cards-row .col {
 section.how-we-build .robot-row button {
     background: #0176d3;
     color: #ffffff !important;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     line-height: 24px;
     font-weight: 600;
@@ -420,8 +423,12 @@ section.how-we-build .robot-row button {
 
 section.why-founders {
     background: #f7f7f7;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    background-image: url("../images/why-founder-trust-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 140px;
+    padding-bottom: 140px;
 }
 
 section.why-founders h2 {
@@ -444,7 +451,7 @@ section.why-founders .cards-wrapper .col-lg-6 .inner-column {
 section.why-founders .theme__btn {
     background: #0176d3;
     color: #ffffff !important;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     line-height: 24px;
     font-weight: 600;
@@ -570,7 +577,7 @@ section.explore .explore-the-system {
 section.explore .theme__btn {
     background: #0176d3;
     color: #ffffff !important;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     line-height: 24px;
     font-weight: 600;
@@ -622,7 +629,7 @@ section.ready h2 {
 section.ready .theme__btn {
     background: #0176d3;
     color: #ffffff !important;
-    border-radius: 100px;
+    border-radius: 8px;
     padding: 10px 24px !important;
     line-height: 24px;
     font-weight: 600;

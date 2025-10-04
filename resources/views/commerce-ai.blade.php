@@ -13,12 +13,12 @@
             padding-bottom: 140px;
             align-items: center;
         } */
-        .custom-commerce-ai nav .navbar-brand {
+        /* .custom-commerce-ai nav .navbar-brand {
             filter:brightness(0) invert(1);
         }
         .custom-commerce-ai nav .navbar-nav .nav-link {
             color:var(--theme-white);
-        }
+        } */
         section.hero-section.commerce-ai {
             background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
             background-size: cover; 
@@ -54,7 +54,7 @@
         section.hero-section.commerce-ai .theme__btn + a {
             background:white;
             color: #0176d3 !important;
-            border-radius: 100px;
+            border-radius: 8px;
             padding: 10px 24px !important;
             line-height: 24px;
             font-weight: bolder;
@@ -81,8 +81,11 @@
                         <a href="javascript:void(0);">Watch Demo</a>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="{{ asset('images/hero-section-image.png') }}" class="img-fluid">
+                <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
+                    <video class="img-fluid" controls autoplay muted loop style="height: 90%; width: 90%;">
+                        <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
                 </div>
             </div>
         </div>
@@ -430,7 +433,7 @@
         }
         section.engine-stack .theme__btn{ 
             font-family: "Bricolage-Grotesque";
-            border-radius: 100px;
+            border-radius: 8px;
             text-transform:uppercase;
             letter-spacing: 0.3px !important;
         }
@@ -849,12 +852,13 @@
         section.last-banner {
             /* padding-top: 80px;
             padding-bottom: 80px; */
+            margin-bottom: 60px;
         }
         section.last-banner a:hover {
             opacity: 0.8;
         }
-        section.last-banner a{
-            font-family:'Nunito-Regular';
+        section.last-banner .theme__btn{
+            font-family:'Bricolage-Grotesque';
             background: #0176D3;
             padding: 18px 26px;
             text-decoration:none;
@@ -862,9 +866,11 @@
             letter-spacing: 0.2px;
             font-size: 16px;
             border-radius: 12px;
+            outline:none;
+            border:none;
             transition:0.3s;
         }
-        section.last-banner p {
+        /* section.last-banner p {
             margin-bottom: 20px;
             font-weight: 500;
             font-style: Medium;
@@ -878,19 +884,19 @@
             line-height: 58px;
             margin-bottom: 20px;
             letter-spacing: 0%;
-        }
+        } */
     </style>
     <section class="last-banner">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 flex-column d-flex align-items-start justify-content-center">
-                    <h3>Let’s Map Your Growth <br> Journey Together</h3>
-                    <p>We’ll analyze your store, your goals, and your <br> challenges and build a step-by-step blueprint <br> just for you.</p>
-                    <a href="javascript:void(0);">Get My Custom Growth Plan</a>
-                </div>
-                <div class="col-lg-6">
-                    <img src="{{ asset('images/commerce-ai/robot-banner-for-footer.png') }}" class="img-fluid" alt="Robot Banner">
-                </div>
+            <div class="row bottom-section d-flex align-items-center justify-content-between">
+               <div class="col d-inline-flex align-items-start justify-content-center flex-column">
+                    <h3>Not sure which growth engine <br> is right for you?</h3>
+                    <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
+                    <button class="theme__btn">Discover our Growth Engine</button>
+               </div>
+               <div class="col d-inline-flex align-items-center justify-content-end">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
+               </div>
             </div>
         </div>
     </section>

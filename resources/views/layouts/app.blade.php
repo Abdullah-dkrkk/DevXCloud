@@ -48,7 +48,7 @@
         nav .theme__btn {
             background: #0176D3;
             color:#ffffff !important;
-            border-radius: 100px;
+            border-radius: 8px;
             padding: 10px 24px !important;
             line-height: 24px;
             font-weight: 600;
@@ -274,19 +274,19 @@
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const navbar = document.getElementById("navbar");
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const navbar = document.getElementById("navbar");
 
-            window.addEventListener("scroll", function () {
-                if (window.scrollY > 150) {
-                // scroll 100 se zyada → navbar fade out
-                navbar.classList.add("hidden");
-                } else {
-                // scroll 100 se kam → navbar fade in
-                navbar.classList.remove("hidden");
-                }
-            });
-        });
+        //     window.addEventListener("scroll", function () {
+        //         if (window.scrollY > 150) {
+        //         // scroll 100 se zyada → navbar fade out
+        //         navbar.classList.add("hidden");
+        //         } else {
+        //         // scroll 100 se kam → navbar fade in
+        //         navbar.classList.remove("hidden");
+        //         }
+        //     });
+        // });
     </script>
 
 </body>

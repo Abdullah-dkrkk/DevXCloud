@@ -14,8 +14,11 @@
                         <button class="theme__btn-secondary">See The DevX Process</button>
                     </div>
                 </div>
-                <div class="col-lg-6 px-0">
-                    <img src="{{ asset('images/hero-section-image.png') }}" alt="Hero Banner Image" class="img-fluid">
+                <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
+                    <video class="img-fluid" controls autoplay muted loop style="height: 90%; width: 90%;">
+                        <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
                 </div>
             </div>
         </div>
@@ -81,18 +84,22 @@
                     <div class="rounded-circle">
                         <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
-                    <h3 class="text-center">Commerce AI</h3>
-                    <p class="text-center">Boost AOV, retention, and personalization with a smart eCommerce system.</p>
+                    <h3 class="text-center">EliteScale</h3>
+                    <p class="text-center">For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
                     <a href="javascript:void(0);" class="theme__btn d-flex align-items-center justify-content-center gap-10">
                         <span>Learn More</span>
                     </a>
                 </div>
             </div>
-            <div class="row bottom-section">
-               <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
-               <h3>Not sure which growth engine <br> is right for you?</h3>
-               <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
-               <button class="theme__btn">Discover our Growth Engine</button>
+            <div class="row bottom-section d-flex align-items-center justify-content-between">
+               <div class="col d-inline-flex align-items-start justify-content-center flex-column">
+                    <h3>Not sure which growth engine <br> is right for you?</h3>
+                    <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
+                    <button class="theme__btn">Discover our Growth Engine</button>
+               </div>
+               <div class="col d-inline-flex align-items-center justify-content-end">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
+               </div>
             </div>
         </div>
     </section>
@@ -153,7 +160,7 @@
                     </p>
                 </div>
             </div>
-            <div class="row robot-row">
+            <div class="row robot-row" style="display:none;">
                 <div class="col d-flex align-items-center justify-content-center flex-column">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot Image" height="500" width="500">
                     <div class="d-flex align-items-center flex-column justify-content-center">
