@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                    <video class="img-fluid" controls autoplay muted loop style="height: 90%; width: 90%;">
+                    <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
                         <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
                         Your browser does not support HTML video.
                     </video>
@@ -123,7 +123,22 @@
         .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper {
             border-radius: 20px;
             padding: 30px 40px 40px 40px;
-            background:#000d60;
+            background:transparent;
+            position:relative;
+        }
+        .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #00f0ff, #8a2be2);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
         .commerce-ai-turns .cards-wrapper .header h4 {
             color:white;
@@ -193,8 +208,20 @@
             background: url("{{ asset('images/commerce-ai/inside-the-commerce-ai-banner.png') }}") no-repeat center center;
             background-size: cover;
             padding-top: 90px;
+            position:relative;
             padding-bottom: 280px;
             margin-top: -2px;
+        }
+        section.inside-the-commerce-ai-banner::after
+        {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            clip-path: ellipse(55% 80% at 50% 100%);
+            background: white;
         }
         section.inside-the-commerce-ai-banner .inside-the-commerce-text {
             color:#fff; font-size: 16px; max-width:960px; margin-bottom: 40px; line-height: 30px;
@@ -214,8 +241,23 @@
             padding-left: 0px;
             height:auto;
         }
+        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #00f0ff, #8a2be2);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
         section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
             min-height: 100%;
+            position:relative;
         }
         section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper img {
             height: 70px;
@@ -243,7 +285,7 @@
             text-align: center;
         }
         section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
-            background: #0000004D;
+            background: transparent;
             padding: 60px 24px;
             border-radius: 20px;
             display:flex;
@@ -308,8 +350,11 @@
     <style>
         .inner-bg-holder{
             background: url("{{ asset('images/commerce-ai/what-makes-difference.png') }}") no-repeat center center;
+            background-size:cover;
             padding-top: 20px;
             padding-bottom: 200px;
+            border-bottom-left-radius: 100% 50%;
+            border-bottom-right-radius: 100% 50%;
         }
         section.what-makes-difference .what-makes-difference-heading {
             font-weight: 700;
@@ -434,6 +479,7 @@
         section.engine-stack .theme__btn{ 
             font-family: "Bricolage-Grotesque";
             border-radius: 8px;
+            background: #EB8025 !important;
             text-transform:uppercase;
             letter-spacing: 0.3px !important;
         }
@@ -892,7 +938,7 @@
                <div class="col d-inline-flex align-items-start justify-content-center flex-column">
                     <h3>Not sure which growth engine <br> is right for you?</h3>
                     <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
-                    <button class="theme__btn">Discover our Growth Engine</button>
+                    <button class="theme__btn text-uppercase">Discover our Growth Engine</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
                     <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">

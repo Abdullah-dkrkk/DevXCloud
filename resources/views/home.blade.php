@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                    <video class="img-fluid" controls autoplay muted loop style="height: 90%; width: 90%;">
+                    <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
                         <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
                         Your browser does not support HTML video.
                     </video>
@@ -59,8 +59,8 @@
                 </div>
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-3">
                     <img src="{{ asset('illustrations/i-scale-cloud-ai-bg.svg') }}" alt="" class="img-fluid">
-                    <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="" class="img-fluid">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="" class="img-fluid" style="margin-top:-6px;">
                     </div>
                     <h3 class="text-center">ScaleCloud</h3>
                     <p class="text-center">Scale your SaaS with smart automation, integrations, and real-time performance insights.</p>
@@ -82,7 +82,7 @@
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-1">
                     <img src="{{ asset('illustrations/i-commerce-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center">EliteScale</h3>
                     <p class="text-center">For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
@@ -337,8 +337,8 @@
                 <div class="col-lg-4 offset-2">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
-                        <h3>EliteScale</h3>
-                        <p>For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
+                        <h3>GreenScale Formula™</h3>
+                        <p>For ethical or plant-based brands scaling smarter with bundle optimization and retention flows.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="theme__btn">Explore the System</button>
                         </a>
@@ -346,9 +346,9 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
-                        <h3>GreenScale Formula™</h3>
-                        <p>For ethical or plant-based brands scaling smarter with bundle optimization and retention flows.</p>
+                        <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
+                        <h3>EliteScale</h3>
+                        <p>For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="theme__btn">Explore the System</button>
                         </a>

@@ -82,7 +82,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/') }}">
-                            <span>Sales Cloud</span>
+                            <span>ScaleCloud</span>
                             <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
@@ -141,7 +141,7 @@
      <style>
         footer {
             padding-top: 80px;
-            background: #f7f7f7;
+            background:var(--theme-primary);
             padding-bottom: 34px;
             font-family:'Montserrat';
         }
@@ -151,7 +151,7 @@
         }
         footer .upper-container .first-column a {
             text-decoration:none;
-            color: #5D5D5D;
+            color:var(--theme-white);
             font-weight:bolder;
         }
         footer .upper-container ul {
@@ -162,7 +162,7 @@
             margin-bottom: 16px;
         }
         footer .upper-container ul li a {
-            color: #5d5d5d;
+            color:var(--theme-white);
             font-weight: 600;
             font-size: 16px;
             text-decoration:none;
@@ -170,16 +170,18 @@
         footer .upper-container h5 {
             font-family:"Bricolage-Grotesque";
             margin-bottom: 20px;
+            color:var(--theme-white);
             font-weight: bolder;
         }
         footer .upper-container p.first-col-p {
             font-size: 16px;
+            color:var(--theme-white);
             margin-bottom: 40px;
             font-family:"Bricolage-Grotesque";
         }
         footer .address,
         footer .customer-service {
-            color: #5d5d5d;
+            color: var(--theme-white);
             line-height: 24px;
             font-family:"Bricolage-Grotesque";
             font-weight:bolder;
@@ -189,8 +191,8 @@
             font-family:"Bricolage-Grotesque";
         }
         footer .lower-container button.social-button {
-            color: #5D5D5D;
-            border: 1px solid #5D5D5D;
+            color: var(--theme-white);
+            border: 1px solid var(--theme-white);
             border-radius: 100px;
             padding: 8px 16px;
             font-weight:bolder;
@@ -205,6 +207,7 @@
         footer .lower-container {
             padding-top: 14px;
             font-family:"Bricolage-Grotesque";
+            color:var(--theme-white);
         }
         footer .social-buttons-wrapper {
             gap: 8px;
@@ -257,7 +260,7 @@
                 </div>
             </div>
         </div>
-        <hr class="container">
+        <hr class="container text-white">
         <div class="container lower-container d-flex align-items-center justify-content-between">
             <p>© 2023 gulfHR. &nbsp;&nbsp; All rights reserved.</p>
             <div class="social-buttons-wrapper d-flex align-items-center justify-content-end">

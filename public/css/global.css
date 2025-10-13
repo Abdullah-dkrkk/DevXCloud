@@ -128,12 +128,13 @@ section.hero-section {
     background: url("../illustrations/i-hero-section-desktop.svg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
     margin-top: -80px;
 }
 section.hero-section video {
     margin-top: 35px;
     margin-bottom: 50px;
+    border-radius: 10px !important;
 }
 .hero-section .theme__btn {
     background: #0176d3;
@@ -180,8 +181,8 @@ section.hero-section video {
 }
 
 .hero-section {
-    padding-top: 130px;
-    padding-bottom: 40px;
+    padding-top: 160px;
+    padding-bottom: 100px;
 }
 
 .hero-section p {
@@ -247,7 +248,7 @@ section.hero-section video {
 }
 
 .explore-growth-engine .cards-wrapper p {
-    font-size: 16px;
+    font-size: 15px;
     padding-right: 10px;
     padding-left: 10px;
     margin-bottom: 32px;
@@ -300,10 +301,10 @@ section.hero-section video {
 }
 .bottom-section {
     margin-top: 60px;
-    background-image: url("../images/commerce-ai/hero-background.png");
-    background-repeat: no-repeat;
+    /* background-image: url("../images/commerce-ai/hero-background.png"); */
+    /* background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     border-radius: 34px;
     padding: 60px 140px;
     /* flex-direction: column; */
@@ -322,7 +323,7 @@ section.hero-section video {
     margin-bottom: 28px;
     text-align: start !important;
     margin-top: -10px;
-    color: var(--theme-white);
+    color: var(--theme-primary);
 }
 
 .bottom-section h3 {
@@ -330,7 +331,7 @@ section.hero-section video {
     margin-bottom: 28px;
     text-align: start;
     min-width: 100%;
-    color: var(--theme-white);
+    color: var(--theme-primary);
     margin-top: 16px;
 }
 
@@ -426,9 +427,11 @@ section.why-founders {
     background-image: url("../images/why-founder-trust-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
     padding-top: 140px;
     padding-bottom: 140px;
+    border-bottom-left-radius: 100% 8%;
+    border-bottom-right-radius: 100% 8%;
 }
 
 section.why-founders h2 {
@@ -559,6 +562,11 @@ section.explore .row .inner-col {
     background: white;
 }
 
+section.explore img {
+    align-self:center;
+    margin-bottom: 20px !important;
+}
+
 section.explore img + h3 + p {
     margin-bottom: 20px;
 }
@@ -601,10 +609,10 @@ section.explore .rounded-img {
 */
 
 section.ready {
-    background-image: url("../images/commerce-ai/hero-background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    /* background-image: url("../images/commerce-ai/hero-background.png"); */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* background-position: center; */
     border-radius: 34px;
     display: flex;
     padding: 20px;
@@ -621,7 +629,7 @@ section.ready {
 }
 
 section.ready h2 {
-    color: var(--theme-white);
+    color: var(--theme-primary);
     line-height: 44px;
     margin-bottom: 30px;
 }
@@ -653,5 +661,5 @@ section.ready .new__design-btn:hover {
 section.ready h2 + p {
     max-width: 500px;
     margin-bottom: 30px;
-    color: var(--theme-white);
+    color: var(--theme-primary);
 }
