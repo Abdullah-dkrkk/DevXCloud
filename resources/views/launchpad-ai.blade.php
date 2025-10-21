@@ -361,9 +361,15 @@
         section.growth-engine .row.main-rows {
             margin-bottom: 20px;
         }
+        section.growth-engine .col-lg-3 .inner-wrapper h5  + p {
+            font-size: 15px;
+            line-height: 28px;
+        }
         section.growth-engine .col-lg-3 .inner-wrapper h5 {
             margin-top: 24px;
             margin-bottom: 12px;
+            font-size: 24px;
+            line-height: 32px;
         }
         section.growth-engine .col-lg-3 .inner-wrapper {
             box-shadow: 0px 0px 30px 0px #00000021;
@@ -397,22 +403,22 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
+                        <h5>Launch Website <br> & AI Chatbot</h5>
                         <p>position your startup with a clear <br> USP and defined customer avatar</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Funnel Planning + <br> Content Briefs</h5>
+                        <p>Strategize your offer flow and prep <br> creator-ready launch content.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Ads Launch <br> Blueprint</h5>
+                        <p>Get ad angles, targeting plans, and <br> rollout strategy done for you.</p>
                     </div>
                 </div>
             </div>
@@ -420,35 +426,149 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Predictive Launch <br> Metrics</h5>
+                        <p>Track KPIs in real-time with custom dashboards and insights.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Conversion <br> A/B Testing</h5>
+                        <p>Optimize copy, CTAs, and layouts <br> for early traction.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Email & Retargeting <br> Flows</h5>
+                        <p>Implement automated follow-ups <br> and launch sequences.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h5>Strategic Growth <br> Consulting</h5>
+                        <p>Ongoing support to adapt and <br> grow post-launch.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 3 row full cards section -->
+    <style>
+        section.traction h2 {
+            font-size: 40px;
+            color: #0F2C4E;
+            margin-top: 20px;
+            margin-bottom: 16px;
+        }
+        section.traction .main-para {
+            text-align:center;
+            line-height: 32px;
+        }
+        section.traction .content-row {
+            padding-top: 60px;
+            padding-right: 16px;
+            padding-left: 16px;
+            padding-bottom: 60px;
+        }
+        section.traction h4 {
+            font-size: 30px;
+            line-height: 44px;
+        }
+    </style>
+    <section class="traction">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
+                    <h2>The System Behind Your Traction</h2>
+                    <p class="main-para">From funnel strategy to founder-led content, LaunchPadAI equips you with the precise systems that drive <br> growth, conversions, and confidence long after launch day.</p>
+                </div>
+            </div>
+
+            <!-- first content card -->
+            <div class="row content-row">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="card-content-wrapper">
+                        <h4>Explore How LaunchPadAI Turns Your <br> Startup into a Launch Machine</h4>
+                        <p>A founder-first launch framework designed to help you map, build, <br> launch, and grow — with AI support at every step.</p>
+                        <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
+                            <div class="content-group">
+                                <h5>Strategy & Brand Foundation</h5>
+                                <p>Define your USP, audience, and market position with precision.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Digital Build + AI Automation</h5>
+                                <p>Create your website, chatbot, and launch-ready backend.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Strategic Launch Plan</h5>
+                                <p>Plan your funnel, messaging, and multi-channel rollout.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- second content card -->
+            <div class="row content-row">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                </div>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="card-content-wrapper">
+                        <h4>Turn Launch Data Into <br> Smart Decisions</h4>
+                        <p>Your launch is only the beginning. We help you test, optimize, and <br> row with a data-first strategy tailored to your brand.</p>
+                        <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
+                            <div class="content-group">
+                                <h5>Content & Optimization</h5>
+                                <p>Craft founder-led content and test for conversion.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Launch Dashboard & Insights</h5>
+                                <p>Track performance and scale with data-driven clarity.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Conversion A/B Testing</h5>
+                                <p>Experiment with messaging and offers to drive better results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- third content card -->
+            <div class="row content-row">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="card-content-wrapper">
+                        <h4>From Traction to Momentum, We’re <br> Built to Scale With You</h4>
+                        <p>Whether you're refining your offer or entering new markets, LaunchPadAI <br> gives you the tools, insights, and strategy to grow with intention.</p>
+                        <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
+                            <div class="content-group">
+                                <h5>Offer Expansion Strategy</h5>
+                                <p>Use launch learnings to create irresistible next-tier offers.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Channel Diversification</h5>
+                                <p>Get help expanding to Meta, Google, LinkedIn, and more.</p>
+                            </div>
+                            <div class="content-group">
+                                <h5>Growth Insights Review</h5>
+                                <p>Monthly strategy reports to adjust and scale with precision.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- faq section starts from here -->
     <style>
@@ -525,7 +645,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="main-heading">FAQs About CommerceAI</h2>
+                    <h2 class="main-heading">FAQs About LaunchPadAI</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -535,12 +655,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is this just another agency with a list of services?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Not really. While agencies often provide a broad menu of services, our approach is built around outcomes rather than just a checklist. Instead of offering generic packages, we focus on creating a solution tailored to your goals.
+                                We don’t just build websites, we build launch systems. From strategy and funnels to
+                                performance dashboards, everything is tailored for growth from day one.
                             </div>
                         </div>
                     </div>
@@ -549,7 +670,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How is CommerceAI different from hiring freelancers or agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -565,7 +686,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What kind of results can I expect?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -579,7 +700,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does setup take?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -595,7 +716,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do I need to manage anything myself?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -611,7 +732,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can this work for new or smaller brands?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -622,21 +743,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- FAQ 7 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is there a long-term contract?
-                            </button>
-                        </h2>
-                        <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                No, there isn’t. You can use the service on a month-to-month basis without being locked into a long contract. This way you stay completely in control of your investment.
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
