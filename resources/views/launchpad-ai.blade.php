@@ -793,9 +793,9 @@
         <div class="container">
             <div class="row bottom-section d-flex align-items-center justify-content-between">
                <div class="col d-inline-flex align-items-start justify-content-center flex-column">
-                    <h3>Not sure which growth engine <br> is right for you?</h3>
-                    <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
-                    <button class="theme__btn text-uppercase">Discover our Growth Engine</button>
+                    <h3>Ready to Launch <br> Smarter?</h3>
+                    <p class="text-center">Let LaunchPadAI guide your startup from idea to <br> growth. Book a free pre-launch strategy session, <br> no pressure, no strings.</p>
+                    <button class="theme__btn text-uppercase">Book Your Free Strategy Session</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
                     <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">

@@ -41,3 +41,6 @@ Route::get('/commerce-ai', function () {
 Route::get('/launchpad-ai', function () {
     return view('launchpad-ai'); 
 });
+Route::get('/scalecloud-ai', function () {
+    return view('scalecloud-ai'); 
+});
