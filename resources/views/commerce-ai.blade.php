@@ -703,7 +703,7 @@
     <style>
         section.faq-section {
             padding-bottom: 100px;
-            background: #F7F7F7;
+            background: #ffffff;
         }
         section.faq-section .accordion-body {
             line-height: 32px;
