@@ -44,3 +44,6 @@ Route::get('/launchpad-ai', function () {
 Route::get('/scalecloud-ai', function () {
     return view('scalecloud-ai'); 
 });
+Route::get('/elitescale-ai', function () {
+    return view('elitescale-ai'); 
+});

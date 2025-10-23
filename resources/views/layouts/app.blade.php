@@ -19,6 +19,9 @@
     <!-- Header -->
     <!-- Header -->
     <style>
+        body.custom-elitescale-ai {
+            background: #030C1C;
+        }
         @media only screen and (min-width: 1400px) {
             .container {
                 max-width: 1460px;
