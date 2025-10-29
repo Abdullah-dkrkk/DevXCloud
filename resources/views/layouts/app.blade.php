@@ -19,8 +19,14 @@
     <!-- Header -->
     <!-- Header -->
     <style>
+        body {
+            overflow-x:hidden;
+        }
         body.custom-elitescale-ai {
             background: #030C1C;
+        }
+        body.custom-greenscale-ai {
+            background: #FFFFF3;
         }
         @media only screen and (min-width: 1400px) {
             .container {

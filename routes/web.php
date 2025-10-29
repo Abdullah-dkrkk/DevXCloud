@@ -47,3 +47,6 @@ Route::get('/scalecloud-ai', function () {
 Route::get('/elitescale-ai', function () {
     return view('elitescale-ai'); 
 });
+Route::get('/greenscale-ai', function () {
+    return view('greenscale-ai'); 
+});
