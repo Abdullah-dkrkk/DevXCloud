@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
                     <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
-                        <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
+                        <source src="{{ asset('public/videos/hero-section-video.mp4') }}" type="video/mp4">
                         Your browser does not support HTML video.
                     </video>
                 </div>
@@ -36,9 +36,9 @@
             </div>
             <div class="row d-flex align-items-center justify-content-center gap-24 cards-wrapper flex-nowrap">
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-1">
-                    <img src="{{ asset('illustrations/i-commerce-ai-bg.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/illustrations/i-commerce-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/illustrations/i-commerce-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center">Commerce AI</h3>
                     <p class="text-center">Boost AOV, retention, and personalization with a smart eCommerce system.</p>
@@ -47,9 +47,9 @@
                     </a>
                 </div>
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-2">
-                    <img src="{{ asset('illustrations/i-launch-pad-ai-bg.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/illustrations/i-launch-pad-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/illustrations/i-launch-pad-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center">LaunchPadAI</h3>
                     <p class="text-center">Launch smarter with predictive analytics, UX optimization, and AI onboarding</p>
@@ -58,9 +58,9 @@
                     </a>
                 </div>
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-3">
-                    <img src="{{ asset('illustrations/i-scale-cloud-ai-bg.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/illustrations/i-scale-cloud-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="" class="img-fluid" style="margin-top:-6px;">
+                        <img src="{{ asset('public/illustrations/i-scale-cloud-ai-icon.svg') }}" alt="" class="img-fluid" style="margin-top:-6px;">
                     </div>
                     <h3 class="text-center">ScaleCloud</h3>
                     <p class="text-center">Scale your SaaS with smart automation, integrations, and real-time performance insights.</p>
@@ -69,9 +69,9 @@
                     </a>
                 </div>
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-4">
-                    <img src="{{ asset('illustrations/i-green-scale-ai-bg.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/illustrations/i-green-scale-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/illustrations/i-green-scale-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center">GreenScale Formula™</h3>
                     <p class="text-center">Reduce waste, retain subscribers, and scale with AI-powered bundle planning.</p>
@@ -80,9 +80,9 @@
                     </a>
                 </div>
                 <div class="col px-0 d-flex flex-column align-items-center justify-content-center theme__col-1">
-                    <img src="{{ asset('illustrations/i-commerce-ai-bg.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/illustrations/i-commerce-ai-bg.svg') }}" alt="" class="img-fluid">
                     <div class="rounded-circle">
-                        <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/illustrations/i-elitescale-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center">EliteScale</h3>
                     <p class="text-center">For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
@@ -98,7 +98,7 @@
                     <button class="theme__btn">Discover our Growth Engine</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('public/images/robot-image.png') }}" alt="" class="img-fluid">
                </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
             <div class="row cards-row">
                 <div class="col custom-col-1 d-flex align-items-center justify-content-start flex-column">
                     <span class="count">1</span>
-                    <img src="{{ asset('illustrations/i-growth-strategy-discovery.svg') }}" alt="Growth Strategy Discovery" class="img-fluid" height="80" width="80">
+                    <img src="{{ asset('public/illustrations/i-growth-strategy-discovery.svg') }}" alt="Growth Strategy Discovery" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Growth Strategy Discovery
                     </h5>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="col custom-col-2 d-flex align-items-center justify-content-start flex-column">
                     <span class="count">2</span>
-                    <img src="{{ asset('illustrations/i-custom-system-blueprint.svg') }}" alt="Custom System Blueprint" class="img-fluid" height="80" width="80">
+                    <img src="{{ asset('public/illustrations/i-custom-system-blueprint.svg') }}" alt="Custom System Blueprint" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Custom System Blueprint
                     </h5>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="col custom-col-3 d-flex align-items-center justify-content-start flex-column">
                     <span class="count">3</span>
-                    <img src="{{ asset('illustrations/i-smart-implementation.svg') }}" alt="Smart Implementation" class="img-fluid" height="80" width="80">
+                    <img src="{{ asset('public/illustrations/i-smart-implementation.svg') }}" alt="Smart Implementation" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Smart Implementation
                     </h5>
@@ -143,7 +143,7 @@
                 </div>
                 <div class="col custom-col-4 d-flex align-items-center justify-content-start flex-column">
                     <span class="count">4</span>
-                    <img src="{{ asset('illustrations/i-live-optimization-and-reporting.svg') }}" alt="Live Optimization & Reporting" class="img-fluid" height="80" width="80">
+                    <img src="{{ asset('public/illustrations/i-live-optimization-and-reporting.svg') }}" alt="Live Optimization & Reporting" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">
                         Live Optimization & Reporting
                     </h5>
@@ -153,7 +153,7 @@
                 </div>
                 <div class="col custom-col-5 d-flex align-items-center justify-content-start flex-column">
                     <span class="count">5</span>
-                    <img src="{{ asset('illustrations/i-scale-or-extend.svg') }}" alt="Scale or Extend" class="img-fluid" height="80" width="80">
+                    <img src="{{ asset('public/illustrations/i-scale-or-extend.svg') }}" alt="Scale or Extend" class="img-fluid" height="80" width="80">
                     <h5 class="text-center">Scale or Extend</h5>
                     <p class="text-center">
                         As your business evolves, we help expand your system adding features, automations, and verticals as needed.
@@ -162,7 +162,7 @@
             </div>
             <div class="row robot-row" style="display:none;">
                 <div class="col d-flex align-items-center justify-content-center flex-column">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot Image" height="500" width="500">
+                    <img src="{{ asset('public/images/robot-image.png') }}" alt="Robot Image" height="500" width="500">
                     <div class="d-flex align-items-center flex-column justify-content-center">
                         <h3 class="text-center">Want a custom growth system tailored to your business?</h3>
                         <button class="theme__btn">Discover our Growth Engine</button>
@@ -187,7 +187,7 @@
                 <div class="col-lg-6 mb-4">
                     <div class="inner-column border d-flex align-items-start justify-content-start">
                         <div class="inner-column-first">
-                            <img src="{{ asset('images/strategy-first-foundation.svg') }}" alt="Strategy First Foundation">
+                            <img src="{{ asset('public/images/strategy-first-foundation.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
                             <h3 class="text-start">Strategy-First <br> Foundation</h3>
@@ -200,7 +200,7 @@
                 <div class="col-lg-6 mb-4">
                     <div class="inner-column border d-flex align-items-start justify-content-start">
                         <div class="inner-column-first">
-                            <img src="{{ asset('images/custom-systems.svg') }}" alt="Strategy First Foundation">
+                            <img src="{{ asset('public/images/custom-systems.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
                             <h3 class="text-start">Custom Systems, Not <br> Templates</h3>
@@ -213,7 +213,7 @@
                 <div class="col-lg-6">
                     <div class="inner-column border d-flex align-items-start justify-content-start">
                         <div class="inner-column-first">
-                            <img src="{{ asset('images/transpraency-from-day-one.svg') }}" alt="Strategy First Foundation">
+                            <img src="{{ asset('public/images/transpraency-from-day-one.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
                             <h3 class="text-start">Transparency From <br> Day One</h3>
@@ -226,7 +226,7 @@
                 <div class="col-lg-6">
                     <div class="inner-column border d-flex align-items-start justify-content-start">
                         <div class="inner-column-first">
-                            <img src="{{ asset('images/build-to-scale-with-you.svg') }}" alt="Strategy First Foundation">
+                            <img src="{{ asset('public/images/build-to-scale-with-you.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
                             <h3 class="text-start">Built to Scale <br> With You</h3>
@@ -254,37 +254,37 @@
             <div class="row">
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/shopify.svg') }}" alt="Shopify" height="60" width="60">
+                        <img src="{{ asset('public/images/shopify.svg') }}" alt="Shopify" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/klaviyo.svg') }}" alt="Klaviyo" height="60" width="60">
+                        <img src="{{ asset('public/images/klaviyo.svg') }}" alt="Klaviyo" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/meta.svg') }}" alt="Meta" height="60" width="60">
+                        <img src="{{ asset('public/images/meta.svg') }}" alt="Meta" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/chatgpt.svg') }}" alt="Chatgpt" height="60" width="60">
+                        <img src="{{ asset('public/images/chatgpt.svg') }}" alt="Chatgpt" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/brown-chart.svg') }}" alt="Brown Chart" height="60" width="60">
+                        <img src="{{ asset('public/images/brown-chart.svg') }}" alt="Brown Chart" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/webflow.svg') }}" alt="Webflow" height="60" width="60">
+                        <img src="{{ asset('public/images/webflow.svg') }}" alt="Webflow" height="60" width="60">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-col border">
-                        <img src="{{ asset('images/random-square.svg') }}" alt="Random Square" height="60" width="60">
+                        <img src="{{ asset('public/images/random-square.svg') }}" alt="Random Square" height="60" width="60">
                     </div>
                 </div>
             </div>
@@ -306,7 +306,7 @@
             <div class="row mx-auto">
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100">        
+                        <img src="{{ asset('public/illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100">        
                         <h3>CommerceAI</h3>
                         <p>For eCommerce brands scaling with personalization, bundling, and smart inventory.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
@@ -316,7 +316,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
+                        <img src="{{ asset('public/illustrations/i-launch-pad-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>LaunchPadAI</h3>
                         <p>For founders launching smarter with AI onboarding, UX, and predictive dashboards.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
@@ -326,7 +326,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
+                        <img src="{{ asset('public/illustrations/i-scale-cloud-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>ScaleCloud</h3>
                         <p>For SaaS companies automating infrastructure, reporting, and real-time optimization.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
@@ -336,7 +336,7 @@
                 </div>
                 <div class="col-lg-4 offset-2">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
+                        <img src="{{ asset('public/illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>GreenScale Formula™</h3>
                         <p>For ethical or plant-based brands scaling smarter with bundle optimization and retention flows.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
@@ -346,7 +346,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-col border d-flex align-items-start flex-column justify-content-center">
-                        <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
+                        <img src="{{ asset('public/illustrations/i-elitescale-ai-icon.svg') }}" alt="Random Square" height="100" width="100">    
                         <h3>EliteScale</h3>
                         <p>For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
@@ -373,7 +373,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
+                    <img src="{{ asset('public/images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
                 </div>
             </div>
         </div>

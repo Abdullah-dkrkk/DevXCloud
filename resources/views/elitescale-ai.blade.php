@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/elitescale-ai/elitescale-main-img.png') }}" alt="Elitescale AI Hero Image" class="img-fluid">
+                    <img src="{{ asset('public/images/elitescale-ai/elitescale-main-img.png') }}" alt="Elitescale AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -139,28 +139,28 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-first.png') }}" alt="Results First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/results-first.png') }}" alt="Results First" class="img-fluid">
                         <h4>Growth You Can <br> Forecast</h4>
                         <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-second.png') }}" alt="Results Second" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/results-second.png') }}" alt="Results Second" class="img-fluid">
                         <h4>Growth You Can <br> Forecast</h4>
                         <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-third.png') }}" alt="Results Third" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/results-third.png') }}" alt="Results Third" class="img-fluid">
                         <h4>Growth You Can <br> Forecast</h4>
                         <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-fourth.png') }}" alt="Results Fourth" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/results-fourth.png') }}" alt="Results Fourth" class="img-fluid">
                         <h4>Growth You Can <br> Forecast</h4>
                         <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
@@ -207,7 +207,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 d-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/elitescale-ai/elitescale-built-section-main-img.png') }}" alt="Elitescale Built Section Main Img" class="img-fluid">
+                    <img src="{{ asset('public/images/elitescale-ai/elitescale-built-section-main-img.png') }}" alt="Elitescale Built Section Main Img" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -269,21 +269,21 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-first.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-first.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>Multi‑Channel Domination</h5>
                         <p>Orchestrate Google, YouTube, <br> LinkedIn, and Meta campaigns from <br> one AI-powered hub.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-second.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-second.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>AI‑Powered Workflows</h5>
                         <p>Automate complex tasks, streamline <br> processes, and optimize your growth <br> stack in real time.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-third.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-third.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>Global Scaling Strategies</h5>
                         <p>Enter new markets faster with <br> tailored frameworks designed for <br> enterprise-level expansion.</p>
                     </div>
@@ -293,21 +293,21 @@
                 <!-- second row starts from here -->
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-fourth.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-fourth.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>Big Data Predictive Analytics</h5>
                         <p>Predict future trends, revenue <br> shifts, and churn risks before they <br> happen.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-fifth.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-fifth.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>AR/VR Integration</h5>
                         <p>Create immersive product experiences <br> and interactive campaigns that set you <br> apart.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/advantage-sixth.svg') }}" alt="Advantage First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/advantage-sixth.svg') }}" alt="Advantage First" class="img-fluid">
                         <h5>Enterprise Dashboards</h5>
                         <p>Centralize every KPI and data <br> stream into one seamless, real-time <br> control center.</p>
                     </div>
@@ -362,7 +362,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/elitescale-ai/turning-main-img.png') }}" alt="Turning Main Img" class="img-fluid">
+                    <img src="{{ asset('public/images/elitescale-ai/turning-main-img.png') }}" alt="Turning Main Img" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="inner-wrapper">
@@ -459,7 +459,7 @@
                     <div class="inner-wrapper">
                         <h5>Phase 1</h5>
                         <h3>Executive Growth <br> Strategy</h3>
-                        <img src="{{ asset('images/elitescale-ai/framework-first.svg') }}" alt="Framework First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/framework-first.svg') }}" alt="Framework First" class="img-fluid">
                         <p>Define positioning, goals, <br> and innovation roadmap.</p>
                     </div>
                 </div>
@@ -467,7 +467,7 @@
                     <div class="inner-wrapper">
                         <h5>Phase 2</h5>
                         <h3>AI Automation <br> Layer</h3>
-                        <img src="{{ asset('images/elitescale-ai/framework-second.svg') }}" alt="Framework Second" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/framework-second.svg') }}" alt="Framework Second" class="img-fluid">
                         <p>Set up AI-driven workflows <br> for operational efficiency.</p>
                     </div>
                 </div>
@@ -475,7 +475,7 @@
                     <div class="inner-wrapper">
                         <h5>Phase 3</h5>
                         <h3>Campaign <br> Domination</h3>
-                        <img src="{{ asset('images/elitescale-ai/framework-third.svg') }}" alt="Framework Third" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/framework-third.svg') }}" alt="Framework Third" class="img-fluid">
                         <p>Scale your multi-channel reach with precision targeting.</p>
                     </div>
                 </div>
@@ -483,7 +483,7 @@
                     <div class="inner-wrapper">
                         <h5>Phase 4</h5>
                         <h3>Authority <br> Expansion</h3>
-                        <img src="{{ asset('images/elitescale-ai/framework-fourth.svg') }}" alt="Framework Fourth" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/framework-fourth.svg') }}" alt="Framework Fourth" class="img-fluid">
                         <p>Establish thought leadership <br> and industry influence.</p>
                     </div>
                 </div>
@@ -491,7 +491,7 @@
                     <div class="inner-wrapper">
                         <h5>Phase 5</h5>
                         <h3>Big Data <br> Optimization</h3>
-                        <img src="{{ asset('images/elitescale-ai/framework-fifth.svg') }}" alt="Framework Fifth" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/framework-fifth.svg') }}" alt="Framework Fifth" class="img-fluid">
                         <p>Harness analytics to optimize <br> performance and revenue.</p>
                     </div>
                 </div>
@@ -562,7 +562,7 @@
             <div class="row mt-4">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-first.png') }}" alt="Enterprise First" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/enterprise-first.png') }}" alt="Enterprise First" class="img-fluid">
                         <h4>For Founders & Leadership</h4>
                         <h5>Clarity & Innovation at Scale</h5>
                         <p>Stay ahead of market shifts with predictive insights, full-funnel visibility, and innovation strategies that keep you competitive.</p>
@@ -570,7 +570,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-second.png') }}" alt="Enterprise Second" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/enterprise-second.png') }}" alt="Enterprise Second" class="img-fluid">
                         <h4>For Product Teams</h4>
                         <h5>Smarter Roadmaps, Faster Launches</h5>
                         <p>Use real-time data to prioritize features, predict adoption rates, and accelerate product-market fit.</p>
@@ -578,7 +578,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-third.png') }}" alt="Enterprise Third" class="img-fluid">
+                        <img src="{{ asset('public/images/elitescale-ai/enterprise-third.png') }}" alt="Enterprise Third" class="img-fluid">
                         <h4>For Marketing Leaders</h4>
                         <h5>Data-Driven Growth at Speed</h5>
                         <p>Turn complex analytics into simple, actionable strategies that fuel high-ROI campaigns and customer retention.</p>
@@ -689,7 +689,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -704,7 +704,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -720,7 +720,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -734,7 +734,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -750,7 +750,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -766,7 +766,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
+                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -834,7 +834,7 @@
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/elitescale-robot.png') }}" alt="Elitescale Roboto">
+                        <img src="{{ asset('public/images/elitescale-ai/elitescale-robot.png') }}" alt="Elitescale Roboto">
                     </div>
                 </div>
             </div>
