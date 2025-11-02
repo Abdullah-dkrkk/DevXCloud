@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 px-0">
-                    <h2 class="theme__color-secondary text-center">Explore the Growth Engines Powering Modern <br> Digital Brands and </h2>
+                    <h2 class="theme__color-secondary text-center">Explore the Growth Engines Powering Modern <br> Digital Brands </h2>
                     <p class="main-para text-center">Each system is custom built to your stage business model and market integrating AI automation and <br> strategy to drive scalable results.</p>
                 </div>
             </div>
