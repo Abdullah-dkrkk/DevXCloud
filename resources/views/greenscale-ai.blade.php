@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/greenscale-ai/greenscale-ai-main-img.png') }}" alt="Greenscale Robot">
+                        <img src="{{ asset('images/greenscale-ai/greenscale-ai-main-img.png') }}" alt="Greenscale Robot">
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
             <div class="row main-cards-wrapper">
                 <div class="col-lg-6">
                     <div class="inner-wrapper d-flex align-items-start justify-content-start">
-                        <img src="{{ asset('public/images/greenscale-ai/vegan-first.svg') }}" alt="Vegan First">
+                        <img src="{{ asset('images/greenscale-ai/vegan-first.svg') }}" alt="Vegan First">
                         <div class="inner-content-wrapper">
                             <h3>Predictable <br> Revenue Growth</h3>
                             <p>Turn your meal kits into a steady growth <br> engine powered by AI forecasting and <br> personalization.</p>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="inner-wrapper d-flex align-items-start justify-content-start">
-                        <img src="{{ asset('public/images/greenscale-ai/vegan-second.svg') }}" alt="Vegan Second">
+                        <img src="{{ asset('images/greenscale-ai/vegan-second.svg') }}" alt="Vegan Second">
                         <div class="inner-content-wrapper">
                             <h3>Reduce Ingredient <br> Waste</h3>
                             <p> Cut costs and support sustainability with <br> smart meal planning and predictive restocks.</p>
@@ -157,7 +157,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="inner-wrapper d-flex align-items-start justify-content-start">
-                        <img src="{{ asset('public/images/greenscale-ai/vegan-third.svg') }}" alt="Vegan Third">
+                        <img src="{{ asset('images/greenscale-ai/vegan-third.svg') }}" alt="Vegan Third">
                         <div class="inner-content-wrapper">
                             <h3>Stronger Retention <br> & Subscriptions</h3>
                             <p>Build recurring revenue with retention- <br> driven funnels and loyalty-focused <br>  offers.</p>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="inner-wrapper d-flex align-items-start justify-content-start">
-                        <img src="{{ asset('public/images/greenscale-ai/vegan-fourth.svg') }}" alt="Vegan Fourth">
+                        <img src="{{ asset('images/greenscale-ai/vegan-fourth.svg') }}" alt="Vegan Fourth">
                         <div class="inner-content-wrapper">
                             <h3>Sustainable <br> Brand Trust</h3>
                             <p>Grow ethically and win loyalty by aligning with what conscious consumers <br> care about..</p>
@@ -185,7 +185,7 @@
     <!-- Future -->
     <style>
         section.future .container .row .col-lg-12{
-            background-image: url("{{ asset('public/images/greenscale-ai/future-main-img.png') }}");
+            background-image: url("{{ asset('images/greenscale-ai/future-main-img.png') }}");
             background-size: contain; 
             background-position: right;
             background-repeat: no-repeat;
@@ -236,7 +236,7 @@
 
     <style>
         section.phase {
-            /* background-image: url("{{ asset('public/images/greenscale-ai/greenscale-phase-bg-img.png') }}"); */
+            /* background-image: url("{{ asset('images/greenscale-ai/greenscale-phase-bg-img.png') }}"); */
             /* background-repeat:no-repeat;
             background-size:contain;
             background-position:end; */
@@ -303,35 +303,35 @@
             <div class="row">
                 <div class="col">
                     <div class="inner-wrapper border">
-                        <img src="{{ asset('public/images/greenscale-ai/phase-first.svg') }}" alt="Phase First">
+                        <img src="{{ asset('images/greenscale-ai/phase-first.svg') }}" alt="Phase First">
                         <h3>Flavor + <br> Philosophy <br> Foundation</h3>
                         <p>Define your USP, positioning, <br> and persona</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper border">
-                        <img src="{{ asset('public/images/greenscale-ai/phase-second.svg') }}" alt="Phase Second">
+                        <img src="{{ asset('images/greenscale-ai/phase-second.svg') }}" alt="Phase Second">
                         <h3>Smart Meal <br> Planning + <br> Forecasting</h3>
                         <p>Predict demand and <br> optimize inventory.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper border">
-                        <img src="{{ asset('public/images/greenscale-ai/phase-third.svg') }}" alt="Phase Third">
+                        <img src="{{ asset('images/greenscale-ai/phase-third.svg') }}" alt="Phase Third">
                         <h3>Viral-First <br> Awareness & <br> Retention Strategy</h3>
                         <p>Launch campaigns built for <br> growth.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper border">
-                        <img src="{{ asset('public/images/greenscale-ai/phase-fourth.svg') }}" alt="Phase Fourth">
+                        <img src="{{ asset('images/greenscale-ai/phase-fourth.svg') }}" alt="Phase Fourth">
                         <h3>Smart Kitchen <br> Stack Setup</h3>
                         <p>Integrate AI, automation, <br> and personalization.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper border">
-                        <img src="{{ asset('public/images/greenscale-ai/phase-fifth.svg') }}" alt="Phase Fifth">
+                        <img src="{{ asset('images/greenscale-ai/phase-fifth.svg') }}" alt="Phase Fifth">
                         <h3>Meal Metrics <br> Dashboard + <br> Optimization Loop</h3>
                         <p>Track performance and <br> scale smarter.</p>
                     </div>
@@ -540,23 +540,23 @@
                     <div class="bullets">
                         <ul>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
+                                <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
                                 <span>Sell generic ad packages that work the same for every brand</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
+                                <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
                                 <span>Rely on trial and error to “figure it out” later</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
+                                <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
                                 <span>Focus on short-term clicks, not long-term retention</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
+                                <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
                                 <span>Ignore your actual market and customers</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
+                                <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Cross Image">
                                 <span>Keep you blind to what’s really driving revenue</span>
                             </li>
                         </ul>
@@ -567,23 +567,23 @@
                     <div class="bullets">
                         <ul>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
                                 <span>Build one custom growth engine made only for vegan meal kit brands</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
                                 <span>Start with market research and buyer insight, not guesswork</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
                                 <span>Turn your offer into a complete growth system, not just ads</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
                                 <span>Blend forecasting + retention strategies into your launch</span>
                             </li>
                             <li>
-                                <img src="{{ asset('public/images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image">
                                 <span>Give you a real-time view of what’s working, every step of the way</span>
                             </li>
                         </ul>
@@ -685,7 +685,7 @@
                     <div class="inner-wrapper-header">01</div>
                     <div class="inner-wrapper border">
                         <div class="works-image-holder">
-                            <img src="{{ asset('public/images/greenscale-ai/formula-first.svg') }}" alt="Formula First" class="img-fluid">
+                            <img src="{{ asset('images/greenscale-ai/formula-first.svg') }}" alt="Formula First" class="img-fluid">
                         </div>
                         <h5>Strategy & Market <br> Mapping</h5>
                         <p>We start by understanding your niche, your offer, and your customers to build the foundation of your growth engine.</p>
@@ -695,7 +695,7 @@
                     <div class="inner-wrapper-header">02</div>
                     <div class="inner-wrapper border">
                         <div class="works-image-holder">
-                            <img src="{{ asset('public/images/greenscale-ai/formula-second.svg') }}" alt="Formula Second" class="img-fluid">
+                            <img src="{{ asset('images/greenscale-ai/formula-second.svg') }}" alt="Formula Second" class="img-fluid">
                         </div>
                         <h5>System Build</h5>
                         <p>Your personalized growth engine is mapped, designed, and prepared for deployment — not just campaigns.</p>
@@ -705,7 +705,7 @@
                     <div class="inner-wrapper-header">03</div>
                     <div class="inner-wrapper border">
                         <div class="works-image-holder">
-                            <img src="{{ asset('public/images/greenscale-ai/formula-third.svg') }}" alt="Formula Third" class="img-fluid">
+                            <img src="{{ asset('images/greenscale-ai/formula-third.svg') }}" alt="Formula Third" class="img-fluid">
                         </div>
                         <h5>Launch & <br> Personalization</h5>
                         <p>We launch with targeted personalization and predictive strategies to attract and convert your ideal customers.</p>
@@ -715,7 +715,7 @@
                     <div class="inner-wrapper-header">04</div>
                     <div class="inner-wrapper border">
                         <div class="works-image-holder">
-                            <img src="{{ asset('public/images/greenscale-ai/formula-fourth.svg') }}" alt="Formula Fourth" class="img-fluid">
+                            <img src="{{ asset('images/greenscale-ai/formula-fourth.svg') }}" alt="Formula Fourth" class="img-fluid">
                         </div>
                         <h5>Forecast & <br> Optimize</h5>
                         <p>Real-time dashboards and forecasting help us refine the engine continuously for maximum retention.</p>
@@ -725,7 +725,7 @@
                     <div class="inner-wrapper-header">05</div>
                     <div class="inner-wrapper border">
                         <div class="works-image-holder">
-                            <img src="{{ asset('public/images/greenscale-ai/formula-fifth.svg') }}" alt="Formula Fifth" class="img-fluid">
+                            <img src="{{ asset('images/greenscale-ai/formula-fifth.svg') }}" alt="Formula Fifth" class="img-fluid">
                         </div>
                         <h5>Scale <br> Sustainably</h5>
                         <p>Once everything is aligned, we scale what works and build sustainable long-term growth.</p>
@@ -853,7 +853,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -868,7 +868,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -884,7 +884,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -898,7 +898,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -914,7 +914,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -930,7 +930,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -1017,7 +1017,7 @@
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="inner-wrapper d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('public/images/greenscale-ai/greenscale-banner-robo.png') }}" alt="Greenscale Banner Robo">
+                        <img src="{{ asset('images/greenscale-ai/greenscale-banner-robo.png') }}" alt="Greenscale Banner Robo">
                     </div>
                 </div>
             </div>

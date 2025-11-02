@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('public/images/scalecloud-ai/scalecloud-ai-hero-section-img.png') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
+                    <img src="{{ asset('images/scalecloud-ai/scalecloud-ai-hero-section-img.png') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
                     <div class="first-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/fgs-main-img.png') }}" alt="Build For Founders Main Image" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/fgs-main-img.png') }}" alt="Build For Founders Main Image" class="img-fluid">
                     </div>
                     <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
                         <h2>The Fastest-Growing SaaS <br> Brands Are Built on Systems,<br> Not Just Features.</h2>
@@ -191,42 +191,42 @@
                     <div class="inner-wrapper ">
                         <h5>API Integration Layer</h5>
                         <p>Sync your stack with seamless API connections, <br> no more siloed data or broken flows.</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-first.png') }}" alt="Power First" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-first.png') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
                         <h5>Predictive Analytics Engine</h5>
                         <p>Anticipate churn, trends, and user behaviour <br> before it impacts growth..</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-second.png') }}" alt="Power Second" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-second.png') }}" alt="Power Second" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
                         <h5>Custom Growth Dashboards</h5>
                         <p>Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-third.png') }}" alt="Power Third" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-third.png') }}" alt="Power Third" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
                         <h5>Automated Workflow Builder</h5>
                         <p>Turn manual tasks into automated flows, from <br> onboarding to retention.</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-fourth.png') }}" alt="Power Fourth" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-fourth.png') }}" alt="Power Fourth" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
                         <h5>KPI & Funnel Intelligence</h5>
                         <p>Optimize every funnel stage with precise <br> KPI tracking.</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-fifth.png') }}" alt="Power Fifth" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-fifth.png') }}" alt="Power Fifth" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
                         <h5>SaaS-Optimized Technical SEO</h5>
                         <p>Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
-                        <img src="{{ asset('public/images/scalecloud-ai/power-sixth.png') }}" alt="Power Sixth" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/power-sixth.png') }}" alt="Power Sixth" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -274,37 +274,37 @@
             <div class="row">
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/stripe.svg') }}" alt="Stripe" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/stripe.svg') }}" alt="Stripe" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/intercom.svg') }}" alt="Intercom" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/intercom.svg') }}" alt="Intercom" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/slack.svg') }}" alt="Slack" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/slack.svg') }}" alt="Slack" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/notion.svg') }}" alt="Notion" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/notion.svg') }}" alt="Notion" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/zapier.svg') }}" alt="Zapier" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/zapier.svg') }}" alt="Zapier" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/segment.svg') }}" alt="Segment" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/segment.svg') }}" alt="Segment" class="img-fluid">
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/scalecloud-ai/hubspot.svg') }}" alt="Hubspot" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/hubspot.svg') }}" alt="Hubspot" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -437,7 +437,7 @@
                         </p>
                     </div>
                     <div class="image-cta-wrapper d-flex flex-column align-items-center justify-content-center">
-                        <img src="{{ asset('public/images/scalecloud-ai/scalecloud-build-for.png') }}" alt="Startups Main Image" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/scalecloud-build-for.png') }}" alt="Startups Main Image" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -529,7 +529,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -544,7 +544,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -560,7 +560,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -574,7 +574,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -590,7 +590,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -606,7 +606,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -672,7 +672,7 @@
                     <button class="theme__btn text-uppercase">Get My Growth Plan</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('public/images/robot-image.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
                </div>
             </div>
         </div>

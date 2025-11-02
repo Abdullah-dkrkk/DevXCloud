@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Global CSS -->
-    <link href="{{ asset('public/css/global.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 </head>
 <body class="@if(request()->is('/')) custom-home @elseif(request()->is('commerce-ai')) custom-commerce-ai @else custom-{{ str_replace('/', '-', request()->path()) }} @endif">
 
@@ -70,7 +70,7 @@
     <nav class="navbar navbar-expand-lg" id="navbar">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                <img src="{{ asset('public/images/logo.svg') }}" alt="Logo" width="130">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="130">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -80,37 +80,37 @@
                     <li class="nav-item no-padding-left">
                         <a class="nav-link active" href="{{ url('/commerce-ai') }}">
                             <span>CommerceAI</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/launchpad-ai') }}">
                             <span>LaunchPadAI</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/scalecloud-ai') }}">
                             <span>ScaleCloud</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/elitescale-ai') }}">
                             <span>EliteScale</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/greenscale-ai') }}">
                             <span>GreenScaleFormula</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item no-padding-right">
                         <a class="nav-link active" href="{{ url('/about') }}">
                             <span>About DevXCloud</span>
-                            <img src="{{ asset('public/images/arrow-extended.svg') }}" alt="">
+                            <img src="{{ asset('images/arrow-extended.svg') }}" alt="">
                         </a>
                     </li>
                     <li class="nav-item">
@@ -254,16 +254,16 @@
                 <div class="col-lg-4">
                     <h5>Contact</h5>
                     <div class="address-wrapper d-flex align-items-start justify-content-start">
-                        <img src="{{ asset('public/images/location.svg') }}" alt="Location Icon" class="me-2 mt-1" width="18" height="18">
+                        <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2 mt-1" width="18" height="18">
                         <p class="address">Office 3202, The One Tower, Barsha <br> Heights, PO BOX 500033, UAE.</p>
                     </div>
                     <h5 class="mt-4">Customer Service</h5>
                     <p class="customer-service mb-2 pb-1">
-                        <img src="{{ asset('public/images/call.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
+                        <img src="{{ asset('images/call.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
                         +971 52 2183074 &nbsp;&nbsp;&nbsp; +971 44 466308
                     </p>
                     <p class="customer-service">
-                        <img src="{{ asset('public/images/location.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
+                        <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
                         sales@gulfhr.ae
                     </p>
                 </div>

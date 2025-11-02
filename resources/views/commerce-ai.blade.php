@@ -4,7 +4,7 @@
 
     <style>
         /* .hero-section {
-            background-image: url("{{ asset('public/images/commerce-ai/hero-background.png') }}");
+            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
@@ -20,7 +20,7 @@
             color:var(--theme-white);
         } */
         section.hero-section.commerce-ai {
-            background-image: url("{{ asset('public/images/commerce-ai/hero-background.png') }}");
+            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
                     <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
-                        <source src="{{ asset('public/videos/hero-section-video.mp4') }}" type="video/mp4">
+                        <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
                         Your browser does not support HTML video.
                     </video>
                 </div>
@@ -93,7 +93,7 @@
 
     <style>
         .commerce-ai-turns {
-            background-image: url("{{ asset('public/images/commerce-ai/hero-background.png') }}");
+            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
@@ -167,7 +167,7 @@
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('public/images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
+                            <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
                             <h4 class="mb-0">Strategic Foundation First</h4>
                         </div>
                         <div class="content">
@@ -178,7 +178,7 @@
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('public/images/commerce-ai/adaptive-ai-infrastructure.svg') }}" alt="">
+                            <img src="{{ asset('images/commerce-ai/adaptive-ai-infrastructure.svg') }}" alt="">
                             <h4 class="mb-0">Adaptive AI <br> Infrastructure</h4>
                         </div>
                         <div class="content">
@@ -189,7 +189,7 @@
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('public/images/commerce-ai/ai-powered-growth.svg') }}" alt="">
+                            <img src="{{ asset('images/commerce-ai/ai-powered-growth.svg') }}" alt="">
                             <h4 class="mb-0">AI-Powered Growth <br> Execution</h4>
                         </div>
                         <div class="content">
@@ -205,7 +205,7 @@
     <!--  inside the commerce ai section starts from here  -->
     <style>
         section.inside-the-commerce-ai-banner {
-            background: url("{{ asset('public/images/commerce-ai/inside-the-commerce-ai-banner.png') }}") no-repeat center center;
+            background: url("{{ asset('images/commerce-ai/inside-the-commerce-ai-banner.png') }}") no-repeat center center;
             background-size: cover;
             padding-top: 90px;
             position:relative;
@@ -307,35 +307,35 @@
             <div class="row inside-section-row">
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/commerce-ai/commerce-1.svg') }}" alt="Commerce 1">
+                        <img src="{{ asset('images/commerce-ai/commerce-1.svg') }}" alt="Commerce 1">
                         <h3>Strategic Foundation</h3>
                         <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/commerce-ai/commerce-2.svg') }}" alt="Commerce 1">
+                        <img src="{{ asset('images/commerce-ai/commerce-2.svg') }}" alt="Commerce 1">
                         <h3>Custom AI Growth Blueprint</h3>
                         <p>We design a data-backed system tailored to your store including predictive inventory, bundle logic, and personalization that actually converts.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/commerce-ai/commerce-3.svg') }}" alt="Commerce 1">
+                        <img src="{{ asset('images/commerce-ai/commerce-3.svg') }}" alt="Commerce 1">
                         <h3>Marketing Strategy Setup</h3>
                         <p>We build conversion-focused funnels, ad angles, and retention offers aligned with your audience and ready to scale across channels.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/commerce-ai/commerce-4.svg') }}" alt="Commerce 1">
+                        <img src="{{ asset('images/commerce-ai/commerce-4.svg') }}" alt="Commerce 1">
                         <h3>Tech Stack & Execution Layer</h3>
                         <p>We automate the core of your growth engine from email flows to personalization using tools that adapt to your store in real time.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('public/images/commerce-ai/commerce-5.svg') }}" alt="Commerce 1">
+                        <img src="{{ asset('images/commerce-ai/commerce-5.svg') }}" alt="Commerce 1">
                         <h3>Dashboard Reporting & Optimization</h3>
                         <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
                     </div>
@@ -349,7 +349,7 @@
     <!-- what makes different section starts from here -->
     <style>
         .inner-bg-holder{
-            background: url("{{ asset('public/images/commerce-ai/what-makes-difference.png') }}") no-repeat center center;
+            background: url("{{ asset('images/commerce-ai/what-makes-difference.png') }}") no-repeat center center;
             background-size:cover;
             padding-top: 20px;
             padding-bottom: 200px;
@@ -469,7 +469,7 @@
     <!-- engine stack section starts from here -->
     <style>
         section.engine-stack {
-            background-image: url("{{ asset('public/images/commerce-ai/engine-stack.png') }}");
+            background-image: url("{{ asset('images/commerce-ai/engine-stack.png') }}");
             background-repeat:no-repeat;
             background-size:cover;
             background-position:start;
@@ -551,43 +551,43 @@
             </div>
             <div class="row actual-grid mx-auto">
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-1.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" width="60" height="60">
                     <h3>Predictive Inventory Analytics</h3>
                     <p>Forecast demand and reduce inventory waste.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-2.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-2.svg') }}" width="60" height="60">
                     <h3>Funnel Strategy & Ad Angle Mapping</h3>
                     <p>Turn buyer personas into high-converting ad strategies.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-3.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-3.svg') }}" width="60" height="60">
                     <h3>AI Personalization Engine</h3>
                     <p>Deliver dynamic offers based on real-time user behavior.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-4.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-4.svg') }}" width="60" height="60">
                     <h3>Automated Email Flows</h3>
                     <p>Recover carts, re-engage buyers, and boost retention on autopilot.</p>
                 </div>
                 <!-- second row -->
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-5.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-5.svg') }}" width="60" height="60">
                     <h3>Launch Plan + Offer Positioning</h3>
                     <p>Align products with messaging for smarter market entry.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-6.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-6.svg') }}" width="60" height="60">
                     <h3>Real-Time Perfor-mance Dashboards</h3>
                     <p>Track revenue, retention, and campaign ROI in one place.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-7.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-7.svg') }}" width="60" height="60">
                     <h3>On-Site Optimization & UX Fixes</h3>
                     <p>Enhance speed, structure, and mobile experience.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/images/commerce-ai/engine-stack-8.svg') }}" width="60" height="60">
+                    <img src="{{ asset('images/commerce-ai/engine-stack-8.svg') }}" width="60" height="60">
                     <h3>A/B Testing & Conti-nuous Optimization</h3>
                     <p>Test ads, CTAs, and layouts to keep scaling up.</p>
                 </div>
@@ -671,25 +671,25 @@
             </div>
             <div class="row strategy-grid">
                 <div class="col">
-                    <img src="{{ asset('public/illustrations/i-step-1.svg') }}">
+                    <img src="{{ asset('illustrations/i-step-1.svg') }}">
                     <span class="step">Step 1</span>
                     <h3>Growth Discovery Call</h3>
                     <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/illustrations/i-step-2.svg') }}">
+                    <img src="{{ asset('illustrations/i-step-2.svg') }}">
                     <span class="step">Step 2</span>
                     <h3>Custom Growth Blueprint</h3>
                     <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/illustrations/i-step-3.svg') }}">
+                    <img src="{{ asset('illustrations/i-step-3.svg') }}">
                     <span class="step">Step 3</span>
                     <h3>Stack Setup + Smart Systems</h3>
                     <p>We install predictive tools, automation flows, conversion-boosting systems, and your marketing stack everything aligned to your growth blueprint.</p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset('public/illustrations/i-step-4.svg') }}">
+                    <img src="{{ asset('illustrations/i-step-4.svg') }}">
                     <span class="step">Step 4</span>
                     <h3>Weekly Optimization + Reporting</h3>
                     <p>Every week, we test, review, and improve refining campaigns, updating dashboards, and helping you scale smarter with data.</p>
@@ -784,7 +784,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is this just another agency with a list of services?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is this just another agency with a list of services?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -798,7 +798,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How is CommerceAI different from hiring freelancers or agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How is CommerceAI different from hiring freelancers or agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -814,7 +814,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What kind of results can I expect?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What kind of results can I expect?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -828,7 +828,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does setup take?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does setup take?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -844,7 +844,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do I need to manage anything myself?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do I need to manage anything myself?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -860,7 +860,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can this work for new or smaller brands?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can this work for new or smaller brands?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -876,7 +876,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                                <img src="{{ asset('public/images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is there a long-term contract?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Is there a long-term contract?
                             </button>
                         </h2>
                         <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -941,7 +941,7 @@
                     <button class="theme__btn text-uppercase">Discover our Growth Engine</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('public/images/robot-image.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
                </div>
             </div>
         </div>
