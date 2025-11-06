@@ -38,7 +38,8 @@
 :root {
     --theme-white: #ffffff;
     --theme-dark: #333333;
-    --theme-primary: #0f2c4e;
+    /* --theme-primary: #0f2c4e; */
+    --theme-primary: #032D60;
 }
 body {
     font-family: "Montserrat", sans-serif;
@@ -76,11 +77,13 @@ nav.navbar-expand-lg {
     /* top: 24px; */
 }
 body nav .nav-item span {
-    font-family: "Bricolage-Grotesque";
-    font-size: 16px;
+    /* font-family: "Bricolage-Grotesque"; */
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 600;
     position: relative;
     cursor: pointer;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.3px;
 }
 /* body.custom-commerce-ai nav .nav-item span::after {
     background-color: var(--theme-white);
@@ -208,8 +211,9 @@ section.hero-section video {
 }
 
 .explore-growth-engine h2 {
-    font-size: 35px;
-    line-height: 52px;
+    font-size: 40px;
+    line-height: 56px;
+    color: #032D60;
 }
 
 .explore-growth-engine p.main-para {
@@ -344,15 +348,34 @@ section.hero-section video {
 
 section.how-we-build {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 120px;
 }
-section.how-we-build .count {
+/* section.how-we-build .count {
     background: var(--theme-primary);
     color: white;
     font-family: "Bricolage-Grotesque";
     padding: 10px 18px;
     border-radius: 100px;
     margin-bottom: 20px;
+} */
+section.how-we-build .inner-wrapper-header {
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 10% 50%, 0 0);
+    background:#0052cca6;
+    color:white;
+    font-size: 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height: 50px;
+    margin-right: -5px;
+    margin-left: -5px;
+    max-height: 50px;
+    margin-bottom: 24px;
+    font-family: "Bricolage-Grotesque";
+}
+section.how-we-build .wrapper-col {
+    display:flex;
+    flex-direction: column;
 }
 section.how-we-build .count + img {
     margin-bottom: 20px;
@@ -387,14 +410,17 @@ section.how-we-build .robot-row h3 {
 }
 section.how-we-build .cards-row {
     display: grid;
-    gap: 30px;
+    gap: 10px;
     grid-template-columns: repeat(5, 1fr);
     margin-top: 32px;
 }
 section.how-we-build .cards-row .col:first-child .count {
     padding: 10px 20px !important;
 }
-section.how-we-build .cards-row .col {
+section.how-we-build .cards-row .col h5 {
+    line-height: 28px;
+}
+section.how-we-build .cards-row .col .col{
     display: flex;
     align-items: center;
     padding: 20px;
@@ -402,6 +428,7 @@ section.how-we-build .cards-row .col {
     box-shadow: 0px 0px 20px #e4e4e4;
     justify-content: center;
     flex-direction: column;
+    gap: 14px;
     background: #f7f7f7;
 }
 section.how-we-build .robot-row button {

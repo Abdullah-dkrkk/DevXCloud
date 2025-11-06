@@ -44,7 +44,7 @@
         nav .nav-item img {
             height: 12px;
             width: 12px;
-            display:none;
+            /* display:none; */
         }
         nav .nav-item span {
             margin-right:2px;

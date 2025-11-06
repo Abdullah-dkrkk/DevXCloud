@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="px-0 col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1 class="theme__color-secondary">Custom AI Growth Engines Built Around Your Business</h1>
+                    <h1 class="theme__color-secondary">Custom AI Growth <br> Engines Built Around <br> Your Business</h1>
                     <p>DevXCloud designs fully tailored systems powered by <br> strategy AI and real-time data made for business that <br> want more tha just another agency. </p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
                         <button class="theme__btn">Discover our Growth Engine</button>
@@ -113,53 +113,56 @@
                 <p class="text-center head-para mx-auto">From strategic discovery to execution and optimization everything we do is purpose built to move your business forward powered by data and AI.</p>
             </div>
             <div class="row cards-row">
-                <div class="col custom-col-1 d-flex align-items-center justify-content-start flex-column">
-                    <span class="count">1</span>
-                    <img src="{{ asset('illustrations/i-growth-strategy-discovery.svg') }}" alt="Growth Strategy Discovery" class="img-fluid" height="80" width="80">
-                    <h5 class="text-center">
-                        Growth Strategy Discovery
-                    </h5>
-                    <p class="text-center">We start with deep research into your goals, blockers, competition, and market.</p>
+                <div class="col wrapper-col">
+                    <div class="inner-wrapper-header">01</div>
+                    <div class="col custom-col-1 d-flex align-items-center justify-content-start flex-column">
+                        <img src="{{ asset('illustrations/i-growth-strategy-discovery.svg') }}" alt="Growth Strategy Discovery" class="img-fluid" height="80" width="80">
+                        <h5 class="text-center">Growth Strategy Discovery</h5>
+                        <p class="text-center">We start with deep research into your goals, blockers, competition, and market.</p>
+                    </div>
                 </div>
-                <div class="col custom-col-2 d-flex align-items-center justify-content-start flex-column">
-                    <span class="count">2</span>
-                    <img src="{{ asset('illustrations/i-custom-system-blueprint.svg') }}" alt="Custom System Blueprint" class="img-fluid" height="80" width="80">
-                    <h5 class="text-center">
-                        Custom System Blueprint
-                    </h5>
-                    <p class="text-center">
-                        Based on your needs, we design a fully personalized system AI flows, automation, dashboards, and more.
-                    </p>
+                <div class="col wrapper-col">
+                    <div class="inner-wrapper-header">02</div>
+                    <div class="col custom-col-2 d-flex align-items-center justify-content-start flex-column">
+                        <img src="{{ asset('illustrations/i-custom-system-blueprint.svg') }}" alt="Custom System Blueprint" class="img-fluid" height="80" width="80">
+                        <h5 class="text-center">Custom System Blueprint</h5>
+                        <p class="text-center">
+                            Based on your needs, we design a fully personalized system AI flows, automation, dashboards, and more.
+                        </p>
+                    </div>
                 </div>
-                <div class="col custom-col-3 d-flex align-items-center justify-content-start flex-column">
-                    <span class="count">3</span>
-                    <img src="{{ asset('illustrations/i-smart-implementation.svg') }}" alt="Smart Implementation" class="img-fluid" height="80" width="80">
-                    <h5 class="text-center">
-                        Smart Implementation
-                    </h5>
-                    <p class="text-center">
-                        We bring your system to life from campaigns and automations to personalization and SEO.
-                    </p>
+                <div class="col wrapper-col">
+                    <div class="inner-wrapper-header">03</div>
+                    <div class="col custom-col-3 d-flex align-items-center justify-content-start flex-column">
+                        <img src="{{ asset('illustrations/i-smart-implementation.svg') }}" alt="Smart Implementation" class="img-fluid" height="80" width="80">
+                        <h5 class="text-center">Smart Implementation</h5>
+                        <p class="text-center">
+                            We bring your system to life from campaigns and automations to personalization and SEO.
+                        </p>
+                    </div>
                 </div>
-                <div class="col custom-col-4 d-flex align-items-center justify-content-start flex-column">
-                    <span class="count">4</span>
-                    <img src="{{ asset('illustrations/i-live-optimization-and-reporting.svg') }}" alt="Live Optimization & Reporting" class="img-fluid" height="80" width="80">
-                    <h5 class="text-center">
-                        Live Optimization & Reporting
-                    </h5>
-                    <p class="text-center">
-                        You get real-time dashboards, weekly reviews, and AI-based recommendations to keep improving.
-                    </p>
+                <div class="col wrapper-col">
+                    <div class="inner-wrapper-header">04</div>
+                    <div class="col custom-col-4 d-flex align-items-center justify-content-start flex-column">
+                        <img src="{{ asset('illustrations/i-live-optimization-and-reporting.svg') }}" alt="Live Optimization & Reporting" class="img-fluid" height="80" width="80">
+                        <h5 class="text-center">Live Optimization & Reporting</h5>
+                        <p class="text-center">
+                            You get real-time dashboards, weekly reviews, and AI-based recommendations to keep improving.
+                        </p>
+                    </div>
                 </div>
-                <div class="col custom-col-5 d-flex align-items-center justify-content-start flex-column">
-                    <span class="count">5</span>
-                    <img src="{{ asset('illustrations/i-scale-or-extend.svg') }}" alt="Scale or Extend" class="img-fluid" height="80" width="80">
-                    <h5 class="text-center">Scale or Extend</h5>
-                    <p class="text-center">
-                        As your business evolves, we help expand your system adding features, automations, and verticals as needed.
-                    </p>
+                <div class="col wrapper-col">
+                    <div class="inner-wrapper-header">05</div>
+                    <div class="col custom-col-5 d-flex align-items-center justify-content-start flex-column">
+                        <img src="{{ asset('illustrations/i-scale-or-extend.svg') }}" alt="Scale or Extend" class="img-fluid" height="80" width="80">
+                        <h5 class="text-center">Scale or Extend</h5>
+                        <p class="text-center">
+                            As your business evolves, we help expand your system adding features, automations, and verticals as needed.
+                        </p>
+                    </div>
                 </div>
             </div>
+
             <div class="row robot-row" style="display:none;">
                 <div class="col d-flex align-items-center justify-content-center flex-column">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot Image" height="500" width="500">
