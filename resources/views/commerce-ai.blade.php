@@ -2,348 +2,356 @@
 
 @section('content')
 
+   
     <style>
-        /* .hero-section {
-            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            padding-top: 140px;
-            padding-bottom: 140px;
-            align-items: center;
-        } */
-        /* .custom-commerce-ai nav .navbar-brand {
-            filter:brightness(0) invert(1);
-        }
-        .custom-commerce-ai nav .navbar-nav .nav-link {
-            color:var(--theme-white);
-        } */
-        section.hero-section.commerce-ai {
-            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .hero-section h1 {
-            font-weight: 700;
-            margin-bottom: 0px;
-            font-size: 50px;
-            color:white;
-            line-height: 60px;
-        }
-        .hero-section p {
-            color:white;
-        }
-        .hero-section .buttons-wrapper {
-            gap:16px;
-        }
-        .hero-section .buttons-wrapper a {
-            text-decoration:none;
-            padding:16px 26px;
-            color:white;
-            border-radius: 14px;
-            background: linear-gradient(90deg, #00E1E0 0%, #0052CC 100%);
-        }
-        .hero-section .buttons-wrapper a:last-child {
-            background:transparent;
-        }
-        .hero-section .content-section {
-            gap: 14px;
-        }
-        section.hero-section.commerce-ai .theme__btn + a {
-            background:white;
-            color: #0176d3 !important;
-            border-radius: 8px;
-            padding: 10px 24px !important;
-            line-height: 24px;
-            font-weight: bolder;
-            font-family:"Bricolage-Grotesque";
-            font-size: 14px;
-            text-transform: uppercase;
-            border: none;
-        }
-        /* section.hero-section.commerce-ai h1,
-        section.hero-section.commerce-ai p{
-            color:var(--theme-dark);
-        } */
-    </style>
-    <section class="hero-section commerce-ai">
-        <div class="container">
-            <div class="row px-0">
-                <div class="col-lg-6 d-flex flex-column align-items-start justify-content-center content-section">
-                    <h1 class="mb-0">Custom-Built AI Growth <br> Engine for eCommerce</h1>
-                    <p>
-                        CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
-                    </p>
-                    <div class="buttons-wrapper d-flex align-items-center justfy-content-center">
-                        <button class="theme__btn" href="javascript:void(0);">Get Your Growth Blueprint</button>
-                        <a href="javascript:void(0);">Watch Demo</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                    <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
-                        <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
-                        Your browser does not support HTML video.
-                    </video>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-        .commerce-ai-turns {
-            background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            padding-top: 110px;
-            padding-bottom: 120px;
-            align-items: center;
-        }
-        .commerce-ai-turns h2 {
-            font-weight: 700;
-            margin-bottom: 40px;
-            font-size: 40px;
-            color:white;
-            line-height: 80px;
-        }
-        .commerce-ai-turns p {
-            color:white;
-            font-size: 16px;
-            max-width:960px;
-            margin-bottom: 70px;
-            line-height: 30px;
-        }
-        .commerce-ai-turns .cards-wrapper {
-            max-width:1110px;
-            /* gap:30px; */
-        }
-        .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper {
-            border-radius: 20px;
-            padding: 30px 40px 40px 40px;
-            background:transparent;
-            position:relative;
-        }
-        .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            padding: 2px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #00f0ff, #8a2be2);
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        .commerce-ai-turns .cards-wrapper .header h4 {
-            color:white;
-            font-size: 20px;
-            line-height: 30px;
-        }
-        .commerce-ai-turns .cards-wrapper .header{
-            gap: 20px;
-        }
-        .commerce-ai-turns .cards-wrapper .content{
-            margin-top: 20px;
-            color:white;
+        .main-wrapper-container {
+            background-image: url("{{ asset('images/commerce-ai/commerce-ai-bg-01.png') }}");
         }
     </style>
-    <section class="commerce-ai-turns">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
-                    <h2 class="mb-0">How CommerceAI Turns Data into Growth</h2>
-                    <p>
-                        Most AI tools automate tasks. Most agencies run ads. But neither builds a system around how your brand actually sells, retains, and grows. CommerceAI is a fully-managed, strategy-first growth engine custom-built for each eCommerce brand. From forecasting inventory to on-site personalization and automated retention flows, every part of the system is tailored to your products, audience, and offers — not pulled from a playbook.
-                    </p>
+    <div class="main-wrapper-container">
+        <style>
+            /* .hero-section {
+                background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
+                background-size: cover; 
+                background-position: center;
+                background-repeat: no-repeat;
+                display: flex;
+                padding-top: 140px;
+                padding-bottom: 140px;
+                align-items: center;
+            } */
+            /* .custom-commerce-ai nav .navbar-brand {
+                filter:brightness(0) invert(1);
+            }
+            .custom-commerce-ai nav .navbar-nav .nav-link {
+                color:var(--theme-white);
+            } */
+            section.hero-section.commerce-ai {
+                /* background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}"); 
+                background-size: cover; 
+                background-position: center;
+                background-repeat: no-repeat; */
+            }
+            .hero-section h1 {
+                font-weight: 700;
+                margin-bottom: 0px;
+                font-size: 50px;
+                color:white;
+                line-height: 60px;
+            }
+            .hero-section p {
+                color:white;
+            }
+            .hero-section .buttons-wrapper {
+                gap:16px;
+            }
+            .hero-section .buttons-wrapper a {
+                text-decoration:none;
+                padding:16px 26px;
+                color:white;
+                border-radius: 14px;
+                background: linear-gradient(90deg, #00E1E0 0%, #0052CC 100%);
+            }
+            .hero-section .buttons-wrapper a:last-child {
+                background:transparent;
+            }
+            .hero-section .content-section {
+                gap: 14px;
+            }
+            section.hero-section.commerce-ai .theme__btn + a {
+                background:white;
+                color: #0176d3 !important;
+                border-radius: 8px;
+                padding: 10px 24px !important;
+                line-height: 24px;
+                font-weight: bolder;
+                font-family:"Bricolage-Grotesque";
+                font-size: 14px;
+                text-transform: uppercase;
+                border: none;
+            }
+            /* section.hero-section.commerce-ai h1,
+            section.hero-section.commerce-ai p{
+                color:var(--theme-dark);
+            } */
+        </style>
+        <section class="hero-section commerce-ai">
+            <div class="container">
+                <div class="row px-0">
+                    <div class="col-lg-6 d-flex flex-column align-items-start justify-content-center content-section">
+                        <h1 class="mb-0">Custom-Built AI Growth <br> Engine for eCommerce</h1>
+                        <p>
+                            CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
+                        </p>
+                        <div class="buttons-wrapper d-flex align-items-center justfy-content-center">
+                            <button class="theme__btn" href="javascript:void(0);">Get Your Growth Blueprint</button>
+                            <a href="javascript:void(0);">Watch Demo</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
+                        <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
+                            <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
+                            Your browser does not support HTML video.
+                        </video>
+                    </div>
                 </div>
             </div>
-            <div class="row cards-wrapper d-flex align-items-center justify-content-center mx-auto">
-                <div class="col-lg-4">
-                    <div class="inner-wrapper">
-                        <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
-                            <h4 class="mb-0">Strategic Foundation First</h4>
-                        </div>
-                        <div class="content">
-                            Every store is different. So before we automate anything, we start with a custom strategy built around your products, customers, and conversion paths.
-                        </div>
+        </section>
+
+        <style>
+            .commerce-ai-turns {
+                /* background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
+                background-size: cover; 
+                background-position: center;
+                background-repeat: no-repeat; */
+                display: flex;
+                padding-top: 110px;
+                padding-bottom: 120px;
+                align-items: center;
+            }
+            .commerce-ai-turns h2 {
+                font-weight: 700;
+                margin-bottom: 40px;
+                font-size: 40px;
+                color:white;
+                line-height: 80px;
+            }
+            .commerce-ai-turns p {
+                color:white;
+                font-size: 16px;
+                max-width:960px;
+                margin-bottom: 70px;
+                line-height: 30px;
+            }
+            .commerce-ai-turns .cards-wrapper {
+                max-width:1110px;
+                /* gap:30px; */
+            }
+            .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper {
+                border-radius: 20px;
+                padding: 30px 40px 40px 40px;
+                background:transparent;
+                position:relative;
+            }
+            .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                padding: 2px;
+                border-radius: 16px;
+                background: linear-gradient(135deg, #00f0ff, #8a2be2);
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+            }
+            .commerce-ai-turns .cards-wrapper .header h4 {
+                color:white;
+                font-size: 20px;
+                line-height: 30px;
+            }
+            .commerce-ai-turns .cards-wrapper .header{
+                gap: 20px;
+            }
+            .commerce-ai-turns .cards-wrapper .content{
+                margin-top: 20px;
+                color:white;
+            }
+        </style>
+        <section class="commerce-ai-turns">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
+                        <h2 class="mb-0">How CommerceAI Turns Data into Growth</h2>
+                        <p>
+                            Most AI tools automate tasks. Most agencies run ads. But neither builds a system around how your brand actually sells, retains, and grows. CommerceAI is a fully-managed, strategy-first growth engine custom-built for each eCommerce brand. From forecasting inventory to on-site personalization and automated retention flows, every part of the system is tailored to your products, audience, and offers — not pulled from a playbook.
+                        </p>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="inner-wrapper">
-                        <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('images/commerce-ai/adaptive-ai-infrastructure.svg') }}" alt="">
-                            <h4 class="mb-0">Adaptive AI <br> Infrastructure</h4>
-                        </div>
-                        <div class="content">
-                            CommerceAI doesn’t plug in it’s built around your business. From forecasting to personalization, every layer adapts to how your store sells, restocks, and grows.
+                <div class="row cards-wrapper d-flex align-items-center justify-content-center mx-auto">
+                    <div class="col-lg-4">
+                        <div class="inner-wrapper">
+                            <div class="header flex-column d-flex align-items-start justify-content-center">
+                                <img src="{{ asset('images/commerce-ai/strategic-foundation-first.svg') }}" alt="">
+                                <h4 class="mb-0">Strategic Foundation First</h4>
+                            </div>
+                            <div class="content">
+                                Every store is different. So before we automate anything, we start with a custom strategy built around your products, customers, and conversion paths.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="inner-wrapper">
-                        <div class="header flex-column d-flex align-items-start justify-content-center">
-                            <img src="{{ asset('images/commerce-ai/ai-powered-growth.svg') }}" alt="">
-                            <h4 class="mb-0">AI-Powered Growth <br> Execution</h4>
+                    <div class="col-lg-4">
+                        <div class="inner-wrapper">
+                            <div class="header flex-column d-flex align-items-start justify-content-center">
+                                <img src="{{ asset('images/commerce-ai/adaptive-ai-infrastructure.svg') }}" alt="">
+                                <h4 class="mb-0">Adaptive AI <br> Infrastructure</h4>
+                            </div>
+                            <div class="content">
+                                CommerceAI doesn’t plug in it’s built around your business. From forecasting to personalization, every layer adapts to how your store sells, restocks, and grows.
+                            </div>
                         </div>
-                        <div class="content">
-                            You don’t need another report or a half-working flow. CommerceAI delivers a fully-managed system that acts on your data and keeps improving every week.
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="inner-wrapper">
+                            <div class="header flex-column d-flex align-items-start justify-content-center">
+                                <img src="{{ asset('images/commerce-ai/ai-powered-growth.svg') }}" alt="">
+                                <h4 class="mb-0">AI-Powered Growth <br> Execution</h4>
+                            </div>
+                            <div class="content">
+                                You don’t need another report or a half-working flow. CommerceAI delivers a fully-managed system that acts on your data and keeps improving every week.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!--  inside the commerce ai section starts from here  -->
-    <style>
-        section.inside-the-commerce-ai-banner {
-            background: url("{{ asset('images/commerce-ai/inside-the-commerce-ai-banner.png') }}") no-repeat center center;
-            background-size: cover;
-            padding-top: 90px;
-            position:relative;
-            padding-bottom: 280px;
-            margin-top: -2px;
-        }
-        section.inside-the-commerce-ai-banner::after
-        {
-            content: "";
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 180px;
-            clip-path: ellipse(55% 80% at 50% 100%);
-            background: white;
-        }
-        section.inside-the-commerce-ai-banner .inside-the-commerce-text {
-            color:#fff; font-size: 16px; max-width:960px; margin-bottom: 40px; line-height: 30px;
-        }
-        section.inside-the-commerce-ai-banner .inside-the-commerce-heading {
-            font-weight: 700; font-size: 40px; color:#fff; line-height: 50px; margin-bottom: 20px;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row{
-            max-width: 1480px;
-            display:grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            gap: 18px;
-            align-items:stretch;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col {
-            padding-right: 0px;
-            padding-left: 0px;
-            height:auto;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            padding: 2px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #00f0ff, #8a2be2);
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
-            min-height: 100%;
-            position:relative;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper img {
-            height: 70px;
-            width: 70px;
-            margin-bottom: 30px;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper h3 
-        {
-            margin-bottom: 24px;
-            font-weight: 600;
-            font-size: 26px;
-            line-height: 38px;
-            letter-spacing: 0%;
-            text-align: center;
-            color:white;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper p
-        {
-            color:white;
-            margin-bottom: 0px;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 23px;
-            letter-spacing: 0%;
-            text-align: center;
-        }
-        section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
-            background: transparent;
-            padding: 60px 24px;
-            border-radius: 20px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-        }
-    </style>
-    <section class="inside-the-commerce-ai-banner">
-        <div class="container">
-            <div class="row px-0">
-                <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
-                    <h2 class="mb-0 inside-the-commerce-heading">Inside the CommerceAI Growth Engine</h2>
-                    <p class="inside-the-commerce-text">
-                        Explore the 5-phase system designed to help your eCommerce store grow smarter — through strategic personalization, AI automation, and scalable execution.
-                    </p>
+        <!--  inside the commerce ai section starts from here  -->
+        <style>
+            section.inside-the-commerce-ai-banner {
+                /* background: url("{{ asset('images/commerce-ai/inside-the-commerce-ai-banner.png') }}") no-repeat center center;
+                background-size: cover; */
+                padding-top: 90px;
+                position:relative;
+                padding-bottom: 280px;
+                margin-top: -2px;
+            }
+            section.inside-the-commerce-ai-banner::after
+            {
+                content: "";
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 180px;
+                clip-path: ellipse(55% 80% at 50% 100%);
+                background: white;
+            }
+            section.inside-the-commerce-ai-banner .inside-the-commerce-text {
+                color:#fff; font-size: 16px; max-width:960px; margin-bottom: 40px; line-height: 30px;
+            }
+            section.inside-the-commerce-ai-banner .inside-the-commerce-heading {
+                font-weight: 700; font-size: 40px; color:#fff; line-height: 50px; margin-bottom: 20px;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row{
+                max-width: 1480px;
+                display:grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                gap: 18px;
+                align-items:stretch;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col {
+                padding-right: 0px;
+                padding-left: 0px;
+                height:auto;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                padding: 2px;
+                border-radius: 16px;
+                background: linear-gradient(135deg, #00f0ff, #8a2be2);
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
+                min-height: 100%;
+                position:relative;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper img {
+                height: 70px;
+                width: 70px;
+                margin-bottom: 30px;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper h3 
+            {
+                margin-bottom: 24px;
+                font-weight: 600;
+                font-size: 26px;
+                line-height: 38px;
+                letter-spacing: 0%;
+                text-align: center;
+                color:white;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper p
+            {
+                color:white;
+                margin-bottom: 0px;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 23px;
+                letter-spacing: 0%;
+                text-align: center;
+            }
+            section.inside-the-commerce-ai-banner .inside-section-row .col .inner-wrapper {
+                background: transparent;
+                padding: 60px 24px;
+                border-radius: 20px;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                justify-content:center;
+            }
+        </style>
+        <section class="inside-the-commerce-ai-banner">
+            <div class="container">
+                <div class="row px-0">
+                    <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
+                        <h2 class="mb-0 inside-the-commerce-heading">Inside the CommerceAI Growth Engine</h2>
+                        <p class="inside-the-commerce-text">
+                            Explore the 5-phase system designed to help your eCommerce store grow smarter — through strategic personalization, AI automation, and scalable execution.
+                        </p>
+                    </div>
+                </div>
+                <div class="row inside-section-row">
+                    <div class="col">
+                        <div class="inner-wrapper">
+                            <img src="{{ asset('images/commerce-ai/commerce-1.svg') }}" alt="Commerce 1">
+                            <h3>Strategic Foundation</h3>
+                            <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inner-wrapper">
+                            <img src="{{ asset('images/commerce-ai/commerce-2.svg') }}" alt="Commerce 1">
+                            <h3>Custom AI Growth Blueprint</h3>
+                            <p>We design a data-backed system tailored to your store including predictive inventory, bundle logic, and personalization that actually converts.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inner-wrapper">
+                            <img src="{{ asset('images/commerce-ai/commerce-3.svg') }}" alt="Commerce 1">
+                            <h3>Marketing Strategy Setup</h3>
+                            <p>We build conversion-focused funnels, ad angles, and retention offers aligned with your audience and ready to scale across channels.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inner-wrapper">
+                            <img src="{{ asset('images/commerce-ai/commerce-4.svg') }}" alt="Commerce 1">
+                            <h3>Tech Stack & Execution Layer</h3>
+                            <p>We automate the core of your growth engine from email flows to personalization using tools that adapt to your store in real time.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inner-wrapper">
+                            <img src="{{ asset('images/commerce-ai/commerce-5.svg') }}" alt="Commerce 1">
+                            <h3>Dashboard Reporting & Optimization</h3>
+                            <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row inside-section-row">
-                <div class="col">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/commerce-ai/commerce-1.svg') }}" alt="Commerce 1">
-                        <h3>Strategic Foundation</h3>
-                        <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/commerce-ai/commerce-2.svg') }}" alt="Commerce 1">
-                        <h3>Custom AI Growth Blueprint</h3>
-                        <p>We design a data-backed system tailored to your store including predictive inventory, bundle logic, and personalization that actually converts.</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/commerce-ai/commerce-3.svg') }}" alt="Commerce 1">
-                        <h3>Marketing Strategy Setup</h3>
-                        <p>We build conversion-focused funnels, ad angles, and retention offers aligned with your audience and ready to scale across channels.</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/commerce-ai/commerce-4.svg') }}" alt="Commerce 1">
-                        <h3>Tech Stack & Execution Layer</h3>
-                        <p>We automate the core of your growth engine from email flows to personalization using tools that adapt to your store in real time.</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/commerce-ai/commerce-5.svg') }}" alt="Commerce 1">
-                        <h3>Dashboard Reporting & Optimization</h3>
-                        <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> 
-    <!-- inside the commer ai section ends here  -->
+        </section> 
+        <!-- inside the commer ai section ends here  -->
+    </div>
 
 
     <!-- what makes different section starts from here -->

@@ -8,11 +8,23 @@
     <!-- Google Font: Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+
+    <!-- Plus jakarta Sans - testing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Global CSS -->
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+
+    <!-- owl carousel css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 </head>
 <body class="@if(request()->is('/')) custom-home @elseif(request()->is('commerce-ai')) custom-commerce-ai @else custom-{{ str_replace('/', '-', request()->path()) }} @endif">
 
@@ -155,13 +167,14 @@
             font-family:'Montserrat';
         }
         footer .upper-container .first-column p {
-            font-weight:600;
+            font-weight:500;
             line-height: 28px;
         }
         footer .upper-container .first-column a {
             text-decoration:none;
             color:var(--theme-white);
-            font-weight:bolder;
+            font-weight:500;
+            font-family:"Montserrat", sans-serif;
         }
         footer .upper-container ul {
             padding-left: 0px;
@@ -172,12 +185,12 @@
         }
         footer .upper-container ul li a {
             color:var(--theme-white);
-            font-weight: 600;
+            font-weight: 500;
             font-size: 16px;
             text-decoration:none;
         }
         footer .upper-container h5 {
-            font-family:"Bricolage-Grotesque";
+            font-family:"Plus Jakarta Sans", sans-serif;
             margin-bottom: 20px;
             color:var(--theme-white);
             font-weight: bolder;
@@ -186,25 +199,26 @@
             font-size: 16px;
             color:var(--theme-white);
             margin-bottom: 40px;
-            font-family:"Bricolage-Grotesque";
+            font-family:"Montserrat", sans-serif;
         }
         footer .address,
         footer .customer-service {
             color: var(--theme-white);
             line-height: 24px;
-            font-family:"Bricolage-Grotesque";
-            font-weight:bolder;
+            font-family:"Montserrat", sans-serif;
+            font-weight:500;
         }
         footer .privacy-terms-wrapper {
             width: calc(100% - 60px);
-            font-family:"Bricolage-Grotesque";
+            font-family:"Plus Jakarta Sans", sans-serif;
         }
         footer .lower-container button.social-button {
             color: var(--theme-white);
             border: 1px solid var(--theme-white);
             border-radius: 100px;
+            font-family:"Montserrat", sans-serif;
             padding: 8px 16px;
-            font-weight:bolder;
+            font-weight:500;
             transition: 0.2s;
             background:transparent;
         }
@@ -215,7 +229,7 @@
         }
         footer .lower-container {
             padding-top: 14px;
-            font-family:"Bricolage-Grotesque";
+            font-family:"Plus Jakarta Sans", sans-serif;
             color:var(--theme-white);
         }
         footer .social-buttons-wrapper {
@@ -284,22 +298,36 @@
     </footer>
 
     <!-- Bootstrap JS CDN -->
+     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     const navbar = document.getElementById("navbar");
 
-        //     window.addEventListener("scroll", function () {
-        //         if (window.scrollY > 150) {
-        //         // scroll 100 se zyada → navbar fade out
-        //         navbar.classList.add("hidden");
-        //         } else {
-        //         // scroll 100 se kam → navbar fade in
-        //         navbar.classList.remove("hidden");
-        //         }
-        //     });
-        // });
+    <!-- owl carousel scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('.trusted-carousel').owlCarousel({
+                loop:true,
+                margin:24,
+                nav:true,
+                autoplay: true,
+                autoplayTimeout: 1500,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:7
+                    }
+                }
+            });
+        });
     </script>
+    
 
 </body>
 </html>
