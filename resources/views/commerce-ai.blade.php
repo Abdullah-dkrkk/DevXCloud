@@ -10,16 +10,17 @@
     </style>
     <div class="main-wrapper-container">
         <style>
-            /* .hero-section {
-                background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
+            .hero-section {
+                /* background-image: url("{{ asset('images/commerce-ai/hero-background.png') }}");
                 background-size: cover; 
                 background-position: center;
                 background-repeat: no-repeat;
                 display: flex;
                 padding-top: 140px;
                 padding-bottom: 140px;
-                align-items: center;
-            } */
+                align-items: center; */
+                background-image:none !important;
+            }
             /* .custom-commerce-ai nav .navbar-brand {
                 filter:brightness(0) invert(1);
             }
@@ -65,7 +66,7 @@
                 padding: 10px 24px !important;
                 line-height: 24px;
                 font-weight: bolder;
-                font-family:"Bricolage-Grotesque";
+                font-family: "Montserrat", sans-serif;
                 font-size: 14px;
                 text-transform: uppercase;
                 border: none;
@@ -105,7 +106,7 @@
                 background-position: center;
                 background-repeat: no-repeat; */
                 display: flex;
-                padding-top: 110px;
+                padding-top: 80px;
                 padding-bottom: 120px;
                 align-items: center;
             }
@@ -124,7 +125,7 @@
                 line-height: 30px;
             }
             .commerce-ai-turns .cards-wrapper {
-                max-width:1110px;
+                max-width:1115px;
                 /* gap:30px; */
             }
             .commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper {
@@ -234,7 +235,7 @@
                 color:#fff; font-size: 16px; max-width:960px; margin-bottom: 40px; line-height: 30px;
             }
             section.inside-the-commerce-ai-banner .inside-the-commerce-heading {
-                font-weight: 700; font-size: 40px; color:#fff; line-height: 50px; margin-bottom: 20px;
+                font-weight: 700; font-size: 40px; color:#fff; line-height: 50px; margin-bottom: 20px !important;   
             }
             section.inside-the-commerce-ai-banner .inside-section-row{
                 max-width: 1480px;
@@ -371,6 +372,7 @@
             line-height: 80px;
             letter-spacing: 0%;
             text-align: center;
+            color:var(--theme-primary);
         }
         section.what-makes-difference .what-makes-difference-text {
             font-weight: 400;
@@ -431,6 +433,7 @@
             line-height: 30px;
             margin-bottom: 20px;
             letter-spacing: 0%;
+            color: var(--theme-primary);
         }
         section.what-makes-difference .row.difference-cards-wrapper .col p {
             font-weight: 500;
@@ -485,11 +488,12 @@
             padding-bottom: 260px;
         }
         section.engine-stack .theme__btn{ 
-            font-family: "Bricolage-Grotesque";
+            font-family: "Montserrat", sans-serif;
             border-radius: 8px;
             background: #EB8025 !important;
             text-transform:uppercase;
             letter-spacing: 0.3px !important;
+            font-weight: 600;
         }
         section.engine-stack .engine-stack-first-row  p {
             margin-bottom: 0px;
@@ -553,7 +557,7 @@
         <div class="container">
             <div class="row engine-stack-first-row d-flex align-items-center justify-content-center text-center">
                 <div class="col-lg-12 flex-column d-flex align-items-center justify-content-center text-center">
-                    <h2>Explore the CommerceAI Growth Engine Stack</h2>
+                    <h2 class="mb-3">Explore the CommerceAI Growth Engine Stack</h2>
                     <p>See how CommerceAI powers your store’s growth with strategy, automation, and real-time insight.</p>
                 </div>
             </div>
@@ -710,7 +714,7 @@
     <!-- faq section starts from here -->
     <style>
         section.faq-section {
-            padding-bottom: 100px;
+            padding-bottom: 40px;
             background: #ffffff;
         }
         section.faq-section .accordion-body {
@@ -762,7 +766,7 @@
             font-weight: 600;
             padding: 24px !important;
             font-size: 20px;
-            line-height: 26px;
+            line-height: 34px;
             letter-spacing: 0%;
             display:flex;
             box-shadow:none !important;
@@ -770,7 +774,7 @@
             border-top-left-radius: 16px !important;
             align-items:center;
             justify-content:start;
-            gap: 10px;
+            gap: 22px;
         }
         section.faq-section .accordion-collapse {
             border-bottom-right-radius: 16px !important;
@@ -906,13 +910,13 @@
         section.last-banner {
             /* padding-top: 80px;
             padding-bottom: 80px; */
-            margin-bottom: 60px;
+            margin-bottom: 100px;
         }
         section.last-banner a:hover {
             opacity: 0.8;
         }
         section.last-banner .theme__btn{
-            font-family:'Bricolage-Grotesque';
+            font-family: "Montserrat", sans-serif;
             background: #0176D3;
             padding: 18px 26px;
             text-decoration:none;
@@ -944,7 +948,7 @@
         <div class="container">
             <div class="row bottom-section d-flex align-items-center justify-content-between">
                <div class="col d-inline-flex align-items-start justify-content-center flex-column">
-                    <h3>Not sure which growth engine <br> is right for you?</h3>
+                    <h3>Not sure which growth engine is right for you?</h3>
                     <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
                     <button class="theme__btn text-uppercase">Discover our Growth Engine</button>
                </div>

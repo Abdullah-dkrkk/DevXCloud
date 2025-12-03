@@ -17,6 +17,13 @@
     font-display: swap;
 }
 /* @font-face {
+    font-family: "Helvetica", sans-serif;
+    src: url("../fonts/helvetica/Helvetica-Bold.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+} */
+/* @font-face {
   font-family: 'Nunito-Bold';
   src: url('../fonts/dm-sans/DMSans-Bold.ttf') format('truetype');
   font-weight: bold;
@@ -50,8 +57,8 @@ h2,
 h3,
 h4,
 h5 {
-    /* font-family: "Plus Jakarta Sans", sans-serif; */
-    font-family: "Plus Jakarta Sans", sans-serif;
+    /* font-family: "Allerta", sans-serif !important; */
+    font-family: "Montserrat", sans-serif;
     font-weight: 600 !important;
 }
 footer {
@@ -107,7 +114,7 @@ body nav .nav-item span:hover::after {
     align-items: center;
 }
 body .theme__btn {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     letter-spacing: 0.6px;
 }
 #navbar {
@@ -155,7 +162,7 @@ section.hero-section video {
 
 .hero-section .theme__btn-secondary {
     border: 1px solid #0176d3;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     background: white;
     color: #0176d3;
     border-radius: 8px;
@@ -183,6 +190,8 @@ section.hero-section video {
     line-height: 60px;
     /* margin-top: -40px; */
     margin-bottom: 0px;
+    /* font-family: "Helvetica", sans-serif !important; */
+    font-family: "Montserrat", sans-serif;
 }
 
 .hero-section {
@@ -266,7 +275,7 @@ section.hero-section video {
     padding-left: 15px;
     margin-bottom: 28px;
     font-weight: bolder;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .explore-growth-engine .cards-wrapper .a-image-wrapper {
@@ -395,7 +404,7 @@ section.how-we-build .new__design-btn:hover {
 }
 
 section.how-we-build h2 {
-    color: #0f2c4e;
+    color: #032D60;
     font-size: 36px !important;
     line-height: 52px;
 }
@@ -408,7 +417,7 @@ section.how-we-build .head-para {
 
 section.how-we-build .robot-row h3 {
     max-width: 500px;
-    color: #0f2c4e;
+    color: #032D60;
     font-size: 30px;
     margin-bottom: 20px;
 }
@@ -471,7 +480,7 @@ section.why-founders {
 }
 
 section.why-founders h2 {
-    color: #0f2c4e;
+    color: #032D60;
     font-size: 36px;
     line-height: 52px;
 }
@@ -502,8 +511,8 @@ section.why-founders .theme__btn {
 }
 section.why-founders .cards-wrapper .col-lg-6 .inner-column h3 {
     font-size: 20px;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    color: #0f2c4e;
+    font-family: "Montserrat", sans-serif;
+    color: #032D60;
     font-weight: bolder;
     margin-bottom: 10px;
     line-height: 28px;
@@ -556,7 +565,7 @@ section.trusted-platforms .inner-col {
 }
 
 section.trusted-platforms h2 {
-    color: #0f2c4e;
+    color: #032D60;
     text-align: center;
     font-size: 36px !important;
     margin-bottom: 40px;
@@ -576,7 +585,7 @@ section.explore {
 }
 
 section.explore h2 {
-    color: #0f2c4e;
+    color: #032D60;
     font-size: 36px !important;
     line-height: 52px;
 }
@@ -615,9 +624,9 @@ section.explore img + h3 + p {
 
 section.explore img + h3 {
     margin-bottom: 20px;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
     margin-top: 20px;
-    color: #0f2c4e;
+    color: #032D60;
     font-size: 24px;
     font-weight: bolder;
 }

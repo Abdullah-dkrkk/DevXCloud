@@ -126,7 +126,7 @@
                         width: 50px;
                         transform:scale(1.2);
                         border-radius: 100px;
-                        font-family:"Plus Jakarta Sans", sans-serif;
+                        font-family: "Montserrat", sans-serif;
                         color:white;
                         background:#0176d3;
                         position:relative;

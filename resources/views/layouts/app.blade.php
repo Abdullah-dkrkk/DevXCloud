@@ -14,6 +14,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
+    <!-- Allerta - testing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -190,7 +195,7 @@
             text-decoration:none;
         }
         footer .upper-container h5 {
-            font-family:"Plus Jakarta Sans", sans-serif;
+            font-family: "Montserrat", sans-serif;
             margin-bottom: 20px;
             color:var(--theme-white);
             font-weight: bolder;
@@ -210,7 +215,7 @@
         }
         footer .privacy-terms-wrapper {
             width: calc(100% - 60px);
-            font-family:"Plus Jakarta Sans", sans-serif;
+            font-family: "Montserrat", sans-serif;
         }
         footer .lower-container button.social-button {
             color: var(--theme-white);
@@ -229,7 +234,7 @@
         }
         footer .lower-container {
             padding-top: 14px;
-            font-family:"Plus Jakarta Sans", sans-serif;
+            font-family: "Montserrat", sans-serif;
             color:var(--theme-white);
         }
         footer .social-buttons-wrapper {
