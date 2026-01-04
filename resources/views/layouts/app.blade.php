@@ -25,6 +25,10 @@
     <!-- Global CSS -->
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 
+    @if (request()->is('about'))
+        <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+    @endif
+
     <!-- owl carousel css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -84,7 +88,7 @@
         }
         /* navbar css ends here */
     </style>
-    <nav class="navbar navbar-expand-lg" id="navbar">
+    <nav class="navbar navbar-expand-xl" id="navbar">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="130">

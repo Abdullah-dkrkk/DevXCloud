@@ -50,3 +50,6 @@ Route::get('/elitescale-ai', function () {
 Route::get('/greenscale-ai', function () {
     return view('greenscale-ai'); 
 });
+Route::get('/about', function () {
+    return view('about'); 
+});
