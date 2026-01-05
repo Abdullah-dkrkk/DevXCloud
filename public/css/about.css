@@ -258,13 +258,13 @@ p {
     right: 50%;
     top: calc(100% - 6px);
     position:absolute;
-    height: 67px;
+    height: 59px;
     border-right:6px solid #3ECCFE;
     border-bottom:6px solid #3ECCFE; 
     border-bottom-right-radius: 20px;
 }
 .devx__about-timeline-section .row .col-lg-12:nth-child(2) .row.fourth-row .col.bended-second::before {
-    height: 73px;
+    height: 71px;
 }
 .devx__about-timeline-section .row .col-lg-12:nth-child(2) .row .col.bended-third {
     position:relative;
