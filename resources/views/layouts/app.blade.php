@@ -25,9 +25,15 @@
     <!-- Global CSS -->
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 
-    @if (request()->is('about'))
-        <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+    @php
+        $page = Route::currentRouteName();
+        $cssFile = public_path("css/{$page}.css");
+    @endphp
+
+    @if ($page && file_exists($cssFile))
+        <link rel="stylesheet" href="{{ asset("css/{$page}.css") }}">
     @endif
+
 
     <!-- owl carousel css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -34,22 +34,14 @@ require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     return view('home');
-});
-Route::get('/commerce-ai', function () {
-    return view('commerce-ai'); 
-});
-Route::get('/launchpad-ai', function () {
-    return view('launchpad-ai'); 
-});
-Route::get('/scalecloud-ai', function () {
-    return view('scalecloud-ai'); 
-});
-Route::get('/elitescale-ai', function () {
-    return view('elitescale-ai'); 
-});
-Route::get('/greenscale-ai', function () {
-    return view('greenscale-ai'); 
-});
+})->name('home');
+
 Route::get('/about', function () {
-    return view('about'); 
-});
+    return view('about');
+})->name('about');
+
+Route::get('/commerce-ai', fn () => view('commerce-ai'))->name('commerce-ai');
+Route::get('/launchpad-ai', fn () => view('launchpad-ai'))->name('launchpad-ai');
+Route::get('/scalecloud-ai', fn () => view('scalecloud-ai'))->name('scalecloud-ai');
+Route::get('/elitescale-ai', fn () => view('elitescale-ai'))->name('elitescale-ai');
+Route::get('/greenscale-ai', fn () => view('greenscale-ai'))->name('greenscale-ai');

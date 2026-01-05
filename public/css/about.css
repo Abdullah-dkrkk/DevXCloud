@@ -19,7 +19,11 @@ p {
 }
 
 
-/* ABOUT PAGE HERO BANNER CSS */
+/*
+|--------------------------------
+| ABOUT PAGE HERO BANNER CSS
+|--------------------------------
+*/
 
 .devx__about-hero-banner img {
     width: 450px;
@@ -53,7 +57,11 @@ p {
 }
 
 
-/* ABOUT PAGE REAL RESULTS CSS */
+/*
+|--------------------------------
+| ABOUT PAGE REAL RESULTS CSS
+|--------------------------------
+*/
 
 .devx__about-real-results {
     padding-top: 46px;
@@ -89,13 +97,17 @@ p {
 }
 
 
-/* VIDEO THUMBNAIL SECTION CSS */
+/*
+|--------------------------------
+| VIDEO THUMBNAIL SECTION CSS
+|--------------------------------
+*/
 
 .devx__about-video-section {
-    background-image: url("../images/about-page/about-video-section-bg-gradient.png");
-    background-repeat: no-repeat;
+    /* background-image: url("../images/about-page/about-video-section-bg-gradient.png"); */
+    /* background-repeat: no-repeat;
     background-size: cover;
-    background-position:center;
+    background-position:center; */
     margin-top: 46px;
     min-height: 550px;
     display:flex;
@@ -107,7 +119,11 @@ p {
 }
 
 
-/* ABOUT TIMELINE SECTION CSS */
+/*
+|--------------------------------
+| ABOUT TIMELINE SECTION CSS
+|--------------------------------
+*/
 
 .devx__about-timeline-section {
     background: #EFFFFF;
@@ -274,7 +290,11 @@ p {
 }
 
 
-/* ABOUT GROWTH BEGINS CSS */
+/*
+|--------------------------------
+| ABOUT GROWTH BEGINS CSS
+|--------------------------------
+*/
 
 .devx__about-growth-begins {
     padding-top: 46px;
@@ -293,7 +313,11 @@ p {
 }
 
 
-/* ABOUT TRADITIONAL */
+/*
+|--------------------------------
+| ABOUT TRADITIONAL
+|--------------------------------
+*/
 
 .devx__about-traditional-agencies {
     padding-top: 46px;
@@ -395,7 +419,11 @@ p {
 }
 
 
-/* ABOUT - FAQ SECTION */
+/*
+|--------------------------------
+| ABOUT - FAQ SECTION
+|--------------------------------
+*/
 
 .devx__about-faq {
     padding-top: 46px;
