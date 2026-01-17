@@ -27,7 +27,7 @@
 
     <!-- Homepage - Explore Growth Engine -->
     <section class="devx__home-explore-growth-engine w-100">
-        <div class="container">
+        <div class="container px-0">
             <div class="row">
                 <div class="col-lg-12 px-0">
                     <h2 class="devx__color-primary text-center">Explore the Growth Engines Powering Modern <br> Digital Brands </h2>
@@ -112,7 +112,7 @@
                 <h2 class="text-center devx__color-primary mb-2">Here’s How We Build Your Custom Growth Engine</h2>
                 <p class="text-center head-para mb-4 pb-4 mx-auto">From strategic discovery to execution and optimization everything we do is purpose built to move your business forward powered by data and AI.</p>
             </div>
-            <div class="container curved-section-wrapper">
+            <div class="container curved-section-wrapper custom-slider">
                 <div class="row position-relative">
                     <div class="svg-wrapper position-absolute d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 180" width="80%" height="180" fill="none">
@@ -255,7 +255,7 @@
                             <img src="{{ asset('images/strategy-first-foundation.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
-                            <h3 class="text-start">Strategy-First <br> Foundation</h3>
+                            <h3 class="text-start mb-2">Strategy-First <br> Foundation</h3>
                             <p class="text-start">
                                 No generic service bundles we start with deep analysis and real objectives.
                             </p>
@@ -268,7 +268,7 @@
                             <img src="{{ asset('images/custom-systems.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
-                            <h3 class="text-start">Custom Systems, Not <br> Templates</h3>
+                            <h3 class="text-start mb-2">Custom Systems, Not <br> Templates</h3>
                             <p class="text-start">
                                 No generic service bundles we start with deep analysis and real objectives.
                             </p>
@@ -281,7 +281,7 @@
                             <img src="{{ asset('images/transpraency-from-day-one.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
-                            <h3 class="text-start">Transparency From <br> Day One</h3>
+                            <h3 class="text-start mb-2">Transparency From <br> Day One</h3>
                             <p class="text-start">
                                 No generic service bundles we start with deep analysis and real objectives.
                             </p>
@@ -294,7 +294,7 @@
                             <img src="{{ asset('images/build-to-scale-with-you.svg') }}" alt="Strategy First Foundation">
                         </div>
                         <div class="inner-column-second">
-                            <h3 class="text-start">Built to Scale <br> With You</h3>
+                            <h3 class="text-start mb-2">Built to Scale <br> With You</h3>
                             <p class="text-start">
                                 No generic service bundles we start with deep analysis and real objectives.
                             </p>
@@ -433,18 +433,18 @@
 
     <!-- Homepage - Ready To build -->
     <section class="devx__home-ready">
-        <div class="container">
-            <div class="row devx__bottom-section d-flex align-items-center justify-content-center">
-                <div class="col-lg-7 d-flex align-items-start justify-content-center">
-                    <div class="inner-col d-flex flex-column align-items-start justify-content-center">
-                        <h2 class="devx__color-primary">Ready to Build Your <br> Growth Engine?</h2>
+        <div class="container px-0">
+            <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
+                <div class="col d-flex align-items-start justify-content-center flex-column">
+                    <!-- <div class="inner-col d-flex flex-column align-items-start justify-content-center"> -->
+                        <h2 class="mb-2 devx__color-primary">Ready to Build Your <br> Growth Engine?</h2>
                         <p class="text-start">
                             We don’t sell random services. We build systems designed to grow with you powered by AI, personalization,and strategy.
                         </p>
                         <button class="devx__btn-primary">Let’s Build It Together</button>
-                    </div>
+                    <!-- </div> -->
                 </div>
-                <div class="col-lg-5 d-flex align-items-center justify-content-center">
+                <div class="col d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
                 </div>
             </div>

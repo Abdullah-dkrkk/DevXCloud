@@ -251,14 +251,14 @@
             gap: 8px;
         }
      </style>
-    <footer>
-        <div class="upper-container container">
+    <footer class="">
+        <div class="upper-container container mb-5">
             <div class="row">
                 <div class="col-lg-3 first-column">
                     <p class="text-start first-col-p">DevXcloud is a powerful Performance <br> Management Software for Employees <br> and a cloud-based HR Platform</p>
                     <div class="privacy-terms-wrapper d-flex align-items-center justify-content-between">
-                        <a href="javascript:void(0);" class="privacy">Privacy Policy</a>
-                        <a href="javascript:void(0);" class="terms">Terms & Conditions</a>
+                        <a href="javascript:void(0);" class="privacy px-1">Privacy Policy</a>
+                        <a href="javascript:void(0);" class="terms px-1">Terms & Conditions</a>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-1">
@@ -300,7 +300,7 @@
         </div>
         <hr class="container text-white">
         <div class="container lower-container d-flex align-items-center justify-content-between">
-            <p>© 2023 gulfHR. &nbsp;&nbsp; All rights reserved.</p>
+            <p class="text-white mb-0">© 2023 gulfHR. &nbsp;&nbsp; All rights reserved.</p>
             <div class="social-buttons-wrapper d-flex align-items-center justify-content-end">
                 <button class="social-button">Facebook</button>
                 <button class="social-button">Twitter</button>
@@ -325,17 +325,20 @@
             jQuery('.trusted-carousel').owlCarousel({
                 loop:true,
                 margin:24,
-                nav:true,
+                nav:false,
                 autoplay: true,
                 autoplayTimeout: 1500,
                 responsive:{
                     0:{
-                        items:1
+                        items:2
                     },
                     600:{
                         items:3
                     },
                     1000:{
+                        items:5
+                    },
+                    1200:{
                         items:7
                     }
                 }
