@@ -1,0 +1,294 @@
+/*
+|------------------------------
+| COMMERCE AI - HERO SECTION
+|------------------------------
+*/
+
+.devx__commerce-hero-section {
+    margin-top: -80px !important;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 180px;
+    padding-bottom: 120px;
+    background: linear-gradient(
+        180deg,
+        #0f1e46 0%,
+        #122a66 35%,
+        #143b85 50%,
+        #143b85 55%,
+        #122a66 80%,
+        #0f1e46 100%
+    );
+
+
+}
+.devx__commerce-hero-section video {
+    margin-top: 35px;
+    margin-bottom: 50px;
+    border-radius: 10px !important;
+}
+
+
+/*
+|---------------------------------------
+| COMMERCE AI - COMMERCE AI TURNS
+|---------------------------------------
+*/
+
+.devx__commerce-ai-turns {
+    display: flex;
+    padding-top: 46px;
+    padding-bottom: 46px;
+    background: linear-gradient(
+        180deg,
+        #0f1e46 0%,
+        #122a66 35%,
+        #143b85 50%,
+        #143b85 55%,
+        #122a66 80%,
+        #0f1e46 100%
+    );
+    align-items: center;
+}
+/* .devx__commerce-ai-turns h2 {
+    font-weight: 700;
+    margin-bottom: 40px;
+    font-size: 40px;
+    color:white;
+    line-height: 80px;
+} */
+.devx__commerce-ai-turns p {
+    /* color:white;
+    font-size: 16px; */
+    max-width:960px;
+    /* margin-bottom: 70px;
+    line-height: 30px; */
+}
+.devx__commerce-ai-turns .cards-wrapper {
+    max-width:1115px;
+    /* gap:30px; */
+}
+.devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper {
+    border-radius: 20px;
+    padding: 30px 40px 40px 40px;
+    background:transparent;
+    position:relative;
+}
+.devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #00f0ff, #8a2be2);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+/* .devx__commerce-ai-turns .cards-wrapper .header h4 {
+    color:white;
+    font-size: 20px;
+    line-height: 30px;
+} */
+.devx__commerce-ai-turns .cards-wrapper .header{ gap: 20px; }
+.devx__commerce-ai-turns .cards-wrapper .content{ margin-top: 12px; }
+
+
+/*
+|---------------------------------------
+| COMMERCE AI - INSIDE THE COMMERCE
+|---------------------------------------
+*/
+.devx__commerce-inside-commerce-ai-banner {
+    padding-top: 46px;
+    position:relative;
+    padding-bottom: 280px;
+    margin-top: -2px;
+    background: linear-gradient(
+        180deg,
+        #0f1e46 0%,
+        #122a66 35%,
+        #143b85 50%,
+        #143b85 55%,
+        #122a66 80%,
+        #0f1e46 100%
+    );
+}
+.devx__commerce-inside-commerce-ai-banner::after
+{
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    clip-path: ellipse(55% 80% at 50% 100%);
+    background: white;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-the-commerce-text {
+    max-width: 960px;
+}
+/* .devx__commerce-inside-commerce-ai-banner .inside-the-commerce-heading {
+    font-weight: 700; font-size: 40px; color:#fff; line-height: 50px; margin-bottom: 20px !important;   
+} */
+.devx__commerce-inside-commerce-ai-banner .inside-section-row{
+    max-width: 1480px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 18px;
+    align-items:stretch;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col {
+    padding-right: 0px;
+    padding-left: 0px;
+    height:auto;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #00f0ff, #8a2be2);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper {
+    min-height: 100%;
+    position:relative;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper img {
+    height: 70px;
+    width: 70px;
+    margin-bottom: 30px;
+}
+/* .devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper h3 
+{
+    margin-bottom: 24px;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 38px;
+    letter-spacing: 0%;
+    text-align: center;
+    color:white;
+} */
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper p
+{
+    color:white;
+    margin-bottom: 0px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 23px;
+    letter-spacing: 0%;
+    text-align: center;
+}
+.devx__commerce-inside-commerce-ai-banner .inside-section-row .col .inner-wrapper {
+    background: transparent;
+    padding: 60px 24px;
+    border-radius: 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+
+/*
+|--------------------------------------------------
+| COMMERCE AI - WHAT MAKES COMMMERCE AI DIFFERENT
+|--------------------------------------------------
+*/
+
+.inner-bg-holder {
+    background: url("../images/commerce-ai/what-makes-difference.png") no-repeat center center;
+    background-size:cover;
+    padding-top: 20px;
+    padding-bottom: 200px;
+    border-bottom-left-radius: 100% 50%;
+    border-bottom-right-radius: 100% 50%;
+}
+/* .devx__commerce-what-makes-difference .what-makes-difference-heading {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 38px;
+    line-height: 80px;
+    letter-spacing: 0%;
+    text-align: center;
+    color:var(--theme-primary);
+} */
+.devx__commerce-what-makes-difference .what-makes-difference-text {
+    max-width: 960px;
+    /* font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0%;
+    margin:auto;
+    text-align: center; */
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper {
+    display:grid;
+    max-width: 1300px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 33px;
+    margin:auto;
+    margin-top: 40px;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col {
+    padding: 50px 24px 40px 24px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    align-items:start;
+    background:white;
+    border-radius: 20px;
+    justify-content:center;
+    border-radius: 20px;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col::before {
+    content:'';
+    position:absolute;
+    display:flex;
+    min-width: 100%;
+    left: 0px;
+    top: 0px;
+    min-height: 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    align-items:center;
+    justify-content:center;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col.orange::before{
+    background: #FF6A3D;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col.skyblue::before{
+    background: #00E1E0;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col.green::before{
+    background: #3CD07B;
+}
+.devx__commerce-what-makes-difference .row.difference-cards-wrapper .col.blue::before{
+    background: #0176D3;
+}
+/* .devx__commerce-what-makes-difference .row.difference-cards-wrapper .col h3 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    letter-spacing: 0%;
+    color: var(--theme-primary);
+} */
+/* .devx__commerce-what-makes-difference .row.difference-cards-wrapper .col p {
+    font-weight: 500;
+    margin-bottom: 0px;
+    font-style: Medium;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: 0%;
+} */
