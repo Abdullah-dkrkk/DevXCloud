@@ -9,7 +9,7 @@
         <section class="devx__commerce-hero-section">
             <div class="container">
                 <div class="row px-0">
-                    <div class="col-lg-6 d-flex flex-column align-items-start justify-content-center content-section">
+                    <div class="col-lg-6 px-0 d-flex flex-column align-items-start justify-content-center content-section">
                         <h1 class="mb-0 text-white">Custom-Built AI Growth <br> Engine for eCommerce</h1>
                         <p class="text-white">
                             CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
@@ -87,8 +87,8 @@
             <div class="container">
                 <div class="row px-0">
                     <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center text-center">
-                        <h2 class="mb-0 mt-3 text-white">Inside the CommerceAI Growth Engine</h2>
-                        <p class="mt-2 mb-5 inside-the-commerce-text text-white">
+                        <h2 class="mb-0 mt-sm-3 mt-4 text-white">Inside the CommerceAI Growth Engine</h2>
+                        <p class="mt-2 mb-sm-5 mb-4 inside-the-commerce-text text-white">
                             Explore the 5-phase system designed to help your eCommerce store grow smarter — through strategic personalization, AI automation, and scalable execution.
                         </p>
                     </div>
@@ -148,19 +148,19 @@
     <section class="devx__commerce-what-makes-difference inner-bg-holder">
         <div class="row difference-cards-wrapper">
             <div class="col orange">
-                <h3 class="mb-2">Strategy Before Systems</h3>
+                <h3 class="mb-2">Strategy <br> Before Systems</h3>
                 <p class="mb-0">Unlike agencies with a menu of random services, we build your growth engine around one thing: your unique brand strategy.</p>
             </div>
             <div class="col skyblue">
-                <h3 class="mb-2">Custom AI Over Templates</h3>
+                <h3 class="mb-2">Custom AI <br> Over Templates</h3>
                 <p class="mb-0">No templates. No one-size-fits-all playbooks. Every automation is built around your actual store and customers.</p>
             </div>
             <div class="col green">
-                <h3 class="mb-2">Retention Over Random Clicks</h3>
+                <h3 class="mb-2">Retention Over <br> Random Clicks</h3>
                 <p class="mb-0">Others focus on clicks. We engineer flows, offers, and bundles to keep customers coming back automatically.</p>
             </div>
             <div class="col blue">
-                <h3 class="mb-2">Execution Without the Guesswork</h3>
+                <h3 class="mb-2">Execution Without <br> the Guesswork</h3>
                 <p class="mb-0">No dashboards to learn. No freelancers to juggle. We run the full engine so you can run your business.</p>
             </div>
         </div>
@@ -169,84 +169,9 @@
 
 
     <!-- engine stack section starts from here -->
-    <style>
-        section.engine-stack {
-            background-image: url("{{ asset('images/commerce-ai/engine-stack.png') }}");
-            background-repeat:no-repeat;
-            background-size:cover;
-            background-position:start;
-            padding-top: 100px;
-            padding-bottom: 260px;
-        }
-        section.engine-stack .theme__btn{ 
-            font-family: "Montserrat", sans-serif;
-            border-radius: 8px;
-            background: #EB8025 !important;
-            text-transform:uppercase;
-            letter-spacing: 0.3px !important;
-            font-weight: 600;
-        }
-        section.engine-stack .engine-stack-first-row  p {
-            margin-bottom: 0px;
-        }
-        section.engine-stack .engine-stack-first-row {
-            padding-bottom: 60px;
-        }
-        section.engine-stack .actual-grid .col img{
-            margin-bottom: 20px;
-        }
-        section.engine-stack .actual-grid .col h3{
-            margin-bottom: 20px;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 36px;
-            letter-spacing: 0%;
-        }
-        section.engine-stack .actual-grid .col p{
-            font-weight: 500;
-            font-style: Medium;
-            font-size: 16px;
-            line-height: 26px;
-            letter-spacing: 0%;
-        }
-        section.engine-stack .actual-grid .col {
-            padding:40px;
-            background:white;
-            border-radius: 20px;
-            box-shadow: 0px 0px 30px 0px #00000021;
-            border: 1px solid #00000033
-        }
-        section.engine-stack .actual-grid {
-            display:grid;
-            grid-template-columns:repeat(4, 1fr);
-            grid-template-rows: repeat(2, auto);
-            grid-gap: 16px;
-            max-width: 1400px;
-        }
-        section.engine-stack a:hover {
-            opacity: 0.8;
-        }
-        section.engine-stack a{
-            font-family:'Nunito-Regular';
-            background: #FFBD2F;
-            padding: 18px 26px;
-            text-decoration:none;
-            color:white;
-            letter-spacing: 0.2px;
-            font-size: 16px;
-            border-radius: 12px;
-            transition:0.3s;
-            width:fit-content;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            margin-top: 80px;
-        }
-    </style>
-    <!-- engine stack section ends here -->
-    <section class="engine-stack">
+    <section class="devx__commerce-engine-stack">
         <div class="container">
-            <div class="row engine-stack-first-row d-flex align-items-center justify-content-center text-center">
+            <div class="row engine-stack-first-row mb-0 d-flex align-items-center justify-content-center text-center">
                 <div class="col-lg-12 flex-column d-flex align-items-center justify-content-center text-center">
                     <h2 class="mb-3">Explore the CommerceAI Growth Engine Stack</h2>
                     <p>See how CommerceAI powers your store’s growth with strategy, automation, and real-time insight.</p>
@@ -300,75 +225,15 @@
             </div>
         </div>
     </section>
+    <!-- engine stack section ends here -->
 
 
     <!-- strategy section starts from here -->
-    <style>
-        section.strategy-section {
-            padding-top: 100px;
-            padding-bottom: 100px;
-        }
-        section.strategy-section p.main-text {
-            margin-bottom: 40px;
-        }
-        section.strategy-section h2{
-            font-weight: 700;
-            font-style: Bold;
-            font-size: 45px;
-            line-height: 80px;
-            letter-spacing: 0%;
-            text-align: center;
-        }
-        section.strategy-section .strategy-grid {
-            display:grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 20px;
-            margin:auto;
-            max-width: 1300px;
-        }
-        section.strategy-section .strategy-grid .col img {
-            min-width: 100%;
-            margin-bottom: 16px;
-            max-height: 228px;
-            border-radius: 20px;
-        }
-        section.strategy-section .strategy-grid .col span.step {
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 18px;
-            line-height: 30px;
-            letter-spacing: 0%;
-        }
-        section.strategy-section .strategy-grid .col h3 {
-            margin-bottom: 16px;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 34px;
-            letter-spacing: 0%;
-        }
-        section.strategy-section .strategy-grid .col p {
-            margin-bottom: 0px;
-            font-weight: 500;
-            font-style: Medium;
-            font-size: 16px;
-            line-height: 26px;
-            letter-spacing: 0%;
-        }
-        section.strategy-section .strategy-grid .col {
-            padding: 24px 30px;
-            display:flex;
-            flex-direction:column; 
-            border-radius:20px;
-            align-items:start;
-            box-shadow: 0px 0px 30px 0px #0000001A;
-            justify-content:center;
-        }
-    </style>
-    <section class="strategy-section">
+    <section class="devx__commerce-strategy-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column mx-auto align-items-center justify-content-center">
-                    <h2>How We Turn Strategy into Scalable Growth</h2>
+                    <h2 class="mb-2">How We Turn Strategy into Scalable Growth</h2>
                     <p class="main-text">Every step is built to uncover, activate, and scale your brand’s growth potential.</p>
                 </div>
             </div>
@@ -403,81 +268,11 @@
     <!-- strategy section ends here -->
 
     <!-- faq section starts from here -->
-    <style>
-        section.faq-section {
-            padding-bottom: 40px;
-            background: #ffffff;
-        }
-        section.faq-section .accordion-body {
-            line-height: 32px;
-        }
-        section.faq-section h2.main-heading{
-            font-weight: 700;
-            font-style: Bold;
-            font-size: 38px;
-            line-height: 60px;
-            letter-spacing: 0%;
-            margin-bottom: 40px;
-            padding-top: 50px;
-            text-align:center;
-        }
-        section.faq-section .accordion .accordion-item:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        section.faq-section .accordion-button::after {
-            transform:scale(0.8);
-        }
-        section.faq-section .actual-faq-wrapper {
-            max-width: 850px;
-            margin:auto;
-            padding: 30px;
-            background:white;
-            border-radius: 20px;
-            border: 2px solid #00000026;
-        }
-        section.faq-section #accordionFlushExample {
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        section.faq-section .accordion-button[aria-expanded="true"] {
-            background:#F3F3F3 !important;
-            border-bottom: none !important;
-        }
-        section.faq-section .accordion-button:focus{
-            box-shadow:none !important;
-        }
-        section.faq-section .accordion-item {
-            border-bottom:none !important;
-        }
-        section.faq-section .accordion-body {
-            padding-top: 0px !important;
-        }
-        section.faq-section .accordion-button {
-            color: #0F2C4E;
-            font-weight: 600;
-            padding: 24px !important;
-            font-size: 20px;
-            line-height: 34px;
-            letter-spacing: 0%;
-            display:flex;
-            box-shadow:none !important;
-            border-top-right-radius: 16px !important;
-            border-top-left-radius: 16px !important;
-            align-items:center;
-            justify-content:start;
-            gap: 22px;
-        }
-        section.faq-section .accordion-collapse {
-            border-bottom-right-radius: 16px !important;
-            background:#F3F3F3 !important;
-            border-bottom-left-radius: 16px !important;
-        }
-    </style>
-    <section class="faq-section">
+    <section class="devx__commerce-faq-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="main-heading">FAQs About CommerceAI</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center">FAQs About CommerceAI</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -597,55 +392,19 @@
 
 
     <!-- growth section starts from here -->
-    <style>
-        section.last-banner {
-            /* padding-top: 80px;
-            padding-bottom: 80px; */
-            margin-bottom: 100px;
-        }
-        section.last-banner a:hover {
-            opacity: 0.8;
-        }
-        section.last-banner .theme__btn{
-            font-family: "Montserrat", sans-serif;
-            background: #0176D3;
-            padding: 18px 26px;
-            text-decoration:none;
-            color:white;
-            letter-spacing: 0.2px;
-            font-size: 16px;
-            border-radius: 12px;
-            outline:none;
-            border:none;
-            transition:0.3s;
-        }
-        /* section.last-banner p {
-            margin-bottom: 20px;
-            font-weight: 500;
-            font-style: Medium;
-            font-size: 18px;
-            line-height: 34px;
-            letter-spacing: 0%;
-        }
-        section.last-banner h3 {
-            font-weight: 600;
-            font-size: 48px;
-            line-height: 58px;
-            margin-bottom: 20px;
-            letter-spacing: 0%;
-        } */
-    </style>
-    <section class="last-banner">
-        <div class="container">
-            <div class="row bottom-section d-flex align-items-center justify-content-between">
-               <div class="col d-inline-flex align-items-start justify-content-center flex-column">
-                    <h3>Not sure which growth engine is right for you?</h3>
-                    <p class="text-center">We’ll help you choose the best system based on your business stage and goals.</p>
-                    <button class="theme__btn text-uppercase">Discover our Growth Engine</button>
-               </div>
-               <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
-               </div>
+    <section class="devx__home-ready">
+        <div class="container px-0">
+            <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
+                <div class="col d-flex align-items-start justify-content-center flex-column">
+                    <h2 class="mb-2 devx__color-primary">Not sure which growth <br> engine is right for you?</h2>
+                    <p class="text-start">
+                        We’ll help you choose the best system based on your business stage and goals.
+                    </p>
+                    <button class="devx__btn-primary">Discover our Growth Engine</button>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
+                </div>
             </div>
         </div>
     </section>

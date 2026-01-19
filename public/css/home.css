@@ -337,7 +337,7 @@
         justify-content:start;
     }
 }
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .devx__home-hero-section {
         padding-bottom: 60px !important;
         padding-top: 60px !important;
@@ -417,7 +417,7 @@
         display:flex !important;
     }
 }
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .devx__home-explore-growth-engine h2,
     .devx__home-explore-growth-engine h2 + p {
         max-width: 800px !important;
@@ -523,7 +523,7 @@
 
 /* HOMEPAGE - WHY FOUNDER'S TRUST MEDIA QUERIES */
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .devx__home-why-founders .cards-wrapper .col-lg-6 {
         margin-bottom: 1.5rem !important;
     }
@@ -557,7 +557,7 @@
 
 
 /* HOMEPAGE - TRUSTED CAROUSEL MEDIA QUERIES */
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .devx__home-trusted-platforms {
         padding-top: 46px !important;
         padding-bottom: 46px !important;
@@ -607,7 +607,7 @@
 
 
 /* HOMEPAGE - BOTTOM BANNER SECTION MEDIA QUERIES */
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
     .devx__bottom-section h2 br,
     .devx__bottom-section h2 + p br {
         display:none !important;
