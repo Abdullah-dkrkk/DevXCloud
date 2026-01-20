@@ -1,115 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Hero Section -->
-    <style>
-        section.launch-hero-section .row {
-            padding-right: 16px;
-            padding-left: 16px;
-        }   
-        section.launch-hero-section .button-wrapper {
-            border:2px solid red;
-        }
-        section.launch-hero-section .col-lg-6 h1 + p {
-            margin-bottom: 24px;
-        }
-        section.launch-hero-section .col-lg-6 h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #0F2C4E;
-            margin-top: -20px;
-        }
-        section.launch-hero-section .col-lg-6 img {
-            max-width: 600px;
-            padding-top: 20px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper {
-            gap: 14px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button:hover {
-            opacity: 0.8;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button{
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.second-button{
-            border:2px solid #0F2C4E;
-            background:white;
-            color: #0F2C4E;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.first-button {
-            background: #FE6A10;
-            border: 1px solid #FE6A10;
-            color: #fff;
-        }
-    </style>
-    <section class="launch-hero-section">
+    <!-- launchpad ai - hero section -->
+    <section class="devx__launchpad-hero-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1>Custom-Built Launch <br> Engine for Early-Stage <br> Startups</h1>
+            <div class="row d-flex flex-lg-row flex-column-reverse">
+                <div class="col-lg-6 px-0 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
+                    <h1 class="mb-2 devx__color-primary">Custom-Built Launch <br> Engine for Early-Stage <br> Startups</h1>
                     <p>LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
-                    <div class="buttons-wrapper d-flex align-items-center justify-content-start">
-                        <button class="first-button">Build My Launch Plan</button>
-                        <button class="second-button">See How It Works</button>
+                    <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
+                        <button class="first-button text-white devx__btn-primary">Build My Launch Plan</button>
+                        <button class="second-button devx__btn-secondary bg-white">See How It Works</button>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/launchpad-ai/launchpad-ai-hero-image.png') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
     </section>
+    <!-- launchpad ai - hero section ends here -->
 
-    <!-- Build for Founders -->
-    <style>
-        section.build-for-founders{
-            padding-top: 80px;
-            padding-bottom: 80px;
-            background: #f7f7f7;
-        }
-        section.build-for-founders h2 {
-            font-size: 40px;
-            color: #0F2C4E;
-            margin-bottom: 20px;
-        }
-        section.build-for-founders h2 + p,
-        section.build-for-founders h2 + p + p {
-            margin-bottom: 20px;
-            line-height: 30px;
-            font-weight: 500;
-        }
-        section.build-for-founders .bff-cta-button:hover{
-            opacity: 0.8;
-        }
-        section.build-for-founders .first-wrapper {
-            margin-left: -150px;
-        }
-        section.build-for-founders .bff-cta-button{
-            padding: 14px 32px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            color: #fff;
-            border:none;
-            margin-top: 10px;
-            background: #0176D3;
-        }
-    </style>
-    <section class="build-for-founders">
+    <!-- launchpad ai - build for founders -->
+    <section class="devx__launchpad-build-for-founders">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
@@ -117,10 +30,10 @@
                         <img src="{{ asset('images/launchpad-ai/bff-main-img.png') }}" alt="Build For Founders Main Image" class="img-fluid">
                     </div>
                     <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
-                        <h2>Built for Founders Who Want <br> More Than Just a Website</h2>
+                        <h2 class="mb-lg-2 mb-3 devx__color-primary">Built for Founders Who Want <br> More Than Just a Website</h2>
                         <p>Startups don’t fail from lack of passion; they fail from launching <br> without a plan.</p>
                         <p>We help you map your brand, define your offer, and launch with <br> a strategy so you can grow with confidence from day one.</p>
-                        <button class="bff-cta-button">
+                        <button class="devx__btn-primary">
                             Let’s Build It
                         </button>
                     </div>  
@@ -128,90 +41,15 @@
             </div>
         </div>
     </section>
-
+    <!-- launchpad ai - build for founders section ends here -->
 
     <!-- Explore How LaunchPad AI turns -->
-    <style>
-        section.explore-how {
-            padding-top: 80px;
-            padding-bottom: 120px;
-        }
-        section.explore-how h2.main-heading {
-            color: #0F2C4E;
-            font-size: 40px;
-            text-align:center;
-            line-height: 54px;
-        }
-        section.explore-how p.main-para {
-            text-align:center;
-            margin-top: 20px;
-            margin-bottom: 60px;
-        }
-        section.explore-how .main-five-cards-wrapper {
-            padding-right: 16px;
-            padding-left: 16px;
-        }
-        section.explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(1),
-        section.explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(2),
-        section.explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(3) {
-            margin-bottom: 30px;
-        }
-        section.explore-how .main-five-cards-wrapper .row .col-lg-4 {
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper {
-            border-radius: 20px;
-            min-height: 240px;
-            box-shadow: 0px 0px 30px 0px #00000021;
-            min-width: 100%;
-            padding-left: 28px;
-            position:relative;
-            overflow:hidden;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper img {
-            position:relative;
-        }
-        section.explore-how .content-box h5 + p {
-            font-weight: 500;
-            line-height: 26px;
-        }
-        section.explore-how .content-box h5 {
-            font-size: 24px;
-            color: #0F2C4E;
-            line-height: 34px;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper::before {
-            content:'';
-            position:absolute;
-            height: 400px;
-            top: -82px;
-            left: -290px; 
-            width: 400px;
-            border-radius: 50%;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper.first::before {
-            background: #143C76;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper.second::before {
-            background: #FE6A10;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper.third::before {
-            background: #01A8B5;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper.fourth::before {
-            background: #037BC7;
-        }
-        section.explore-how .main-five-cards-wrapper .inner-wrapper.fifth::before {
-            background: #31D6DF;
-        }
-    </style>
-    <section class="explore-how">
+    <section class="devx__launchpad-explore-how">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
-                    <h2 class="main-heading">Explore How LaunchPadAI Turns Your Startup <br> into a Launch Machine</h2>
-                    <p class="main-para">LaunchPadAI uses a 5-phase blueprint to map your brand, build your core systems, plan <br> your strategy, and launch with confidence not guesswork.</p>
+                    <h2 class="devx__color-primary text-center">Explore How LaunchPadAI Turns Your Startup <br> into a Launch Machine</h2>
+                    <p class="mt-2 mb-sm-5 mb-4 pb-sm-0 pb-2 text-center">LaunchPadAI uses a 5-phase blueprint to map your brand, build your core systems, plan <br> your strategy, and launch with confidence not guesswork.</p>
                 </div>
             </div>
         </div>
@@ -221,8 +59,8 @@
                     <div class="inner-wrapper first d-flex align-items-center justify-content-start">
                         <img src="{{ asset('images/launchpad-ai/explore-how-first.svg') }}" alt="Explore How First" class="img-fluid">
                         <div class="content-box">
-                            <h5>Strategy & <br> Brand Foundation</h5>
-                            <p>Define your USP, audience, <br> and market position with <br> precision.</p>
+                            <h3>Strategy & <br> Brand Foundation</h3>
+                            <p class="mb-0">Define your USP, audience, <br> and market position with <br> precision.</p>
                         </div>
                     </div>
                 </div>
@@ -230,8 +68,8 @@
                     <div class="inner-wrapper second d-flex align-items-center justify-content-start">
                         <img src="{{ asset('images/launchpad-ai/explore-how-second.svg') }}" alt="Explore How Second" class="img-fluid">
                         <div class="content-box">
-                            <h5>Digital Build + <br> AI Automation</h5>
-                            <p>Create your website, <br> chatbot, and launch-ready <br> backend.</p>
+                            <h3>Digital Build + <br> AI Automation</h3>
+                            <p class="mb-0">Create your website, <br> chatbot, and launch-ready <br> backend.</p>
                         </div>
                     </div>
                 </div>
@@ -239,8 +77,8 @@
                     <div class="inner-wrapper third d-flex align-items-center justify-content-start">
                         <img src="{{ asset('images/launchpad-ai/explore-how-third.svg') }}" alt="Explore How Third" class="img-fluid">
                         <div class="content-box">
-                            <h5>Strategic <br> Launch Plan</h5>
-                            <p>Plan your funnel, messaging, <br> and multi-channel rollout.</p>
+                            <h3>Strategic <br> Launch Plan</h3>
+                            <p class="mb-0">Plan your funnel, messaging, <br> and multi-channel rollout.</p>
                         </div>
                     </div>
                 </div>
@@ -248,8 +86,8 @@
                     <div class="inner-wrapper fourth d-flex align-items-center justify-content-start">
                         <img src="{{ asset('images/launchpad-ai/explore-how-fourth.svg') }}" alt="Explore How Fourth" class="img-fluid">
                         <div class="content-box">
-                            <h5>Content & <br> Optimization</h5>
-                            <p>Craft founder-led content <br> and test for conversion.</p>
+                            <h3>Content & <br> Optimization</h3>
+                            <p class="mb-0">Craft founder-led content <br> and test for conversion.</p>
                         </div>
                     </div>
                 </div>
@@ -257,8 +95,8 @@
                     <div class="inner-wrapper fifth d-flex align-items-center justify-content-start">
                         <img src="{{ asset('images/launchpad-ai/explore-how-fifth.svg') }}" alt="Explore How Fifth" class="img-fluid">
                         <div class="content-box">
-                            <h5>Launch Dashboard <br> & Insights</h5>
-                            <p>Track performance and <br> scale with data-driven <br> clarity.</p>
+                            <h3>Launch Dashboard <br> & Insights</h3>
+                            <p class="mb-0">Track performance and <br> scale with data-driven <br> clarity.</p>
                         </div>
                     </div>
                 </div>
@@ -267,52 +105,13 @@
     </section>
 
     <!-- Startups -->
-    <style>
-        section.startups {
-            background: #f7f7f7;
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        section.startups h4 + p {
-            line-height: 26px;
-        }
-        section.startups h4 {
-            font-size: 38px;
-            line-height: 48px;
-            margin-bottom: 32px;
-            color: #0F2C4E;
-        }
-        section.startups .col-lg-12 {
-            gap: 100px;
-        }
-        section.startups .startups-cta-button {
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            background: #0176D3;
-            color:white;
-            border:none;
-            min-width: 100%;
-            margin-top: 20px;
-        }
-        section.startups .image-cta-wrapper img{
-            border:1px solid #d6d6d6;
-            border-radius: 12px;
-        }
-    </style>
-    <section class="startups">
+    <section class="devx__launchpad-startups">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                <div class="col-lg-12 px-0 d-flex align-items-center justify-content-center">
                     <div class="main-content-wrapper">
-                        <h4> Why Most Startups <br> Launch Blind</h4>
-                        <p>
+                        <h2 class="devx__color-primary">Why Most Startups <br> Launch Blind</h2>
+                        <p class="mt-2 mb-0">
                             Most founders believe launching is about having a great idea <br> and a decent-looking website.
                             <br><br>
                             But the truth? Launches fail not because of bad ideas, they <br> fail because there’s no system.
@@ -333,61 +132,12 @@
 
 
     <!-- Growth Engine Stack -->
-    <style>
-        section.growth-engine {
-            background-image: url("{{ asset('images/launchpad-ai/growth-engine-mask-img.png') }}");
-            background-repeat:no-repeat;
-            background-size:cover;
-            background-position:bottom;
-            padding-bottom: 300px;
-            padding-top: 100px;
-        }
-        section.growth-engine h2 {
-            font-size: 40px;
-            color:#ffffff;
-            margin-top: 20px;
-            margin-bottom: 24px;
-        }
-        section.growth-engine h2 + p.main-para {
-            text-align:center;
-            color: #ffffff;
-            line-height: 32px;
-            margin-bottom: 100px;
-        }
-        section.growth-engine .col-lg-3 {
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-        section.growth-engine .row.main-rows {
-            margin-bottom: 20px;
-        }
-        section.growth-engine .col-lg-3 .inner-wrapper h5  + p {
-            font-size: 15px;
-            line-height: 28px;
-        }
-        section.growth-engine .col-lg-3 .inner-wrapper h5 {
-            margin-top: 24px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            line-height: 32px;
-        }
-        section.growth-engine .col-lg-3 .inner-wrapper {
-            box-shadow: 0px 0px 30px 0px #00000021;
-            background:white;
-            border-radius: 20px;
-            min-height: 337px;
-            padding: 40px;
-            display:flex;
-            align-items:center;
-            justify-content:start;
-        }
-    </style>
-    <section class="growth-engine">
+    <section class="devx__launchpad-growth-engine">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2>Explore the LaunchPadAI Growth Engine Stack</h2>
-                    <p class="main-para">
+                    <h2 class="text-white text-center">Explore the LaunchPadAI Growth Engine Stack</h2>
+                    <p class="mt-2 mb-5 text-center text-white">
                         See how LaunchPadAI aligns strategy, automation, and data to engineer your <br> startup’s launch success.
                     </p>
                 </div>
@@ -396,29 +146,29 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Brand & Persona <br> Mapping</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h3 class="my-3">Brand & Persona <br> Mapping</h3>
+                        <p>position your startup with a clear USP and defined customer avatar</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Launch Website <br> & AI Chatbot</h5>
-                        <p>position your startup with a clear <br> USP and defined customer avatar</p>
+                        <h3 class="my-3">Launch Website <br> & AI Chatbot</h3>
+                        <p>position your startup with a clear USP and defined customer avatar</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Funnel Planning + <br> Content Briefs</h5>
-                        <p>Strategize your offer flow and prep <br> creator-ready launch content.</p>
+                        <h3 class="my-3">Funnel Planning + <br> Content Briefs</h3>
+                        <p>Strategize your offer flow and prep creator-ready launch content.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Ads Launch <br> Blueprint</h5>
-                        <p>Get ad angles, targeting plans, and <br> rollout strategy done for you.</p>
+                        <h3 class="my-3">Ads Launch <br> Blueprint</h3>
+                        <p>Get ad angles, targeting plans, and rollout strategy done for you.</p>
                     </div>
                 </div>
             </div>
@@ -426,29 +176,29 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Predictive Launch <br> Metrics</h5>
+                        <h3 class="my-3">Predictive Launch <br> Metrics</h3>
                         <p>Track KPIs in real-time with custom dashboards and insights.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Conversion <br> A/B Testing</h5>
-                        <p>Optimize copy, CTAs, and layouts <br> for early traction.</p>
+                        <h3 class="my-3">Conversion <br> A/B Testing</h3>
+                        <p>Optimize copy, CTAs, and layouts for early traction and something.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Email & Retargeting <br> Flows</h5>
-                        <p>Implement automated follow-ups <br> and launch sequences.</p>
+                        <h3 class="my-3">Email & Retargeting <br> Flows</h3>
+                        <p>Implement automated follow-ups and launch sequences and something.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
-                        <h5>Strategic Growth <br> Consulting</h5>
-                        <p>Ongoing support to adapt and <br> grow post-launch.</p>
+                        <h3 class="my-3">Strategic Growth <br> Consulting</h3>
+                        <p>Ongoing support to adapt and grow post-launch and something.</p>
                     </div>
                 </div>
             </div>

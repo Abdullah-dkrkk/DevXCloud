@@ -1,0 +1,481 @@
+/*
+|------------------------------
+| LAUNCHPAD AI - HERO SECTION
+|------------------------------
+*/
+
+.devx__launchpad-hero-section .col-lg-6 img {
+    max-width: 600px;
+    padding-top: 20px;
+}
+.devx__launchpad-hero-section {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+.devx__launchpad-hero-section .col-lg-6 .button-wrapper button.second-button{
+    border:2px solid #0F2C4E;
+    color: #0F2C4E;
+}
+.devx__launchpad-hero-section .col-lg-6 .button-wrapper button.first-button {
+    background: #FE6A10;
+    border: 1px solid #FE6A10;
+}
+
+
+/*
+|------------------------------------
+| LAUNCHPAD AI - BUILD FOR FOUNDERS 
+|------------------------------------
+*/
+
+.devx__launchpad-build-for-founders {
+    padding-top: 46px;
+    padding-bottom: 46px;
+    background: #f7f7f7;
+}
+.devx__launchpad-build-for-founders .first-wrapper {
+    margin-left: -150px;
+}
+
+
+/*
+|------------------------------
+| LAUNCHPAD AI - EXPLORE HOW 
+|------------------------------
+*/
+
+.devx__launchpad-explore-how {
+    padding-top: 92px;
+    padding-bottom: 92px;
+}
+.devx__launchpad-explore-how .main-five-cards-wrapper {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(1),
+section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(2),
+section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4:nth-child(3) {
+    margin-bottom: 30px;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4 {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper {
+    border-radius: 20px;
+    min-height: 240px;
+    box-shadow: 0px 0px 30px 0px #00000021;
+    min-width: 100%;
+    padding-left: 28px;
+    position:relative;
+    overflow:hidden;
+}
+section.devx__launchpad-explore-how .content-box {
+    padding-right: 24px;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper img {
+    position:relative;
+}
+section.devx__launchpad-explore-how .content-box h3 {
+    color: var(--theme-primary);
+    margin-bottom: 4px;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper.first::before {
+    background: #143C76;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper.second::before {
+    background: #FE6A10;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper.third::before {
+    background: #01A8B5;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper.fourth::before {
+    background: #037BC7;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper.fifth::before {
+    background: #31D6DF;
+}
+section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::before {
+    content:'';
+    position:absolute;
+    height: 400px;
+    top: -82px;
+    left: -290px; 
+    width: 400px;
+    border-radius: 50%;
+}
+
+
+/*
+|------------------------------
+| LAUNCHPAD AI - STARTUPS 
+|------------------------------
+*/
+
+.devx__launchpad-startups {
+    background: #f7f7f7;
+    padding-top: 46px;
+    padding-bottom: 46px;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+/* .devx__launchpad-startups h4 + p {
+    line-height: 26px;
+} */
+.devx__launchpad-startups h4 {
+    /* font-size: 38px;
+    line-height: 48px;
+    margin-bottom: 32px;
+    color: #0F2C4E; */
+}
+.devx__launchpad-startups .col-lg-12 {
+    gap: 100px;
+}
+.devx__launchpad-startups .startups-cta-button {
+    padding: 14px 26px;
+    border-radius: 12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: 0.2s;
+    background: #0176D3;
+    color:white;
+    border:none;
+    min-width: 100%;
+    margin-top: 20px;
+}
+.devx__launchpad-startups .image-cta-wrapper img{
+    border:1px solid #d6d6d6;
+    border-radius: 12px;
+}
+
+
+/*
+|------------------------------
+| LAUNCHPAD AI - GROWTH ENGINE
+|------------------------------
+*/
+
+.devx__launchpad-growth-engine {
+    background-image: url("../images/launchpad-ai/growth-engine-mask-img.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:bottom;
+    padding-bottom: 300px;
+    padding-top: 92px;
+}
+.devx__launchpad-growth-engine .container .row + .row,
+.devx__launchpad-growth-engine .container .row + .row + .row {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.devx__launchpad-growth-engine h2 {
+    /* font-size: 40px;
+    color:#ffffff;
+    margin-top: 20px;
+    margin-bottom: 24px; */
+}
+.devx__launchpad-growth-engine h2 + p.main-para {
+    /* text-align:center;
+    color: #ffffff;
+    line-height: 32px;
+    margin-bottom: 100px; */
+}
+.devx__launchpad-growth-engine.col-lg-3 {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.devx__launchpad-growth-engine .row.main-rows {
+    margin-bottom: 24px;
+}
+.devx__launchpad-growth-engine .col-lg-3 .inner-wrapper h5  + p {
+    /* font-size: 15px;
+    line-height: 28px; */
+}
+.devx__launchpad-growth-engine .col-lg-3 .inner-wrapper h5 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 32px;
+}
+.devx__launchpad-growth-engine .col-lg-3 .inner-wrapper {
+    box-shadow: 0px 0px 30px 0px #00000021;
+    background:white;
+    border-radius: 20px;
+    min-height: 337px;
+    padding: 40px;
+    display:flex;
+    align-items:center;
+    justify-content:start;
+}
+
+/* media queries starts from here */
+
+@media only screen and (max-width: 1400px) {
+    .container {
+        min-width: 100%;
+    }
+}
+@media only screen and (max-width: 1330px) {
+    nav .theme__btn {
+        display:none;
+    }
+    .navbar-expand-xl .navbar-nav .nav-link {
+        text-wrap:nowrap;
+    }
+    body nav .nav-item span {
+        font-size: 12px;
+    }
+    nav.navbar-expand-xl .container {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .navbar-brand {
+        padding-left: 16px;
+    }
+    .navbar-toggler {
+        margin-right: 16px;
+    }
+}
+@media only screen and (max-width: 1330px) and (min-width: 1024px) {
+    .navbar-expand-xl .navbar-nav {
+        margin-right: 16px;
+    }
+}
+@media only screen and (max-width: 1201px) {
+    .navbar-expand-xl .navbar-nav li {
+        min-width: 100% !important;
+        padding-right: 16px !important;
+        padding-left: 16px !important;
+    }
+    .navbar-expand-xl .navbar-nav {
+        float:left;
+    }
+    .navbar-collapse{
+        margin-top: -10px;
+        background:white;   
+        padding-top: 12px;
+        padding-bottom: 24px;
+    }
+}
+
+
+/* launchpad ai - hero section media queries */
+
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-hero-section {
+        padding-bottom: 46px !important;
+        padding-top: 46px !important;
+        margin-top: 0px !important;
+    }
+    .devx__launchpad-hero-section .row {
+        display:flex;
+    }
+    .devx__launchpad-hero-section .row .col-lg-6:first-child h1 br,
+    .devx__launchpad-hero-section .row .col-lg-6:first-child p br {
+        display:none !important;
+    }
+    .devx__launchpad-hero-section .row .col-lg-6:first-child p {
+        text-align:center;
+    }
+    .devx__launchpad-hero-section .row .col-lg-6:first-child h1 {
+        min-width: 100% !important;
+        text-align:center;
+        margin-top: -12px;
+    }
+    .devx__launchpad-hero-section .col-lg-6 img {
+        padding-top: 0px;
+        margin-top: -40px;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-hero-section .button-wrapper button {
+        min-width: 100% !important;
+        text-align:center !important;
+    }
+    .devx__launchpad-hero-section .button-wrapper {
+        flex-direction:column;
+        min-width: 100% !important;
+    }
+    .devx__launchpad-hero-section .col-lg-6 img {
+        max-width: 100% !important;
+    }
+}
+
+
+/* launchpad ai - build for founders */
+
+@media only screen and (max-width: 1200px) {
+    .devx__launchpad-build-for-founders .first-wrapper {
+        margin-left: 0px !important;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-build-for-founders .col-lg-12 {
+        flex-direction: column;
+    }
+    .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper {
+        margin-top: 40px;
+        min-width: 100% !important;
+        align-items: center !important;
+        text-align: center;
+    }
+    .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper h2 br,
+    .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper h2 + p br,
+    .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper h2 + p + p br {
+        display:none !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper button {
+        min-width: 100% !important;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+}
+
+
+/* launchpad ai - explore how */
+
+@media only screen and (max-width: 1240px) {
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4.offset-2 {
+        margin-left: 0px !important;
+    }
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .row .col-lg-4 {
+        min-width: 100% !important;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .row {
+        display:grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding-right: 16px;
+        padding-left: 16px;
+        grid-gap: 24px;
+    }
+    section.devx__launchpad-explore-how .content-box h3 br,
+    section.devx__launchpad-explore-how .content-box h3 + p br {
+        display:none !important;
+    }
+}
+@media only screen and (max-width: 991px){
+    .devx__launchpad-explore-how {
+        padding-top: 46px !important;
+        padding-bottom: 46px !important;   
+    }
+}
+@media only screen and (max-width: 840px) {
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .row {
+        grid-template-columns: 1fr !important;
+        padding-right: 16px !important;
+        padding-left: 16px !important;
+    }
+}
+@media only screen and (max-width: 400px) {
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::before {
+        left: -340px !important;
+        top: -100px !important;
+    }
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper img {
+        height: 100px !important;
+        width: 100px !important;
+    }
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper {
+        padding-left: 0px !important;
+    }
+    section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper {
+        max-height: 200px !important;
+        min-height: 200px !important;
+    }
+}
+
+/* launchpad ai - startups media queries */
+
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-startups .main-content-wrapper,
+    .devx__launchpad-startups .image-cta-wrapper {
+       min-width: calc(50% - 16px);
+    }
+    .devx__launchpad-startups p br {
+        display:none !important;
+    }
+    .devx__launchpad-startups .col-lg-12 {
+        gap: 32px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-startups .col-lg-12 {
+        flex-direction: column-reverse;
+    }
+    .devx__launchpad-startups h2 br {
+        display:none !important;
+    }
+    .devx__launchpad-startups .image-cta-wrapper img {
+        min-width: 100%;
+    }
+    .devx__launchpad-startups .main-content-wrapper,
+    .devx__launchpad-startups .image-cta-wrapper {
+        min-width: 100%;
+    }
+}
+
+
+/* launchpad ai - growht engine media query */
+
+@media only screen and (max-width: 1340px) {
+    .devx__launchpad-growth-engine .container .row + .row,
+    .devx__launchpad-growth-engine .container .row + .row + .row {
+        display:grid !important;
+        grid-template-columns: repeat(2, 1fr); 
+        align-items:stretch !important;
+        grid-row-gap: 28px !important;
+    } 
+    .devx__launchpad-growth-engine .container .row + .row .col-lg-3,
+    .devx__launchpad-growth-engine .container .row + .row + .row .col-lg-3  {
+        min-width: 100% !important;
+    }
+    .devx__launchpad-growth-engine .container .row + .row .col-lg-3 .img-fluid {
+        margin-bottom: 10px !important;
+    }
+    .devx__launchpad-growth-engine .container .row + .row .col-lg-3 br {
+        display:none !important;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-growth-engine {
+        padding-top: 46px !important;
+    }
+    .devx__launchpad-growth-engine .container .row + .row,
+    .devx__launchpad-growth-engine .container .row + .row + .row {
+        grid-template-columns: 1fr; 
+        align-items:stretch !important;
+    } 
+    .devx__launchpad-growth-engine {
+        padding-bottom: 450px !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-growth-engine {
+        padding-bottom: 420px !important;
+    }
+    .devx__launchpad-growth-engine h2 + p br {
+        display:none;
+    }
+    .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper {
+        max-height:fit-content !important;
+        min-height:fit-content !important;
+        padding: 30px 20px !important;
+        align-items:center !important;
+    }
+    .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper h3,
+    .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper p {
+        text-align:center !important
+    }
+}

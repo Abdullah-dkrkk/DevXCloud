@@ -579,17 +579,17 @@
 
 /* commerce ai - hero section media queries */
 
-@media only screen and (max-width: 1097px)  and (min-width: 992px) {
-    .devx__home-hero-section .button-wrapper button {
+/* @media only screen and (max-width: 1097px)  and (min-width: 992px) {
+    .devx__commerce-hero-section .button-wrapper button {
         min-width: 100%;
         text-align:center !important;
     }
-    .devx__home-hero-section .button-wrapper {
+    .devx__commerce-hero-section .button-wrapper {
         flex-direction:column;
         align-items:start !important;
         justify-content:start;
     }
-}
+} */
 @media only screen and (max-width: 991px) {
     .devx__commerce-hero-section {
         padding-bottom: 60px !important;
