@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/launchpad-ai/launchpad-ai-hero-image.png') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
+                    <img src="{{ asset('images/launchpad-ai/launchpad-ai-hero-image.svg') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
                     <div class="first-wrapper">
-                        <img src="{{ asset('images/launchpad-ai/bff-main-img.png') }}" alt="Build For Founders Main Image" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/bff-main-img.svg') }}" alt="Build For Founders Main Image" class="img-fluid w-100">
                     </div>
                     <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
                         <h2 class="mb-lg-2 mb-3 devx__color-primary">Built for Founders Who Want <br> More Than Just a Website</h2>
@@ -122,7 +122,7 @@
                         </p>
                     </div>
                     <div class="image-cta-wrapper d-flex flex-column align-items-center justify-content-center">
-                        <img src="{{ asset('images/launchpad-ai/startups-main-img.png') }}" alt="Startups Main Image" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/startups-main-img.svg') }}" alt="Startups Main Image" class="img-fluid">
                         <button class="startups-cta-button">Plan Your Launch</button>
                     </div>
                 </div>
@@ -238,14 +238,14 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
-                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                    <img src="{{ asset('images/launchpad-ai/content-first.svg') }}" class="img-fluid">
                 </div>
             </div>
 
             <!-- second content card -->
             <div class="row content-row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
-                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                    <img src="{{ asset('images/launchpad-ai/content-second.svg') }}" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start">
                     <div class="card-content-wrapper">
@@ -292,7 +292,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
-                    <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
+                    <img src="{{ asset('images/launchpad-ai/content-third.svg') }}" class="img-fluid">
                 </div>
             </div>
         </div>

@@ -5,8 +5,9 @@
 */
 
 .devx__launchpad-hero-section .col-lg-6 img {
-    max-width: 600px;
-    padding-top: 20px;
+    max-width: 500px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 .devx__launchpad-hero-section {
     padding-right: 16px;
@@ -33,9 +34,12 @@
     padding-bottom: 46px;
     background: #f7f7f7;
 }
-.devx__launchpad-build-for-founders .first-wrapper {
-    margin-left: -150px;
+.devx__launchpad-build-for-founders .col-lg-12 {
+    gap: 100px;
 }
+/* .devx__launchpad-build-for-founders .first-wrapper {
+    margin-left: -150px;
+} */
 
 
 /*
@@ -147,10 +151,13 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     margin-top: 20px;
 }
 .devx__launchpad-startups .image-cta-wrapper img{
-    border:1px solid #d6d6d6;
+    /* border:1px solid #d6d6d6; */
     border-radius: 12px;
+    width: 350px;
 }
-
+.devx__launchpad-startups .main-content-wrapper {
+    padding-right: 24px;
+}
 
 /*
 |------------------------------
@@ -159,11 +166,11 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
 */
 
 .devx__launchpad-growth-engine {
-    background-image: url("../images/launchpad-ai/growth-engine-mask-img.png");
+    background-image: url("../images/launchpad-ai/growth-engine-mask-img-desktop.svg");
     background-repeat:no-repeat;
     background-size:cover;
     background-position:bottom;
-    padding-bottom: 300px;
+    padding-bottom: 92px;
     padding-top: 92px;
 }
 .devx__launchpad-growth-engine .container .row + .row,
@@ -218,6 +225,9 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
 |------------------------------
 */
 
+.devx__launchpad-traction {
+    padding-top: 92px;
+}
 .devx__launchpad-traction h2 {
     /* font-size: 40px;
     color: #0F2C4E;
@@ -418,7 +428,7 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
         margin-top: -12px;
     }
     .devx__launchpad-hero-section .col-lg-6 img {
-        padding-top: 0px;
+        padding-top: 40px;
         margin-top: -40px;
     }
 }
@@ -447,6 +457,7 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
 @media only screen and (max-width: 991px) {
     .devx__launchpad-build-for-founders .col-lg-12 {
         flex-direction: column;
+        gap: 0px;
     }
     .devx__launchpad-build-for-founders .col-lg-12 .second-wrapper {
         margin-top: 40px;
@@ -549,6 +560,8 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     }
     .devx__launchpad-startups .image-cta-wrapper img {
         min-width: 100%;
+        max-width: 100%;
+        width: 100%;
     }
     .devx__launchpad-startups .main-content-wrapper,
     .devx__launchpad-startups .image-cta-wrapper {
@@ -589,13 +602,13 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
         align-items:stretch !important;
     } 
     .devx__launchpad-growth-engine {
-        padding-bottom: 450px !important;
+        padding-bottom: 46px !important;
     }
 }
 
 @media only screen and (max-width: 576px) {
     .devx__launchpad-growth-engine {
-        padding-bottom: 420px !important;
+        padding-bottom: 46px !important;
     }
     .devx__launchpad-growth-engine h2 + p br {
         display:none;
@@ -610,21 +623,24 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper p {
         text-align:center !important
     }
+    .devx__launchpad-growth-engine {
+        background-image: url("../images/launchpad-ai/growth-engine-mask-img-mobile.svg");
+    }
 }
 
 
 /* launchpad ai - traction media queries */
 
 @media only screen and (max-width: 1340px) {
-    .devx__launchpad-traction {
+    /* .devx__launchpad-traction {
         margin-top: -72px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 991px) {
-    .devx__launchpad-traction {
+    /* .devx__launchpad-traction {
         margin-top: -250px;
-    }
+    } */
     .devx__launchpad-traction .row.content-row .col-lg-6 .card-content-wrapper h2 br,
     .devx__launchpad-traction .row.content-row .col-lg-6 .card-content-wrapper p br {
         display:none !important;
@@ -643,9 +659,9 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
 }
 
 @media only screen and (max-width: 400px) {
-    .devx__launchpad-traction {
+    /* .devx__launchpad-traction {
         margin-top: -270px;
-    }
+    } */
 }
 
 

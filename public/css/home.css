@@ -188,7 +188,7 @@
 
 .devx__home-why-founders {
     background: #f7f7f7;
-    background-image: url("../images/why-founder-trust-bg.jpg");
+    background-image: url("../images/why-founder-trust-bg-desktop.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -378,6 +378,9 @@
         flex-direction:column;
         min-width: 100% !important;
     }
+    .devx__home-hero-section {
+        background: url("../illustrations/i-hero-section-mobile.svg");
+    }
 }
 
 /* HOMEPAGE - EXPLORE GROWTH ENGINE SPECIFIC */
@@ -552,6 +555,9 @@
     }
     .devx__home-why-founders {
         padding-bottom: 100px !important;
+    }
+    .devx__home-why-founders{
+        background-image: url("../images/why-founder-trust-bg-mobile.svg");
     }
 }
 

@@ -209,12 +209,13 @@
 */
 
 .inner-bg-holder {
-    background: url("../images/commerce-ai/what-makes-difference.png") no-repeat center center;
-    background-size:cover;
+    /* background: url("../images/commerce-ai/what-makes-difference.png") no-repeat center center; */
+    /* background: linear-gradient(to top, #a8d0e6, #ffffff); */
+    background-image: linear-gradient(to bottom, #ffffff, #f4f5fb, #e6ebf7, #d6e2f3, #c4daee, #c4daee, #c4daee, #c4daee, #d6e2f3, #e6ebf7, #f4f5fb, #ffffff);
     padding-top: 20px;
     padding-bottom: 200px;
-    border-bottom-left-radius: 100% 50%;
-    border-bottom-right-radius: 100% 50%;
+    /* border-bottom-left-radius: 100% 50%;
+    border-bottom-right-radius: 100% 50%; */
 }
 /* .devx__commerce-what-makes-difference .what-makes-difference-heading {
     font-weight: 700;
@@ -305,10 +306,10 @@
 */
 
 .devx__commerce-engine-stack {
-    background-image: url("../images/commerce-ai/engine-stack.png");
+    background-image: url("../images/commerce-ai/engine-stack-desktop.svg");
     background-repeat:no-repeat;
     background-size:cover;
-    background-position:start;
+    background-position:bottom;
     padding-top: 92px;
     padding-bottom: 160px;
 }
@@ -721,8 +722,8 @@
         grid-template-columns: repeat(2, 1fr);
     }
     .devx__commerce-what-makes-difference.inner-bg-holder {
-        border-bottom-left-radius: 100% 26%;
-        border-bottom-right-radius: 100% 26%;
+        /* border-bottom-left-radius: 100% 26%;
+        border-bottom-right-radius: 100% 26%; */
     }
     .devx__commerce-what-makes-difference h2 {
         margin-top: -30px;
@@ -737,8 +738,8 @@
         position:relative;
     }
     .devx__commerce-what-makes-difference.inner-bg-holder {
-        border-bottom-left-radius: 100% 10%;
-        border-bottom-right-radius: 100% 10%;
+        /* border-bottom-left-radius: 100% 10%;
+        border-bottom-right-radius: 100% 10%; */
         padding-bottom: 140px !important;
     }
     .devx__commerce-what-makes-difference .row.difference-cards-wrapper{
@@ -747,8 +748,8 @@
 }
 @media only screen and (max-width: 400px) {
     .devx__commerce-what-makes-difference.inner-bg-holder {
-        border-bottom-left-radius: 100% 5%;
-        border-bottom-right-radius: 100% 5%;
+        /* border-bottom-left-radius: 100% 5%;
+        border-bottom-right-radius: 100% 5%; */
         padding-bottom: 100px !important;
     }
 }
@@ -778,6 +779,9 @@
     }
     .devx__commerce-engine-stack a {
         margin-top: 60px;
+    }
+    .devx__commerce-engine-stack {
+        background-image: url("../images/commerce-ai/engine-stack-mobile.svg");
     }
 }
 

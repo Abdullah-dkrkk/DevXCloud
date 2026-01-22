@@ -241,7 +241,7 @@
                 <div class="col">
                     <img src="{{ asset('illustrations/i-step-1.svg') }}">
                     <span class="step">Step 1</span>
-                    <h3>Growth Discovery Call</h3>
+                    <h3>Growth <br> Discovery Call</h3>
                     <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
                 </div>
                 <div class="col">
@@ -260,7 +260,7 @@
                     <img src="{{ asset('illustrations/i-step-4.svg') }}">
                     <span class="step">Step 4</span>
                     <h3>Weekly Optimization + Reporting</h3>
-                    <p>Every week, we test, review, and improve refining campaigns, updating dashboards, and helping you scale smarter with data.</p>
+                    <p>Every week, we test, review, and improve refining campaigns, updating dashboards, and helping you scale smarter with data and other metrics.</p>
                 </div>
             </div>
         </div>
