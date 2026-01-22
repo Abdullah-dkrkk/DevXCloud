@@ -211,6 +211,138 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     justify-content:start;
 }
 
+
+/*
+|------------------------------
+| LAUNCHPAD AI - TRACTION
+|------------------------------
+*/
+
+.devx__launchpad-traction h2 {
+    /* font-size: 40px;
+    color: #0F2C4E;
+    margin-top: 20px;
+    margin-bottom: 16px; */
+}
+.devx__launchpad-traction .main-para {
+    /* text-align:center;
+    line-height: 32px; */
+}
+.devx__launchpad-traction .content-row {
+    padding-top: 60px;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-bottom: 60px;
+}
+/* .devx__launchpad-traction h4 {
+    font-size: 30px;
+    line-height: 44px;
+} */
+
+
+/*
+|------------------------------
+| LAUNCHPAD AI - FAQ SECTION
+|------------------------------
+*/
+
+.devx__launchpad-faq-section {
+    padding-bottom: 46px;
+    padding-top: 46px;
+    background: var(--theme-white);
+}
+.devx__launchpad-faq-section .accordion-body {
+    line-height: 32px;
+}
+.devx__launchpad-faq-section h2.main-heading{
+    /* font-weight: 700;
+    font-style: Bold;
+    font-size: 38px;
+    line-height: 60px;
+    letter-spacing: 0%;
+    margin-bottom: 40px;
+    padding-top: 50px;
+    text-align:center; */
+}
+.devx__launchpad-faq-section .accordion .accordion-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+.devx__launchpad-faq-section .accordion-button::after {
+    transform:scale(0.8);
+}
+.devx__launchpad-faq-section .actual-faq-wrapper {
+    max-width: 850px;
+    margin:auto;
+    padding: 30px;
+    background:white;
+    border-radius: 20px;
+    border: 2px solid #00000026;
+}
+.devx__launchpad-faq-section #accordionFlushExample {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.devx__launchpad-faq-section .accordion-button[aria-expanded="true"] {
+    background:#F3F3F3 !important;
+    border-bottom: none !important;
+}
+.devx__launchpad-faq-section .accordion-button:focus{
+    box-shadow:none !important;
+}
+.devx__launchpad-faq-section .accordion-item {
+    border-bottom:none !important;
+}
+.devx__launchpad-faq-section .accordion-body {
+    padding-top: 0px !important;
+}
+.devx__launchpad-faq-section .accordion-button {
+    color: var(--theme-primary);
+    font-weight: 600;
+    padding: 24px !important;
+    font-size: clamp(16px, 1.2vw + 8px, 20px);
+    line-height: 1.4;
+    letter-spacing: 0%;
+    display:flex;
+    box-shadow:none !important;
+    border-top-right-radius: 16px !important;
+    border-top-left-radius: 16px !important;
+    align-items:center;
+    justify-content:start;
+    gap: 22px;
+}
+.devx__launchpad-faq-section .accordion-collapse {
+    border-bottom-right-radius: 16px !important;
+    background:#F3F3F3 !important;
+    border-bottom-left-radius: 16px !important;
+}
+
+
+/*
+|-----------------------------------------
+| LAUNCHPAD AI - READY TO LAUNCH SMARTER
+|-----------------------------------------
+*/
+
+.devx__bottom-section {
+    margin-top: 46px;
+    margin-bottom: 92px;
+    max-width: 1100px !important;
+    width: calc(100% - 32px);
+    border-radius: 16px;
+    padding: 40px 60px;
+    box-shadow: 0px 0px 30px #d6d6d694;
+    min-height: 300px;
+    max-height: fit-content;
+    margin-right:auto;
+    margin-left: auto;
+}
+.devx__bottom-section img {
+    height: 350px;
+    width: 360px;
+    transform: scale(1.1);
+}
+
+
 /* media queries starts from here */
 
 @media only screen and (max-width: 1400px) {
@@ -477,5 +609,106 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper h3,
     .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper p {
         text-align:center !important
+    }
+}
+
+
+/* launchpad ai - traction media queries */
+
+@media only screen and (max-width: 1340px) {
+    .devx__launchpad-traction {
+        margin-top: -72px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-traction {
+        margin-top: -250px;
+    }
+    .devx__launchpad-traction .row.content-row .col-lg-6 .card-content-wrapper h2 br,
+    .devx__launchpad-traction .row.content-row .col-lg-6 .card-content-wrapper p br {
+        display:none !important;
+    }
+    .devx__launchpad-traction .content-row {
+        padding-top: 16px !important;
+        padding-bottom: 24px !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-traction .row.content-row .col-lg-6 {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .devx__launchpad-traction {
+        margin-top: -270px;
+    }
+}
+
+
+/* launchpad ai - faq section media queries */
+
+@media only screen and (max-width: 991px) {
+    .devx__launchpad-faq-section .actual-faq-wrapper {
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+    .devx__launchpad-faq-section .accordion-button {
+        padding: 14px 20px !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .devx__launchpad-faq-section .accordion-button img {
+        display:none !important;
+    }
+}
+
+
+
+/* launchpad ai - ready to launch smarter */
+
+
+@media only screen and (max-width: 1200px) {
+    .devx__bottom-section {
+        margin-right: 16px !important;
+        margin-left: 16px !important;
+        min-width: calc(100% - 32px) !important;
+        display:flex !important;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .devx__bottom-section {
+        margin-top: 30px !important;
+    }
+}
+@media only screen and (max-width:860px) {
+    .devx__bottom-section {
+        flex-direction:column-reverse !important;
+        margin-top: 0px !important;
+        margin-bottom: 46px !important;
+    }
+    .devx__bottom-section .col:first-child {
+        align-items: center !important;
+    }
+    .devx__bottom-section .col:first-child h2,
+    .devx__bottom-section .col:first-child p {
+        text-align:center !important;
+    }
+    .devx__bottom-section .col:nth-child(2) {
+        justify-content: center !important;
+        margin-bottom: 20px !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .devx__bottom-section {
+        overflow: hidden !important;
+        padding: 12px 0px 24px 0px !important;
+    }
+    .devx__bottom-section img {
+        width: 250px !important;
+        height: 240px !important;
     }
 }

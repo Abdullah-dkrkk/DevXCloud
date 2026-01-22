@@ -206,42 +206,20 @@
     </section>
 
     <!-- 3 row full cards section -->
-    <style>
-        section.traction h2 {
-            font-size: 40px;
-            color: #0F2C4E;
-            margin-top: 20px;
-            margin-bottom: 16px;
-        }
-        section.traction .main-para {
-            text-align:center;
-            line-height: 32px;
-        }
-        section.traction .content-row {
-            padding-top: 60px;
-            padding-right: 16px;
-            padding-left: 16px;
-            padding-bottom: 60px;
-        }
-        section.traction h4 {
-            font-size: 30px;
-            line-height: 44px;
-        }
-    </style>
-    <section class="traction">
+    <section class="devx__launchpad-traction">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
-                    <h2>The System Behind Your Traction</h2>
-                    <p class="main-para">From funnel strategy to founder-led content, LaunchPadAI equips you with the precise systems that drive <br> growth, conversions, and confidence long after launch day.</p>
+                    <h2 class="devx__color-primary text-center">The System Behind Your Traction</h2>
+                    <p class="text-center mt-2 mb-4">From funnel strategy to founder-led content, LaunchPadAI equips you with the precise systems that drive <br> growth, conversions, and confidence long after launch day.</p>
                 </div>
             </div>
 
             <!-- first content card -->
-            <div class="row content-row">
+            <div class="row content-row d-flex flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="card-content-wrapper">
-                        <h4>Explore How LaunchPadAI Turns Your <br> Startup into a Launch Machine</h4>
+                        <h2>Explore How LaunchPadAI Turns Your <br> Startup into a Launch Machine</h2>
                         <p>A founder-first launch framework designed to help you map, build, <br> launch, and grow — with AI support at every step.</p>
                         <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
                             <div class="content-group">
@@ -259,19 +237,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
                     <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
                 </div>
             </div>
 
             <!-- second content card -->
             <div class="row content-row">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
                     <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start">
                     <div class="card-content-wrapper">
-                        <h4>Turn Launch Data Into <br> Smart Decisions</h4>
+                        <h2>Turn Launch Data Into <br> Smart Decisions</h2>
                         <p>Your launch is only the beginning. We help you test, optimize, and <br> row with a data-first strategy tailored to your brand.</p>
                         <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
                             <div class="content-group">
@@ -292,10 +270,10 @@
             </div>
 
             <!-- third content card -->
-            <div class="row content-row">
+            <div class="row content-row d-flex flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="card-content-wrapper">
-                        <h4>From Traction to Momentum, We’re <br> Built to Scale With You</h4>
+                        <h2>From Traction to Momentum, We’re <br> Built to Scale With You</h2>
                         <p>Whether you're refining your offer or entering new markets, LaunchPadAI <br> gives you the tools, insights, and strategy to grow with intention.</p>
                         <div class="smaller-headings d-flex justify-content-center flex-column align-items-start">
                             <div class="content-group">
@@ -313,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-lg-center justify-content-start mb-lg-0 mb-4">
                     <img src="{{ asset('images/launchpad-ai/content-first.png') }}" class="img-fluid">
                 </div>
             </div>
@@ -321,81 +299,11 @@
     </section>
 
     <!-- faq section starts from here -->
-    <style>
-        section.faq-section {
-            padding-bottom: 100px;
-            background: #ffffff;
-        }
-        section.faq-section .accordion-body {
-            line-height: 32px;
-        }
-        section.faq-section h2.main-heading{
-            font-weight: 700;
-            font-style: Bold;
-            font-size: 38px;
-            line-height: 60px;
-            letter-spacing: 0%;
-            margin-bottom: 40px;
-            padding-top: 50px;
-            text-align:center;
-        }
-        section.faq-section .accordion .accordion-item:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        section.faq-section .accordion-button::after {
-            transform:scale(0.8);
-        }
-        section.faq-section .actual-faq-wrapper {
-            max-width: 850px;
-            margin:auto;
-            padding: 30px;
-            background:white;
-            border-radius: 20px;
-            border: 2px solid #00000026;
-        }
-        section.faq-section #accordionFlushExample {
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        section.faq-section .accordion-button[aria-expanded="true"] {
-            background:#F3F3F3 !important;
-            border-bottom: none !important;
-        }
-        section.faq-section .accordion-button:focus{
-            box-shadow:none !important;
-        }
-        section.faq-section .accordion-item {
-            border-bottom:none !important;
-        }
-        section.faq-section .accordion-body {
-            padding-top: 0px !important;
-        }
-        section.faq-section .accordion-button {
-            color: #0F2C4E;
-            font-weight: 600;
-            padding: 24px !important;
-            font-size: 20px;
-            line-height: 26px;
-            letter-spacing: 0%;
-            display:flex;
-            box-shadow:none !important;
-            border-top-right-radius: 16px !important;
-            border-top-left-radius: 16px !important;
-            align-items:center;
-            justify-content:start;
-            gap: 10px;
-        }
-        section.faq-section .accordion-collapse {
-            border-bottom-right-radius: 16px !important;
-            background:#F3F3F3 !important;
-            border-bottom-left-radius: 16px !important;
-        }
-    </style>
-    <section class="faq-section">
+    <section class="devx__launchpad-faq-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="main-heading">FAQs About LaunchPadAI</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center">FAQs About LaunchPadAI</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -501,55 +409,20 @@
 
 
     <!-- growth section starts from here -->
-    <style>
-        section.last-banner {
-            /* padding-top: 80px;
-            padding-bottom: 80px; */
-            margin-bottom: 60px;
-        }
-        section.last-banner a:hover {
-            opacity: 0.8;
-        }
-        section.last-banner .theme__btn{
-            font-family:'Bricolage-Grotesque';
-            background: #0176D3;
-            padding: 18px 26px;
-            text-decoration:none;
-            color:white;
-            letter-spacing: 0.2px;
-            font-size: 16px;
-            border-radius: 12px;
-            outline:none;
-            border:none;
-            transition:0.3s;
-        }
-        /* section.last-banner p {
-            margin-bottom: 20px;
-            font-weight: 500;
-            font-style: Medium;
-            font-size: 18px;
-            line-height: 34px;
-            letter-spacing: 0%;
-        }
-        section.last-banner h3 {
-            font-weight: 600;
-            font-size: 48px;
-            line-height: 58px;
-            margin-bottom: 20px;
-            letter-spacing: 0%;
-        } */
-    </style>
-    <section class="last-banner">
-        <div class="container">
-            <div class="row bottom-section d-flex align-items-center justify-content-between">
-               <div class="col d-inline-flex align-items-start justify-content-center flex-column">
-                    <h3>Ready to Launch <br> Smarter?</h3>
-                    <p class="text-center">Let LaunchPadAI guide your startup from idea to <br> growth. Book a free pre-launch strategy session, <br> no pressure, no strings.</p>
-                    <button class="theme__btn text-uppercase">Book Your Free Strategy Session</button>
-               </div>
-               <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
-               </div>
+
+    <section class="devx__launchpad-ready">
+        <div class="container px-0">
+            <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
+                <div class="col d-flex align-items-start justify-content-center flex-column">
+                    <h2 class="mb-2 devx__color-primary">Ready to Launch <br> Smarter?</h2>
+                    <p class="text-start">
+                        Let LaunchPadAI guide your startup from idea to <br> growth. Book a free pre-launch strategy session, <br> no pressure, no strings.
+                    </p>
+                    <button class="devx__btn-primary">Book Free Strategy Session</button>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
+                </div>
             </div>
         </div>
     </section>
