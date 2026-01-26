@@ -1,68 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
     <!-- Hero Section -->
-    <style>
-        section.launch-hero-section .row {
-            padding-right: 16px;
-            padding-left: 16px;
-        }   
-        section.launch-hero-section .button-wrapper {
-            border:2px solid red;
-        }
-        section.launch-hero-section .col-lg-6 h1 + p {
-            margin-bottom: 24px;
-            color: #ffffff;
-            line-height: 32px;
-        }
-        section.launch-hero-section .col-lg-6 h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #ffffff;
-            margin-top: -20px;
-        }
-        section.launch-hero-section .col-lg-6 img {
-            max-width: 500px;
-            padding-top: 20px;
-            margin-top: 100px;
-            margin-bottom: 100px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper {
-            gap: 14px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button:hover {
-            opacity: 0.8;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button{
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.second-button{
-            border:2px solid #0F2C4E;
-            background:white;
-            color: #0F2C4E;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.first-button {
-            background: #00CEAF;
-            border: 1px solid #00CEAF;
-            color: #0F2C4E;
-        }
-    </style>
-    <section class="launch-hero-section">
+    <section class="devx__elite-hero-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1>Growth Engine <br> for High-Revenue <br> Digital Brands</h1>
-                    <p>LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
+                    <h2 class="text-white">Growth Engine for <br> High-Revenue Digital Brands</h2>
+                    <p class="text-white mt-2 mb-4">LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
-                        <button class="first-button">Build My Launch Plan</button>
+                        <button class="devx__btn-primary">Build My Launch Plan</button>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
@@ -72,193 +20,78 @@
         </div>
     </section>
 
-    
-
     <!-- results -->
-    <style>
-        section.results {
-            padding-top: 60px;
-            padding-bottom: 60px;
-        }
-        section.results h2 {
-            color:white;
-            margin-top: 32px;
-            line-height: 48px;
-        }
-        section.results p.main-para {
-            margin-top: 12px;
-            margin-bottom: 40px;
-            color:white;
-        }
-        section.results .inner-wrapper {
-            border: 1px solid #FFFFFF4D;
-            min-height: 368px;
-            border-radius: 16px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            gap: 12px;
-        }
-        section.results .inner-wrapper .inner-content {
-            color:white;
-            text-align:center;
-        }
-        section.results h4 {
-            color: #EFCE4E;
-            text-align:center;
-        }
-        section.results .results-main-cta-button:hover {
-            opacity: 0.8;
-        }
-        section.results .results-main-cta-button {
-            background: #00CEAF;
-            border: 1px solid #00CEAF;
-            color: #0F2C4E;
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            margin-top: 40px;
-            margin-bottom: 30px;
-        }
-    </style>
-    <section class="results">
+    <section class="devx__elite-results">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column text-center">
-                    <h2>Results That Help High-Revenue Brands <br> Operate Like Market Leaders</h2>
-                    <p class="main-para">EliteScale delivers enterprise-grade systems that give your team clarity, control, and faster growth.</p>
+                    <h2 class="text-white">Results That Help High-Revenue Brands <br> Operate Like Market Leaders</h2>
+                    <p class="text-white mt-2 mb-5">EliteScale delivers enterprise-grade systems that give your team clarity, control, and faster growth.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-first.png') }}" alt="Results First" class="img-fluid">
-                        <h4>Growth You Can <br> Forecast</h4>
-                        <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
+                        <img src="{{ asset('images/elitescale-ai/results-first.svg') }}" alt="Results First" class="img-fluid">
+                        <h3 class="text-center">Growth You Can Forecast</h3>
+                        <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-second.png') }}" alt="Results Second" class="img-fluid">
-                        <h4>Growth You Can <br> Forecast</h4>
-                        <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
+                        <img src="{{ asset('images/elitescale-ai/results-second.svg') }}" alt="Results Second" class="img-fluid">
+                        <h3>Growth You Can Forecast</h3>
+                        <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-third.png') }}" alt="Results Third" class="img-fluid">
-                        <h4>Growth You Can <br> Forecast</h4>
-                        <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
+                        <img src="{{ asset('images/elitescale-ai/results-third.svg') }}" alt="Results Third" class="img-fluid">
+                        <h3>Growth You Can Forecast</h3>
+                        <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/results-fourth.png') }}" alt="Results Fourth" class="img-fluid">
-                        <h4>Growth You Can <br> Forecast</h4>
-                        <p  class="inner-content">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
+                        <img src="{{ asset('images/elitescale-ai/results-fourth.svg') }}" alt="Results Fourth" class="img-fluid">
+                        <h3>Growth You Can Forecast</h3>
+                        <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="results-main-cta-button">See the Full EliteStack™ Framework.</button>
+                <div class="mt-5 col-lg-12 d-flex align-items-center justify-content-center">
+                    <button class="devx__btn-primary">See the Full EliteStack™ Framework.</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <style>
-        section.built {
-            padding-top: 60px;
-            padding-bottom: 60px;
-        }
-        section.built p {
-            line-height: 32px;
-        }
-        section.built h2 {
-            line-height: 48px;
-        }
-        section.built h2,
-        section.built p {
-            color:white
-        }
-        section.built img {
-            max-width: 500px;
-        }
-    </style>
-    <section class="built">
+    <!-- built -->
+    <section class="devx__elite-built">
         <div class="container">
             <div class="row">
-                <div class="offset-1 col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h2>What EliteScale Is and <br> Who It’s Built For</h2>
-                    <p>
-                        EliteScale is an enterprise-grade growth engine designed for 7–8 figure <br> digital brands that want to scale smarter, faster, and with complete clarity.
-                        <br><br>
-                        Whether you’re leading a SaaS platform, running a high-growth eCommerce <br> business, or managing an enterprise digital service, EliteScale equips your <br> team with AI-powered systems, cross-channel visibility, and predictive <br> insights to make smarter decisions at speed.
-                        <br><br>
-                        It’s built for brands that are done guessing and ready to operate like market <br> leaders.
-                    </p>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center flex-column">
+                    <div class="inner-wrapper ps-5">
+                        <h2>What EliteScale Is and <br> Who It’s Built For</h2>
+                        <p>
+                            EliteScale is an enterprise-grade growth engine designed for 7–8 figure <br> digital brands that want to scale smarter, faster, and with complete clarity.
+                            <br><br>
+                            Whether you’re leading a SaaS platform, running a high-growth eCommerce <br> business, or managing an enterprise digital service, EliteScale equips your <br> team with AI-powered systems, cross-channel visibility, and predictive <br> insights to make smarter decisions at speed.
+                            <br><br>
+                            It’s built for brands that are done guessing and ready to operate like market <br> leaders.
+                        </p>
+                    </div>
                 </div>
-                <div class="col-lg-4 d-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/elitescale-ai/elitescale-built-section-main-img.png') }}" alt="Elitescale Built Section Main Img" class="img-fluid">
+                <div class="col-lg-5 d-flex align-items-center justify-content-end pe-5">
+                    <img src="{{ asset('images/elitescale-ai/elitescale-built-section-main-img.svg') }}" alt="Elitescale Built Section Main Img" class="img-fluid">
                 </div>
             </div>
         </div>
     </section>
 
-
-    <style>
-        section.advantage {
-            padding-top: 60px;
-            padding-bottom: 80px;
-        }
-        section.advantage .main-para {
-            margin-bottom: 40px;
-            margin-top: 12px;
-            line-height: 32px;
-        }
-        section.advantage .main-para, 
-        section.advantage .main-heading {
-            color:white;
-            text-align:center;
-        }
-        section.advantage .inner-wrapper h5 + p {
-            color:white;
-            text-align:center;
-            line-height: 28px;
-        }
-        section.advantage .inner-wrapper h5 {
-            color: #EFCE4E;
-            font-size: 22px;
-        }
-        section.advantage .inner-wrapper {
-            min-height: 324px;
-            border: 1px solid #FFFFFF4D;
-            border-radius: 12px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            gap:20px;
-        }
-        section.advantage .row .col-lg-4 {
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        section.advantage .row .col-lg-4:nth-child(4),
-        section.advantage .row .col-lg-4:nth-child(5),
-        section.advantage .row .col-lg-4:nth-child(6) {
-            margin-top: 30px;
-        }
-    </style>
-    <section class="advantage">
+    <!-- advantage -->
+    <section class="devx__elite-advantage">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
@@ -316,49 +149,8 @@
         </div>
     </section>
 
-
-    <style>
-        section.turning {
-            background: #00070F;
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        section.turning .inner-wrapper h2 + p {
-            line-height:32px;
-        }
-        section.turning .inner-wrapper h2, 
-        section.turning .inner-wrapper h2 + p {
-            color:white;
-        }
-        section.turning .inner-wrapper {
-            display:inline-flex;
-            flex-direction:column;
-            align-items:start;
-            justify-content:center;
-            gap: 20px;
-        }
-        section.turning .turning-cta-button:hover {
-            opacity: 0.8;
-        }
-        section.turning .turning-cta-button {
-            background: #00CEAF;
-            border: 1px solid #00CEAF;
-            color: #0F2C4E;
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-        }
-        section.turning {
-            margin-bottom: 20px;
-        }
-    </style>
-    <section class="turning">
+    <!-- turning -->
+    <section class="devx__elite-turning">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
@@ -378,75 +170,8 @@
     </section>
 
 
-    <style>
-        section.growth .main-heading {
-            color:white;
-            text-align:center;
-        }
-        section.growth .main-para {
-            color:white;
-            text-align:center;
-            margin-top: 16px;
-            line-height: 28px;
-            margin-bottom: 40px;
-        }
-        section.growth {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        section.growth .inner-wrapper {
-            display:flex;
-            min-height: 400px;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            border: 1px solid #FFFFFF4D;
-            border-radius: 20px;
-            padding: 50px 20px;
-            gap: 18px;
-        }
-        section.growth .col {
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-        section.growth .inner-wrapper img {
-            max-height: 80px;
-        }
-        section.growth .inner-wrapper h3 {
-            font-size: 24px;
-            line-height: 34px;
-        }
-        section.growth .inner-wrapper p {
-            font-size: 14px;
-            line-height: 24px;
-        }
-        section.growth .inner-wrapper h3,
-        section.growth .inner-wrapper h5,
-        section.growth .inner-wrapper p {
-            text-align:center;
-            color:white;
-        }
-        section.growth .growth-cta-button:hover {
-            opacity: 0.8;
-        }
-        section.growth .growth-cta-button {
-            background: #00CEAF;
-            border: 1px solid #00CEAF;
-            color: #0F2C4E;
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-    </style>
-    <section class="growth">
+    <!-- growth -->
+    <section class="devx__elite-growth-engine">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
@@ -506,50 +231,8 @@
         </div>
     </section>
 
-
-    <style>
-        section.enterprise {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        section.enterprise .main-heading {
-            color:white;
-        }
-        section.enterprise .main-para {
-            margin-top: 12px;
-            line-height: 28px;
-            color:white;
-            text-align:center;
-            margin-bottom: 40px;
-        }
-        section.enterprise .inner-wrapper h4 {
-            margin-top: 12px;
-        }
-        section.enterprise .inner-wrapper h4,
-        section.enterprise .inner-wrapper p {
-            margin-bottom: 0px;
-        }
-        section.enterprise .inner-wrapper h5 {
-            margin-bottom: 12px;
-        }
-        section.enterprise .inner-wrapper p {
-            line-height: 28px;
-        }
-        section.enterprise .inner-wrapper {
-            border: 1px solid #FFFFFF33;
-            background: #0C1727;
-            min-height: 500px;
-            border-radius: 16px;
-            color:white ;
-            display:flex;
-            align-items:start;
-            justify-content:center;
-            flex-direction:column;
-            gap: 20px;
-            padding: 24px;
-        }
-    </style>
-    <section class="enterprise">
+    <!-- enterprise -->
+    <section class="devx__elite-enterprise">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
@@ -589,93 +272,7 @@
     </section>
 
     <!-- faq section starts from here -->
-    <style>
-        section.faq-section {
-            padding-bottom: 100px;
-        }
-        section.faq-section .accordion-body {
-            line-height: 32px;
-        }
-        section.faq-section h2.main-heading{
-            font-weight: 700;
-            font-style: Bold;
-            font-size: 38px;
-            line-height: 60px;
-            letter-spacing: 0%;
-            margin-bottom: 40px;
-            padding-top: 50px;
-            text-align:center;
-            color:white;
-        }
-        section.faq-section .accordion .accordion-item:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        section.faq-section .accordion-button::after {
-            transform:scale(0.8);
-        }
-        section.faq-section .actual-faq-wrapper {
-            max-width: 850px;
-            margin:auto;
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid #FFFFFF33
-        }
-        section.faq-section #accordionFlushExample {
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        section.faq-section .accordion-button[aria-expanded="false"]::after {
-            filter:brightness(0) invert(1);
-        } 
-        section.faq-section .accordion-button[aria-expanded="true"] {
-            background:#EFCE4E !important;
-            color: #000C1C;
-            border-bottom: none !important;
-        }
-        section.faq-section .accordion-button[aria-expanded="true"] img {
-            filter:none !important;
-        }
-        section.faq-section .accordion-button:focus{
-            box-shadow:none !important;
-        }
-        section.faq-section .accordion-item,
-        section.faq-section .accordion-button  {
-            background:none !important;
-        }
-        section.faq-section .accordion-item {
-            border-bottom:none !important;
-        }
-        section.faq-section .accordion-body {
-            padding-top: 0px !important;
-        }
-        section.faq-section .accordion-button img {
-            filter:brightness(0) invert(1);
-        }
-        section.faq-section .accordion-button {
-            color: #ffffff;
-            font-weight: 600;
-            padding: 24px !important;
-            font-size: 20px;
-            line-height: 26px;
-            letter-spacing: 0%;
-            display:flex;
-            box-shadow:none !important;
-            border-top-right-radius: 16px !important;
-            border-top-left-radius: 16px !important;
-            align-items:center;
-            justify-content:start;
-            gap: 10px;
-        }
-        section.faq-section .accordion-collapse {
-            border-bottom-right-radius: 16px !important;
-            background:#EFCE4E !important;
-            border-bottom-left-radius: 16px !important;
-        }
-        section.faq-section .accordion-collapse.show p {
-            color: #000C1C;
-        }
-    </style>
-    <section class="faq-section">
+    <section class="devx__elite-faq-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -783,44 +380,8 @@
     </section>
     <!-- faq section ends here -->
 
-    <style>
-        section.ready-to-grow {
-            padding-top: 80px;
-            padding-bottom: 120px;
-        }
-        section.ready-to-grow .inner-wrapper p {
-            line-height:28px;
-        }
-        section.ready-to-grow .inner-wrapper {
-            display:flex;
-            flex-direction:column;
-            align-items:start;
-            gap:20px;
-            justify-content:center;
-            color:white;
-        }
-        section.ready-to-grow .inner-wrapper .ready-to-grow-cta-button:hover {
-            opacity: 0.8;
-        }
-        section.ready-to-grow .inner-wrapper img {
-            max-height: 500px;
-        }
-        section.ready-to-grow .inner-wrapper .ready-to-grow-cta-button{
-            background: #00CEAF;
-            border: 1px solid #00CEAF;
-            color: #0F2C4E;
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-        }
-    </style>
-    <section class="ready-to-grow">
+    <!-- ready to grow -->
+    <section class="devx__elite-ready-to-grow">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
