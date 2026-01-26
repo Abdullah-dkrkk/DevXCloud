@@ -2,9 +2,7 @@
 
 @section('content')
 
-
     <!-- <div class="main-wrapper-container"> -->
-
         <!-- commerce ai - hero section -->
         <section class="devx__commerce-hero-section">
             <div class="container">
@@ -134,7 +132,6 @@
         </section> 
     <!-- </div> -->
 
-
     <section class="devx__commerce-what-makes-difference">
         <div class="container">
             <div class="row">
@@ -166,7 +163,6 @@
         </div>
     </section>
     <!-- what makes different section ends here -->
-
 
     <!-- engine stack section starts from here -->
     <section class="devx__commerce-engine-stack">
@@ -227,14 +223,13 @@
     </section>
     <!-- engine stack section ends here -->
 
-
     <!-- strategy section starts from here -->
     <section class="devx__commerce-strategy-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column mx-auto align-items-center justify-content-center">
-                    <h2 class="mb-2">How We Turn Strategy into Scalable Growth</h2>
-                    <p class="main-text">Every step is built to uncover, activate, and scale your brand’s growth potential.</p>
+                    <h2 class="mb-2 text-center">How We Turn Strategy into Scalable Growth</h2>
+                    <p class="main-text text-center">Every step is built to uncover, activate, and scale your brand’s growth potential.</p>
                 </div>
             </div>
             <div class="row strategy-grid">
@@ -389,7 +384,6 @@
         </div>
     </section>
     <!-- faq section ends here -->
-
 
     <!-- growth section starts from here -->
     <section class="devx__home-ready">

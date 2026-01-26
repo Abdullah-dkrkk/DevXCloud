@@ -1,308 +1,146 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Hero Section -->
-    <style>
-        section.launch-hero-section .row {
-            padding-right: 16px;
-            padding-left: 16px;
-        }   
-        section.launch-hero-section .button-wrapper {
-            border:2px solid red;
-        }
-        section.launch-hero-section .col-lg-6 h1 + p {
-            margin-bottom: 24px;
-            line-height: 28px;
-        }
-        section.launch-hero-section .col-lg-6 h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #0F2C4E;
-            margin-top: -20px;
-        }
-        section.launch-hero-section .col-lg-6 img {
-            max-width: 600px;
-            padding-top: 20px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper {
-            gap: 14px;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button:hover {
-            opacity: 0.8;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button{
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.second-button{
-            border:2px solid #0F2C4E;
-            background:white;
-            color: #0F2C4E;
-        }
-        section.launch-hero-section .col-lg-6 .buttons-wrapper button.first-button {
-            background: #FE6A10;
-            border: 1px solid #FE6A10;
-            color: #fff;
-        }
-    </style>
-    <section class="launch-hero-section">
+    <!-- scalecloud ai - hero section -->
+    <section class="devx__launch-hero-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1>Performance Stack for Scaling SaaS Brands</h1>
-                    <p>ScaleCloud unifies your SaaS stack with predictive analytics, <br> API integrations, and automated systems, built to accelerate <br> your growth without the chaos.</p>
+            <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
+                <div class="col-lg-6 px-0 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
+                    <h1 class="devx__color-primary mb-2">Performance Stack for <br> Scaling SaaS Brands</h1>
+                    <p class="text-lg-start text-center">ScaleCloud unifies your SaaS stack with predictive analytics, <br> API integrations, and automated systems, built to accelerate <br> your growth without the chaos.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
-                        <button class="first-button">Get My Scaling Plan</button>
+                        <button class="devx__btn-primary">Get My Scaling Plan</button>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/scalecloud-ai/scalecloud-ai-hero-section-img.png') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
+                <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/scalecloud-ai/scalecloud-ai-hero-section-img.svg') }}" alt="Lanchpad AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
     </section>
+    <!-- scalecloud ai - hero section ends here -->
 
-    <!-- Build for Founders -->
-    <style>
-        section.build-for-founders .container .row .col-lg-12{
-            gap: 80px;
-        }
-        section.build-for-founders{
-            padding-top: 80px;
-            padding-bottom: 80px;
-            background: #f7f7f7;
-        }
-        section.build-for-founders img {
-            max-height: 500px;
-        }
-        section.build-for-founders h2 {
-            font-size: 40px;
-            color: #0F2C4E;
-            margin-bottom: 20px;
-        }
-        section.build-for-founders h2 + p,
-        section.build-for-founders h2 + p + p {
-            margin-bottom: 20px;
-            line-height: 30px;
-            font-weight: 500;
-        }
-        section.build-for-founders .bff-cta-button:hover{
-            opacity: 0.8;
-        }
-        /* section.build-for-founders .first-wrapper {
-            margin-left: -150px;
-        } */
-        section.build-for-founders .bff-cta-button{
-            padding: 14px 32px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            color: #fff;
-            border:none;
-            margin-top: 10px;
-            background: #0176D3;
-        }
-    </style>
-    <section class="build-for-founders">
+    <!-- scalecloud ai - build for founders -->
+    <section class="devx__launch-build-for-founders">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <div class="first-wrapper">
-                        <img src="{{ asset('images/scalecloud-ai/fgs-main-img.png') }}" alt="Build For Founders Main Image" class="img-fluid">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center flex-lg-row flex-column">
+                    <div class="first-wrapper w-50 d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('images/scalecloud-ai/fgs-main-img.svg') }}" alt="Build For Founders Main Image" class="img-fluid">
                     </div>
-                    <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
-                        <h2>The Fastest-Growing SaaS <br> Brands Are Built on Systems,<br> Not Just Features.</h2>
-                        <p>Most SaaS founders are laser-focused on building great features — but <br> once you reach product-market fit, it’s not the product holding you back. It’s <br> the lack of systems. Disconnected tools, manual processes, and missing <br> KPIs create growth friction that can’t be solved with code alone.</p>
-                        <p>ScaleCloud replaces this chaos with an intelligent, unified performance <br> stack, designed to connect your data, automate your ops, and give you the <br> predictive visibility to scale with precision.</p>
+                    <div class="w-50 second-wrapper d-flex align-items-lg-start align-items-center justify-content-center flex-column">
+                        <h2 class="devx__color-primary mb-2 text-lg-start text-center">The Fastest-Growing SaaS <br> Brands Are Built on Systems,<br> Not Just Features.</h2>
+                        <p class="text-lg-start text-center">Most SaaS founders are laser-focused on building great features — but <br> once you reach product-market fit, it’s not the product holding you back. It’s <br> the lack of systems. Disconnected tools, manual processes, and missing <br> KPIs create growth friction that can’t be solved with code alone.</p>
+                        <p class="text-lg-start text-center">ScaleCloud replaces this chaos with an intelligent, unified performance <br> stack, designed to connect your data, automate your ops, and give you the <br> predictive visibility to scale with precision.</p>
                     </div>  
                 </div>
             </div>
         </div>
     </section>
+    <!-- scalecloud ai - build for founders ends here -->
 
-    <!-- what powers the scalecloud stack -->
-    <style>
-        section.powers .container .row {
-            padding-right: 16px;
-            padding-left: 16px;
-        }
-        section.powers .container .row .col-lg-4 {
-            padding: 10px;
-        }
-        section.powers .container .row .col-lg-4 .inner-wrapper p  {
-            text-align:center;
-        }
-        section.powers .container .row .col-lg-4 .inner-wrapper h5 {
-            font-size: 22px;
-        }
-        section.powers .container .row .col-lg-4 .inner-wrapper h5, 
-        section.powers .container .row .col-lg-4 .inner-wrapper p {
-            color:white;
-        }
-        section.powers .container .row .col-lg-4 .inner-wrapper {
-            display:flex;
-            align-items:center;
-            gap: 12px;
-            flex-direction:column;
-            justify-content:center;
-            min-width: 100%;
-            min-height: 378px;
-            background: linear-gradient(180deg, #002760 0%, #00153A 100%);
-            box-shadow: 0px 0px 30px 0px #00000021;
-            border-radius: 20px;
-        }
-        section.powers .main-heading {
-            font-size: 40px;
-            margin-top: 80px;
-            margin-bottom: 20px;    
-            text-align:center;
-        }
-        section.powers .main-para {
-            margin-bottom: 40px;
-            text-align:center;
-        }
-    </style>
-    <section class="powers">
+    <!-- scalecloud ai - what powers the scalecloud stack -->
+    <section class="devx__launchpad-powers">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="main-heading">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
+                    <h2 class="devx__color-primary text-center">
                         What Powers the ScaleCloud Stack?
                     </h2>
-                    <p class="main-para">
+                    <p class="text-center mt-2 mb-4">
                         From API automation to predictive dashboards, every layer of ScaleCloud is engineered to streamline <br> growth and eliminate friction for scaling SaaS brands.
                     </p>
                 </div>
             </div>
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="col-lg-4">
-                    <div class="inner-wrapper ">
-                        <h5>API Integration Layer</h5>
-                        <p>Sync your stack with seamless API connections, <br> no more siloed data or broken flows.</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-first.png') }}" alt="Power First" class="img-fluid">
+                    <div class="inner-wrapper">
+                        <h5 class="text-white text-center">API Integration Layer</h5>
+                        <p class="text-white mb-3">Sync your stack with seamless API connections, <br> no more siloed data or broken flows.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-1.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
-                        <h5>Predictive Analytics Engine</h5>
-                        <p>Anticipate churn, trends, and user behaviour <br> before it impacts growth..</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-second.png') }}" alt="Power Second" class="img-fluid">
+                        <h5 class="text-white text-center">Predictive Analytics Engine</h5>
+                        <p class="text-white mb-3">Anticipate churn, trends, and user behaviour <br> before it impacts growth..</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-2.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
-                        <h5>Custom Growth Dashboards</h5>
-                        <p>Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-third.png') }}" alt="Power Third" class="img-fluid">
+                        <h5 class="text-white text-center">Custom Growth Dashboards</h5>
+                        <p class="text-white mb-3">Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-3.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
-                        <h5>Automated Workflow Builder</h5>
-                        <p>Turn manual tasks into automated flows, from <br> onboarding to retention.</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-fourth.png') }}" alt="Power Fourth" class="img-fluid">
+                        <h5 class="text-white text-center">Automated Workflow Builder</h5>
+                        <p class="text-white mb-3">Turn manual tasks into automated flows, from <br> onboarding to retention.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-4.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
-                        <h5>KPI & Funnel Intelligence</h5>
-                        <p>Optimize every funnel stage with precise <br> KPI tracking.</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-fifth.png') }}" alt="Power Fifth" class="img-fluid">
+                        <h5 class="text-white text-center">KPI & Funnel Intelligence</h5>
+                        <p class="text-white mb-3">Optimize every funnel stage with precise <br> KPI tracking.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-5.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper ">
-                        <h5>SaaS-Optimized Technical SEO</h5>
-                        <p>Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
-                        <img src="{{ asset('images/scalecloud-ai/power-sixth.png') }}" alt="Power Sixth" class="img-fluid">
+                        <h5 class="text-white text-center">SaaS-Optimized Technical SEO</h5>
+                        <p class="text-white mb-3">Track your SaaS KPIs in one unified dashboard, <br> no more spreadsheets.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-6.svg') }}" alt="Power First" class="img-fluid">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- scalecloud ai - what powers the scalecloud stack ends here-->
 
-    <style>
-        section.trusted {
-            padding-top: 80px;
-            padding-bottom: 100px;
-            background: #f7f7f7;
-            margin-top: 80px;
-        }
-        section.trusted h2.main-heading {
-            text-align:center;
-            font-size: 40px;
-            color: #0F2C4E;
-        }
-        section.trusted p.main-para {
-            text-align:center;
-            margin-top: 20px;
-            margin-bottom: 60px;
-        }
-        section.trusted .inner-wrapper img{
-            transform:scale(0.85);
-        }
-        section.trusted .inner-wrapper {
-            min-height: 140px;
-            background: white;
-            box-shadow: 0px 4px 40px 0px #00000012;
-            border-radius: 14px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-    </style>
-    <section class="trusted">
+    <!-- scalecloud ai - trusted -->
+    <section class="devx__launch-trusted">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="main-heading">Trusted by SaaS Teams Who Use <br> the Tools You Love</h2>
-                    <p class="main-para">From product analytics to CRM and billing, ScaleCloud connects with your stack, so you <br> can scale faster without switching tools.</p>
+                    <h2 class="devx__color-primary text-center">Trusted by SaaS Teams Who Use <br> the Tools You Love</h2>
+                    <p class="text-center mt-2 mb-4">From product analytics to CRM and billing, ScaleCloud connects with your stack, so you <br> can scale faster without switching tools.</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="row px-0 saas-trusted-clients owl-carousel">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/stripe.svg') }}" alt="Stripe" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/intercom.svg') }}" alt="Intercom" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/slack.svg') }}" alt="Slack" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/notion.svg') }}" alt="Notion" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/zapier.svg') }}" alt="Zapier" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/segment.svg') }}" alt="Segment" class="img-fluid">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/hubspot.svg') }}" alt="Hubspot" class="img-fluid">
                     </div>
@@ -310,216 +148,80 @@
             </div>
         </div>
     </section>
-
-    <!-- Funnel -->
-    <style>
-        section.funnel .heading-para-wrapper p {
-            text-align:center;
-            margin-top: 20px;
-            line-height: 28px;
-        }
-        section.funnel .heading-para-wrapper {
-            padding-top: 60px;
-            padding-bottom: 60px;
-        }
-        section.funnel .cards-wrapper-with-no-image .col-lg-4 {
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        section.funnel .cards-wrapper-with-no-image .inner-wrapper h5 {
-            line-height: 32px;
-            margin-bottom: 12px;
-        }
-        section.funnel .cards-wrapper-with-no-image .inner-wrapper h4 {
-            margin-bottom: 20px;
-        }
-        section.funnel .cards-wrapper-with-no-image .inner-wrapper {
-            display:flex;
-            flex-direction:column;
-            align-items:start;
-            justify-content:end;
-            padding: 40px;
-            min-height: 444px;
-            background: #ECEEF1;
-            border-radius: 20px;
-        }
-        section.funnel .row.button-wrapper a {
-            padding: 14px 26px;
-            border-radius: 12px;
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            font-family:"Bricolage-Grotesque";
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            background: #FE6A10;
-            border: 1px solid #FE6A10;
-            color: #fff;
-            text-decoration:none;
-            margin-top: 40px;
-            margin-bottom: 80px;
-        }
-    </style>
+    <!-- scalecloud ai - trusted ends here -->
     
-    <section class="funnel">
+    <!-- scalecloud ai - funnel -->
+    <section class="devx__launch-funnel">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 heading-para-wrapper d-flex align-items-center justify-content-center flex-column">
-                    <h2>Turn Your Funnel Into a Forecastable Growth Machine</h2>
-                    <p>ScaleCloud reveals what’s driving growth, what’s causing churn, and where your next best opportunities <br> lie, so you can scale confidently with data, not assumptions.</p>
+                    <h2 class="devx__color-primary text-center">Turn Your Funnel Into a Forecastable Growth Machine</h2>
+                    <p class="mt-2 mb-4 text-center">ScaleCloud reveals what’s driving growth, what’s causing churn, and where your next best opportunities <br> lie, so you can scale confidently with data, not assumptions.</p>
                 </div>
             </div>
             <div class="row cards-wrapper-with-no-image">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <h4>For Product Teams</h4>
-                        <h5>Smarter Product Decisions, <br> Backed by Data</h5>
-                        <p>Get a real-time view of feature usage, drop-off <br> points, and user flows, so your team ships what <br> actually drives retention and revenue.</p>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-1.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
+                        <h2 class="main-inner-heading">For Product Teams & Management</h2>
+                        <h3 class="mb-2">Smarter Product Decisions, <br> Backed by Data</h3>
+                        <p>Get a real-time view of feature usage, drop-off points, and user flows, so your team ships what <br> actually drives retention and revenue.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <h4>For Founders & Leadership</h4>
-                        <h5>Growth Clarity Without Guesswork</h5>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-2.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
+                        <h2 class="main-inner-heading">For Founders & Leadership</h2>
+                        <h3 class="mb-2">Growth Clarity Without Guesswork</h3>
                         <p>From acquisition to retention, ScaleCloud gives you a full-funnel breakdown with forecasting, so you know exactly where to focus and what’s working</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <h4>For Founders & Leadership</h4>
-                        <h5>Growth Clarity Without Guesswork</h5>
+                        <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-3.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
+                        <h2 class="main-inner-heading">For Founders & Leadership</h2>
+                        <h3 class="mb-2">Growth Clarity Without Guesswork</h3>
                         <p>From acquisition to retention, ScaleCloud gives you a full-funnel breakdown with forecasting, so you know exactly where to focus and what’s working</p>
                     </div>
                 </div>
             </div>
-            <div class="row button-wrapper d-flex align-items-center justify-content-center">
+            <div class="row mt-sm-5 mt-4 button-wrapper d-flex align-items-center justify-content-center">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <a href="javascript:void(0);">Get A Free Growth Audit</a>
+                    <a href="javascript:void(0);" class="devx__btn-primary d-inline-flex align-items-center justify-content-center">Get A Free Growth Audit</a>
                 </div>
             </div>
         </div>
     </section>
+    <!-- scalecloud ai - funnel ends here -->
 
-
-    <!-- Startups -->
-    <style>
-        section.startups {
-            background: #f7f7f7;
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        section.startups h4 + p {
-            line-height: 26px;
-        }
-        section.startups h4 {
-            font-size: 38px;
-            line-height: 48px;
-            margin-bottom: 32px;
-            color: #0F2C4E;
-        }
-        section.startups .col-lg-12 {
-            gap: 100px;
-        }
-        section.startups .image-cta-wrapper img{
-            border-radius: 12px;
-            max-height: 500px;
-        }
-    </style>
-    <section class="startups">
+    <!-- scalecloud ai - startups -->
+    <section class="devx__launch-startups">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="main-content-wrapper">
-                        <h4>Who’s ScaleCloud Built For?</h4>
-                        <p>
+                        <h2 class="devx__color-primary mb-2">Who’s ScaleCloud Built For?</h2>
+                        <p class="mb-4">
                             ScaleCloud is made for forward-thinkers who see where <br> technology is headed and are ready to lead the charge. For <br> brands that want more than survival, they want dominance. In <br> an era shaped by AI, automation, and data-driven decisions, <br> ScaleCloud turns your growth vision into a precise, <br> forecastable reality. Whether you’re scaling a SaaS platform, <br> optimizing for retention, or unlocking new markets, you’ll <br> have the systems to outpace competitors and shape the <br> future of your industry.
                         </p>
                     </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="image-cta-wrapper d-flex flex-column align-items-center justify-content-center">
-                        <img src="{{ asset('images/scalecloud-ai/scalecloud-build-for.png') }}" alt="Startups Main Image" class="img-fluid">
+                        <img src="{{ asset('images/scalecloud-ai/scalecloud-build-for.svg') }}" alt="Startups Main Image" class="img-fluid w-75">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- scalecloud ai -statups ends here -->
 
-    <!-- faq section starts from here -->
-    <style>
-        section.faq-section {
-            padding-bottom: 100px;
-            background: #ffffff;
-        }
-        section.faq-section .accordion-body {
-            line-height: 32px;
-        }
-        section.faq-section h2.main-heading{
-            font-weight: 700;
-            font-style: Bold;
-            font-size: 38px;
-            line-height: 60px;
-            letter-spacing: 0%;
-            margin-bottom: 40px;
-            padding-top: 50px;
-            text-align:center;
-        }
-        section.faq-section .accordion .accordion-item:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        section.faq-section .accordion-button::after {
-            transform:scale(0.8);
-        }
-        section.faq-section .actual-faq-wrapper {
-            max-width: 850px;
-            margin:auto;
-            padding: 30px;
-            background:white;
-            border-radius: 20px;
-            border: 2px solid #00000026;
-        }
-        section.faq-section #accordionFlushExample {
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        section.faq-section .accordion-button[aria-expanded="true"] {
-            background:#F3F3F3 !important;
-            border-bottom: none !important;
-        }
-        section.faq-section .accordion-button:focus{
-            box-shadow:none !important;
-        }
-        section.faq-section .accordion-item {
-            border-bottom:none !important;
-        }
-        section.faq-section .accordion-body {
-            padding-top: 0px !important;
-        }
-        section.faq-section .accordion-button {
-            color: #0F2C4E;
-            font-weight: 600;
-            padding: 24px !important;
-            font-size: 20px;
-            line-height: 26px;
-            letter-spacing: 0%;
-            display:flex;
-            box-shadow:none !important;
-            border-top-right-radius: 16px !important;
-            border-top-left-radius: 16px !important;
-            align-items:center;
-            justify-content:start;
-            gap: 10px;
-        }
-        section.faq-section .accordion-collapse {
-            border-bottom-right-radius: 16px !important;
-            background:#F3F3F3 !important;
-            border-bottom-left-radius: 16px !important;
-        }
-    </style>
-    <section class="faq-section">
+    <!-- scalecloud ai -faq -->
+    <section class="devx__launch-faq-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="main-heading">FAQs About SacleCloud</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center devx__color-primary">FAQs About Scalecloud</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -621,59 +323,22 @@
             </div>
         </div>
     </section>
-    <!-- faq section ends here -->
-
+    <!-- scalecloud ai - faq ends here -->
 
     <!-- growth section starts from here -->
-    <style>
-        section.last-banner {
-            /* padding-top: 80px;
-            padding-bottom: 80px; */
-            margin-bottom: 60px;
-        }
-        section.last-banner a:hover {
-            opacity: 0.8;
-        }
-        section.last-banner .theme__btn{
-            font-family:'Bricolage-Grotesque';
-            background: #0176D3;
-            padding: 18px 26px;
-            text-decoration:none;
-            color:white;
-            letter-spacing: 0.2px;
-            font-size: 16px;
-            border-radius: 12px;
-            outline:none;
-            border:none;
-            transition:0.3s;
-        }
-        /* section.last-banner p {
-            margin-bottom: 20px;
-            font-weight: 500;
-            font-style: Medium;
-            font-size: 18px;
-            line-height: 34px;
-            letter-spacing: 0%;
-        }
-        section.last-banner h3 {
-            font-weight: 600;
-            font-size: 48px;
-            line-height: 58px;
-            margin-bottom: 20px;
-            letter-spacing: 0%;
-        } */
-    </style>
-    <section class="last-banner">
-        <div class="container">
-            <div class="row bottom-section d-flex align-items-center justify-content-between">
-               <div class="col d-inline-flex align-items-start justify-content-center flex-column">
-                    <h3>Ready to Scale <br> Smarter?</h3>
-                    <p class="text-center">Let ScaleCloud turn your data, insights, and automation into unstoppable growth, so you scale faster, smarter, and with complete clarity.</p>
-                    <button class="theme__btn text-uppercase">Get My Growth Plan</button>
-               </div>
-               <div class="col d-inline-flex align-items-center justify-content-end">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
-               </div>
+    <section class="devx__launch-ready">
+        <div class="container px-0">
+            <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
+                <div class="col d-flex align-items-start justify-content-center flex-column">
+                    <h2 class="mb-2 devx__color-primary">Ready to Scale Smarter?</h2>
+                    <p class="text-start">
+                        Let ScaleCloud turn your data, insights, and automation into unstoppable growth, so you scale faster, smarter, and with complete clarity.
+                    </p>
+                    <button class="devx__btn-primary">Get My Growth Plan</button>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
+                </div>
             </div>
         </div>
     </section>

@@ -321,8 +321,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+        // homepage - trusted carousel
         jQuery(document).ready(function(){
             jQuery('.trusted-carousel').owlCarousel({
+                loop:true,
+                margin:24,
+                nav:false,
+                autoplay: true,
+                autoplayTimeout: 1500,
+                responsive:{
+                    0:{
+                        items:2
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:5
+                    },
+                    1200:{
+                        items:7
+                    }
+                }
+            });
+        });
+
+
+        // scalecloud ai - trusted by saas team 
+        jQuery(document).ready(function(){
+            jQuery('.saas-trusted-clients').owlCarousel({
                 loop:true,
                 margin:24,
                 nav:false,
