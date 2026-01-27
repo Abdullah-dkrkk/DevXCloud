@@ -5,10 +5,10 @@
     <!-- Hero Section -->
     <section class="devx__elite-hero-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h2 class="text-white">Growth Engine for <br> High-Revenue Digital Brands</h2>
-                    <p class="text-white mt-2 mb-4">LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
+            <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
+                <div class="col-lg-6 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
+                    <h2 class="text-white text-lg-start text-center">Growth Engine for <br> High-Revenue Digital Brands</h2>
+                    <p class="text-white mt-2 mb-4 text-lg-start text-center">LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
                         <button class="devx__btn-primary">Build My Launch Plan</button>
                     </div>
@@ -40,28 +40,28 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/results-second.svg') }}" alt="Results Second" class="img-fluid">
-                        <h3>Growth You Can Forecast</h3>
+                        <h3 class="text-center">Growth You Can Forecast</h3>
                         <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/results-third.svg') }}" alt="Results Third" class="img-fluid">
-                        <h3>Growth You Can Forecast</h3>
+                        <h3 class="text-center">Growth You Can Forecast</h3>
                         <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/results-fourth.svg') }}" alt="Results Fourth" class="img-fluid">
-                        <h3>Growth You Can Forecast</h3>
+                        <h3 class="text-center">Growth You Can Forecast</h3>
                         <p class="inner-content text-white text-center">Predict trends, plan ahead, and <br> scale with data clarity — not <br> guesswork.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="mt-5 col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="devx__btn-primary">See the Full EliteStack™ Framework.</button>
+                    <button class="devx__btn-primary text-center">See the Full EliteStack™ Framework.</button>
                 </div>
             </div>
         </div>
@@ -70,11 +70,11 @@
     <!-- built -->
     <section class="devx__elite-built">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center flex-column">
-                    <div class="inner-wrapper ps-5">
-                        <h2>What EliteScale Is and <br> Who It’s Built For</h2>
-                        <p>
+            <div class="row d-flex align-items-center justify-content-center flex-xl-row flex-column-reverse">
+                <div class="col-xl-6 d-flex align-items-center justify-content-center flex-column">
+                    <div class="inner-wrapper ps-xl-5 ps-0">
+                        <h2 class="mb-3 text-xl-start text-center text-white">What EliteScale Is and <br> Who It’s Built For</h2>
+                        <p class="text-xl-start text-center text-white">
                             EliteScale is an enterprise-grade growth engine designed for 7–8 figure <br> digital brands that want to scale smarter, faster, and with complete clarity.
                             <br><br>
                             Whether you’re leading a SaaS platform, running a high-growth eCommerce <br> business, or managing an enterprise digital service, EliteScale equips your <br> team with AI-powered systems, cross-channel visibility, and predictive <br> insights to make smarter decisions at speed.
@@ -83,7 +83,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-5 d-flex align-items-center justify-content-end pe-5">
+                <div class="col-lg-5 col-8 d-flex align-items-center justify-content-xl-end justify-content-center pe-xl-5">
                     <img src="{{ asset('images/elitescale-ai/elitescale-built-section-main-img.svg') }}" alt="Elitescale Built Section Main Img" class="img-fluid">
                 </div>
             </div>
@@ -95,30 +95,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
-                    <h2 class="main-heading">The Advantage Behind High-Growth <br> Digital Leaders</h2>
-                    <p class="main-para">EliteScale isn’t just another automation tool, it’s the complete innovation layer that gives <br> high-revenue brands the edge they need to dominate.</p>
+                    <h2 class="mb-2 text-center text-white">The Advantage Behind High-Growth <br> Digital Leaders</h2>
+                    <p class="text-center text-white mb-5">EliteScale isn’t just another automation tool, it’s the complete innovation layer that gives <br> high-revenue brands the edge they need to dominate.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-first.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>Multi‑Channel Domination</h5>
-                        <p>Orchestrate Google, YouTube, <br> LinkedIn, and Meta campaigns from <br> one AI-powered hub.</p>
+                        <h3 class="text-white text-center">Multi‑Channel Domination</h3>
+                        <p class="text-white text-center">Orchestrate Google, YouTube, <br> LinkedIn, and Meta campaigns from <br> one AI-powered hub.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-second.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>AI‑Powered Workflows</h5>
-                        <p>Automate complex tasks, streamline <br> processes, and optimize your growth <br> stack in real time.</p>
+                        <h3 class="text-white text-center">AI‑Powered Workflows</h3>
+                        <p class="text-white text-center">Automate complex tasks, streamline <br> processes, and optimize your growth <br> stack in real time.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-third.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>Global Scaling Strategies</h5>
-                        <p>Enter new markets faster with <br> tailored frameworks designed for <br> enterprise-level expansion.</p>
+                        <h3 class="text-white text-center">Global Scaling Strategies</h3>
+                        <p class="text-white text-center">Enter new markets faster with <br> tailored frameworks designed for <br> enterprise-level expansion.</p>
                     </div>
                 </div>
 
@@ -127,22 +127,22 @@
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-fourth.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>Big Data Predictive Analytics</h5>
-                        <p>Predict future trends, revenue <br> shifts, and churn risks before they <br> happen.</p>
+                        <h3 class="text-white text-center">Big Data Predictive Analytics</h3>
+                        <p class="text-white text-center">Predict future trends, revenue <br> shifts, and churn risks before they <br> happen.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-fifth.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>AR/VR Integration</h5>
-                        <p>Create immersive product experiences <br> and interactive campaigns that set you <br> apart.</p>
+                        <h3 class="text-white text-center">AR/VR Integration</h3>
+                        <p class="text-white text-center">Create immersive product experiences <br> and interactive campaigns that set you <br> apart.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/elitescale-ai/advantage-sixth.svg') }}" alt="Advantage First" class="img-fluid">
-                        <h5>Enterprise Dashboards</h5>
-                        <p>Centralize every KPI and data <br> stream into one seamless, real-time <br> control center.</p>
+                        <h3 class="text-white text-center">Enterprise Dashboards</h3>
+                        <p class="text-white text-center">Centralize every KPI and data <br> stream into one seamless, real-time <br> control center.</p>
                     </div>
                 </div>
             </div>
@@ -152,15 +152,15 @@
     <!-- turning -->
     <section class="devx__elite-turning">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/elitescale-ai/turning-main-img.png') }}" alt="Turning Main Img" class="img-fluid">
+            <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column">
+                <div class="col-lg-6 col-sm-8 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+                    <img src="{{ asset('images/elitescale-ai/turning-main-img.svg') }}" alt="Turning Main Img" class="img-fluid">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper">
-                        <h2>Turning Data Into Results <br> That Drive Enterprise Growth</h2>
-                        <p>EliteScale empowers digital leaders to scale smarter, leveraging AI, <br> automation, and big data to unlock your next growth chapter.</p>
-                        <button class="turning-cta-button">
+                    <div class="inner-wrapper d-inline-flex align-items-start justify-content-center flex-column">
+                        <h2 class="text-start text-white">Turning Data Into Results <br> That Drive Enterprise Growth</h2>
+                        <p class="text-start text-white">EliteScale empowers digital leaders to scale smarter, leveraging AI, <br> automation, and big data to unlock your next growth chapter.</p>
+                        <button class="devx__btn-primary">
                             See How EliteScale Works
                         </button>
                     </div>
@@ -175,8 +175,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
-                    <h2 class="main-heading">The Ultimate Growth Framework <br> for Market Leaders</h2>
-                    <p class="main-para">EliteStack™ combines advanced AI, predictive analytics, and innovation-driven strategy into one seamless 5-phase system - built to <br> help enterprise brands scale smarter, faster, and with absolute precision.</p>
+                    <h2 class="text-white text-center">The Ultimate Growth Framework <br> for Market Leaders</h2>
+                    <p class="text-white text-center mt-2 mb-5">EliteStack™ combines advanced AI, predictive analytics, and innovation-driven strategy into one seamless 5-phase system - built to <br> help enterprise brands scale smarter, faster, and with absolute precision.</p>
                 </div>
             </div>
             <div class="row">
@@ -223,7 +223,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="growth-cta-button">
+                    <button class="devx__btn-primary mt-5">
                         See EliteStack™ in Action
                     </button>
                 </div>
@@ -236,35 +236,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
-                    <h2 class="main-heading">Built for Enterprise Teams Like Yours</h2>
-                    <p class="main-para">
+                    <h2 class="text-white text-center">Built for Enterprise Teams Like Yours</h2>
+                    <p class="text-white text-center mt-2 mb-5">
                         EliteScale delivers tailored insights, automation, and predictive strategies for every key decision-maker - so your <br> entire organization scales smarter, faster, and more profitably.
                     </p>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-first.png') }}" alt="Enterprise First" class="img-fluid">
-                        <h4>For Founders & Leadership</h4>
-                        <h5>Clarity & Innovation at Scale</h5>
-                        <p>Stay ahead of market shifts with predictive insights, full-funnel visibility, and innovation strategies that keep you competitive.</p>
+                        <img src="{{ asset('images/elitescale-ai/enterprise-first.svg') }}" alt="Enterprise First" class="img-fluid">
+                        <h3>For Founders & Leadership</h3>
+                        <p class="text-white"><b>Clarity & Innovation at Scale: </b>Stay ahead of market shifts with predictive insights, full-funnel visibility, and innovation strategies that keep you competitive.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-second.png') }}" alt="Enterprise Second" class="img-fluid">
-                        <h4>For Product Teams</h4>
-                        <h5>Smarter Roadmaps, Faster Launches</h5>
-                        <p>Use real-time data to prioritize features, predict adoption rates, and accelerate product-market fit.</p>
+                        <img src="{{ asset('images/elitescale-ai/enterprise-second.svg') }}" alt="Enterprise Second" class="img-fluid">
+                        <h3>For Product Teams</h3>
+                        <p class="text-white"><b>Smarter Roadmaps, Faster Launches: </b>Use real-time data to prioritize features, predict adoption rates, and accelerate product-market fit.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/enterprise-third.png') }}" alt="Enterprise Third" class="img-fluid">
-                        <h4>For Marketing Leaders</h4>
-                        <h5>Data-Driven Growth at Speed</h5>
-                        <p>Turn complex analytics into simple, actionable strategies that fuel high-ROI campaigns and customer retention.</p>
+                        <img src="{{ asset('images/elitescale-ai/enterprise-third.svg') }}" alt="Enterprise Third" class="img-fluid">
+                        <h3>For Marketing Leaders</h3>
+                        <p class="text-white"><b>Data-Driven Growth at Speed: </b>Turn complex analytics into simple, actionable strategies that fuel high-ROI campaigns and customer retention.</p>
                     </div>
                 </div>
             </div>
@@ -276,7 +273,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="main-heading">FAQs About EliteScale</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center text-white">FAQs About EliteScale</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -381,22 +378,18 @@
     <!-- faq section ends here -->
 
     <!-- ready to grow -->
-    <section class="devx__elite-ready-to-grow">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper">
-                        <h2 class="main-heading">Ready to Dominate Your Market?</h2>
-                        <p class="main-para">EliteScale turns your data, automation, and predictive <br> insights into an unstoppable growth engine, helping you <br> expand faster, smarter, and at enterprise scale.</p>
-                        <button class="ready-to-grow-cta-button">
-                            Get My Growth Plan
-                        </button>
-                    </div>
+     <section class="devx__elite-ready-to-grow">
+        <div class="container px-0">
+            <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
+                <div class="col d-flex align-items-start justify-content-center flex-column">
+                    <h2 class="mb-2 devx__color-primary">Ready to Dominate Your Market?</h2>
+                    <p class="text-start">
+                        EliteScale turns your data, automation, and predictive <br> insights into an unstoppable growth engine, helping you <br> expand faster, smarter, and at enterprise scale.
+                    </p>
+                    <button class="devx__btn-primary">Get My Growth Plan</button>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper">
-                        <img src="{{ asset('images/elitescale-ai/elitescale-robot.png') }}" alt="Elitescale Roboto">
-                    </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
                 </div>
             </div>
         </div>
