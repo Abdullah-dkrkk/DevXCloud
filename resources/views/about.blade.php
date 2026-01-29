@@ -46,7 +46,7 @@
     </section>
 
     <!-- video timeline section -->
-    <section class="devx__about-timeline-section">
+    <section class="devx__about-timeline-section d-none">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 flex-column d-flex align-items-center justify-content-center">

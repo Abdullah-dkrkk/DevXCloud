@@ -267,7 +267,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="mb-sm-5 mb-4 text-center">FAQs About CommerceAI</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center devx__color-primary">FAQs About CommerceAI</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">

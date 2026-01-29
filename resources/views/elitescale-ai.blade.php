@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/elitescale-ai/elitescale-main-img.png') }}" alt="Elitescale AI Hero Image" class="img-fluid">
+                    <img src="{{ asset('images/elitescale-ai/elitescale-main-img.svg') }}" alt="Elitescale AI Hero Image" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -273,7 +273,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="mb-sm-5 mb-4 text-center text-white">FAQs About EliteScale</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center devx__color-primary">FAQs About EliteScale</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">

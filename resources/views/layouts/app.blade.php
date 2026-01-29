@@ -49,9 +49,9 @@
         body {
             overflow-x:hidden;
         }
-        body.custom-elitescale-ai {
+        /* body.custom-elitescale-ai {
             background: #030C1C;
-        }
+        } */
         body.custom-greenscale-ai {
             background: #FFFFF3;
         }
