@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="inner-wrapper">
-                        <img src="{{ asset('images/greenscale-ai/greenscale-ai-main-img.png') }}" alt="Greenscale Robot">
+                        <img src="{{ asset('images/greenscale-ai/greenscale-ai-main-img.svg') }}" alt="Greenscale Robot">
                     </div>
                 </div>
             </div>
@@ -96,6 +96,75 @@
         </div>
     </section>
 
+    <!-- Benefits -->
+    <section class="devx__green-benefits">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
+                    <h2 class="text-center">
+                        The Benefits That Drive <br> Sustainable Growth.
+                    </h2>
+                    <p class="text-center mt-2 mb-5">
+                        See how GreenScale Formula™ turns strategy into real, measurable <br> impact for vegan meal kit brands.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="inner-wrapper">
+                        <div class="image-holder">
+                            <img src="{{ asset('images/greenscale-ai/boost-revenue.svg') }}" alt="Full Growth Visibility">
+                        </div>
+                        <div class="inner-content-wrapper">
+                            <h3>Boost Revenue <br> Predictably</h3>
+                            <p>Forecast demand and personalize <br> offers to grow smarter.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="inner-wrapper">
+                        <div class="image-holder">
+                            <img src="{{ asset('images/greenscale-ai/cut-ingredient-waste.svg') }}" alt="Full Growth Visibility">
+                        </div>
+                        <div class="inner-content-wrapper">
+                            <h3>Cut Ingredient <br> Waste</h3>
+                            <p>Smarter meal planning means better <br> margins and less waste.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="inner-wrapper">
+                        <div class="image-holder">
+                            <img src="{{ asset('images/greenscale-ai/increase-retention.svg') }}" alt="Full Growth Visibility">
+                        </div>
+                        <div class="inner-content-wrapper">
+                            <h3>Increase Retention <br> & Subscriptions</h3>
+                            <p>Keep customers coming back with <br> personalized experiences.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="inner-wrapper">
+                        <div class="image-holder">
+                            <img src="{{ asset('images/greenscale-ai/full-growth-visibility.svg') }}" alt="Full Growth Visibility">
+                        </div>
+                        <div class="inner-content-wrapper">
+                            <h3>Get Full Growth <br> Visibility</h3>
+                            <p>Real-time dashboards to make <br> confident, data-backed decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                    <button class="mt-5 devx__btn-primary">
+                        Get My Growth Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="devx__green-phase">
         <div class="container">
             <div class="row">
@@ -145,71 +214,6 @@
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
                     <button class="devx__btn-primary mt-5">
                         See the Full System
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits -->
-    <section class="devx__green-benefits">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="text-center">
-                        The Benefits That Drive <br> Sustainable Growth.
-                    </h2>
-                    <p class="text-center mt-2 mb-5">
-                        See how GreenScale Formula™ turns strategy into real, measurable <br> impact for vegan meal kit brands.
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="inner-wrapper">
-                        <div class="image-holder">
-                        </div>
-                        <div class="inner-content-wrapper">
-                            <h3>Boost Revenue <br> Predictably</h3>
-                            <p>Forecast demand and personalize <br> offers to grow smarter.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="inner-wrapper">
-                        <div class="image-holder">
-                        </div>
-                        <div class="inner-content-wrapper">
-                            <h3>Cut Ingredient <br> Waste</h3>
-                            <p>Smarter meal planning means better <br> margins and less waste.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="inner-wrapper">
-                        <div class="image-holder">
-                        </div>
-                        <div class="inner-content-wrapper">
-                            <h3>Increase Retention <br> & Subscriptions</h3>
-                            <p>Keep customers coming back with <br> personalized experiences.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="inner-wrapper">
-                        <div class="image-holder">
-                        </div>
-                        <div class="inner-content-wrapper">
-                            <h3>Get Full Growth <br> Visibility</h3>
-                            <p>Real-time dashboards to make <br> confident, data-backed decisions.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="mt-5 devx__btn-primary">
-                        Get My Growth Plan
                     </button>
                 </div>
             </div>
@@ -408,7 +412,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                <button class="devx__btn-primary mt-3">Get My Growth Plan</button>
+                <button class="devx__btn-primary mt-2">Get My Growth Plan</button>
             </div>
         </div>
     </section>

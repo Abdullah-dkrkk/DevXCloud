@@ -17,6 +17,7 @@
 } */
 .devx__green-hero-section img {
     max-width: 480px;
+    width: 480px;
 }
 .devx__green-hero-section .devx__btn-primary {
     background: #21913B;
@@ -86,11 +87,15 @@
 
 /* green - future */
 
-.devx__green-future .container .row .col-lg-12 {
-    background-image: url("../images/greenscale-ai/future-main-img.png");
-    background-size: contain;
-    background-position: right;
+.devx__green-future {
+    background-image: url("../images/greenscale-ai/future-main-img-desktop.svg");
+    background-size: cover;
+    background-position: center;
+    min-width: 100% !important;
+    margin-bottom: 20px;
     background-repeat: no-repeat;
+}
+.devx__green-future .container .row .col-lg-12 {
     min-height: 668px;
 }
 /* .devx__green-future .cta-button:hover{
@@ -111,9 +116,13 @@
 
 /* green - phase */
 
-.devx__green-phase{
+.devx__green-phase {
     padding-top:46px;
-    padding-bottom:46px;
+    padding-bottom: 192px;
+    background: url('../images/greenscale-ai/green-phase-desktop.svg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: bottom;
 }
 /* .devx__green-phase .main-para{
     text-align:center;
@@ -130,6 +139,8 @@
     border-radius:20px;
     display:flex;
     flex-direction:column;
+    background: #FFFFF3;
+    box-shadow: 0px 0px 20px rgb(0 0 0 / 14%);
     align-items:center;
     justify-content:center;
     padding:40px 12px;
@@ -166,12 +177,23 @@
     margin-top:12px;
     margin-bottom:32px;
 } */
-.devx__green-benefits .inner-wrapper .image-holder{
-    background:#D9D9D9;
-    border-top-right-radius:20px;
-    border-top-left-radius:20px;
-    min-width:100%;
+.devx__green-benefits .inner-wrapper .image-holder img {
     min-height:220px;
+    max-width: 100%;
+    border-top-right-radius: 32px;
+    margin-bottom: -4px;
+    border-top-left-radius: 32px;
+    /* 
+    border-top-right-radius: 32px;
+    border-top-left-radius: 32px;
+    margin-bottom: -8px; */
+}
+.devx__green-benefits .inner-wrapper .image-holder{
+    /* border-top-right-radius:20px;
+    border-top-left-radius:20px;
+    display:flex;
+    min-width:100%;
+    min-height:220px; */
 }
 .devx__green-benefits .inner-wrapper{
     border-radius:20px;
@@ -513,4 +535,13 @@
 .devx__bottom-section .secondary-cta-button {
     color: #21913B;
     border-color: #21913B;
+}
+
+
+/* greenscale - green future media queries */
+
+@media only screen and (max-width: 576px) {
+    .devx__green-future {
+        background-image: url("../images/greenscale-ai/future-main-img-mobile.svg");
+    }
 }
