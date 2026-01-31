@@ -45,3 +45,6 @@ Route::get('/launchpad-ai', fn () => view('launchpad-ai'))->name('launchpad-ai')
 Route::get('/scalecloud-ai', fn () => view('scalecloud-ai'))->name('scalecloud-ai');
 Route::get('/elitescale-ai', fn () => view('elitescale-ai'))->name('elitescale-ai');
 Route::get('/greenscale-ai', fn () => view('greenscale-ai'))->name('greenscale-ai');
+Route::get('/terms-of-service', fn () => view('terms-of-service'))->name('terms-of-service');
+Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-policy');
+
