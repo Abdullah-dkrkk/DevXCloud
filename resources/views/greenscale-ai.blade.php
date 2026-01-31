@@ -5,12 +5,12 @@
     <!-- Hero Section -->
     <section class="devx__green-hero-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex align-items-center justify-content-start">
-                    <div class="inner-wrapper d-flex flex-column align-items-start justify-content-start">
-                        <h2>Smarter Growth for Vegan <br> Meal Kit Brands.</h2>
-                        <p>Grow your vegan meal kit brand sustainably with <br> the GreenScale Formula™ AI-powered growth engine.</p>
-                        <button class="devx__btn-primary">
+            <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
+                <div class="col-lg-6 mt-lg-0 mt-4 d-flex align-items-center justify-content-lg-start justify-content-center">
+                    <div class="inner-wrapper d-flex flex-column align-items-lg-start align-items-center justify-content-center">
+                        <h2 class="text-lg-start text-center">Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
+                        <p class="text-lg-start text-center">Grow your vegan meal kit brand sustainably with <br class="d-lg-inline d-none"> the GreenScale Formula™ AI-powered growth engine.</p>
+                        <button class="devx__btn-primary d-flex align-items-center justify-content-center">
                             Get My Growth Plan
                         </button>
                     </div>
@@ -29,8 +29,8 @@
         <div class="container d-flex flex-column align-items-center justify-content-center">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center flex-column">
-                    <h2 class="text-center">Turn Your Vegan Meal Kits <br> Into a Growth Engine.</h2>
-                    <p class="text-center mt-2 mb-5">GreenScale Formula™ helps vegan meal kit brands grow without wasting <br> ingredients, losing customers, or compromising their values.</p>
+                    <h2 class="text-center px-3">Turn Your Vegan Meal Kits <br class="d-lg-inline d-none"> Into a Growth Engine.</h2>
+                    <p class="text-center px-3 mt-2 mb-4">GreenScale Formula™ helps vegan meal kit brands grow without wasting <br class="d-lg-inline d-none"> ingredients, losing customers, or compromising their values.</p>
                 </div>
             </div>
             <div class="row main-cards-wrapper">
@@ -39,7 +39,7 @@
                         <img src="{{ asset('images/greenscale-ai/vegan-first.svg') }}" alt="Vegan First">
                         <div class="inner-content-wrapper">
                             <h3 class="mb-2">Predictable Revenue Growth</h3>
-                            <p>Turn your meal kits into a steady growth <br> engine powered by AI forecasting and <br> personalization.</p>
+                            <p>Turn your meal kits into a steady growth <br class="d-lg-inline d-none"> engine powered by AI forecasting and <br class="d-lg-inline d-none"> personalization.</p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <img src="{{ asset('images/greenscale-ai/vegan-second.svg') }}" alt="Vegan Second">
                         <div class="inner-content-wrapper">
                             <h3 class="mb-2">Reduce Ingredient Waste</h3>
-                            <p> Cut costs and support sustainability with <br> smart meal planning and predictive restocks.</p>
+                            <p> Cut costs and support sustainability with <br class="d-lg-inline d-none"> smart meal planning and predictive restocks.</p>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         <img src="{{ asset('images/greenscale-ai/vegan-third.svg') }}" alt="Vegan Third">
                         <div class="inner-content-wrapper">
                             <h3 class="mb-2">Stronger Subscriptions</h3>
-                            <p>Build recurring revenue with retention- <br> driven funnels and loyalty-focused <br>  offers.</p>
+                            <p>Build recurring revenue with retention- <br class="d-lg-inline d-none"> driven funnels and loyalty-focused <br class="d-lg-inline d-none">  offers.</p>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                         <img src="{{ asset('images/greenscale-ai/vegan-fourth.svg') }}" alt="Vegan Fourth">
                         <div class="inner-content-wrapper">
                             <h3 class="mb-2">Sustainable Brand Trust</h3>
-                            <p>Grow ethically and win loyalty by aligning with what conscious consumers <br> care about..</p>
+                            <p>Grow ethically and win loyalty by aligning with what conscious consumers <br class="d-lg-inline d-none"> care about..</p>
                         </div>
                     </div>
                 </div>
@@ -83,13 +83,21 @@
     <section class="devx__green-future">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-start">
-                    <div class="inner-wrapper d-flex align-items-start justify-content-center flex-column">
-                        <h2>Future-Ready Growth for <br> Smart Vegan Brands.</h2>
-                        <p class="mt-2">Watch how GreenScale Formula™ blends <br> AI forecasting with sustainable brand <br> strategies to help vegan meal kit brands <br> scale smarter.</p>
+                <div class="col-lg-6 d-flex align-items-center justify-content-lg-start justify-content-center mb-lg-0 mb-4">
+                    <div class="inner-wrapper d-flex align-items-lg-start align-items-center justify-content-center flex-column">
+                        <h2 class="text-lg-start text-center">Future-Ready Growth for <br class="d-lg-inline d-none"> Smart Vegan Brands.</h2>
+                        <p class="mt-2 text-lg-start text-center">Watch how GreenScale Formula™ blends <br class="d-lg-inline d-none"> AI forecasting with sustainable brand <br class="d-lg-inline d-none"> strategies to help vegan meal kit brands <br class="d-lg-inline d-none"> scale smarter.</p>
                         <button class="devx__btn-primary">
                             Watch the Demo
                         </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                        <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px;     max-height: 300px;">
+                            <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
+                            Your browser does not support HTML video.
+                        </video>
                     </div>
                 </div>
             </div>
@@ -104,7 +112,7 @@
                     <h2 class="text-center">
                         The Benefits That Drive <br> Sustainable Growth.
                     </h2>
-                    <p class="text-center mt-2 mb-5">
+                    <p class="text-center mt-2 mb-4">
                         See how GreenScale Formula™ turns strategy into real, measurable <br> impact for vegan meal kit brands.
                     </p>
                 </div>
@@ -113,44 +121,44 @@
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <div class="image-holder">
-                            <img src="{{ asset('images/greenscale-ai/boost-revenue.svg') }}" alt="Full Growth Visibility">
+                            <img src="{{ asset('images/greenscale-ai/boost-revenue.png') }}" alt="Full Growth Visibility">
                         </div>
                         <div class="inner-content-wrapper">
                             <h3>Boost Revenue <br> Predictably</h3>
-                            <p>Forecast demand and personalize <br> offers to grow smarter.</p>
+                            <p>Forecast demand and personalize offers to grow smarter.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <div class="image-holder">
-                            <img src="{{ asset('images/greenscale-ai/cut-ingredient-waste.svg') }}" alt="Full Growth Visibility">
+                            <img src="{{ asset('images/greenscale-ai/cut-ingredient-waste.png') }}" alt="Full Growth Visibility">
                         </div>
                         <div class="inner-content-wrapper">
                             <h3>Cut Ingredient <br> Waste</h3>
-                            <p>Smarter meal planning means better <br> margins and less waste.</p>
+                            <p>Smarter meal planning means better margins and less waste.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <div class="image-holder">
-                            <img src="{{ asset('images/greenscale-ai/increase-retention.svg') }}" alt="Full Growth Visibility">
+                            <img src="{{ asset('images/greenscale-ai/increase-retention.png') }}" alt="Full Growth Visibility">
                         </div>
                         <div class="inner-content-wrapper">
                             <h3>Increase Retention <br> & Subscriptions</h3>
-                            <p>Keep customers coming back with <br> personalized experiences.</p>
+                            <p>Keep customers coming back with personalized experiences.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper">
                         <div class="image-holder">
-                            <img src="{{ asset('images/greenscale-ai/full-growth-visibility.svg') }}" alt="Full Growth Visibility">
+                            <img src="{{ asset('images/greenscale-ai/full-growth-visibility.png') }}" alt="Full Growth Visibility">
                         </div>
                         <div class="inner-content-wrapper">
                             <h3>Get Full Growth <br> Visibility</h3>
-                            <p>Real-time dashboards to make <br> confident, data-backed decisions.</p>
+                            <p>Real-time dashboards to make confident, data-backed decisions.</p>
                         </div>
                     </div>
                 </div>
@@ -225,7 +233,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2>What Makes GreenScale Formula™ Different.</h2>
+                    <h2 class="text-center">What Makes GreenScale Formula™ Different.</h2>
                     <p class="mt-2 mb-5 text-center">Most agencies sell tactics. We build a system that’s made <br> for your market, not for everyone else.</p>
                 </div>
             </div>
@@ -331,7 +339,7 @@
                             </div>
                             <div class="content-wrappe mt-4">
                                 <h3 class="text-center mb-2">Strategy & Market Mapping</h3>
-                                <p class="text-center mb-5">We start by understanding your niche, your offer, and your customers to build the foundation of your growth engine.</p>
+                                <p class="text-center">We start by understanding your niche, your offer, and your customers to build the foundation of your growth engine.</p>
                             </div>
                         </div>
 
@@ -531,7 +539,7 @@
         <div class="container px-0">
             <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
                 <div class="col d-flex align-items-start justify-content-center flex-column">
-                        <h2 class="mb-2 devx__color-primary">Ready to Scale <br> Smarter?</h2>
+                        <h2 class="mb-2">Ready to Scale <br> Smarter?</h2>
                         <p class="text-start">
                             GreenScale Formula™ turns your strategy, forecasting, and retention into a powerful growth engine built for vegan meal kit brands. No guesswork. Just structured, sustainable growth.
                         </p>
@@ -541,7 +549,7 @@
                         </div>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
+                    <img src="{{ asset('images/greenscale-ai/robot-image-green.png') }}" alt="Robot With BG" width="350" height="350">
                 </div>
             </div>
         </div>
