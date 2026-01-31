@@ -8,7 +8,7 @@
             <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 mt-lg-0 mt-4 d-flex align-items-center justify-content-lg-start justify-content-center">
                     <div class="inner-wrapper d-flex flex-column align-items-lg-start align-items-center justify-content-center">
-                        <h2 class="text-lg-start text-center">Test Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
+                        <h2 class="text-lg-start text-center">Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
                         <p class="text-lg-start text-center">Grow your vegan meal kit brand sustainably with <br class="d-lg-inline d-none"> the GreenScale Formula™ AI-powered growth engine.</p>
                         <button class="devx__btn-primary d-flex align-items-center justify-content-center">
                             Get My Growth Plan
