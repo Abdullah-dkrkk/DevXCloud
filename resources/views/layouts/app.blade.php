@@ -257,8 +257,8 @@
                 <div class="col-lg-3 first-column">
                     <p class="text-start first-col-p">DevXcloud is a powerful Performance <br> Management Software for Employees <br> and a cloud-based HR Platform</p>
                     <div class="privacy-terms-wrapper d-flex align-items-center justify-content-between">
-                        <a href="javascript:void(0);" class="privacy px-1">Privacy Policy</a>
-                        <a href="javascript:void(0);" class="terms px-1">Terms & Conditions</a>
+                        <a href="{{ route('privacy-policy') }}" class="privacy px-1">Privacy Policy</a>
+                        <a href="{{ route('terms-of-service') }}" class="terms px-1">Terms & Conditions</a>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-1">
@@ -275,7 +275,7 @@
                 <div class="col-lg-2">
                     <h5>Other Link</h5>
                     <ul>
-                        <li><a href="javascript:void(0);">Contact</a></li>
+                        <li><a href="{{ route('contact') }}">Contact</a></li>
                         <li><a href="javascript:void(0);">Benefits</a></li>
                         <li><a href="javascript:void(0);">Cookie Policy</a></li>
                     </ul>

@@ -8,7 +8,7 @@
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-end">
                     <h1 class="text-center">Your AI-driven growth partner <br> for modern brands.</h1>
                     <p class="text-center">We help modern brands grow by building AI-powered growth systems tailored to their business. Unlike agencies that rely on random campaigns, we create predictable strategies designed to increase traffic, convert more customers, and scale revenue consistently.</p>
-                    <img src="{{ asset('images/about-page/about-hero-banner-robot.png') }}" alt="About Banner Hero Robot">
+                    <img src="{{ asset('images/about-page/about-hero-banner-robot.svg') }}" alt="About Banner Hero Robot">
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/about-page/real-results-main-image.png') }}" alt="Real Results Main Image">
+                    <img src="{{ asset('images/about-page/real-results-main-image.svg') }}" alt="Real Results Main Image">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <div class="content-wrapper">
@@ -181,7 +181,7 @@
                         <p>The truth is, most brands don’t fail because their product is bad. They struggle because their growth strategy is scattered. Most agencies sell one piece of the puzzle and leave you to figure out the rest.</p>
                         <p>DevXCloud changes that by bringing everything under one roof where strategy, positioning, systems, execution, and optimization work together as one connected growth engine.</p>
                         <p>Instead of trying to stitch together vendors, tools, and teams, you get one structure, one team, and one clear path to scale with speed and confidence. Because real growth doesn’t come from juggling pieces - it comes from everything clicking together.</p>
-                        <img src="{{ asset('images/about-page/real-growth-begins-main-image.jpeg') }}" alt="About Video Thumbnail Main Image">
+                        <img src="{{ asset('images/about-page/real-growth-begins-main-image.svg') }}" alt="About Video Thumbnail Main Image">
                     </div>
                 </div>
             </div>

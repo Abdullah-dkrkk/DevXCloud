@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +48,10 @@ Route::get('/elitescale-ai', fn () => view('elitescale-ai'))->name('elitescale-a
 Route::get('/greenscale-ai', fn () => view('greenscale-ai'))->name('greenscale-ai');
 Route::get('/terms-of-service', fn () => view('terms-of-service'))->name('terms-of-service');
 Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-policy');
+Route::get('/contact', fn () => view('contact'))->name('contact');
 
+
+Route::post('/contact-submit', [ContactController::class, 'submit'])
+    ->name('contact.submit');
+
+    
