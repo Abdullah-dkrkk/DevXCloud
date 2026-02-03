@@ -31,6 +31,8 @@
         .privacy-content {
             padding-top: 92px;
             padding-bottom: 92px;
+            text-align:center;
+
         }
         @media only screen and (max-width: 576px) {
             .privacy-content {

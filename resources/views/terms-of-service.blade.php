@@ -27,10 +27,10 @@
         .terms-banner .container .row .col-lg-12 {
             min-height: 300px;
         }
-
         .terms-content {
             padding-top: 92px;
             padding-bottom: 92px;
+            text-align:center;
         }
         @media only screen and (max-width: 576px) {
             .terms-content {
