@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+
+@section('title', 'About Us')
+
 @section('content')
     <!-- hero section -->
     <section class="devx__about-hero-banner">
@@ -296,13 +299,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">How is DevXCloud different from other agencies?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                We don’t just build websites, we build launch systems. From strategy and funnels to
-                                performance dashboards, everything is tailored for growth from day one.
+                                We don’t offer one-off services. We build a connected growth engine that combines strategy, execution, and data - all under one roof.
                             </div>
                         </div>
                     </div>
@@ -311,14 +313,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">Do I need to be technical to work with you?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                When you hire freelancers, you often need to manage them closely, align timelines, and coordinate multiple skill sets yourself. Agencies may provide structure, but they can also be rigid, expensive, and slow to adapt.
-                                <br><br>
-                                CommerceAI removes these bottlenecks by combining technology with expertise. The platform is designed to give you speed, consistency, and measurable results—without you having to chase updates or manage resources on your own.
+                                Not at all. Our job is to set up and run the system so you can focus on your business, not the backend.
                             </div>
                         </div>
                     </div>
@@ -327,12 +327,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">Do you work with early-stage startups?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Results depend on your specific brand and goals, but most businesses see improvements in efficiency and revenue within the first few weeks. The system is designed to learn and optimize continuously, which means your performance keeps improving over time.
+                                Yes. Whether you’re just starting out or scaling fast, we adapt the strategy to match your stage and goals.
                             </div>
                         </div>
                     </div>
@@ -341,14 +341,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">How long does it take to set up everything?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Setup is usually very quick. Most clients are able to get started within a few days, and the platform guides you step by step so there’s no technical headache.
-                                <br><br>
-                                Once you’re onboarded, the system begins working immediately in the background, so you don’t lose time waiting for long processes or approvals.
+                                It depends on the scope, but most setups take 3–6 weeks. We prioritize fast, clean launches.
                             </div>
                         </div>
                     </div>
@@ -357,14 +355,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">Can I keep the system after the contract ends?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                No heavy management is required. The platform is designed to run with minimal input from you. You’ll have access to dashboards where you can see progress and results, but you don’t have to worry about day-to-day execution.
-                                <br><br>
-                                That said, you’re always in control. If you want to make adjustments or set specific preferences, the system gives you the flexibility to do so at any time.
+                                Yes. We build everything in a way that’s transparent and transferable. You’ll fully own your systems.
                             </div>
                         </div>
                     </div>
@@ -373,18 +369,19 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">Is DevXCloud limited to eCommerce businesses?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Yes, absolutely. In fact, smaller brands often see the biggest impact because they can adopt proven strategies quickly without the overhead of building large in-house teams.
-                                <br><br>
-                                The platform is flexible enough to scale with you as your business grows. Whether you’re just starting or already established, the system adapts to your needs.
+                                No. While we specialize in eCommerce, we also work with SaaS, service-based businesses, and other digital brands.
                             </div>
                         </div>
                     </div>
+
                 </div>
+
+
             </div>
         </div>
     </section>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Scalecloud AI')
+
 @section('content')
     <!-- scalecloud ai - hero section -->
     <section class="devx__launch-hero-section">
@@ -109,42 +111,93 @@
                     <p class="text-center mt-2 mb-4">From product analytics to CRM and billing, ScaleCloud connects with your stack, so you <br> can scale faster without switching tools.</p>
                 </div>
             </div>
-            <div class="row px-0 saas-trusted-clients owl-carousel">
+           <div class="saas-trusted-clients-updated">
+                <!-- ORIGINAL ITEMS -->
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/stripe.svg') }}" alt="Stripe" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/intercom.svg') }}" alt="Intercom" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/slack.svg') }}" alt="Slack" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/notion.svg') }}" alt="Notion" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/zapier.svg') }}" alt="Zapier" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/segment.svg') }}" alt="Segment" class="img-fluid">
                     </div>
                 </div>
+
                 <div class="col item">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/hubspot.svg') }}" alt="Hubspot" class="img-fluid">
                     </div>
                 </div>
+
+                <!-- DUPLICATE ITEMS (for seamless marquee loop) -->
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/stripe.svg') }}" alt="Stripe" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/intercom.svg') }}" alt="Intercom" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/slack.svg') }}" alt="Slack" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/notion.svg') }}" alt="Notion" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/zapier.svg') }}" alt="Zapier" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/segment.svg') }}" alt="Segment" class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col item">
+                    <div class="inner-wrapper">
+                        <img src="{{ asset('images/scalecloud-ai/hubspot.svg') }}" alt="Hubspot" class="img-fluid">
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -231,13 +284,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">What makes LaunchPadAI different from typical website agencies?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                How is ScaleCloud different from other analytics tools?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                We don’t just build websites, we build launch systems. From strategy and funnels to
-                                performance dashboards, everything is tailored for growth from day one.
+                                ScaleCloud isn’t just a dashboard, it’s a predictive growth engine built for SaaS. We forecast churn, upsells, and MRR shifts before they happen, and automate workflows so your team acts on insights instantly.
                             </div>
                         </div>
                     </div>
@@ -246,14 +299,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Can I use LaunchPadAI if I already have a website?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                How long does it take to see results?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                When you hire freelancers, you often need to manage them closely, align timelines, and coordinate multiple skill sets yourself. Agencies may provide structure, but they can also be rigid, expensive, and slow to adapt.
-                                <br><br>
-                                CommerceAI removes these bottlenecks by combining technology with expertise. The platform is designed to give you speed, consistency, and measurable results—without you having to chase updates or manage resources on your own.
+                                Most teams start spotting conversion lift and churn drop within 4–6 weeks after integration. The forecasting layer starts improving accuracy almost immediately once your historical data is connected.
                             </div>
                         </div>
                     </div>
@@ -262,12 +314,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> Do you work with solo founders or teams?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                Do we need a data team to use it?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Results depend on your specific brand and goals, but most businesses see improvements in efficiency and revenue within the first few weeks. The system is designed to learn and optimize continuously, which means your performance keeps improving over time.
+                                Nope. ScaleCloud’s interface is designed for non-technical teams, with one-click integrations and pre-built SaaS KPI templates. Your dev team just connects the APIs, and we handle the heavy lifting.
                             </div>
                         </div>
                     </div>
@@ -276,14 +329,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> How long does it take to launch with LaunchPadAI?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                Can ScaleCloud work with our current tools?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Setup is usually very quick. Most clients are able to get started within a few days, and the platform guides you step by step so there’s no technical headache.
-                                <br><br>
-                                Once you’re onboarded, the system begins working immediately in the background, so you don’t lose time waiting for long processes or approvals.
+                                Yes, it plays nice with your existing stack (HubSpot, Stripe, Intercom, Segment, GA4, etc.) so there’s no major workflow disruption.
                             </div>
                         </div>
                     </div>
@@ -292,35 +344,20 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What if I don’t know my audience or offer yet?
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                What’s the typical ROI?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                No heavy management is required. The platform is designed to run with minimal input from you. You’ll have access to dashboards where you can see progress and results, but you don’t have to worry about day-to-day execution.
-                                <br><br>
-                                That said, you’re always in control. If you want to make adjustments or set specific preferences, the system gives you the flexibility to do so at any time.
+                                Clients report 2–5x ROI
                             </div>
                         </div>
                     </div>
 
-                    <!-- FAQ 6 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20"> What’s the investment to work with LaunchPadAI?
-                            </button>
-                        </h2>
-                        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                Yes, absolutely. In fact, smaller brands often see the biggest impact because they can adopt proven strategies quickly without the overhead of building large in-house teams.
-                                <br><br>
-                                The platform is flexible enough to scale with you as your business grows. Whether you’re just starting or already established, the system adapts to your needs.
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- scalecloud ai - faq ends here -->

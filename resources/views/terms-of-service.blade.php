@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+@section('title', 'Privacy Terms')
+
+
 @section('content')
     <style>
         .terms-content a {

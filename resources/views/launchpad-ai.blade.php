@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+@section('title', 'Launchpad AI')
+
+
 @section('content')
     <!-- launchpad ai - hero section -->
     <section class="devx__launchpad-hero-section">

@@ -65,32 +65,57 @@
 }
 /* scalecloud ai - what powers the scalecloud stack */
 
+
 /* scalecloud ai - trusted */
 .devx__launch-trusted {
     padding-top: 46px;
     padding-bottom: 46px;
     background: #f7f7f7;
-    /* margin-top: 80px; */
 }
-.devx__launch-trusted .saas-trusted-clients .owl-item img {
-    width: auto !important;
+
+.devx__launch-trusted .saas-trusted-clients-updated {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow:hidden;
+    width: max-content;
+    animation: scalecloud-marquee 7s linear infinite;
 }
-.devx__launch-trusted .inner-wrapper img{
-    transform:scale(0.85);
+
+.devx__launch-trusted .saas-trusted-clients-updated:hover {
+    animation-play-state: paused;
 }
-.devx__launch-trusted .owl-stage-outer {
-    min-width: calc(100% + 32px) !important;
+
+.devx__launch-trusted .saas-trusted-clients-updated .item {
+    flex: 0 0 auto;
+    margin-right: 24px;
 }
+
 .devx__launch-trusted .inner-wrapper {
     min-height: 140px;
+    min-width: 184px;
     background: white;
     box-shadow: 0px 4px 40px 0px #00000012;
     border-radius: 14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.devx__launch-trusted .inner-wrapper img {
+    width: auto !important;
+    transform: scale(0.85);
+}
+
+@keyframes scalecloud-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 /* scalecloud ai - trusted ends here */
+
 
 /* scalecloud ai - funnel */
  .devx__launch-funnel {

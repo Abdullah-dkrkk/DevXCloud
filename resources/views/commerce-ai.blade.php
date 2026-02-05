@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+@section('title', 'Commerce AI')
+
+
 @section('content')
 
     <!-- <div class="main-wrapper-container"> -->

@@ -43,6 +43,14 @@
     object-fit: cover !important;
     min-width: 100% !important;
 }
+.devx__home-explore-growth-engine .cards-wrapper .col p {
+    min-height: 100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-right: 10px;
+    padding-left: 10px;
+}
 .devx__home-explore-growth-engine .cards-wrapper .col {
     background: var(--theme-offwhite);
     box-shadow: 0px 0px 10px #e2e2e2;
@@ -215,13 +223,57 @@
 |-----------------------------------
 */
 
-.devx__home-trusted-platforms {
+/* .devx__home-trusted-platforms {
     padding-top: 92px;
     padding-bottom: 92px;
 }
 .devx__home-trusted-platforms .inner-col {
     border: 1px solid var(--theme-offwhite);
     border-radius: 14px;
+} */
+
+.devx__home-trusted-platforms {
+    padding-top: 92px;
+    padding-bottom: 92px;
+}
+.trusted-marquee {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+.trusted-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: trusted-marquee 7s linear infinite;
+}
+.trusted-item {
+    flex: 0 0 auto;
+    margin-right: 24px;
+    padding: 18px 22px;
+    min-width: 185px;
+    min-height: 94px;
+    border: 1px solid #dee2e6;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+.trusted-item img {
+    display: block;
+    max-height: 60px;
+    width: auto;
+}
+.trusted-marquee:hover .trusted-marquee__track {
+    animation-play-state: paused;
+}
+@keyframes trusted-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 
@@ -241,6 +293,17 @@
 }
 .devx__home-explore .row {
     max-width: 1240px;
+}
+.devx__home-explore .row .inner-col h3 {
+    padding-bottom: 0px !important;
+}
+.devx__home-explore .row .inner-col p {
+    min-height: 64px;
+    display:flex;
+    align-items:center;
+    margin-bottom: 16px !important;
+    margin-top: 16px !important;
+    justify-content:center;
 }
 .devx__home-explore .row .inner-col {
     border-radius: 14px;

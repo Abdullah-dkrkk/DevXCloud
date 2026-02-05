@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Homepage')
+
 @section('content')
 
     <!-- Homepage - Hero section -->
@@ -7,11 +9,11 @@
         <div class="container">
             <div class="row">
                 <div class="px-0 col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1 class="devx__color-primary mb-2">Custom AI Growth <br> Engines Built Around <br> Your Business</h1>
-                    <p>DevXCloud designs fully tailored systems powered by <br> strategy AI and real-time data made for business that <br> want more tha just another agency. </p>
+                    <h1 class="devx__color-primary mb-2">Custom Growth <br> Systems Built Around <br> Your Business</h1>
+                    <p>We diagnose what’s holding your growth back, <br> design a clear roadmap, and execute with data, <br> automation, and strategy working as one system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
-                        <button class="devx__btn-primary">Discover our Growth Engine</button>
-                        <button class="devx__btn-secondary">See The DevX Process</button>
+                        <button class="devx__btn-primary">Start Your Growth Diagnosis</button>
+                        <button class="devx__btn-secondary">Explore Growth Systems</button>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
@@ -30,8 +32,8 @@
         <div class="container px-0">
             <div class="row">
                 <div class="col-lg-12 px-0">
-                    <h2 class="devx__color-primary text-center">Explore the Growth Engines Powering Modern <br> Digital Brands </h2>
-                    <p class="main-para text-center mt-2">Each system is custom built to your stage business model and market integrating AI automation and <br> strategy to drive scalable results.</p>
+                    <h2 class="devx__color-primary text-center">Explore Growth Systems Built for Specific <br> Industries and Outcomes</h2>
+                    <p class="main-para text-center mt-2">Each system is purpose-built for a specific industry, starting with diagnosis and ending in <br> execution to deliver clear growth outcomes.</p>
                 </div>
             </div>
             <div class="row d-flex align-items-center justify-content-center gap-24 mt-4 cards-wrapper flex-nowrap">
@@ -41,7 +43,7 @@
                         <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center mb-2">GreenScale Formula™</h3>
-                    <p class="text-center">Reduce waste, retain subscribers, and scale with AI-powered bundle planning.</p>
+                    <p class="text-center">A Custom Growth System Built Specifically for Vegan Meal Kit Brands</p>
                     <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
@@ -52,7 +54,7 @@
                         <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center mb-2">Commerce AI</h3>
-                    <p class="text-center">Boost AOV, retention, and personalization with a smart eCommerce system.</p>
+                    <p class="text-center">A Custom Growth System Built for All E-Commerce Brands</p>
                     <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
@@ -63,7 +65,7 @@
                         <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center mb-2">LaunchPadAI</h3>
-                    <p class="text-center">Launch smarter with predictive analytics, UX optimization, and AI onboarding</p>
+                    <p class="text-center">A Structured Growth Foundation Built for Founders and Early-Stage Businesses</p>
                     <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap- mb-4">
                         <span>Learn More</span>
                     </a>
@@ -74,7 +76,7 @@
                         <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="" class="img-fluid" style="margin-top:-6px;">
                     </div>
                     <h3 class="text-center mb-2">ScaleCloud</h3>
-                    <p class="text-center">Scale your SaaS with smart automation, integrations, and real-time performance insights.</p>
+                    <p class="text-center"> A Scalable Growth Infrastructure Built for SaaS Companies</p>
                     <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
@@ -85,7 +87,7 @@
                         <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="" class="img-fluid">
                     </div>
                     <h3 class="text-center mb-2">EliteScale</h3>
-                    <p class="text-center">For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
+                    <p class="text-center">An Advanced Growth System Built for High-Revenue Digital Brands</p>
                     <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
@@ -94,8 +96,8 @@
             <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
                <div class="col d-inline-flex align-items-start justify-content-center flex-column">
                     <h2 class="mb-2 devx__color-primary">Not sure which growth engine is right for you?</h2>
-                    <p class="mb-3">We’ll help you choose the best system based on your business stage and goals.</p>
-                    <button class="devx__btn-primary">Discover our Growth Engine</button>
+                    <p class="mb-3">We’ll help you figure out the right system based on your business stage and what you’re trying to achieve.</p>
+                    <button class="devx__btn-primary">Talk to Our Team</button>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
                     <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
@@ -243,9 +245,9 @@
     <section class="devx__home-why-founders">
         <div class="container">
             <div class="row">
-                <h2 class="text-center devx__color-primary">Why Founders Trust the DevXCloud Approach</h2>
+                <h2 class="text-center devx__color-primary">Our Approach to Building Sustainable Growth Systems</h2>
                 <p class="text-center head-para mx-auto py-3">
-                    Our growth systems are designed to solve real problems built for founders who want clarity, control, and performance at scale.
+                    We focus on understanding the business first, then designing and executing systems built for long-term growth
                 </p>
             </div>
             <div class="row mb-2 cards-wrapper mx-auto">
@@ -257,7 +259,7 @@
                         <div class="inner-column-second">
                             <h3 class="text-start mb-2">Strategy-First <br> Foundation</h3>
                             <p class="text-start">
-                                No generic service bundles we start with deep analysis and real objectives.
+                                We start by understanding the business model, market, and constraints before deciding what to build, fix, or scale.
                             </p>
                         </div>
                     </div>
@@ -270,7 +272,7 @@
                         <div class="inner-column-second">
                             <h3 class="text-start mb-2">Custom Systems, Not <br> Templates</h3>
                             <p class="text-start">
-                                No generic service bundles we start with deep analysis and real objectives.
+                                Every system is designed around the specific business, stage, and goals — not pre-built packages or one-size-fits-all frameworks.
                             </p>
                         </div>
                     </div>
@@ -283,7 +285,7 @@
                         <div class="inner-column-second">
                             <h3 class="text-start mb-2">Transparency From <br> Day One</h3>
                             <p class="text-start">
-                                No generic service bundles we start with deep analysis and real objectives.
+                                You get clear visibility into what’s being done, why decisions are made, and how progress is measured from the start.
                             </p>
                         </div>
                     </div>
@@ -296,7 +298,7 @@
                         <div class="inner-column-second">
                             <h3 class="text-start mb-2">Built to Scale <br> With You</h3>
                             <p class="text-start">
-                                No generic service bundles we start with deep analysis and real objectives.
+                                Systems are designed to adapt as the business grows, so foundations don’t need to be rebuilt every time priorities change.
                             </p>
                         </div>
                     </div>
@@ -314,6 +316,64 @@
 
     <!-- Homepage - Powered by trusted platforms -->
     <section class="devx__home-trusted-platforms">
+        <div class="container">
+            <h2 class="text-center mb-4 pb-3 devx__color-primary">
+                Powered by trusted platforms
+            </h2>
+
+            <div class="trusted-marquee">
+                <div class="trusted-marquee__track">
+                    <!-- ORIGINAL ITEMS -->
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/shopify.svg') }}" alt="Shopify" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/klaviyo.svg') }}" alt="Klaviyo" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/meta.svg') }}" alt="Meta" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/chatgpt.svg') }}" alt="Chatgpt" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/brown-chart.svg') }}" alt="Brown Chart" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/webflow.svg') }}" alt="Webflow" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/random-square.svg') }}" alt="Random Square" height="60">
+                    </div>
+
+                    <!-- DUPLICATE ITEMS (required for seamless loop) -->
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/shopify.svg') }}" alt="Shopify" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/klaviyo.svg') }}" alt="Klaviyo" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/meta.svg') }}" alt="Meta" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/chatgpt.svg') }}" alt="Chatgpt" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/brown-chart.svg') }}" alt="Brown Chart" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/webflow.svg') }}" alt="Webflow" height="60">
+                    </div>
+                    <div class="trusted-item">
+                        <img src="{{ asset('images/random-square.svg') }}" alt="Random Square" height="60">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="devx__home-trusted-platforms" style="display:none;">
         <div class="container">
             <h2 class="text-center mb-4 pb-3 devx__color-primary">Powered by trusted platforms</h2>
 
@@ -369,10 +429,11 @@
         <div class="container">
             <div class="row mx-auto">
                 <h2 class="text-center devx__color-primary">
-                    Explore the Growth Engines in Action
+                    Explore the Growth Systems
                 </h2>
                 <p class="text-center mx-auto mt-2 mb-4 pb-3">
-                    Which one fits your business best? Dive deeper into how each engine works and what problems it solves so you can scale smarter, not louder.
+                    Each system is designed for a specific type of business and growth stage. Choose the one that fits you to explore it in detail.
+
                 </p>
             </div>
             <div class="row mx-auto">
@@ -380,7 +441,7 @@
                     <div class="inner-col border d-flex align-items-center flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">GreenScale Formula™</h3>
-                        <p class="text-center">For ethical or plant-based brands scaling smarter with bundle optimization and retention flows.</p>
+                        <p class="text-center">For Vegan Meal Kit Brands</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
@@ -390,7 +451,7 @@
                     <div class="inner-col border d-flex align-items-center flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">        
                         <h3 class="py-3">CommerceAI</h3>
-                        <p class="text-center">For eCommerce brands scaling with personalization, bundling, and smart inventory.</p>
+                        <p class="text-center">For E-Commerce Brands</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
@@ -400,7 +461,7 @@
                     <div class="inner-col border d-flex align-items-center flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">LaunchPadAI</h3>
-                        <p class="text-center">For founders launching smarter with AI onboarding, UX, and predictive dashboards.</p>
+                        <p class="text-center">For Founders & Early-Stage Businesses</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
@@ -410,7 +471,7 @@
                     <div class="inner-col border d-flex align-items-center flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">ScaleCloud</h3>
-                        <p class="text-center">For SaaS companies automating infrastructure, reporting, and real-time optimization.</p>
+                        <p class="text-center">For SaaS Companies</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
@@ -420,7 +481,7 @@
                     <div class="inner-col border d-flex align-items-center flex-column justify-content-center">
                         <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">EliteScale</h3>
-                        <p class="text-center">For high-revenue brands expanding through data, A/B testing, and innovation systems.</p>
+                        <p class="text-center">For High-Revenue Digital Brands</p>
                         <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
@@ -439,7 +500,7 @@
                     <!-- <div class="inner-col d-flex flex-column align-items-start justify-content-center"> -->
                         <h2 class="mb-2 devx__color-primary">Ready to Build Your <br> Growth Engine?</h2>
                         <p class="text-start">
-                            We don’t sell random services. We build systems designed to grow with you powered by AI, personalization,and strategy.
+                            Let’s start building the right growth system for your business
                         </p>
                         <button class="devx__btn-primary">Let’s Build It Together</button>
                     <!-- </div> -->
