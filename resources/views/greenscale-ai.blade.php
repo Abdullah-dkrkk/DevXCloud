@@ -8,7 +8,7 @@
             <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 mt-lg-0 mt-4 d-flex align-items-center justify-content-lg-start justify-content-center">
                     <div class="inner-wrapper d-flex flex-column align-items-lg-start align-items-center justify-content-center">
-                        <h2 class="text-lg-start text-center">Test Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
+                        <h2 class="text-lg-start text-center devx__color-primary">Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
                         <p class="text-lg-start text-center">Grow your vegan meal kit brand sustainably with <br class="d-lg-inline d-none"> the GreenScale Formula™ AI-powered growth engine.</p>
                         <button class="devx__btn-primary d-flex align-items-center justify-content-center">
                             Get My Growth Plan
@@ -29,7 +29,7 @@
         <div class="container d-flex flex-column align-items-center justify-content-center">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center flex-column">
-                    <h2 class="text-center px-3">Turn Your Vegan Meal Kits <br class="d-lg-inline d-none"> Into a Growth Engine.</h2>
+                    <h2 class="text-center px-3 devx__color-primary">Turn Your Vegan Meal Kits <br class="d-lg-inline d-none"> Into a Growth Engine.</h2>
                     <p class="text-center px-3 mt-2 mb-4">GreenScale Formula™ helps vegan meal kit brands grow without wasting <br class="d-lg-inline d-none"> ingredients, losing customers, or compromising their values.</p>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-start justify-content-center mb-lg-0 mb-4">
                     <div class="inner-wrapper d-flex align-items-lg-start align-items-center justify-content-center flex-column">
-                        <h2 class="text-lg-start text-center">Future-Ready Growth for <br class="d-lg-inline d-none"> Smart Vegan Brands.</h2>
+                        <h2 class="text-lg-start text-center devx__color-primary">Future-Ready Growth for <br class="d-lg-inline d-none"> Smart Vegan Brands.</h2>
                         <p class="mt-2 text-lg-start text-center">Watch how GreenScale Formula™ blends <br class="d-lg-inline d-none"> AI forecasting with sustainable brand <br class="d-lg-inline d-none"> strategies to help vegan meal kit brands <br class="d-lg-inline d-none"> scale smarter.</p>
                         <button class="devx__btn-primary">
                             Watch the Demo
@@ -109,7 +109,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="text-center">
+                    <h2 class="text-center devx__color-primary">
                         The Benefits That Drive <br> Sustainable Growth.
                     </h2>
                     <p class="text-center mt-2 mb-4">
@@ -177,7 +177,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="text-center">The 5-Phase Engine That <br> Drives Real Growth.</h2>
+                    <h2 class="text-center devx__color-primary">The 5-Phase Engine That <br> Drives Real Growth.</h2>
                     <p class="text-center mt-2 mb-5">A proven, structured system designed to help vegan meal <br> kit brands scale smarter and grow sustainably.</p>
                 </div>
             </div>
@@ -233,7 +233,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="text-center">What Makes GreenScale Formula™ Different.</h2>
+                    <h2 class="text-center devx__color-primary">What Makes GreenScale Formula™ Different.</h2>
                     <p class="mt-2 mb-5 text-center">Most agencies sell tactics. We build a system that’s made <br> for your market, not for everyone else.</p>
                 </div>
             </div>
@@ -301,7 +301,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="text-center">How GreenScale Formula™ Works.</h2>
+                    <h2 class="text-center devx__color-primary">How GreenScale Formula™ Works.</h2>
                     <p class="text-center mt-2 mb-5">A clear path from onboarding to sustainable growth.</p>
                 </div>
             </div>
@@ -430,7 +430,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="mb-sm-5 mb-4 text-center">FAQs About GreenScale Formula</h2>
+                    <h2 class="mb-sm-5 mb-4 text-center devx__color-primary">FAQs About GreenScale Formula</h2>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">
@@ -539,7 +539,7 @@
         <div class="container px-0">
             <div class="row devx__bottom-section d-flex align-items-center justify-content-between">
                 <div class="col d-flex align-items-start justify-content-center flex-column">
-                        <h2 class="mb-2">Ready to Scale <br> Smarter?</h2>
+                        <h2 class="mb-2 devx__color-primary">Ready to Scale <br> Smarter?</h2>
                         <p class="text-start">
                             GreenScale Formula™ turns your strategy, forecasting, and retention into a powerful growth engine built for vegan meal kit brands. No guesswork. Just structured, sustainable growth.
                         </p>

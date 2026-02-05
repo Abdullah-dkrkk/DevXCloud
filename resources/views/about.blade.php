@@ -196,7 +196,7 @@
                     <h2>DevXCloud vs Traditional Agencies</h2>
                     <p>Other agencies give you a piece of the puzzle. We build the whole machine, set it up, and help you run it.</p>
                     <div class="points-wrapper row">
-                        <div class="col-lg-5 d-flex flex-column align-items-center justify-content-center">
+                        <div class="offset-1 col-lg-5 d-flex flex-column align-items-center justify-content-center">
                             <h4>DevXCloud</h4>
                             <ul class="bullet-points-wrapper">
                                 <li>
@@ -229,7 +229,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-none col-lg-2 d-flex flex-column align-items-center justify-content-center">
                             <h4>Core Elements a <br> Centre Column</h4>
                             <ul class="bullet-points-wrapper bpw-col-lg-2 d-flex flex-column align-items-center justify-content-center">
                                 <li>Strategy</li>

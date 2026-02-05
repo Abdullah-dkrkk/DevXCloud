@@ -4,6 +4,10 @@
     padding-top: 46px;
     padding-bottom: 46px;
 }
+.custom-greenscale-ai .devx__btn-primary {
+    background: linear-gradient(to left, #70a7fa, #3C76D3) !important;
+    border:none !important;
+}
 /* .devx__green-hero-section h1 {
     color: #353535;
     margin-bottom: 0px;

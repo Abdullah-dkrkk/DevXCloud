@@ -92,49 +92,46 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('images/launchpad-ai/content-first.svg') }}" class="img-fluid" style="width: 100%; height: 550px;">
+                    <div class="inner-wrapper d-flex align-items-start justify-content-center flex-column">
+                        <h2 class="mb-sm-0 mb-3">Let’s Start Your Growth Journey</h2>
+                        <p>Tell us a bit about your business. We’ll review your goals and get back with the next steps to build your custom growth system.</p>
+                        <ul class="list-unstyled"> 
+                            <li class="py-2">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <span class="ms-sm-2 ms-1">Strategy and execution built into one growth system</span>
+                            </li>
+                            <li class="py-2">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <span class="ms-sm-2 ms-1">No templates. Every solution is engineered for your business</span>
+                            </li>
+                            <li class="py-2">
+                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <span class="ms-sm-2 ms-1">Built for brands that want scalable systems, not quick fixes</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
+                    <div class="inner-wrapper w-100 d-flex flex-column align-items-start justify-content-center">
 
-                        <h2>Contact Now!</h2>
-                        <p>submit the form below to contact us if you have any queries or concerns.</p>
-                        
                         @if (session('success'))
                             <div class="alert alert-success w-100">
                                 {{ session('success') }}
                             </div>
                         @endif
+
                         <form method="POST" action="{{ route('contact.submit') }}" novalidate class="contact-form">
                             @csrf
+
+                            <!-- Row 1: Full Name + Work Email -->
                             <div class="row">
-                                <!-- first name -->
                                 <div class="form-group">
-                                    <input type="text" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" required>
-                                    @error('first_name')
+                                    <input type="text" name="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+                                    @error('full_name')
                                         <small>{{ $message }}</small>
                                     @enderror
                                 </div>
 
-                                <!-- last name -->
-                                <div class="form-group">
-                                    <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}" required>
-                                    @error('last_name')
-                                        <small>{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- job title -->
-                                <div class="form-group">
-                                    <input type="text" name="job_title" placeholder="Job Title" value="{{ old('job_title') }}">
-                                </div>
-
-                                
-                                <!-- work email -->
                                 <div class="form-group">
                                     <input type="email" name="work_email" placeholder="Work Email" value="{{ old('work_email') }}" required>
                                     @error('work_email')
@@ -142,9 +139,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
+                            <!-- Row 2: Company + Phone -->
                             <div class="row">
-                                <!-- company -->
                                 <div class="form-group">
                                     <input type="text" name="company" placeholder="Company" value="{{ old('company') }}" required>
                                     @error('company')
@@ -152,77 +149,33 @@
                                     @enderror
                                 </div>
 
-                                <!-- employed status -->
-                                <div class="form-group select">
-                                    <select name="employed" required>
-                                        <option value="">Are you employed?</option>
-                                        <option value="yes" {{ old('employed')=='yes'?'selected':'' }}>Yes</option>
-                                        <option value="no" {{ old('employed')=='no'?'selected':'' }}>No</option>
-                                    </select>
-                                    @error('employed')
-                                        <small>{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- mobile phone number -->
                                 <div class="form-group">
-                                    <input type="tel" name="mobile" placeholder="Mobile Number" value="{{ old('mobile') }}" required>
-                                    @error('mobile')
-                                        <small>{{ $message }}</small>
-                                    @enderror
-                                </div>
-
-                                <!-- country -->
-                                <div class="form-group select">
-                                    <select name="country" required>
-                                        <option value="">Select Country</option>
-                                        <option value="Pakistan">Pakistan</option>
-                                        <option value="USA">USA</option>
-                                        <option value="UK">UK</option>
-                                    </select>
-                                    @error('country')
+                                    <input type="tel" name="phone" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                                    @error('phone')
                                         <small>{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
+                            <!-- Row 3: Message -->
                             <div class="row">
-                                <!-- language -->
-                                <div class="form-group language-dropdown select">
-                                    <select name="language" required>
-                                        <option value="">Preferred Language</option>
-                                        <option value="English">English</option>
-                                        <option value="Urdu">Urdu</option>
-                                    </select>
-                                    @error('language')
+                                <div class="form-group w-100">
+                                    <textarea name="message" placeholder="Your Message" rows="5" required>{{ old('message') }}</textarea>
+                                    @error('message')
                                         <small>{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
-                            <!-- terms and services label -->
-                            <div class="form-group pt-0">
-                                <label>
-                                    <input type="checkbox" name="terms" required>
-                                    <p class="mb-0">
-                                        I have read and agree to the
-                                        <a href="{{ route('terms-of-service') }}" target="_blank">&nbsp;Terms of Service&nbsp;</a>
-                                        and
-                                        <a href="{{ route('privacy-policy') }}" target="_blank">&nbsp;Privacy Policy&nbsp;</a>
-                                    </p>
-                                </label>
-                                @error('terms') <small>{{ $message }}</small> @enderror
-                            </div>
-
-                            <!-- submit button -->
+                            <!-- Submit -->
                             <div class="form-group">
                                 <button type="submit" class="devx__btn-primary">Submit</button>
                             </div>
+
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

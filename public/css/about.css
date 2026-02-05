@@ -334,7 +334,6 @@ p {
 }
 .devx__about-traditional-agencies .points-wrapper {
     min-width: 100%;
-    box-shadow: 0px 0px 50px 0px #0000000F;
     border-radius: 30px;
     margin-top: 32px;
 }
@@ -345,6 +344,7 @@ p {
     background: #00448F;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
+    box-shadow: 0px 0px 50px 0px #0000000F;
     padding-top: 50px;
     padding-bottom: 50px;
     padding-right: 30px;
