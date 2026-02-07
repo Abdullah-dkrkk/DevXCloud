@@ -12,8 +12,8 @@
                     <h1 class="devx__color-primary mb-2">Custom Growth <br> Systems Built Around <br> Your Business</h1>
                     <p>We diagnose what’s holding your growth back, <br> design a clear roadmap, and execute with data, <br> automation, and strategy working as one system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
-                        <button class="devx__btn-primary">Start Your Growth Diagnosis</button>
-                        <button class="devx__btn-secondary">Explore Growth Systems</button>
+                        <a href="#devx__home-explore-growth-engine" class="devx__btn-primary">Start Your Growth Diagnosis</a>
+                        <a href="#devx__home-how-we-build" class="devx__btn-secondary">Explore Growth Systems</a>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
@@ -28,7 +28,7 @@
     <!-- End -->
 
     <!-- Homepage - Explore Growth Engine -->
-    <section class="devx__home-explore-growth-engine w-100">
+    <section class="devx__home-explore-growth-engine w-100" id="devx__home-explore-growth-engine">
         <div class="container px-0">
             <div class="row">
                 <div class="col-lg-12 px-0">
@@ -44,7 +44,7 @@
                     </div>
                     <h3 class="text-center mb-2">GreenScale Formula™</h3>
                     <p class="text-center">A Custom Growth System Built Specifically for Vegan Meal Kit Brands</p>
-                    <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
+                    <a href="{{ url('/greenscale-ai') }}" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
                 </div>
@@ -55,7 +55,7 @@
                     </div>
                     <h3 class="text-center mb-2">Commerce AI</h3>
                     <p class="text-center">A Custom Growth System Built for All E-Commerce Brands</p>
-                    <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
+                    <a href="{{ url('/commerce-ai') }}" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
                 </div>
@@ -66,7 +66,7 @@
                     </div>
                     <h3 class="text-center mb-2">LaunchPadAI</h3>
                     <p class="text-center">A Structured Growth Foundation Built for Founders and Early-Stage Businesses</p>
-                    <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap- mb-4">
+                    <a href="{{ url('/launchpad-ai') }}" class="devx__btn-primary d-flex align-items-center justify-content-center gap- mb-4">
                         <span>Learn More</span>
                     </a>
                 </div>
@@ -77,7 +77,7 @@
                     </div>
                     <h3 class="text-center mb-2">ScaleCloud</h3>
                     <p class="text-center"> A Scalable Growth Infrastructure Built for SaaS Companies</p>
-                    <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
+                    <a href="{{ url('/scalecloud-ai') }}" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
                 </div>
@@ -88,7 +88,7 @@
                     </div>
                     <h3 class="text-center mb-2">EliteScale</h3>
                     <p class="text-center">An Advanced Growth System Built for High-Revenue Digital Brands</p>
-                    <a href="javascript:void(0);" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
+                    <a href="{{ url('/elitescale-ai') }}" class="devx__btn-primary d-flex align-items-center justify-content-center gap-10 mb-4">
                         <span>Learn More</span>
                     </a>
                 </div>
@@ -97,7 +97,7 @@
                <div class="col d-inline-flex align-items-start justify-content-center flex-column">
                     <h2 class="mb-2 devx__color-primary">Not sure which growth engine is right for you?</h2>
                     <p class="mb-3">We’ll help you figure out the right system based on your business stage and what you’re trying to achieve.</p>
-                    <button class="devx__btn-primary">Talk to Our Team</button>
+                    <a class="devx__btn-primary" href="{{ url('/contact') }}">Talk to Our Team</a>
                </div>
                <div class="col d-inline-flex align-items-center justify-content-end">
                     <img src="{{ asset('images/robot-image.png') }}" alt="" class="img-fluid">
@@ -108,7 +108,7 @@
     <!-- End -->
 
     <!-- Homepage - Here’s How We Build -->
-    <section class="devx__home-how-we-build">
+    <section class="devx__home-how-we-build" id="devx__home-how-we-build">
         <div class="container">
             <div class="row">
                 <h2 class="text-center devx__color-primary mb-2">Here’s How We Build Your Custom Growth Engine</h2>
@@ -442,7 +442,7 @@
                         <img src="{{ asset('illustrations/i-green-scale-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">GreenScale Formula™</h3>
                         <p class="text-center">For Vegan Meal Kit Brands</p>
-                        <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
+                        <a href="{{ url('/greenscale-ai') }}" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
                     </div>
@@ -452,7 +452,7 @@
                         <img src="{{ asset('illustrations/i-commerce-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">        
                         <h3 class="py-3">CommerceAI</h3>
                         <p class="text-center">For E-Commerce Brands</p>
-                        <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
+                        <a href="{{ url('/commerce-ai') }}" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
                     </div>
@@ -462,7 +462,7 @@
                         <img src="{{ asset('illustrations/i-launch-pad-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">LaunchPadAI</h3>
                         <p class="text-center">For Founders & Early-Stage Businesses</p>
-                        <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
+                        <a href="{{ url('/launchpad-ai') }}" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
                     </div>
@@ -472,7 +472,7 @@
                         <img src="{{ asset('illustrations/i-scale-cloud-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">ScaleCloud</h3>
                         <p class="text-center">For SaaS Companies</p>
-                        <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
+                        <a href="{{ url('/scalecloud-ai') }}" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
                     </div>
@@ -482,7 +482,7 @@
                         <img src="{{ asset('illustrations/i-elitescale-ai-icon.svg') }}" alt="Random Square" height="100" width="100" class="mb-2">    
                         <h3 class="py-3">EliteScale</h3>
                         <p class="text-center">For High-Revenue Digital Brands</p>
-                        <a href="javascript:void(0);" class="d-flex align-items-center justify-content-center explore-the-system">
+                        <a href="{{ url('/elitescale-ai') }}" class="d-flex align-items-center justify-content-center explore-the-system">
                             <button class="devx__btn-primary">Explore the System</button>
                         </a>
                     </div>
@@ -502,7 +502,7 @@
                         <p class="text-start">
                             Let’s start building the right growth system for your business
                         </p>
-                        <button class="devx__btn-primary">Let’s Build It Together</button>
+                        <a class="devx__btn-primary" href="{{ url('/contact') }}">Let’s Build It Together</a>
                     <!-- </div> -->
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
