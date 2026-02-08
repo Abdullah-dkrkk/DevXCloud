@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-end">
-                    <h1 class="text-center">Your AI-driven growth partner <br> for modern brands.</h1>
+                    <h2 class="text-center devx__color-primary">Your AI-driven growth partner <br> for modern brands.</h2>
                     <p class="text-center">We help modern brands grow by building AI-powered growth systems tailored to their business. Unlike agencies that rely on random campaigns, we create predictable strategies designed to increase traffic, convert more customers, and scale revenue consistently.</p>
                     <img src="{{ asset('images/about-page/about-hero-banner-robot.svg') }}" alt="About Banner Hero Robot">
                 </div>
@@ -25,10 +25,10 @@
                     <img src="{{ asset('images/about-page/real-results-main-image.svg') }}" alt="Real Results Main Image">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="content-wrapper">
-                        <h2>We Build Growth Systems That Drive Real Results.</h2>
-                        <p>We help brands grow by turning their strategy into a structured, data-driven growth engine. From defining a strong USP and mapping customer personas to building AI-powered systems, every step is designed to attract more customers, increase revenue, improve retention, and scale growth predictably.</p>
-                        <a href="javascript:void(0);" class="theme__btn">Contact Now</a>
+                    <div class="content-wrapper d-flex align-items-start justify-content-center flex-column">
+                        <h2 class="devx__color-primary">We Build Growth Systems That Drive Real Results.</h2>
+                        <p class="mb-0">We help brands grow by turning their strategy into a structured, data-driven growth engine. From defining a strong USP and mapping customer personas to building AI-powered systems, every step is designed to attract more customers, increase revenue, improve retention, and scale growth predictably.</p>
+                        <a href="javascript:void(0);" class="devx__btn-primary">Contact Now</a>
                     </div>
                 </div>
             </div>
@@ -288,8 +288,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="main-heading">FAQs About DevXCloud</h2>
-                    <p>Here are the most common questions founders ask before working with us.</p>
+                    <h2 class="text-center mb-2 devx__color-primary">FAQs About DevXCloud</h2>
+                    <p class="mb-sm-5 mb-4 text-center">Here are the most common questions founders ask before working with us.</p>
                 </div>
             </div>
             <div class="row actual-faq-wrapper">

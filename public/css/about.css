@@ -1,4 +1,4 @@
-h1 {
+/* h1 {
     line-height: 50px;
 }
 h2 {
@@ -16,7 +16,7 @@ h5,
 p {
     margin-bottom: 0px !important;
     margin-top: 0px !important;
-}
+} */
 
 
 /*
@@ -34,9 +34,9 @@ p {
 .devx__about-hero-banner p {
     max-width: 900px;
 }
-.devx__about-hero-banner h1 {
+/* .devx__about-hero-banner h1 {
     color: #00448F;
-}
+} */
 .devx__about-hero-banner {
     background-image: url("../images/about-page/about-hero-banner-bg-gradient.png");
     background-repeat: no-repeat;
@@ -74,17 +74,17 @@ p {
 .devx__about-real-results .container {
     max-width: 1100px;
 }
-.devx__about-real-results h2 {
+/* .devx__about-real-results h2 {
     color: #00448F;
-}
+} */
 .devx__about-real-results .content-wrapper {
-    display:flex;
+    /* display:flex;
     align-items:start;
     justify-content:center;
-    flex-direction: column;
+    flex-direction: column; */
     gap: 20px;
 }
-.devx__about-real-results .theme__btn {
+/* .devx__about-real-results .theme__btn {
     background: #00448F;
     color: #ffffff;
     text-decoration: none;
@@ -94,7 +94,7 @@ p {
     font-weight: 500;
     font-size: 16px;
     margin-top: 12px;
-}
+} */
 
 
 /*
@@ -116,6 +116,7 @@ p {
 }
 .devx__about-video-section img {
     max-height: 400px;
+    max-width: 100%;
 }
 
 
@@ -424,7 +425,7 @@ p {
 | ABOUT - FAQ SECTION
 |--------------------------------
 */
-
+/* 
 .devx__about-faq {
     padding-top: 46px;
     padding-bottom: 92px;
@@ -511,4 +512,194 @@ p {
 }
 .devx__about-faq .accordion-collapse.show p {
     color: #000C1C;
+} */
+
+
+
+.devx__about-faq {
+    padding-bottom: 92px;
+    padding-top: 42px;
+    background: var(--theme-white);
+}
+.devx__about-faq .accordion-body {
+    line-height: 32px;
+}
+.devx__commerce-faq-section h2.main-heading{
+    /* font-weight: 700;
+    font-style: Bold;
+    font-size: 38px;
+    line-height: 60px;
+    letter-spacing: 0%;
+    margin-bottom: 40px;
+    padding-top: 50px;
+    text-align:center; */
+}
+.devx__about-faq .accordion .accordion-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+.devx__about-faq .accordion-button::after {
+    transform:scale(0.8);
+}
+.devx__about-faq .actual-faq-wrapper {
+    max-width: 850px;
+    margin:auto;
+    padding: 30px;
+    background:white;
+    border-radius: 20px;
+    border: 2px solid #00000026;
+}
+.devx__about-faq #accordionFlushExample {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.devx__about-faq .accordion-button[aria-expanded="true"] {
+    background:#F3F3F3 !important;
+    border-bottom: none !important;
+}
+.devx__about-faq .accordion-button:focus{
+    box-shadow:none !important;
+}
+.devx__about-faq .accordion-item {
+    border-bottom:none !important;
+}
+.devx__about-faq .accordion-body {
+    padding-top: 0px !important;
+}
+.devx__about-faq .accordion-button {
+    color: var(--theme-primary);
+    font-weight: 600;
+    padding: 24px !important;
+    font-size: clamp(16px, 1.2vw + 8px, 20px);
+    line-height: 1.4;
+    letter-spacing: 0%;
+    display:flex;
+    box-shadow:none !important;
+    border-top-right-radius: 16px !important;
+    border-top-left-radius: 16px !important;
+    align-items:center;
+    justify-content:start;
+    gap: 22px;
+}
+.devx__about-faq .accordion-collapse {
+    border-bottom-right-radius: 16px !important;
+    background:#F3F3F3 !important;
+    border-bottom-left-radius: 16px !important;
+}
+
+
+/* media queries starts from here */
+
+/* navbar and bootstrap related css */
+
+@media only screen and (max-width: 1400px) {
+    .container {
+        min-width: 100%;
+    }
+}
+@media only screen and (max-width: 1330px) {
+    nav .theme__btn {
+        display:none;
+    }
+    .navbar-expand-xl .navbar-nav .nav-link {
+        text-wrap:nowrap;
+    }
+    body nav .nav-item span {
+        font-size: 12px;
+    }
+    nav.navbar-expand-xl .container {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .navbar-brand {
+        padding-left: 16px;
+    }
+    .navbar-toggler {
+        margin-right: 16px;
+    }
+}
+@media only screen and (max-width: 1330px) and (min-width: 1024px) {
+    .navbar-expand-xl .navbar-nav {
+        margin-right: 16px;
+    }
+}
+@media only screen and (max-width: 1201px) {
+    .navbar-expand-xl .navbar-nav li {
+        min-width: 100% !important;
+        padding-right: 16px !important;
+        padding-left: 16px !important;
+    }
+    .navbar-expand-xl .navbar-nav {
+        float:left;
+    }
+    .navbar-collapse{
+        margin-top: -10px;
+        background:white;   
+        padding-top: 12px;
+        padding-bottom: 24px;
+    }
+}
+
+/* hero section */
+
+@media only screen and (max-width: 576px) {
+    .devx__about-hero-banner {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+    /* section below the hero banner */
+    /* .devx__about-real-results {
+        padding-top: 0px;
+    } */
+    .devx__about-hero-banner img {
+        bottom: 20px;
+    }
+    .devx__about-real-results .content-wrapper button {
+        margin-top: 0px;
+    }
+    .devx__about-real-results img {
+        height: 100%;
+        max-width: 500px;
+        margin-bottom: 40px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .devx__about-real-results .content-wrapper h2 {
+        text-align:center !important;
+    }
+    .devx__about-real-results .content-wrapper p {
+        text-align:center;
+        margin-bottom: 0px;
+    }
+    .devx__about-real-results .content-wrapper {
+        align-items: center !important;
+        margin-bottom: 40px;
+    }
+
+    /* video section */
+    .devx__about-video-section {
+        margin-top: 0px;
+        min-height: 100%;
+    }
+}
+
+
+
+/* faq section */
+
+@media only screen and (max-width: 991px) {
+    .devx__about-faq .actual-faq-wrapper {
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+    .devx__about-faq .accordion-button {
+        padding: 14px 20px !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .devx__about-faq .accordion-button img {
+        display:none !important;
+    }
 }
