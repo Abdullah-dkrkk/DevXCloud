@@ -1,0 +1,90 @@
+.contact-section-wrapper {
+            background-image: url('../images/contact-page/contact-bg-desktop.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom;
+            min-height: 800px;
+            margin-bottom: 92px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        .contact-banner h1 {
+            font-size: clamp(32px, 3.5vw, 46px);
+            line-height: clamp(48px, 4.5vw, 60px);
+        }
+        .contact-banner {
+            background: linear-gradient(
+                180deg,
+                #0f1e46 0%,
+                #122a66 18%,
+                #143b85 54%,
+                #143b85 60%,
+                #122a66 94%,
+                #0f1e46 100%
+            )
+        }
+        .contact-banner .container .row .col-lg-12 {
+            min-height: 300px;
+        }
+
+        .contact-content {
+            padding-top: 92px;
+            padding-bottom: 92px;
+        }
+
+        .contact-section-wrapper form {
+            background: rgba(255, 255, 255, 0.534);
+            padding: 40px;
+            min-width: 600px !important;
+            max-width: 600px !important;
+            border-radius: 16px;
+        }
+        @media only screen and (max-width: 1400px) {
+            .container {
+                min-width: 100%;
+            }
+        }
+        @media only screen and (max-width: 1330px) {
+            nav .theme__btn {
+                display:none;
+            }
+            .navbar-expand-xl .navbar-nav .nav-link {
+                text-wrap:nowrap;
+            }
+            body nav .nav-item span {
+                font-size: 12px;
+            }
+            nav.navbar-expand-xl .container {
+                padding-right: 0px;
+                padding-left: 0px;
+            }
+            .navbar-brand {
+                padding-left: 16px;
+            }
+            .navbar-toggler {
+                margin-right: 16px;
+            }
+        }
+        @media only screen and (max-width: 1330px) and (min-width: 1024px) {
+            .navbar-expand-xl .navbar-nav {
+                margin-right: 16px;
+            }
+        }
+        @media only screen and (max-width: 1201px) {
+            .navbar-expand-xl .navbar-nav li {
+                min-width: 100% !important;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .navbar-expand-xl .navbar-nav {
+                float:left;
+            }
+            .navbar-collapse{
+                margin-top: -10px;
+                background:white;   
+                padding-top: 12px;
+                padding-bottom: 24px;
+            }
+        }

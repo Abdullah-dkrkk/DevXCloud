@@ -321,9 +321,13 @@ p {
 */
 
 .devx__about-traditional-agencies {
-    padding-top: 46px;
+    padding-top: 120px;
     padding-bottom: 46px;
-    background: #EFFFFF;
+    background-image: url("../images/about-page/compare-bg-desktop.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    min-height: 1000px;
 }
 .devx__about-traditional-agencies h2 {
     color: #00448F;
@@ -342,7 +346,7 @@ p {
     max-width: 1400px;
 }
 .devx__about-traditional-agencies .col-lg-5:first-child {
-    background: #00448F;
+    background: #bfe7f936;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     box-shadow: 0px 0px 50px 0px #0000000F;
@@ -350,18 +354,22 @@ p {
     padding-bottom: 50px;
     padding-right: 30px;
     padding-left: 30px;
+    border:1px solid rgba(255, 255, 255, 0.514);
+    border-right:none;
 }
 .devx__about-traditional-agencies .second-5-col {
-    background: #ffffff;
+    background: #ffffff96;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     padding-top: 50px;
+    border:1px solid white;
+    border-left:none;
     padding-bottom: 50px;
     padding-right: 30px;
     padding-left: 30px;
 }
 .devx__about-traditional-agencies .col-lg-5:first-child h4 {
-    color:#ffffff;
+    /* color:#ffffff; */
     padding-bottom: 32px;
 }
 .devx__about-traditional-agencies .second-5-col h4 {
@@ -377,7 +385,8 @@ p {
     list-style-type: none;
 }
 .devx__about-traditional-agencies .col-lg-5:not(.second-5-col) ul li {
-    color: #ffffff;
+    /* color: #ffffff; */
+
 }
 .devx__about-traditional-agencies ul li {
     display:flex;
@@ -394,7 +403,7 @@ p {
     justify-content:center;
 }
 .devx__about-traditional-agencies ul li:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 .devx__about-traditional-agencies .col-lg-2 {
     background: #EFFFFF;
