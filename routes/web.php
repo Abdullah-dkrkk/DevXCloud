@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified', 'admin'])
+    ->prefix('admin/bot-questions')
+    ->group(function () {
+        // Package routes are already registered inside vendor
+        // Wrapping them ensures middleware protection
+
+        // Now you can use named routes safely
+        Route::get('/', function () {
+            return redirect()->route('bot-questions.index');
+        });
+
+        Route::get('/create', function () {
+            return redirect()->route('bot-questions.create');
+        });
+
+        Route::get('/import', function () {
+            return redirect()->route('bot-questions.import');
+        });
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

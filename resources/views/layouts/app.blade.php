@@ -381,7 +381,7 @@
     </script>
 
     
-    @include('laravel-chatbot::components.floating-chat')
+    <!-- @include('laravel-chatbot::components.floating-chat') -->
 
 </body>
 </html>

@@ -26,25 +26,6 @@
     <!-- launchpad ai - hero section ends here -->
 
     <!-- launchpad ai - build for founders -->
-    <section class="devx__launchpad-build-for-founders">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <div class="first-wrapper">
-                        <img src="{{ asset('images/launchpad-ai/bff-main-img.svg') }}" alt="Build For Founders Main Image" class="img-fluid w-100">
-                    </div>
-                    <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
-                        <h2 class="mb-lg-2 mb-3 devx__color-primary">Built for Founders Who Want <br> More Than Just a Website</h2>
-                        <p>Startups don’t fail from lack of passion; they fail from launching <br> without a plan.</p>
-                        <p>We help you map your brand, define your offer, and launch with <br> a strategy so you can grow with confidence from day one.</p>
-                        <button class="devx__btn-primary">
-                            Let’s Build It
-                        </button>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- launchpad ai - build for founders section ends here -->
 
     <!-- Explore How LaunchPad AI turns -->
@@ -103,6 +84,26 @@
                             <p class="mb-0">Track performance and <br> scale with data-driven <br> clarity.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="devx__launchpad-build-for-founders">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                    <div class="first-wrapper">
+                        <img src="{{ asset('images/launchpad-ai/bff-main-img.svg') }}" alt="Build For Founders Main Image" class="img-fluid w-100">
+                    </div>
+                    <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
+                        <h2 class="mb-lg-2 mb-3 devx__color-primary">Built for Founders Who Want <br> More Than Just a Website</h2>
+                        <p>Startups don’t fail from lack of passion; they fail from launching <br> without a plan.</p>
+                        <p>We help you map your brand, define your offer, and launch with <br> a strategy so you can grow with confidence from day one.</p>
+                        <button class="devx__btn-primary">
+                            Let’s Build It
+                        </button>
+                    </div>  
                 </div>
             </div>
         </div>
