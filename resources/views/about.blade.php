@@ -3,7 +3,10 @@
 
 @section('title', 'About Us')
 
+
 @section('content')
+
+
     <!-- hero section -->
     <section class="devx__about-hero-banner">
         <div class="container">
@@ -196,38 +199,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2>DevXCloud vs Traditional Agencies</h2>
+                    <h2 class="devx__color-primary text-center">DevXCloud vs Traditional Agencies</h2>
                     <p>Other agencies give you a piece of the puzzle. We build the whole machine, set it up, and help you run it.</p>
                     <div class="points-wrapper row">
-                        <div class="offset-1 col-lg-5 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
                             <h4>DevXCloud</h4>
                             <ul class="bullet-points-wrapper">
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Full growth engine that runs on strategy, not guesswork
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Tailored game plan built around your product and market
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     One structure that connects everything from ads to data
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Custom-built systems that grow with your brand
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Real-time insights you actually understand and use
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Strategic direction that stays with you after setup
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Checked Icon">
+                                    <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
                                     Strategic direction that stays with you after setup
                                 </li>
                             </ul>
@@ -244,35 +247,35 @@
                                 <li>Optimization</li>
                             </ul>
                         </div>
-                        <div class="col-lg-5 second-5-col d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-6 second-5-col d-flex flex-column align-items-center justify-content-center">
                             <h4>Other Agencies</h4>
                             <ul class="bullet-points-wrapper">
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     One-off services with no real direction
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     Copy-paste templates everyone gets
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     Scattered efforts and loose ends
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     Same “packages” they sell to everyone
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     Pretty dashboards you never open
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     No roadmap, no ownership
                                 </li>
                                 <li>
-                                    <img src="{{ asset('images/greenscale-ai/cross-image.svg') }}" alt="Crossed Icon">
+                                    <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">
                                     Launch and disappear after month one
                                 </li>
                             </ul>

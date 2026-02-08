@@ -13,7 +13,7 @@
                 <div class="row px-0">
                     <div class="col-lg-6 px-0 d-flex flex-column align-items-start justify-content-center content-section">
                         <h1 class="mb-0 text-white">Custom-Built AI Growth <br> Engine for eCommerce</h1>
-                        <p class="text-white">
+                        <p class="text-white py-2">
                             CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
                         </p>
                         {{-- <div class="buttons-wrapper d-flex align-items-center justfy-content-center">

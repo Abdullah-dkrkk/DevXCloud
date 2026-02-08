@@ -33,7 +33,24 @@
             padding-top: 92px;
             padding-bottom: 92px;
         }
-
+        /* .contact-section-wrapper .inner-wrapper ul li {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        } */
+        .contact-section-wrapper .inner-wrapper ul li:not(:last-child) {
+            position:relative;
+        }
+        .contact-section-wrapper .inner-wrapper ul li:not(:last-child)::after {
+            content: '';
+            display:flex;
+            flex-direction: column;
+            width: 2px;
+            top: 28px;
+            left: 8px;
+            border: 2px solid #3A73B3;
+            height: 24px;
+            position:absolute;
+        }
         .contact-section-wrapper form {
             background: rgba(255, 255, 255, 0.534);
             padding: 40px;
@@ -86,5 +103,44 @@
                 background:white;   
                 padding-top: 12px;
                 padding-bottom: 24px;
+            }
+        }
+
+
+        @media only screen and (max-width: 1290px) {
+            .contact-section-wrapper .inner-wrapper {
+                padding-right: 24px;
+            }
+            .contact-section-wrapper .inner-wrapper ul li:not(:last-child)::after {
+                display:none !important;
+            }
+        }
+
+        @media only screen and (max-width: 991px) {
+            .contact-section-wrapper .inner-wrapper ul li:not(:last-child)::after {
+                display:none !important;
+            }
+            .contact-section-wrapper .inner-wrapper {
+                padding-right: 0px;
+            }
+            .contact-section-wrapper .col-lg-5 {
+                margin-bottom: 46px;
+            }
+            .contact-section-wrapper form {
+                min-width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+
+        @media only screen and (max-width: 576px) {
+            .contact-section-wrapper form {
+                padding: 20px;
+            }
+            .contact-section-wrapper .col-lg-5 {
+                margin-bottom: 20px;
+            }
+            .contact-section-wrapper {
+                background-image: url('../images/contact-page/contact-bg-mobile.svg');
+                padding-bottom: 40px;
             }
         }

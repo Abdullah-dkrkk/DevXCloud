@@ -329,23 +329,24 @@ p {
     background-position: bottom;
     min-height: 1000px;
 }
-.devx__about-traditional-agencies h2 {
+/* .devx__about-traditional-agencies h2 {
     color: #00448F;
-}
+} */
 .devx__about-traditional-agencies p {
     padding-top: 12px;
     max-width: 600px;
     text-align:center;
 }
 .devx__about-traditional-agencies .points-wrapper {
-    min-width: 100%;
+    /* min-width: 100%; */
     border-radius: 30px;
     margin-top: 32px;
+    min-width: 1150px;
 }
 .devx__about-traditional-agencies .container {
     max-width: 1400px;
 }
-.devx__about-traditional-agencies .col-lg-5:first-child {
+.devx__about-traditional-agencies .col-lg-6:first-child {
     background: #bfe7f936;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -368,7 +369,7 @@ p {
     padding-right: 30px;
     padding-left: 30px;
 }
-.devx__about-traditional-agencies .col-lg-5:first-child h4 {
+.devx__about-traditional-agencies .col-lg-6:first-child h4 {
     /* color:#ffffff; */
     padding-bottom: 32px;
 }
@@ -384,7 +385,7 @@ p {
     padding-left: 0px;
     list-style-type: none;
 }
-.devx__about-traditional-agencies .col-lg-5:not(.second-5-col) ul li {
+.devx__about-traditional-agencies .col-lg-6:not(.second-5-col) ul li {
     /* color: #ffffff; */
 
 }
@@ -413,7 +414,7 @@ p {
     text-align:center;
     line-height: 32px;
 }
-.devx__about-traditional-agencies .col-lg-5:nth-child(2) {
+.devx__about-traditional-agencies .col-lg-6:nth-child(2) {
     background: #00448F;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -426,6 +427,19 @@ p {
     color: #353535;
     padding-right: 16px;
     padding-left: 16px;
+}
+.devx__about-traditional-agencies .points-wrapper ul li {
+    display:flex;
+    position:relative;
+}
+.devx__about-traditional-agencies .points-wrapper ul li:not(:last-child)::after {
+    content: '';
+    border:2px solid #3A73B3;
+    width: 2px;
+    height: 28px;
+    top: 26px;
+    left: 11px;
+    position:absolute;
 }
 
 
@@ -710,5 +724,27 @@ p {
 @media only screen and (max-width: 576px) {
     .devx__about-faq .accordion-button img {
         display:none !important;
+    }
+}
+
+/* other agencies section media queries */
+
+@media only screen and (max-width: 1200px) {
+    .devx__about-traditional-agencies .points-wrapper {
+        min-width: 100%;
+    }
+    .devx__about-traditional-agencies .points-wrapper ul li:not(:last-child)::after {
+        display:none;
+    }
+    .devx__about-traditional-agencies {
+        background-image: url("../images/about-page/compare-bg-mobile.svg");
+        max-height: fit-content;
+        padding-bottom: 120px;
+        padding-top: 46px;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .devx__about-traditional-agencies .second-5-col {
+        border-radius: 0px !important;
     }
 }

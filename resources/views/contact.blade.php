@@ -22,21 +22,21 @@
     <section class="contact-section-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 d-flex align-items-center justify-content-center">
-                    <div class="inner-wrapper d-flex align-items-start justify-content-center flex-column">
+                <div class="col-lg-5 d-flex align-items-center justify-content-center pb-lg-5">
+                    <div class="inner-wrapper d-flex align-items-start justify-content-center flex-column pb-lg-5">
                         <h2 class="mb-2 devx__color-primary">Let’s Start Your Growth Journey</h2>
                         <p>Tell us a bit about your business. We’ll review your goals and get back with the next steps to build your custom growth system.</p>
                         <ul class="list-unstyled"> 
                             <li class="py-2">
-                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <img src="{{ asset('images/about-page/tick-solid.svg') }}" alt="Correct Image" height="20" width="20">
                                 <span class="ms-sm-2 ms-1">Strategy and execution built into one growth system</span>
                             </li>
                             <li class="py-2">
-                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <img src="{{ asset('images/about-page/tick-solid.svg') }}" alt="Correct Image" height="20" width="20">
                                 <span class="ms-sm-2 ms-1">No templates. Every solution is engineered for your business</span>
                             </li>
                             <li class="py-2">
-                                <img src="{{ asset('images/greenscale-ai/correct-image.svg') }}" alt="Correct Image" height="20" width="20">
+                                <img src="{{ asset('images/about-page/tick-solid.svg') }}" alt="Correct Image" height="20" width="20">
                                 <span class="ms-sm-2 ms-1">Built for brands that want scalable systems, not quick fixes</span>
                             </li>
                         </ul>
