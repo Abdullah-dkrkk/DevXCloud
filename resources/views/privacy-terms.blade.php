@@ -30,7 +30,8 @@
                 #143b85 60%,
                 #122a66 94%,
                 #0f1e46 100%
-            )
+            );
+            margin-top: 80px;
         }
         .privacy-banner .container .row .col-lg-12 {
             min-height: 300px;

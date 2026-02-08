@@ -2,6 +2,7 @@
 
 .devx__elite-hero-section {
     background: #030C1C;
+    margin-top: 80px;
 }
 .devx__elite-hero-section .row {
     padding-right: 16px;
@@ -16,7 +17,7 @@
 .devx__elite-hero-section .col-lg-6 .buttons-wrapper {
     gap: 14px;
 }
-.devx__btn-primary {
+.devx__btn-primary:not(.last-one) {
     background: #63C4FE;
     border: 1px solid #63C4FE;
     color: var(--theme-primary) !important;

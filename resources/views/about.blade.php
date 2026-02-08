@@ -31,7 +31,7 @@
                     <div class="content-wrapper d-flex align-items-start justify-content-center flex-column">
                         <h2 class="devx__color-primary">We Build Growth Systems That Drive Real Results.</h2>
                         <p class="mb-0">We help brands grow by turning their strategy into a structured, data-driven growth engine. From defining a strong USP and mapping customer personas to building AI-powered systems, every step is designed to attract more customers, increase revenue, improve retention, and scale growth predictably.</p>
-                        <a href="javascript:void(0);" class="devx__btn-primary">Contact Now</a>
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">Contact Now</a>
                     </div>
                 </div>
             </div>

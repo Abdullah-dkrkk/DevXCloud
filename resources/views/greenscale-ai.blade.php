@@ -14,9 +14,9 @@
                     <div class="inner-wrapper d-flex flex-column align-items-lg-start align-items-center justify-content-center">
                         <h2 class="text-lg-start text-center devx__color-primary">Smarter Growth for Vegan <br class="d-lg-inline d-none"> Meal Kit Brands.</h2>
                         <p class="text-lg-start text-center">Grow your vegan meal kit brand sustainably with <br class="d-lg-inline d-none"> the GreenScale Formula™ AI-powered growth engine.</p>
-                        <button class="devx__btn-primary d-flex align-items-center justify-content-center">
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary d-flex align-items-center justify-content-center">
                             Get My Growth Plan
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
@@ -76,9 +76,9 @@
                 </div>
             </div>
             <div class="row">
-                <button class="devx__btn-primary mt-5">
+                <a href="{{ url('/contact') }}" class="devx__btn-primary mt-5">
                     Get My Growth Plan
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -91,7 +91,8 @@
                     <div class="inner-wrapper d-flex align-items-lg-start align-items-center justify-content-center flex-column">
                         <h2 class="text-lg-start text-center devx__color-primary">Future-Ready Growth for <br class="d-lg-inline d-none"> Smart Vegan Brands.</h2>
                         <p class="mt-2 text-lg-start text-center">Watch how GreenScale Formula™ blends <br class="d-lg-inline d-none"> AI forecasting with sustainable brand <br class="d-lg-inline d-none"> strategies to help vegan meal kit brands <br class="d-lg-inline d-none"> scale smarter.</p>
-                        <button class="devx__btn-primary">
+                        <button class="devx__btn-primary devx-video-trigger"
+                                data-video="{{ asset('videos/hero-section-video.mp4') }}">
                             Watch the Demo
                         </button>
                     </div>
@@ -169,9 +170,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="mt-5 devx__btn-primary">
+                    <a href="{{ url('/contact') }}" class="mt-5 devx__btn-primary">
                         Get My Growth Plan
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -224,9 +225,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="devx__btn-primary mt-5">
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary mt-5">
                         See the Full System
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -424,7 +425,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                <button class="devx__btn-primary mt-2">Get My Growth Plan</button>
+                <a href="{{ url('/contact') }}" class="devx__btn-primary mt-2">Get My Growth Plan</a>
             </div>
         </div>
     </section>
@@ -532,8 +533,7 @@
                             GreenScale Formula™ turns your strategy, forecasting, and retention into a powerful growth engine built for vegan meal kit brands. No guesswork. Just structured, sustainable growth.
                         </p>
                         <div class="col-lg-12 d-flex align-items-center justify-content-start cta-buttons-wrapper">
-                            <button class="main-cta-button devx__btn-primary">Get My Growth Plan</button>
-                            <button class="secondary-cta-button devx__btn-secondary">Book a Discovery Call</button>
+                            <a href="{{ url('/contact') }}" class="main-cta-button devx__btn-primary">Book a Discovery Call</a>
                         </div>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">

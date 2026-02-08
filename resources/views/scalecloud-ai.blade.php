@@ -11,7 +11,7 @@
                     <h1 class="devx__color-primary mb-2">Performance Stack for <br> Scaling SaaS Brands</h1>
                     <p class="text-lg-start text-center">ScaleCloud unifies your SaaS stack with predictive analytics, <br> API integrations, and automated systems, built to accelerate <br> your growth without the chaos.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
-                        <button class="devx__btn-primary">Get My Scaling Plan</button>
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">Get My Scaling Plan</a>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
@@ -107,7 +107,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="devx__color-primary text-center">Trusted by SaaS Teams Who Use <br> the Tools You Love</h2>
+                    <h2 class="devx__color-primary text-center">Trusted By SaaS Teams Who Use <br> the Tools You Love</h2>
                     <p class="text-center mt-2 mb-4">From product analytics to CRM and billing, ScaleCloud connects with your stack, so you <br> can scale faster without switching tools.</p>
                 </div>
             </div>
@@ -240,7 +240,7 @@
             </div>
             <div class="row mt-sm-5 mt-4 button-wrapper d-flex align-items-center justify-content-center">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <a href="javascript:void(0);" class="devx__btn-primary d-inline-flex align-items-center justify-content-center">Get A Free Growth Audit</a>
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary d-inline-flex align-items-center justify-content-center">Get A Free Growth Audit</a>
                 </div>
             </div>
         </div>
@@ -371,7 +371,7 @@
                     <p class="text-start">
                         Let ScaleCloud turn your data, insights, and automation into unstoppable growth, so you scale faster, smarter, and with complete clarity.
                     </p>
-                    <button class="devx__btn-primary">Get My Growth Plan</button>
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary">Get My Growth Plan</a>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">

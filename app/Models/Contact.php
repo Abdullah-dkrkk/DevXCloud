@@ -7,8 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     protected $fillable = [
-        'first_name','last_name','job_title','work_email','company',
-        'employed','mobile','country','language',
-        'terms_accepted','terms_accepted_at','ip_address','user_agent'
+        // Required form fields
+        'full_name',
+        'work_email',
+        'company',
+        'phone',
+        'country',
+
+        // Website logic
+        'has_website',
+        'website_url',
+
+        // Optional context
+        'reason',
+        'message',
+
+        // Compliance / meta
+        'terms_accepted',
+        'terms_accepted_at',
+        'ip_address',
+        'user_agent',
     ];
 }

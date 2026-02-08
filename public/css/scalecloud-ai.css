@@ -1,6 +1,7 @@
 /* scalecloud ai - hero section */
 .devx__launch-hero-section {
     padding: 46px 16px 46px 16px;
+    margin-top: 80px;
 }   
 .devx__launch-hero-section .col-lg-6 img {
     max-width: 600px;
@@ -78,12 +79,12 @@
     flex-wrap: nowrap;
     overflow:hidden;
     width: max-content;
-    animation: scalecloud-marquee 7s linear infinite;
+    animation: scalecloud-marquee 15s linear infinite;
 }
 
-.devx__launch-trusted .saas-trusted-clients-updated:hover {
+/* .devx__launch-trusted .saas-trusted-clients-updated:hover {
     animation-play-state: paused;
-}
+} */
 
 .devx__launch-trusted .saas-trusted-clients-updated .item {
     flex: 0 0 auto;

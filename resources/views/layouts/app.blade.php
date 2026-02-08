@@ -148,7 +148,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active theme__btn" href="{{ url('/') }}">
+                        <a class="nav-link active theme__btn" href="{{ url('/contact') }}">
                             Get a proposal
                         </a>
                     </li>
@@ -319,6 +319,22 @@
         </div>
     </footer>
 
+    <!-- video modal starts from here -->
+    <div id="devxVideoModal" class="devx-video-modal">
+        <div class="devx-video-backdrop"></div>
+
+        <div class="devx-video-content">
+            <button class="devx-video-close" id="closeVideoModal">&times;</button>
+
+            <div class="devx-video-wrapper">
+                <video id="devxDemoVideo" controls muted playsinline>
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    <!-- video modal ends here -->
+
     <!-- Bootstrap JS CDN -->
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -378,6 +394,71 @@
                 }
             });
         });
+
+
+        // modal js starts from here
+        const modal = document.getElementById('devxVideoModal');
+    const video = document.getElementById('devxDemoVideo');
+    const videoSource = video.querySelector('source');
+    const closeBtn = document.getElementById('closeVideoModal');
+
+    // OPEN MODAL (for all buttons)
+    document.querySelectorAll('.devx-video-trigger').forEach(button => {
+        button.addEventListener('click', () => {
+            const videoUrl = button.getAttribute('data-video');
+
+            if (!videoUrl) return;
+
+            videoSource.src = videoUrl;
+            video.load();
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            video.muted = true;
+            video.currentTime = 0;
+            video.play();
+        });
+    });
+
+    // CLOSE MODAL
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        video.pause();
+        video.currentTime = 0;
+        videoSource.src = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+        if (e.target.closest('.devx-video-wrapper')) return;
+        closeModal();
+    });
+        // modal js ends here
+
+
+        // contact form toggle field js starts from here 
+        const websiteRadios = document.querySelectorAll('input[name="has_website"]');
+    const websiteRow = document.getElementById('websiteUrlRow');
+
+    function toggleWebsiteField() {
+        const selected = document.querySelector('input[name="has_website"]:checked');
+        if (selected && selected.value === 'yes') {
+            websiteRow.style.display = 'block';
+        } else {
+            websiteRow.style.display = 'none';
+        }
+    }
+
+    websiteRadios.forEach(radio => {
+        radio.addEventListener('change', toggleWebsiteField);
+    });
+
+    // Run on page load (for validation errors / old input)
+    toggleWebsiteField();
+        // contact form toggle field js ends here
     </script>
 
     

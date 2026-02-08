@@ -6,6 +6,7 @@
 
 @section('content')
 
+
     <!-- <div class="main-wrapper-container"> -->
         <!-- commerce ai - hero section -->
         <section class="devx__commerce-hero-section">
@@ -21,8 +22,12 @@
                             <a href="javascript:void(0);">Watch Demo</a>
                         </div> --}}
                         <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
-                            <button class="devx__btn-primary">Get Your Growth Blueprint</button>
-                            <button class="devx__btn-secondary">Watch Demo</button>
+                            <a href="{{ url('/contact') }}" class="devx__btn-primary">Get Your Growth Blueprint</a>
+                            <button class="devx__btn-secondary devx-video-trigger"
+                                    data-video="{{ asset('videos/hero-section-video.mp4') }}">
+                                Watch Demo
+                            </button>
+
                         </div>
                     </div>
                     <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
@@ -221,7 +226,7 @@
                 </div>
             </div>
             <div class="row d-flex align-items-center justify-content-center">
-                <a href="javascript:void(0);" class="theme__btn">Get Your Custom Growth Blueprint</a>
+                <a href="{{ url('/contact') }}" class="theme__btn">Get Your Custom Growth Blueprint</a>
             </div>
         </div>
     </section>
@@ -398,7 +403,7 @@
                     <p class="text-start">
                         We’ll help you choose the best system based on your business stage and goals.
                     </p>
-                    <button class="devx__btn-primary">Discover our Growth Engine</button>
+                    <a class="devx__btn-primary" href="{{ url('/contact') }}">Talk to Our Team</a>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">

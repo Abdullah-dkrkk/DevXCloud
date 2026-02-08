@@ -13,8 +13,8 @@
                     <h1 class="mb-2 devx__color-primary">Custom-Built Launch <br> Engine for Early-Stage <br> Startups</h1>
                     <p>LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
-                        <button class="first-button text-white devx__btn-primary">Build My Launch Plan</button>
-                        <button class="second-button devx__btn-secondary bg-white">See How It Works</button>
+                        <a href="{{ url('/contact') }}" class="first-button text-white devx__btn-primary">Build My Launch Plan</a>
+                        <a href="#devx__launchpad-explore-how" class="second-button devx__btn-secondary bg-white">See How It Works</a>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
@@ -25,11 +25,8 @@
     </section>
     <!-- launchpad ai - hero section ends here -->
 
-    <!-- launchpad ai - build for founders -->
-    <!-- launchpad ai - build for founders section ends here -->
-
     <!-- Explore How LaunchPad AI turns -->
-    <section class="devx__launchpad-explore-how">
+    <section class="devx__launchpad-explore-how" id="devx__launchpad-explore-how">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
@@ -89,6 +86,8 @@
         </div>
     </section>
 
+
+    <!-- launchpad ai - build for founders -->
     <section class="devx__launchpad-build-for-founders">
         <div class="container">
             <div class="row">
@@ -98,42 +97,17 @@
                     </div>
                     <div class="second-wrapper d-flex align-items-start justify-content-center flex-column">
                         <h2 class="mb-lg-2 mb-3 devx__color-primary">Built for Founders Who Want <br> More Than Just a Website</h2>
-                        <p>Startups don’t fail from lack of passion; they fail from launching <br> without a plan.</p>
+                        <p>Startups don’t fail from lack of; they fail from launching <br> without a plan.</p>
                         <p>We help you map your brand, define your offer, and launch with <br> a strategy so you can grow with confidence from day one.</p>
-                        <button class="devx__btn-primary">
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">
                             Let’s Build It
-                        </button>
+                        </a>
                     </div>  
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Startups -->
-    <section class="devx__launchpad-startups">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 px-0 d-flex align-items-center justify-content-center">
-                    <div class="main-content-wrapper">
-                        <h2 class="devx__color-primary">Why Most Startups <br> Launch Blind</h2>
-                        <p class="mt-2 mb-0">
-                            Most founders believe launching is about having a great idea <br> and a decent-looking website.
-                            <br><br>
-                            But the truth? Launches fail not because of bad ideas, they <br> fail because there’s no system.
-                            <br><br>
-                            No positioning. No targeting. No roadmap.
-                            <br><br>
-                            At LaunchPadAI, we help you skip the guesswork, avoid <br> rookie mistakes, and build a launch engine that’s engineered <br> for traction from day one.
-                        </p>
-                    </div>
-                    <div class="image-cta-wrapper d-flex flex-column align-items-center justify-content-center">
-                        <img src="{{ asset('images/launchpad-ai/startups-main-img.svg') }}" alt="Startups Main Image" class="img-fluid">
-                        <button class="startups-cta-button">Plan Your Launch</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- launchpad ai - build for founders section ends here -->
 
 
     <!-- Growth Engine Stack -->
@@ -204,6 +178,32 @@
                         <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Strategic Growth <br> Consulting</h3>
                         <p>Ongoing support to adapt and grow post-launch and something.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Startups -->
+    <section class="devx__launchpad-startups">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 px-0 d-flex align-items-center justify-content-center">
+                    <div class="main-content-wrapper">
+                        <h2 class="devx__color-primary">Why Most Startups <br> Launch Blind</h2>
+                        <p class="mt-2 mb-0">
+                            Most founders believe launching is about having a great idea <br> and a decent-looking website.
+                            <br><br>
+                            But the truth? Launches fail not because of bad ideas, they <br> fail because there’s no system.
+                            <br><br>
+                            No positioning. No targeting. No roadmap.
+                            <br><br>
+                            At LaunchPadAI, we help you skip the guesswork, avoid <br> rookie mistakes, and build a launch engine that’s engineered <br> for traction from day one.
+                        </p>
+                    </div>
+                    <div class="image-cta-wrapper d-flex flex-column align-items-center justify-content-center">
+                        <img src="{{ asset('images/launchpad-ai/startups-main-img.svg') }}" alt="Startups Main Image" class="img-fluid">
+                        <a href="{{ url('/contact') }}" class="startups-cta-button">Plan Your Launch</a>
                     </div>
                 </div>
             </div>
@@ -423,7 +423,7 @@
                     <p class="text-start">
                         Let LaunchPadAI guide your startup from idea to <br> growth. Book a free pre-launch strategy session, <br> no pressure, no strings.
                     </p>
-                    <button class="devx__btn-primary">Book Free Strategy Session</button>
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary">Book Free Strategy Session</a>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">

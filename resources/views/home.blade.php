@@ -12,8 +12,8 @@
                     <h1 class="devx__color-primary mb-2">Custom Growth <br> Systems Built Around <br> Your Business</h1>
                     <p>We diagnose what’s holding your growth back, <br> design a clear roadmap, and execute with data, <br> automation, and strategy working as one system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
-                        <a href="#devx__home-explore-growth-engine" class="devx__btn-primary">Start Your Growth Diagnosis</a>
-                        <a href="#devx__home-how-we-build" class="devx__btn-secondary">Explore Growth Systems</a>
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">Start Your Growth Diagnosis</a>
+                        <a href="#devx__home-explore-growth-engine" class="devx__btn-secondary">Explore Growth Systems</a>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">

@@ -14,7 +14,7 @@
                     <h2 class="text-white text-lg-start text-center">Growth Engine for <br> High-Revenue Digital Brands</h2>
                     <p class="text-white mt-2 mb-4 text-lg-start text-center">LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
-                        <button class="devx__btn-primary">Build My Launch Plan</button>
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">Build My Launch Plan</a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="mt-5 col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="devx__btn-primary text-center">See the Full EliteStack™ Framework.</button>
+                    <a href="#devx__elite-growth-engine" class="devx__btn-primary text-center">See the Full EliteStack™ Framework.</a>
                 </div>
             </div>
         </div>
@@ -164,9 +164,9 @@
                     <div class="inner-wrapper d-inline-flex align-items-start justify-content-center flex-column">
                         <h2 class="text-start text-white">Turning Data Into Results <br> That Drive Enterprise Growth</h2>
                         <p class="text-start text-white">EliteScale empowers digital leaders to scale smarter, leveraging AI, <br> automation, and big data to unlock your next growth chapter.</p>
-                        <button class="devx__btn-primary">
-                            See How EliteScale Works
-                        </button>
+                        <a href="{{ url('/contact') }}" class="devx__btn-primary">
+                            Build My Launch Plan
+                        </a>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
 
 
     <!-- growth -->
-    <section class="devx__elite-growth-engine">
+    <section class="devx__elite-growth-engine" id="devx__elite-growth-engine">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center flex-column">
@@ -227,9 +227,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <button class="devx__btn-primary mt-5">
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary mt-5">
                         See EliteStack™ in Action
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -374,7 +374,7 @@
                     <p class="text-start">
                         EliteScale turns your data, automation, and predictive <br> insights into an unstoppable growth engine, helping you <br> expand faster, smarter, and at enterprise scale.
                     </p>
-                    <button class="devx__btn-primary">Get My Growth Plan</button>
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary last-one">Get My Growth Plan</a>
                 </div>
                 <div class="col d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/robot-image.png') }}" alt="Robot With BG" width="350" height="350">
