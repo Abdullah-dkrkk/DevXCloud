@@ -10,16 +10,26 @@ class ContactController extends Controller
 {
     public function submit(ContactRequest $request)
     {
+        // Validated data from ContactRequest
         $data = $request->validated();
 
         Contact::create([
             'full_name'    => $data['full_name'],
             'work_email'   => $data['work_email'],
             'company'      => $data['company'],
-            'phone'        => $data['phone'],
+
+            // Location & contact (updated form)
             'country'      => $data['country'],
-            'has_website'  => $data['has_website'] ?? null,
-            'website_url'  => $data['website_url'] ?? null,
+            'state'        => $data['state'],
+            'phone'        => $data['phone'],
+
+            // Website logic
+            'has_website'  => $data['has_website'],
+            'website_url'  => $data['has_website'] === 'yes'
+                                ? ($data['website_url'] ?? null)
+                                : null,
+
+            // Reason & message
             'reason'       => $data['reason'] ?? null,
             'message'      => $data['message'] ?? null,
 
@@ -30,6 +40,9 @@ class ContactController extends Controller
             'updated_at'   => now(),
         ]);
 
-        return back()->with('success', 'Thank you! Your message has been submitted successfully.');
+        return back()->with(
+            'success',
+            'Thank you! Your message has been submitted successfully.'
+        );
     }
 }

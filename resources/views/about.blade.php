@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" class="devx-video-trigger" data-video="{{ asset('videos/hero-section-video.mp4') }}">
                         <img src="{{ asset('images/about-page/about-banner-video-section-thumbnail-content.png') }}" alt="About Video Thumbnail Main Image">
                     </a>
                 </div>
@@ -203,7 +203,7 @@
                     <p>Other agencies give you a piece of the puzzle. We build the whole machine, set it up, and help you run it.</p>
                     <div class="points-wrapper row">
                         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
-                            <h4>DevXCloud</h4>
+                            <h4 class="devx__color-primary">DevXCloud</h4>
                             <ul class="bullet-points-wrapper">
                                 <li>
                                     <img src="{{ asset('images/about-page/tick.svg') }}" alt="Checked Icon" height="26" width="26">
@@ -248,7 +248,7 @@
                             </ul>
                         </div>
                         <div class="col-lg-6 second-5-col d-flex flex-column align-items-center justify-content-center">
-                            <h4>Other Agencies</h4>
+                            <h4 class="devx__color-primary">Other Agencies</h4>
                             <ul class="bullet-points-wrapper">
                                 <li>
                                     <img src="{{ asset('images/about-page/cross.svg') }}" alt="Crossed Icon" height="26" width="26">

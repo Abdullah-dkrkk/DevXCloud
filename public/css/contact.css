@@ -8,6 +8,7 @@
             display:flex;
             align-items: center;
             justify-content: center;
+            padding-top: 80px !important;
 
         }
         .contact-banner h1 {
@@ -143,5 +144,9 @@
             .contact-section-wrapper {
                 background-image: url('../images/contact-page/contact-bg-mobile.svg');
                 padding-bottom: 40px;
+            }
+            #phoneStateRow .form-group {
+                grid-column-start: 1;
+                grid-column-end: 3;
             }
         }

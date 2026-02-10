@@ -11,8 +11,11 @@ class Contact extends Model
         'full_name',
         'work_email',
         'company',
-        'phone',
+
+        // Location & contact
         'country',
+        'state',
+        'phone',
 
         // Website logic
         'has_website',

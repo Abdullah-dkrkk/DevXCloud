@@ -110,7 +110,7 @@
     <section class="privacy-content">
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                     <div class="inner-wrapper">
 
                         <p>

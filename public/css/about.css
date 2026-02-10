@@ -435,14 +435,18 @@ p {
     display:flex;
     position:relative;
 }
+.devx__about-traditional-agencies .points-wrapper ul li img {
+    max-height: 22px;
+    max-width: 22px;
+}
 .devx__about-traditional-agencies .points-wrapper ul li:not(:last-child)::after {
     content: '';
-    border:2px solid #3A73B3;
+    border: 2px solid #3a73b3b5;
     width: 2px;
-    height: 28px;
-    top: 26px;
-    left: 11px;
-    position:absolute;
+    height: 34px;
+    top: 25px;
+    left: 9px;
+    position: absolute;
 }
 
 

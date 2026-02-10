@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicons/favicon-96x96.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/favicons/apple-touch-icon.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
         @hasSection('title')
@@ -99,12 +102,15 @@
             font-size: 14px;
             text-transform:uppercase;
         }
+        .navbar-brand {
+            margin-top: 6px;
+        }
         /* navbar css ends here */
     </style>
     <nav class="navbar navbar-expand-xl" id="navbar">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="130">
+                <img src="{{ asset('images/devxcloud-logos/devx-logo-1.svg') }}" alt="Logo" width="130">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -397,68 +403,100 @@
 
 
         // modal js starts from here
-        const modal = document.getElementById('devxVideoModal');
-    const video = document.getElementById('devxDemoVideo');
-    const videoSource = video.querySelector('source');
-    const closeBtn = document.getElementById('closeVideoModal');
+        document.addEventListener('DOMContentLoaded', function () {
+            const countrySelect = document.getElementById('countrySelect');
+            const phoneStateRow = document.getElementById('phoneStateRow');
+            const countryDialCode = document.getElementById('countryDialCode');
+            const phoneInput = document.getElementById('phoneInput');
 
-    // OPEN MODAL (for all buttons)
-    document.querySelectorAll('.devx-video-trigger').forEach(button => {
-        button.addEventListener('click', () => {
-            const videoUrl = button.getAttribute('data-video');
+            const hasWebsiteSelect = document.getElementById('hasWebsiteSelect');
+            const websiteUrlRow = document.getElementById('websiteUrlRow');
+            const websiteUrlInput = document.getElementById('websiteUrlInput');
 
-            if (!videoUrl) return;
+            function syncCountryUI() {
+                const opt = countrySelect.options[countrySelect.selectedIndex];
+                const hasSelection = countrySelect.value && opt;
 
-            videoSource.src = videoUrl;
-            video.load();
+                if (!hasSelection) {
+                    phoneStateRow.style.display = 'none';
+                    countryDialCode.value = '+';
+                    phoneInput.placeholder = 'Phone Number';
+                    return;
+                }
 
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+                const dial = opt.getAttribute('data-dial') || '+';
+                const ph = opt.getAttribute('data-placeholder') || 'Phone Number';
 
-            video.muted = true;
-            video.currentTime = 0;
-            video.play();
+                countryDialCode.value = dial;
+                phoneInput.placeholder = ph;
+
+                phoneStateRow.style.display = 'grid';
+            }
+
+            function syncWebsiteUI() {
+                const v = (hasWebsiteSelect.value || '').toLowerCase();
+
+                if (v === 'yes') {
+                    websiteUrlRow.style.display = '';
+                    websiteUrlInput.setAttribute('required', 'required');
+                } else {
+                    websiteUrlRow.style.display = 'none';
+                    websiteUrlInput.removeAttribute('required');
+                }
+            }
+
+            // Bind events
+            if (countrySelect) countrySelect.addEventListener('change', syncCountryUI);
+            if (hasWebsiteSelect) hasWebsiteSelect.addEventListener('change', syncWebsiteUI);
+
+            // Initial load (old() values)
+            syncCountryUI();
+            syncWebsiteUI();
         });
-    });
-
-    // CLOSE MODAL
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-        video.pause();
-        video.currentTime = 0;
-        videoSource.src = '';
-    }
-
-    closeBtn.addEventListener('click', closeModal);
-
-    modal.addEventListener('click', function (e) {
-        if (e.target.closest('.devx-video-wrapper')) return;
-        closeModal();
-    });
-        // modal js ends here
-
-
-        // contact form toggle field js starts from here 
-        const websiteRadios = document.querySelectorAll('input[name="has_website"]');
-    const websiteRow = document.getElementById('websiteUrlRow');
-
-    function toggleWebsiteField() {
-        const selected = document.querySelector('input[name="has_website"]:checked');
-        if (selected && selected.value === 'yes') {
-            websiteRow.style.display = 'block';
-        } else {
-            websiteRow.style.display = 'none';
-        }
-    }
-
-    websiteRadios.forEach(radio => {
-        radio.addEventListener('change', toggleWebsiteField);
-    });
-
-    // Run on page load (for validation errors / old input)
-    toggleWebsiteField();
         // contact form toggle field js ends here
+        
+
+        const modal = document.getElementById('devxVideoModal');
+        const video = document.getElementById('devxDemoVideo');
+        const videoSource = video.querySelector('source');
+        const closeBtn = document.getElementById('closeVideoModal');
+
+        // OPEN MODAL (for all buttons)
+        document.querySelectorAll('.devx-video-trigger').forEach(button => {
+            button.addEventListener('click', () => {
+                const videoUrl = button.getAttribute('data-video');
+
+                if (!videoUrl) return;
+
+                videoSource.src = videoUrl;
+                video.load();
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                video.muted = true;
+                video.currentTime = 0;
+                video.play();
+            });
+        });
+
+        // CLOSE MODAL
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            video.pause();
+            video.currentTime = 0;
+            videoSource.src = '';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', function (e) {
+            if (e.target.closest('.devx-video-wrapper')) return;
+            closeModal();
+        });
+
+
     </script>
 
     

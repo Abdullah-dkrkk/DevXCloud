@@ -487,7 +487,7 @@
                     </div>
 
                     <!-- FAQ 4 -->
-                    <div class="accordion-item">
+                    <div class="accordion-item" style="display:none;">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">

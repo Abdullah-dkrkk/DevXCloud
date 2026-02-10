@@ -45,10 +45,10 @@
     text-align:center;
 }
 .devx__launchpad-powers .container .row .col-lg-4 .inner-wrapper img {
-    height: 350px;
-    width: 350px;
-    margin-top: -30px;
-    margin-bottom: -20px;
+    height: 200px;
+    width: 200px;
+    /* margin-top: -30px; */
+    /* margin-bottom: -20px; */
 }
 .devx__launchpad-powers .container .row .col-lg-4 .inner-wrapper {
     display:flex;
@@ -71,7 +71,7 @@
 .devx__launch-trusted {
     padding-top: 46px;
     padding-bottom: 46px;
-    background: #f7f7f7;
+    /* background: #f7f7f7; */
 }
 
 .devx__launch-trusted .saas-trusted-clients-updated {
@@ -391,8 +391,8 @@
 }
 @media only screen and (max-width: 576px) {
     .devx__launchpad-powers .container .row .col-lg-4 .inner-wrapper img {
-        margin-top: -60px;
-        margin-bottom: -30px;
+        /* margin-top: -60px;
+        margin-bottom: -30px; */
     }
 }
 
