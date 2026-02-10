@@ -446,12 +446,12 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
-                                What exactly is GreenScale Formula™?
+                                What exactly is the GreenScale Formula?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                It’s a 5-phase growth engine designed specifically for vegan meal kit brands. It combines strategy, forecasting, and personalization to help you grow sustainably.
+                                GreenScale is a growth system built specifically for vegan meal kit brands. It combines strategy, retention, marketing, and operational clarity into one connected approach, starting with diagnosis and ending with execution.
                             </div>
                         </div>
                     </div>
@@ -461,12 +461,12 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
-                                Do I need any technical setup before starting?
+                                What problems does GreenScale usually help solve?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Nope. We handle everything from strategy to implementation — so you can focus on running your business.
+                                GreenScale commonly helps with low retention, high churn, unclear positioning, inefficient subscriptions, ingredient waste, unpredictable demand, and scattered marketing efforts. The exact focus depends on your starting point.
                             </div>
                         </div>
                     </div>
@@ -476,12 +476,12 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
-                                How is this different from hiring a marketing agency?
+                                How long does it take to see results?
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Most agencies sell tactics. We build a complete system around your market — something that compounds over time instead of resetting every month.
+                                It depends on where your business is starting from. We usually begin with understanding what’s holding growth back, then move into execution. You’ll get clarity early on, and real improvements build as the system comes together over time.
                             </div>
                         </div>
                     </div>
@@ -491,12 +491,12 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
-                                How long does it take to see results?
+                                Do you handle execution or just strategy?
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Most brands begin seeing traction within the first 30–60 days once the engine is fully launched.
+                                We don’t stop at strategy. GreenScale includes both planning and execution support, with the level of hands-on work tailored to your needs, capacity, and goals.
                             </div>
                         </div>
                     </div>
@@ -506,12 +506,27 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                                 <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
-                                What if my brand is still new?
+                                What kind of ROI can we expect?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                That’s exactly who we built this for. GreenScale Formula™ gives early-stage vegan brands a structured path to predictable growth.
+                                ROI varies by business. Our focus is on building systems that improve retention, reduce waste, and make growth decisions clearer and more predictable over time, rather than promising fixed numbers upfront.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                                <img src="{{ asset('images/commerce-ai/faq-info-icon.svg') }}" width="20" height="20">
+                                What’s the first step if we’re interested?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                The first step is a conversation to understand your business, challenges, and goals. From there, we decide whether GreenScale is the right fit and what the next steps should be.
                             </div>
                         </div>
                     </div>

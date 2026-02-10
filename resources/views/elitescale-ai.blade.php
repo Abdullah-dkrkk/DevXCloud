@@ -323,7 +323,7 @@
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Most clients begin seeing measurable improvements within 45–60 days. Meaningful growth compounds over time, with the strongest impact typically achieved across a six to twelve month engagement.
+                                Timelines vary based on the scale, complexity, and starting point of the business. EliteScale focuses on building advanced growth systems designed for long-term impact. Early insights and clarity emerge first, while meaningful results build progressively as systems are implemented and optimized over time.
                             </div>
                         </div>
                     </div>

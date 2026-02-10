@@ -321,7 +321,7 @@
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Results depend on your specific brand and goals, but most businesses see improvements in efficiency and revenue within the first few weeks. The system is designed to learn and optimize continuously, which means your performance keeps improving over time.
+                                Results depend on your starting point and what needs to be improved. CommerceAI is focused on building systems that improve clarity, decision-making, and efficiency first. As those systems are implemented and refined, performance improves over time in a more sustainable way.
                             </div>
                         </div>
                     </div>
@@ -335,9 +335,7 @@
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Setup is usually very quick. Most clients are able to get started within a few days, and the platform guides you step by step so there’s no technical headache.
-                                <br><br>
-                                Once you’re onboarded, the system begins working immediately in the background, so you don’t lose time waiting for long processes or approvals.
+                                Setup timelines vary depending on your business and what needs to be addressed first. We start with a diagnosis and planning phase, then move into implementation. Some improvements can be made quickly, while others take more time as systems are built and refined.
                             </div>
                         </div>
                     </div>
@@ -367,9 +365,7 @@
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Yes, absolutely. In fact, smaller brands often see the biggest impact because they can adopt proven strategies quickly without the overhead of building large in-house teams.
-                                <br><br>
-                                The platform is flexible enough to scale with you as your business grows. Whether you’re just starting or already established, the system adapts to your needs.
+                                Yes. CommerceAI is designed to work across different stages. For newer or smaller brands, the focus is usually on fixing foundations, improving clarity, and setting up systems that prevent wasted effort early on. As the business grows, the same system can be expanded and adapted without needing to start over.
                             </div>
                         </div>
                     </div>

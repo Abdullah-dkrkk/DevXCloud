@@ -209,38 +209,38 @@
             <div class="row">
                 <div class="col-lg-12 heading-para-wrapper d-flex align-items-center justify-content-center flex-column">
                     <h2 class="devx__color-primary text-center">Turn Your Funnel Into a Forecastable Growth Machine</h2>
-                    <p class="mt-2 mb-4 text-center">ScaleCloud reveals what’s driving growth, what’s causing churn, and where your next best opportunities <br> lie, so you can scale confidently with data, not assumptions.</p>
+                    <p class="mt-2 mb-4 text-center">ScaleCloud shows you what’s driving growth, what’s causing churn , and where to focus next — so decisions <br> are driven by data, not assumptions.</p>
                 </div>
             </div>
             <div class="row cards-wrapper-with-no-image">
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-1.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading">For Product Teams & Management</h2>
-                        <h3 class="mb-2">Smarter Product Decisions, <br> Backed by Data</h3>
-                        <p>Get a real-time view of feature usage, drop-off points, and user flows, so your team ships what <br> actually drives retention and revenue.</p>
+                        <h2 class="main-inner-heading text-white">For SaaS Founders & Leadership</h2>
+                        <h3 class="mb-2 text-white">Growth Clarity Without Guesswork</h3>
+                        <p class="text-white">Get a clear, end-to-end view of acquisition, activation, and retention, with forecasting that shows what’s working and where growth is breaking down.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-2.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading">For Founders & Leadership</h2>
-                        <h3 class="mb-2">Growth Clarity Without Guesswork</h3>
-                        <p>From acquisition to retention, ScaleCloud gives you a full-funnel breakdown with forecasting, so you know exactly where to focus and what’s working</p>
+                        <h2 class="main-inner-heading text-white">For Revenue & Growth Decisions</h2>
+                        <h3 class="mb-2 text-white">Know Where to Focus Next</h3>
+                        <p class="text-white">See which channels, segments, and stages of your funnel drive results, so you can prioritize confidently instead of spreading effort thin.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-3.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading">For Founders & Leadership</h2>
-                        <h3 class="mb-2">Growth Clarity Without Guesswork</h3>
-                        <p>From acquisition to retention, ScaleCloud gives you a full-funnel breakdown with forecasting, so you know exactly where to focus and what’s working</p>
+                        <h2 class="main-inner-heading text-white">For Scalable Decision-Making</h2>
+                        <h3 class="mb-2 text-white">Predictable Growth, Not Surprises</h3>
+                        <p class="text-white">Use real-time insights and forecasting to anticipate risks, spot opportunities early, and scale with confidence as the business grows.</p>
                     </div>
                 </div>
             </div>
             <div class="row mt-sm-5 mt-4 button-wrapper d-flex align-items-center justify-content-center">
                 <div class="col-lg-12 d-flex align-items-center justify-content-center">
-                    <a href="{{ url('/contact') }}" class="devx__btn-primary d-inline-flex align-items-center justify-content-center">Get A Free Growth Audit</a>
+                    <a href="{{ url('/contact') }}" class="devx__btn-primary d-inline-flex align-items-center justify-content-center">Start Growth Diagnosis</a>
                 </div>
             </div>
         </div>
@@ -305,7 +305,7 @@
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Most teams start spotting conversion lift and churn drop within 4–6 weeks after integration. The forecasting layer starts improving accuracy almost immediately once your historical data is connected.
+                                It depends on where your business is starting from. We usually begin by understanding what’s holding growth back, then move into execution. You’ll get clarity early on, and real growth builds as the system comes together over time.
                             </div>
                         </div>
                     </div>
@@ -350,7 +350,7 @@
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Clients report 2–5x ROI
+                                ROI varies from business to business. What we focus on is setting up the right systems so growth decisions are clearer, more predictable, and more sustainable over time, instead of chasing short-term wins.
                             </div>
                         </div>
                     </div>
