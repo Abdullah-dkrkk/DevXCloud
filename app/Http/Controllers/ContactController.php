@@ -30,7 +30,7 @@ class ContactController extends Controller
                                 : null,
 
             // Reason & message
-            'reason'       => $data['reason'] ?? null,
+            // 'reason'       => $data['reason'] ?? null,
             'message'      => $data['message'] ?? null,
 
             // Meta

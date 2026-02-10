@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,3 +80,15 @@ Route::post('/contact-submit', [ContactController::class, 'submit'])
     ->name('contact.submit');
 
     
+Route::get('/states/{countryCode}', function ($countryCode) {
+
+    $result = \Nnjeim\World\World::states([
+        'filters' => [
+            'country_code' => $countryCode
+        ]
+    ]);
+
+    return response()->json([
+        'data' => $result->data ?? []
+    ]);
+});

@@ -29,7 +29,7 @@ class ContactRequest extends FormRequest
             'website_url' => 'required_if:has_website,yes|nullable|url|max:255',
 
             // Context
-            'reason'      => 'nullable|string|max:100',
+            'reason'      => 'nullable|max:100',
             'message'     => 'nullable|string|max:2000',
         ];
     }

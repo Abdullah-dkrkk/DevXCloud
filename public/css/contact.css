@@ -15,6 +15,22 @@
             font-size: clamp(32px, 3.5vw, 46px);
             line-height: clamp(48px, 4.5vw, 60px);
         }
+        #stateSelect {
+            max-width: 100px !important;
+        }
+        #phoneStateRow div.form-group:first-child input {
+            border:none !important;
+            max-height: 48px !important;
+        }
+        #phoneStateRow div.form-group:first-child {
+            box-shadow: 0px 1px 2px 0px #0A0D120D;
+            border:1px solid #D5D7DA;
+            border-radius: 8px;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            background:white !important;
+            height: 50px;
+        }
         .contact-banner {
             background: linear-gradient(
                 180deg,

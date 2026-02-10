@@ -402,40 +402,70 @@
         });
 
 
-        // modal js starts from here
+        // contact js starts from here 
+
         document.addEventListener('DOMContentLoaded', function () {
-            const countrySelect = document.getElementById('countrySelect');
-            const phoneStateRow = document.getElementById('phoneStateRow');
+
+            const countrySelect   = document.getElementById('countrySelect');
+            const stateSelect     = document.getElementById('stateSelect');
+            const phoneStateRow   = document.getElementById('phoneStateRow');
             const countryDialCode = document.getElementById('countryDialCode');
-            const phoneInput = document.getElementById('phoneInput');
+            const phoneInput      = document.getElementById('phoneInput');
+            const oldStateValue   = document.getElementById('oldStateValue')?.value || null;
 
             const hasWebsiteSelect = document.getElementById('hasWebsiteSelect');
-            const websiteUrlRow = document.getElementById('websiteUrlRow');
+            const websiteUrlRow   = document.getElementById('websiteUrlRow');
             const websiteUrlInput = document.getElementById('websiteUrlInput');
 
-            function syncCountryUI() {
-                const opt = countrySelect.options[countrySelect.selectedIndex];
-                const hasSelection = countrySelect.value && opt;
+            function loadStates(countryCode, selectedState = null) {
+                if (!stateSelect) return;
 
-                if (!hasSelection) {
+                stateSelect.innerHTML = '<option value="">Loading...</option>';
+
+                fetch(`/states/${countryCode}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        stateSelect.innerHTML = '<option value="">Select state</option>';
+
+                        if (!res.data || res.data.length === 0) {
+                            stateSelect.innerHTML = '<option value="">N/A</option>';
+                            return;
+                        }
+
+                        res.data.forEach(state => {
+                            const opt = document.createElement('option');
+                            opt.value = state.name;
+                            opt.textContent = state.name;
+                            if (selectedState === state.name) opt.selected = true;
+                            stateSelect.appendChild(opt);
+                        });
+                    });
+            }
+
+            function syncCountryUI(loadOldState = false) {
+                const opt = countrySelect.options[countrySelect.selectedIndex];
+                if (!countrySelect.value || !opt) {
                     phoneStateRow.style.display = 'none';
                     countryDialCode.value = '+';
                     phoneInput.placeholder = 'Phone Number';
                     return;
                 }
 
-                const dial = opt.getAttribute('data-dial') || '+';
-                const ph = opt.getAttribute('data-placeholder') || 'Phone Number';
+                const dial = opt.dataset.dial || '+';
+                const ph   = opt.dataset.placeholder || 'Phone Number';
+                const code = opt.dataset.code;
 
                 countryDialCode.value = dial;
                 phoneInput.placeholder = ph;
-
                 phoneStateRow.style.display = 'grid';
+
+                if (code) {
+                    loadStates(code, loadOldState ? oldStateValue : null);
+                }
             }
 
             function syncWebsiteUI() {
                 const v = (hasWebsiteSelect.value || '').toLowerCase();
-
                 if (v === 'yes') {
                     websiteUrlRow.style.display = '';
                     websiteUrlInput.setAttribute('required', 'required');
@@ -445,28 +475,33 @@
                 }
             }
 
-            // Bind events
-            if (countrySelect) countrySelect.addEventListener('change', syncCountryUI);
-            if (hasWebsiteSelect) hasWebsiteSelect.addEventListener('change', syncWebsiteUI);
+            if (countrySelect) {
+                countrySelect.addEventListener('change', function () {
+                    syncCountryUI(false);
+                });
+            }
 
-            // Initial load (old() values)
-            syncCountryUI();
+            if (hasWebsiteSelect) {
+                hasWebsiteSelect.addEventListener('change', syncWebsiteUI);
+            }
+
+            syncCountryUI(true);
             syncWebsiteUI();
         });
-        // contact form toggle field js ends here
-        
+
+        // contact js ends here
+
+        // modal js starts from here 
 
         const modal = document.getElementById('devxVideoModal');
         const video = document.getElementById('devxDemoVideo');
-        const videoSource = video.querySelector('source');
+        const videoSource = video ? video.querySelector('source') : null;
         const closeBtn = document.getElementById('closeVideoModal');
 
-        // OPEN MODAL (for all buttons)
         document.querySelectorAll('.devx-video-trigger').forEach(button => {
             button.addEventListener('click', () => {
                 const videoUrl = button.getAttribute('data-video');
-
-                if (!videoUrl) return;
+                if (!videoUrl || !modal || !video || !videoSource) return;
 
                 videoSource.src = videoUrl;
                 video.load();
@@ -480,8 +515,9 @@
             });
         });
 
-        // CLOSE MODAL
         function closeModal() {
+            if (!modal || !video || !videoSource) return;
+
             modal.classList.remove('active');
             document.body.style.overflow = '';
             video.pause();
@@ -489,13 +525,18 @@
             videoSource.src = '';
         }
 
-        closeBtn.addEventListener('click', closeModal);
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
 
-        modal.addEventListener('click', function (e) {
-            if (e.target.closest('.devx-video-wrapper')) return;
-            closeModal();
-        });
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target.closest('.devx-video-wrapper')) return;
+                closeModal();
+            });
+        }
 
+        // modal js ends here
 
     </script>
 

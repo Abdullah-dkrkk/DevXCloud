@@ -199,7 +199,7 @@
                             <!-- Row 2.5 (appears AFTER selecting country): Phone (with auto country code) + State -->
                             <div class="row" id="phoneStateRow" style="display: none; grid-template-columns: 1fr 1fr;">
                                 <!-- Phone group (50%) -->
-                                <div class="form-group" style="min-width: 100%;">
+                                <div class="form-group" style="min-width: 50%;">
                                     <div class="d-flex align-items-center" style="gap: 10px;">
                                         <!-- Small non-changeable country code field -->
                                         <input
@@ -209,7 +209,7 @@
                                             readonly
                                             tabindex="-1"
                                             aria-hidden="true"
-                                            style="min-width: 75px; max-width: 75px;"
+                                            style="min-width: 60px; max-width: 60px; padding-right: 0px !important;"
                                         >
 
                                         <!-- Actual phone input -->
@@ -231,14 +231,9 @@
 
                                 <!-- State field (50%) -->
                                 <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="state"
-                                        id="stateInput"
-                                        placeholder="State"
-                                        value="{{ old('state') }}"
-                                        required
-                                    >
+                                    <select name="state" id="stateSelect" required>
+                                        <option value="">Select state</option>
+                                    </select>
                                     @error('state')
                                         <small>{{ $message }}</small>
                                     @enderror
@@ -247,7 +242,7 @@
 
                             <!-- Website dropdown (replaces radio). 100% width -->
                             <div class="row">
-                                <div class="form-group w-100" style="grid-column-start: 1; grid-column-end: 3;">
+                                <div class="form-group w-100 select">
                                     <select name="has_website" id="hasWebsiteSelect" required style="width: 100%;">
                                         <option value="" disabled {{ old('has_website') ? '' : 'selected' }}>Do you have a website?</option>
                                         <option value="yes" {{ old('has_website') === 'yes' ? 'selected' : '' }}>Yes</option>
@@ -258,11 +253,7 @@
                                         <small>{{ $message }}</small>
                                     @enderror
                                 </div>
-                            </div>
-
-                            <!-- Website URL (only if YES, required when visible) -->
-                            <div class="row" id="websiteUrlRow" style="display: none;">
-                                <div class="form-group w-100" style="grid-column-start: 1; grid-column-end: 3;">
+                                <div class="form-group w-100" id="websiteUrlRow" style="display: none;">
                                     <input
                                         type="url"
                                         name="website_url"
@@ -281,24 +272,30 @@
                                 <div class="form-group w-100" style="grid-column-start: 1; grid-column-end: 3;">
                                     <label class="mb-2 d-block fw-600"><b>What brings you here today?</b></label>
 
-                                    <div class="devx-radio-group">
-                                        <label class="devx-radio d-flex align-items-center py-2">
-                                            <input type="radio" name="reason" value="growth_system"
-                                                {{ old('reason') === 'growth_system' ? 'checked' : '' }}
+                                    <div class="devx-checkbox-group">
+                                        <label class="devx-checkbox d-flex align-items-center py-2">
+                                            <input type="checkbox"
+                                                name="reason[]"
+                                                value="growth_system"
+                                                {{ is_array(old('reason')) && in_array('growth_system', old('reason')) ? 'checked' : '' }}
                                                 style="margin-right: 8px; height: 20px; width: 20px;">
                                             <span>I want to explore a growth system for my business</span>
                                         </label>
 
-                                        <label class="devx-radio d-flex align-items-center pb-2">
-                                            <input type="radio" name="reason" value="second_opinion"
-                                                {{ old('reason') === 'second_opinion' ? 'checked' : '' }}
+                                        <label class="devx-checkbox d-flex align-items-center pb-2">
+                                            <input type="checkbox"
+                                                name="reason[]"
+                                                value="second_opinion"
+                                                {{ is_array(old('reason')) && in_array('second_opinion', old('reason')) ? 'checked' : '' }}
                                                 style="margin-right: 8px; height: 20px; width: 20px;">
                                             <span>I want a second opinion on my current growth setup</span>
                                         </label>
 
-                                        <label class="devx-radio d-flex align-items-center pb-2">
-                                            <input type="radio" name="reason" value="not_sure"
-                                                {{ old('reason') === 'not_sure' ? 'checked' : '' }}
+                                        <label class="devx-checkbox d-flex align-items-center pb-2">
+                                            <input type="checkbox"
+                                                name="reason[]"
+                                                value="not_sure"
+                                                {{ is_array(old('reason')) && in_array('not_sure', old('reason')) ? 'checked' : '' }}
                                                 style="margin-right: 8px; height: 20px; width: 20px;">
                                             <span>I’m not sure which system fits my business yet</span>
                                         </label>
@@ -310,13 +307,15 @@
                                 </div>
                             </div>
 
+
                             <!-- Situation (OPTIONAL textarea) -->
                             <div class="row">
                                 <div class="form-group w-100">
+                                    <label class="mb-2"><b>Tell us about your situation</b></label>
                                     <textarea
                                         name="message"
                                         rows="5"
-                                        placeholder="Tell us about your situation"
+                                        placeholder="Briefly describe your business, what you’ve tried so far, and where growth feels unclear right now."
                                     >{{ old('message') }}</textarea>
 
                                     @error('message')
