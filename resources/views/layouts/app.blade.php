@@ -190,7 +190,7 @@
      <style>
         footer {
             padding-top: 80px;
-            background:var(--theme-primary);
+            background:#032e61;
             padding-bottom: 34px;
             font-family:'Montserrat';
         }
@@ -267,63 +267,117 @@
     <footer class="">
         <div class="upper-container container mb-5">
             <div class="row">
+                <style>
+                    @media only screen and (min-width: 1200px) {
+                        footer .second-column {
+                            margin-left: 4.333333333% !important;
+                            padding-left: 4% !important;
+                            border-left: 1px solid #d6d6d652 !important;
+                        }
+                        footer .second-column + .offset-1 {
+                            margin-left: 4.33333333333% !important;
+                            margin-right: 5% !important;
+                            border-right: 1px solid #d6d6d652 !important;
+                        }
+                    }
+                </style>
+
                 <div class="col-lg-3 first-column">
-                    <p class="text-start first-col-p">DevXcloud is a powerful Performance <br> Management Software for Employees <br> and a cloud-based HR Platform</p>
+                    <div class="mb-2">
+                        <img src="{{ asset('images/devxcloud-logos/devx-logo-1.svg') }}" alt="Logo" width="130" style="filter:brightness(0) invert(1)">
+                    </div>
+
+                    <span class="text-white">
+                        AI-Powered growth systems for <br>
+                        modern digital businesses.<br>
+                    </span>
+
+                    <p class="text-start first-col-p pt-2" style="font-size: 12px;">
+                        Built for founders who want structured growth.
+                    </p>
+
                     <div class="privacy-terms-wrapper d-flex align-items-center justify-content-between">
                         <a href="{{ route('privacy-policy') }}" class="privacy px-1">Privacy Policy</a>
                         <a href="{{ route('terms-of-service') }}" class="terms px-1">Terms & Conditions</a>
                     </div>
                 </div>
+
+                <div class="col-lg-2 offset-1 second-column">
+                    <h5>What we build</h5>
+                    <ul>
+                        <li><a href="{{ route('greenscale-ai') }}">Greenscale Formula</a></li>
+                        <li><a href="{{ route('commerce-ai') }}">Commerce AI</a></li>
+                        <li><a href="{{ route('launchpad-ai') }}">LaunchpadAI</a></li>
+                        <li><a href="{{ route('scalecloud-ai') }}">Scalecloud</a></li>
+                        <li><a href="{{ route('elitescale-ai') }}">Elitescale</a></li>
+                    </ul>
+                </div>
+
                 <div class="col-lg-2 offset-1">
-                    <h5>Quick Links</h5>
+                    <h5>How we work</h5>
                     <ul>
-                        <li><a href="javascript:void(0);">Why Us</a></li>
-                        <li><a href="javascript:void(0);">Products</a></li>
-                        <li><a href="javascript:void(0);">Insights</a></li>
-                        <li><a href="javascript:void(0);">Pricing</a></li>
-                        <li><a href="javascript:void(0);">About Us</a></li>
-                        <li><a href="javascript:void(0);">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2">
-                    <h5>Other Link</h5>
-                    <ul>
+                        <li><a href="{{ route('about') }}">About DevXCloud</a></li>
+                        <li><a href="{{ route('contact') }}">How it works</a></li>
                         <li><a href="{{ route('contact') }}">Contact</a></li>
-                        <li><a href="javascript:void(0);">Benefits</a></li>
-                        <li><a href="javascript:void(0);">Cookie Policy</a></li>
+                        <li><a href="{{ route('privacy-terms') }}">Privacy & Terms</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h5>Contact</h5>
-                    <div class="address-wrapper d-flex align-items-start justify-content-start">
+
+                <div class="col-lg-3">
+                    <h5>Start a conversation</h5>
+
+                    <a href="mailto:info@devxcloud.com" class="text-white" style="text-decoration:none !important;">
+                        <b>info@devxcloud.com</b>
+                    </a>
+
+                    <div class="address-wrapper d-none align-items-start justify-content-start">
                         <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2 mt-1" width="18" height="18">
-                        <p class="address">Office 3202, The One Tower, Barsha <br> Heights, PO BOX 500033, UAE.</p>
+                        <p class="address">
+                            Office 3202, The One Tower, Barsha <br>
+                            Heights, PO BOX 500033, UAE.
+                        </p>
                     </div>
-                    <h5 class="mt-4">Customer Service</h5>
+
+                    <h5 class="mt-4">Linkedin</h5>
+
                     <p class="customer-service mb-2 pb-1">
-                        <img src="{{ asset('images/call.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
-                        +971 52 2183074 &nbsp;&nbsp;&nbsp; +971 44 466308
+                        We work globally. <br>
+                        Strategy-led, founder focused
                     </p>
-                    <p class="customer-service">
+
+                    <p class="customer-service d-none">
                         <img src="{{ asset('images/location.svg') }}" alt="Location Icon" class="me-2" width="16" height="16">
                         sales@gulfhr.ae
                     </p>
                 </div>
             </div>
         </div>
+
         <hr class="container text-white">
+
         <div class="container lower-container d-flex align-items-center justify-content-between">
-            <p class="text-white mb-0">© 2023 gulfHR. &nbsp;&nbsp; All rights reserved.</p>
+            <p class="text-white mb-0">
+                © 2026 DevXCloud LLC. All rights reserved.
+            </p>
+
             <div class="social-buttons-wrapper d-flex align-items-center justify-content-end">
-                <button class="social-button">Facebook</button>
-                <button class="social-button">Twitter</button>
-                <button class="social-button">Gmail</button>
-                <button class="social-button">Linkedin</button>
-                <button class="social-button">Instagram</button>
-                <button class="social-button">Tiktok</button>
+                <p class="text-white">
+                    Registered in Wyoming, USA.
+                    <a href="{{ route('privacy-policy') }}" style="text-decoration:none; color:white;">
+                        Privacy Policy
+                    </a>
+                </p>
+
+                <button class="social-button d-none">Facebook</button>
+                <button class="social-button d-none">Twitter</button>
+                <button class="social-button d-none">Gmail</button>
+                <button class="social-button d-none">Linkedin</button>
+                <button class="social-button d-none">Instagram</button>
+                <button class="social-button d-none">Tiktok</button>
             </div>
         </div>
     </footer>
+
 
     <!-- video modal starts from here -->
     <div id="devxVideoModal" class="devx-video-modal">

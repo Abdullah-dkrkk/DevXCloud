@@ -241,15 +241,19 @@ p {
     footer .privacy-terms-wrapper {
         justify-content:start !important;
     }
+    footer .lower-container p {
+        margin-bottom: 0px !important;
+    }
     footer .lower-container {
         flex-direction: column;
-        gap: 20px;
+        align-items:center !important;
+        justify-content:center !important;
     }
-    footer .lower-container .social-buttons-wrapper {
+    /* footer .lower-container .social-buttons-wrapper {
         display:grid !important;
         grid-template-columns: repeat(3, 1fr);
         min-width: 70% !important;
-    }
+    } */
 }
 @media only screen and (max-width: 650px) {
     footer .upper-container .row {
@@ -259,11 +263,11 @@ p {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-@media only screen and (max-width: 420px) {
+/* @media only screen and (max-width: 420px) {
     footer .lower-container .social-buttons-wrapper {
         min-width: 100% !important;
     }
-}
+} */
 
 
 /* contact form css starts from here */

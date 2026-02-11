@@ -390,7 +390,8 @@
 
 /* HOMEPAGE - HERO SECTION SPECIFIC */
 @media only screen and (max-width: 1097px)  and (min-width: 992px) {
-    .devx__home-hero-section .button-wrapper button {
+    .devx__home-hero-section .button-wrapper button,
+    .devx__home-hero-section .button-wrapper a {
         min-width: 100%;
         text-align:center !important;
     }
@@ -433,7 +434,8 @@
     }
 }
 @media only screen and (max-width: 576px) {
-    .devx__home-hero-section .button-wrapper button {
+    .devx__home-hero-section .button-wrapper button,
+    .devx__home-hero-section .button-wrapper a{
         min-width: 100% !important;
         text-align:center !important;
     }
