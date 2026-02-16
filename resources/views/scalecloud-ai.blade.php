@@ -216,25 +216,25 @@
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-1.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading text-white">For SaaS Founders & Leadership</h2>
-                        <h3 class="mb-2 text-white">Growth Clarity Without Guesswork</h3>
-                        <p class="text-white">Get a clear, end-to-end view of acquisition, activation, and retention, with forecasting that shows what’s working and where growth is breaking down.</p>
+                        <h3 class="text-white text-center mb-2 d-flex w-100 justify-content-center">For SaaS Founders & Leadership</h3>
+                        <b class="mb-2 text-white text-center w-100 d-flex justify-content-center">Growth Clarity Without Guesswork</b>
+                        <p class="text-white text-center">Get a clear, end-to-end view of acquisition, activation, and retention, with forecasting that shows what’s working and where growth is breaking down.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-2.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading text-white">For Revenue & Growth Decisions</h2>
-                        <h3 class="mb-2 text-white">Know Where to Focus Next</h3>
-                        <p class="text-white">See which channels, segments, and stages of your funnel drive results, so you can prioritize confidently instead of spreading effort thin.</p>
+                        <h3 class="text-white text-center mb-2 d-flex w-100 justify-content-center">For Revenue & Growth Decisions</h3>
+                        <b class="mb-2 text-center text-white w-100 d-flex justify-content-center">Know Where to Focus Next</b>
+                        <p class="text-white text-center">See which channels, segments, and stages of your funnel drive results, so you can prioritize confidently instead of spreading effort thin.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="inner-wrapper">
                         <img src="{{ asset('images/scalecloud-ai/launch-icon-updated-3.svg') }}" alt="Launch Icon 1" class="img-fluid w-50 mb-2">
-                        <h2 class="main-inner-heading text-white">For Scalable Decision-Making</h2>
-                        <h3 class="mb-2 text-white">Predictable Growth, Not Surprises</h3>
-                        <p class="text-white">Use real-time insights and forecasting to anticipate risks, spot opportunities early, and scale with confidence as the business grows.</p>
+                        <h3 class="text-white text-center mb-2 d-flex w-100 justify-content-center">For Scalable Decision-Making</h3>
+                        <b class="mb-2 text-center text-white w-100 d-flex justify-content-center">Predictable Growth, Not Surprises</b>
+                        <p class="text-white text-center">Use real-time insights and forecasting to anticipate risks, spot opportunities early, and scale with confidence as the business grows.</p>
                     </div>
                 </div>
             </div>

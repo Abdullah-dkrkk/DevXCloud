@@ -76,12 +76,20 @@
 
 .devx__launch-trusted .saas-trusted-clients-updated {
     display: flex;
+    padding-top: 32px;
+    padding-bottom: 32px;
     flex-wrap: nowrap;
     overflow:hidden;
     width: max-content;
     animation: scalecloud-marquee 15s linear infinite;
 }
 
+@media only screen and (max-width: 576px) {
+    .devx__launch-trusted .saas-trusted-clients-updated {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
 /* .devx__launch-trusted .saas-trusted-clients-updated:hover {
     animation-play-state: paused;
 } */
@@ -133,7 +141,7 @@
 .devx__launch-funnel .cards-wrapper-with-no-image .inner-wrapper {
     display:flex;
     flex-direction:column;
-    align-items:start;
+    align-items:center;
     justify-content:center;
     padding: 30px;
     min-height: 100% !important;
@@ -344,10 +352,13 @@
     .devx__launch-hero-section p br {
         display:none;
     }
+    .devx__launch-hero-section h1 {
+        text-align:center !important;
+    }
 }
 @media only screen and (max-width: 576px) {
     .devx__launch-hero-section .buttons-wrapper,
-    .devx__launch-hero-section .buttons-wrapper button {
+    .devx__launch-hero-section .buttons-wrapper a {
         min-width: 100% !important;
         display:flex;
         align-items:center;

@@ -219,6 +219,10 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     /* font-size: 15px;
     line-height: 28px; */
 }
+.devx__launchpad-growth-engine .col-lg-3 .inner-wrapper img {
+    height: 110px;
+    width: 110px;
+}
 .devx__launchpad-growth-engine .col-lg-3 .inner-wrapper h5 {
     margin-top: 24px;
     margin-bottom: 12px;
@@ -451,7 +455,7 @@ section.devx__launchpad-explore-how .main-five-cards-wrapper .inner-wrapper::bef
     }
 }
 @media only screen and (max-width: 576px) {
-    .devx__launchpad-hero-section .button-wrapper button {
+    .devx__launchpad-hero-section .button-wrapper a {
         min-width: 100% !important;
         text-align:center !important;
     }

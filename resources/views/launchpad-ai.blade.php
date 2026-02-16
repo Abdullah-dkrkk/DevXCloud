@@ -124,28 +124,28 @@
             <div class="row main-rows">
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-1.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Brand & Persona <br> Mapping</h3>
                         <p>position your startup with a clear USP and defined customer avatar</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-2.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Launch Website <br> & AI Chatbot</h3>
                         <p>position your startup with a clear USP and defined customer avatar</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-3.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Funnel Planning + <br> Content Briefs</h3>
                         <p>Strategize your offer flow and prep creator-ready launch content.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-4.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Ads Launch <br> Blueprint</h3>
                         <p>Get ad angles, targeting plans, and rollout strategy done for you.</p>
                     </div>
@@ -154,28 +154,28 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-5.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Predictive Launch <br> Metrics</h3>
                         <p>Track KPIs in real-time with custom dashboards and insights.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-6.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Conversion <br> A/B Testing</h3>
                         <p>Optimize copy, CTAs, and layouts for early traction and something.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-7.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Email & Retargeting <br> Flows</h3>
                         <p>Implement automated follow-ups and launch sequences and something.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inner-wrapper d-flex flex-column align-items-start justify-content-center">
-                        <img src="{{ asset('images/commerce-ai/engine-stack-1.svg') }}" alt="8 Cards Main Img" class="img-fluid">
+                        <img src="{{ asset('images/launchpad-ai/engine-stack-8.png') }}" alt="8 Cards Main Img" class="img-fluid">
                         <h3 class="my-3">Strategic Growth <br> Consulting</h3>
                         <p>Ongoing support to adapt and grow post-launch and something.</p>
                     </div>
