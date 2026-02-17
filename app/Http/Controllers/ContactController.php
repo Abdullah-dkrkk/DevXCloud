@@ -42,7 +42,7 @@ class ContactController extends Controller
             'updated_at'   => now(),
         ]);
 
-        Mail::to('founders@devxcloud.com')
+        Mail::to(['founders@devxcloud.com', 'abdullahsaifullah988@gmail.com'])
             ->send(new ContactFormSubmitted($contact));
 
         return back()->with(
