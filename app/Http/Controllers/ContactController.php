@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormSubmitted;
 
 class ContactController extends Controller
 {
@@ -13,7 +15,7 @@ class ContactController extends Controller
         // Validated data from ContactRequest
         $data = $request->validated();
 
-        Contact::create([
+        $contact = Contact::create([
             'full_name'    => $data['full_name'],
             'work_email'   => $data['work_email'],
             'company'      => $data['company'],
@@ -39,6 +41,9 @@ class ContactController extends Controller
             'created_at'   => now(),
             'updated_at'   => now(),
         ]);
+
+        Mail::to('ktech.abdullah@gmail.com')
+            ->send(new ContactFormSubmitted($contact));
 
         return back()->with(
             'success',
