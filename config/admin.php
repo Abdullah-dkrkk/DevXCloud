@@ -12,7 +12,7 @@ return [
     */
 
     'emails' => [
-        'abdullahsaifullah988@gmail.com',
+        'testing.testing@gmail.com',
     ],
 
 ];

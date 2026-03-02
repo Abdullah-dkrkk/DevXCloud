@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
 
         // Admin access middleware
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'guest.to.home' => \App\Http\Middleware\RedirectGuestToHome::class,
     ];
 }

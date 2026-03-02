@@ -25,65 +25,25 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware(['auth', 'verified', 'admin'])
-//     ->prefix('admin/bot-questions')
-//     ->group(function () {
-//         // Package routes are already registered inside vendor
-//         // Wrapping them ensures middleware protection
-
-//         // Now you can use named routes safely
-//         Route::get('/', function () {
-//             return redirect()->route('bot-questions.index');
-//         });
-
-//         Route::get('/create', function () {
-//             return redirect()->route('bot-questions.create');
-//         });
-
-//         Route::get('/import', function () {
-//             return redirect()->route('bot-questions.import');
-//         });
-//     });
-
-/*
-|--------------------------------------------------------------------------
-| Laravel-Chatbot (PROTECTED)
-| Requirement:
-| - If NOT logged in => redirect to homepage (NOT login page)
-| - If logged in => allow access
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['guest.to.home', 'admin'])
+Route::middleware(['auth', 'verified', 'admin'])
     ->prefix('admin/bot-questions')
     ->group(function () {
+        // Package routes are already registered inside vendor
+        // Wrapping them ensures middleware protection
 
+        // Now you can use named routes safely
         Route::get('/', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.index');
-        })->name('bot-questions.index');
+            return redirect()->route('bot-questions.index');
+        });
 
         Route::get('/create', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.create');
-        })->name('bot-questions.create');
+            return redirect()->route('bot-questions.create');
+        });
 
         Route::get('/import', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.import');
-        })->name('bot-questions.import');
-
+            return redirect()->route('bot-questions.import');
+        });
     });
-
-/*
-|--------------------------------------------------------------------------
-| /chatbot page protection
-| Package provides route('botman.web-chat') for chat UI. :contentReference[oaicite:2]{index=2}
-| We create a friendly URL /chatbot that redirects to the package chat route.
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['guest.to.home', 'admin'])
-    ->get('/chatbot', function () {
-        return view('vendor.laravel-chatbot.pages.botman-chat');
-    })
-    ->name('chatbot');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

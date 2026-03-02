@@ -487,3 +487,10 @@ p {
 }
 
 /* modal css ends here */
+
+
+/* chatbot css */
+
+.lc-fc-panel {
+    max-height: 445px !important;
+}

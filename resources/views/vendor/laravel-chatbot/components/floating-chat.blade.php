@@ -16,7 +16,7 @@
         }
         .lc-fc-button:hover { filter: brightness(1.05); }
         .lc-fc-panel {
-            position: absolute; right: 0; bottom: 70px; width: 320px; max-height: 440px;
+            position: absolute; right: 0; bottom: 70px; width: 320px; max-height: 420px;
             background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,.12);
             display: none;
