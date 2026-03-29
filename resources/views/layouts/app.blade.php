@@ -395,6 +395,9 @@
     </div>
     <!-- video modal ends here -->
 
+    <!-- chatbot component -->
+    @include('components.chatbot')
+
     <!-- Bootstrap JS CDN -->
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -593,9 +596,6 @@
         // modal js ends here
 
     </script>
-
-    
-    @include('laravel-chatbot::components.floating-chat')
 
 </body>
 </html>

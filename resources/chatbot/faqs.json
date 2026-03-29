@@ -1,0 +1,14 @@
+[
+    {
+        "keywords": ["price", "cost", "charges"],
+        "answer": "Our pricing starts from $10."
+    },
+    {
+        "keywords": ["delivery", "shipping"],
+        "answer": "Delivery takes 3-5 working days."
+    },
+    {
+        "keywords": ["hello", "hi"],
+        "answer": "Hi! How can I help you?"
+    }
+]

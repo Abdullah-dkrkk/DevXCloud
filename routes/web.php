@@ -1,11 +1,15 @@
 <?php
 
+use BotMan\BotMan\BotMan;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ChatbotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 
+Route::post('/chatbot', [ChatbotController::class, 'reply']);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +25,9 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware(['auth', 'verified', 'admin'])
 //     ->prefix('admin/bot-questions')
@@ -52,24 +56,24 @@ Route::get('/dashboard', function () {
 | - If NOT logged in => redirect to homepage (NOT login page)
 | - If logged in => allow access
 |--------------------------------------------------------------------------
-*/
-Route::middleware(['guest.to.home', 'admin'])
-    ->prefix('admin/bot-questions')
-    ->group(function () {
+// */
+// Route::middleware(['guest.to.home', 'admin'])
+//     ->prefix('admin/bot-questions')
+//     ->group(function () {
 
-        Route::get('/', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.index');
-        })->name('bot-questions.index');
+//         Route::get('/', function () {
+//             return view('vendor.laravel-chatbot.pages.bot-questions.index');
+//         })->name('bot-questions.index');
 
-        Route::get('/create', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.create');
-        })->name('bot-questions.create');
+//         Route::get('/create', function () {
+//             return view('vendor.laravel-chatbot.pages.bot-questions.create');
+//         })->name('bot-questions.create');
 
-        Route::get('/import', function () {
-            return view('vendor.laravel-chatbot.pages.bot-questions.import');
-        })->name('bot-questions.import');
+//         Route::get('/import', function () {
+//             return view('vendor.laravel-chatbot.pages.bot-questions.import');
+//         })->name('bot-questions.import');
 
-    });
+//     });
 
 /*
 |--------------------------------------------------------------------------
@@ -79,19 +83,19 @@ Route::middleware(['guest.to.home', 'admin'])
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['guest.to.home', 'admin'])
-    ->get('/chatbot', function () {
-        return view('vendor.laravel-chatbot.pages.botman-chat');
-    })
-    ->name('chatbot');
+// Route::middleware(['guest.to.home', 'admin'])
+//     ->get('/chatbot', function () {
+//         return view('vendor.laravel-chatbot.pages.botman-chat');
+//     })
+//     ->name('chatbot');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
 
 
 
