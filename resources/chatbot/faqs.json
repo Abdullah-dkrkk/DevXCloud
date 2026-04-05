@@ -1,14 +1,98 @@
 [
     {
-        "keywords": ["price", "cost", "charges"],
-        "answer": "Our pricing starts from $10."
+        "keywords": ["devxcloud", "what is devxcloud", "about devxcloud", "company devxcloud"],
+        "answer": "DevXCloud is a growth systems company. Instead of offering isolated services like ads or SEO, we diagnose what’s holding a business back and build a connected system where marketing, retention, and operations work together."
     },
     {
-        "keywords": ["delivery", "shipping"],
-        "answer": "Delivery takes 3-5 working days."
+        "keywords": ["what does devxcloud do", "services devxcloud", "devxcloud services", "what you do"],
+        "answer": "We help businesses grow more consistently by fixing how their growth works as a system. That includes identifying weak points, building a strategy, and implementing the right tools so everything works together instead of in isolation."
     },
     {
-        "keywords": ["hello", "hi"],
+        "keywords": ["agency", "are you agency", "is devxcloud agency"],
+        "answer": "Not in the traditional sense. Most agencies focus on individual services. We focus on building a complete growth system around your business so results are more stable and predictable."
+    },
+    {
+        "keywords": ["difference", "different from agencies", "why different", "why choose devxcloud"],
+        "answer": "Most agencies optimize one area at a time like ads or SEO. We look at how everything connects. When growth channels are disconnected, results don’t last. We fix that by building a system where each part reinforces the other."
+    },
+    {
+        "keywords": ["greenscale", "greenscale formula", "vegan system", "vegan meal kit"],
+        "answer": "GreenScale Formula is our growth system built specifically for vegan meal kit brands. It focuses on connecting demand, retention, and operations so growth becomes stable instead of creating more pressure like waste or churn."
+    },
+    {
+        "keywords": ["commerceai", "ecommerce system", "ecommerce growth", "ai ecommerce"],
+        "answer": "CommerceAI is our growth system for e-commerce brands. It combines strategy, AI-driven personalization, and performance optimization to improve conversions, retention, and overall revenue."
+    },
+    {
+        "keywords": ["launchpadai", "launch system", "startup system", "early stage business"],
+        "answer": "LaunchPadAI is designed for founders and early-stage businesses. It helps you build a strong foundation with the right strategy, website, and growth setup so you can launch properly instead of guessing."
+    },
+    {
+        "keywords": ["scalecloud", "saas system", "saas growth", "saas scaling"],
+        "answer": "ScaleCloud is built for SaaS companies that want to scale efficiently. It focuses on automation, data, and system optimization to improve conversions, reduce churn, and support long-term growth."
+    },
+    {
+        "keywords": ["elitescale", "advanced scaling", "enterprise growth", "high level growth"],
+        "answer": "EliteScale is our high-level growth system for established businesses. It combines advanced strategy, data, and multi-channel scaling to help brands expand aggressively and operate at a higher level."
+    },
+    {
+        "keywords": ["vegan brands", "do you work vegan", "vegan meal kit only"],
+        "answer": "No, we work with different types of businesses through our other systems. However, we’ve built a specialized system for vegan meal kit brands because of how unique and complex that space is."
+    },
+    {
+        "keywords": ["startup", "do you work with startups", "early stage"],
+        "answer": "Yes. For early-stage businesses, we usually focus on building a strong foundation first so growth doesn’t break later."
+    },
+    {
+        "keywords": ["saas", "do you work saas", "saas companies"],
+        "answer": "Yes. That’s what our ScaleCloud system is built for. It focuses on improving conversion, retention, and overall scalability."
+    },
+    {
+        "keywords": ["ecommerce", "do you work ecommerce", "online store"],
+        "answer": "Yes. Our CommerceAI system is designed specifically for e-commerce businesses looking to grow more consistently."
+    },
+    {
+        "keywords": ["no website", "dont have website", "without website"],
+        "answer": "Yes. In that case, we usually focus on setting up a strong foundation first before scaling anything. That makes everything easier later."
+    },
+    {
+        "keywords": ["discovery call", "growth call", "consultation call"],
+        "answer": "It’s a short call where we understand your business, identify what’s not working, and walk you through what’s likely holding growth back. It’s more about clarity than pitching."
+    },
+    {
+        "keywords": ["after call", "what happens after call", "next step"],
+        "answer": "We review your business before the call, then walk through your current setup and explain what’s limiting growth and what should be fixed first. From there, we can suggest the right next steps."
+    },
+    {
+        "keywords": ["custom strategy", "do you customize", "tailored strategy"],
+        "answer": "Yes. Everything is customized based on your business, your stage, and your current setup. We don’t use fixed templates."
+    },
+    {
+        "keywords": ["implementation", "do you implement", "setup systems"],
+        "answer": "Yes. We can guide the full process from strategy to implementation, including setting up systems, tools, and optimizations where needed."
+    },
+    {
+        "keywords": ["price", "cost", "charges", "pricing"],
+        "answer": "It depends on the business and the level of work required. Since everything is customized, pricing is usually discussed after understanding your setup."
+    },
+    {
+        "keywords": ["monthly", "subscription", "monthly plans"],
+        "answer": "Yes, most of our work is structured on a monthly basis so we can continuously improve and optimize the system over time."
+    },
+    {
+        "keywords": ["business types", "who do you work with", "clients"],
+        "answer": "We work with e-commerce brands, SaaS companies, startups, and niche businesses like vegan meal kit brands — mainly those looking to grow in a more structured and stable way."
+    },
+    {
+        "keywords": ["get started", "start", "how to begin"],
+        "answer": "The best way to start is by booking a Growth Discovery Call. That gives you a clear view of what’s working, what’s not, and what to fix first."
+    },
+    {
+        "keywords": ["not sure", "dont know problem", "confused business"],
+        "answer": "That’s actually very common. Most businesses don’t have a clear view of what’s really causing unstable growth. That’s exactly what the discovery process is for."
+    },
+    {
+        "keywords": ["hello", "hi", "hey"],
         "answer": "Hi! How can I help you?"
     }
 ]

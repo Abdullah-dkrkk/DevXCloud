@@ -1,7 +1,7 @@
 <!-- Chat Toggle -->
 <div id="chat-toggle" class="chat-toggle-btn">
-    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60">
+        <path d="M41.216 29.026c0 3.576-.895 5.847-2.647 7.268l-.066.052c-.213.173-.448.362-.6.559a1.958 1.958 0 0 0-.311.562c-.086.233-.117.494-.144.719l-.008.062-.303 2.48c-.063.516-.102.834-.151 1.06a1.595 1.595 0 0 1-.04.151.091.091 0 0 1-.015.006 1.42 1.42 0 0 1-.137-.076 14.087 14.087 0 0 1-.868-.626l-2.98-2.244-.041-.03a3.046 3.046 0 0 0-.53-.343 2.061 2.061 0 0 0-.554-.17 3.13 3.13 0 0 0-.648-.016l-.054.002c-.496.023-1.014.034-1.553.034-4.41 0-7.28-.758-9.048-2.22-1.721-1.421-2.602-3.683-2.602-7.23 0-3.546.88-5.808 2.602-7.23 1.769-1.46 4.639-2.22 9.048-2.22 4.41 0 7.28.76 9.048 2.22 1.721 1.422 2.602 3.684 2.602 7.23Z" stroke="#fff" stroke-width="2" class="line-path"></path>
     </svg>
 </div>
 
@@ -13,13 +13,7 @@
         <button id="closeChat" class="btn-close custom-close"></button>
     </div>
 
-    <div id="chat-body" class="chat-body">
-        <div id="faq-list">
-            <button class="faq-btn">What services do you offer?</button>
-            <button class="faq-btn">How can I get a quote?</button>
-            <button class="faq-btn">Do you build custom web apps?</button>
-        </div>
-    </div>
+    <div id="chat-body" class="chat-body"></div>
 
     <div class="chat-input-wrapper">
         <div class="chat-input">
@@ -45,14 +39,27 @@
     right: 20px;
     background: var(--theme-light-primary);
     color: #fff;
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor: pointer;
+    animation: pulse 2s infinite;
     z-index: 10000;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--theme-light-primary);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(69, 233, 172, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(69, 233, 172, 0);
+    }
 }
 
 /* CHATBOX */
@@ -60,9 +67,9 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    width: 400px; /* increased */
+    width: 420px; /* increased */
     max-width: calc(100vw - 40px); /* responsive fix */
-    height: 520px;
+    height: 580px;
     background: #fff;
     border-radius: 14px;
     display: none;
@@ -125,7 +132,8 @@
     height: 32px;
     min-width: 32px;
     border-radius: 50%;
-    background: #e9eef5;
+    background: #fff;
+    border:1px solid #d6d6d6;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -145,21 +153,21 @@
     max-width: 75%;
     position: relative;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     overflow: visible;
 }
 
 /* USER */
 .user .chat-bubble {
-    background: var(--theme-light-primary);
+    background: #004174;
     color: #fff;
     border-bottom-right-radius: 6px;
 }
 
 /* BOT */
 .bot .chat-bubble {
-    background: #f1f3f5;
-    color: var(--theme-dark);
+    background: var(--theme-light-primary);
+    color: #fff;
     border-bottom-left-radius: 6px;
 }
 
@@ -171,7 +179,7 @@
     bottom: 0px;
     width: 14px;
     height: 14px;
-    background: var(--theme-light-primary);
+    background: #004174;
     clip-path: path("M0 0 C8 0, 14 6, 14 14 L0 14 Z");
 }
 
@@ -182,7 +190,7 @@
     bottom: 0px;
     width: 14px;
     height: 14px;
-    background: #f1f3f5;
+    background: var(--theme-light-primary);
     clip-path: path("M14 0 C6 0, 0 6, 0 14 L14 14 Z");
 }
 
@@ -224,6 +232,8 @@
     margin-left: 4px;
 }
 
+
+
 .send-btn-inner {
     width: 28px;
     height: 28px;
@@ -238,29 +248,36 @@
 
 /* FAQ */
 .faq-btn {
-    width: 100%;
+    /* width: 100%; */
     text-align: left;
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: none;
     background: #fff;
-    font-size: 13px;
-    transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    color: #fff;
+    background: #0ba0fd;
+    border-radius: 100px;
+    transition: 0.2s;
+}
+.faq-btn:hover {
+    opacity: 0.7;
 }
 
-.faq-btn:hover {
+/* .faq-btn:hover {
     background: var(--theme-light-primary);
     color: #fff;
     border-color: var(--theme-light-primary);
     box-shadow: 0 6px 14px rgba(1,118,211,0.16);
-}
+} */
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 576px) {
     .chatbox {
         right: 0px;
-        left: 10px;
+        left: 8px;
         width: auto;
         height: 85vh;
         bottom: 80px;
@@ -302,6 +319,43 @@
 .chat-body::-webkit-scrollbar-thumb:hover {
     background: var(--theme-primary);
 }
+
+.message-row.bot + div:has(button.faq-btn) {
+    display:flex;
+    align-items:center;
+    justify-content:start;
+    flex-wrap:wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.typing-bubble {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.typing-bubble span {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.typing-bubble span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.typing-bubble span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
 </style>
 
 <script>
@@ -312,28 +366,87 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeBtn = document.getElementById('closeChat');
     const input = document.getElementById('message');
 
-    // TOGGLE OPEN / CLOSE
+    let flowStarted = false;
+    let flowLocked = false;
+    let currentFlow = null;
+    let currentStep = 0;
+
+    // =========================
+    // RESET FUNCTION (FIX)
+    // =========================
+    function resetChat() {
+        flowStarted = false;
+        flowLocked = false;
+        currentFlow = null;
+        currentStep = 0;
+
+        document.getElementById('chat-body').innerHTML = '';
+        input.disabled = false;
+    }
+
+    // =========================
+    // TOGGLE
+    // =========================
     toggleBtn.onclick = function () {
-        if (chatbox.style.display === 'flex') {
-            chatbox.style.display = 'none';
-        } else {
-            chatbox.style.display = 'flex';
+        const isOpen = chatbox.style.display === 'flex';
+
+        chatbox.style.display = isOpen ? 'none' : 'flex';
+
+        if (!isOpen && !flowStarted) {
+
+            flowStarted = true;
+
+            botReply(`
+                Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?
+            `, [
+                "E-commerce",
+                "SaaS",
+                "Startup / Founder",
+                "Vegan Meal Kit",
+                "Just exploring"
+            ]);
         }
     };
 
-    // CLOSE BUTTON
     closeBtn.onclick = function () {
         chatbox.style.display = 'none';
     };
 
-    // FAQ CLICK
-    document.querySelectorAll('.faq-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            sendMessage(this.innerText);
-        });
-    });
+    // =========================
+    // TYPING
+    // =========================
+    function showTyping() {
+        let chatBody = document.getElementById('chat-body');
 
-    // ✅ ENTER KEY SEND
+        chatBody.innerHTML += `
+        <div class="message-row bot typing-row">
+            <div class="msg-icon">🤖</div>
+            <div class="chat-bubble typing-bubble">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        `;
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function removeTyping() {
+        let typing = document.querySelector('.typing-row');
+        if (typing) typing.remove();
+    }
+
+    function botReply(msg, options = []) {
+        showTyping();
+
+        setTimeout(() => {
+            removeTyping();
+            appendBot(msg, options);
+        }, 800);
+    }
+
+    // =========================
+    // ENTER KEY
+    // =========================
     input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -341,47 +454,230 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-});
+    // =========================
+    // SEND MESSAGE
+    // =========================
+    window.sendMessage = function(customMsg = null) {
 
-// SEND MESSAGE (UNCHANGED)
-function sendMessage(customMsg = null) {
+        if (flowLocked) return;
 
-    let input = document.getElementById('message');
-    let message = customMsg || input.value;
+        let message = customMsg || input.value;
+        if (!message) return;
 
-    if (!message) return;
+        appendUser(message);
 
-    let chatBody = document.getElementById('chat-body');
+        // 🔥 SPLIT MULTIPLE QUESTIONS
+        let questions = message.split(/and|\?|,/i).filter(q => q.trim() !== '');
 
-    let faq = document.getElementById('faq-list');
-    if (faq) faq.remove();
+        questions.forEach(q => {
 
-    chatBody.innerHTML += `
-    <div class="message-row user">
-        <div class="chat-bubble">${message}</div>
-        <div class="msg-icon">👤</div>
-    </div>
-    `;
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ message: q.trim() })
+            })
+            .then(res => res.json())
+            .then(data => {
+                botReply(data.reply);
+            });
 
-    fetch('/chatbot', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ message: message })
-    })
-    .then(res => res.json())
-    .then(data => {
+        });
+
+        input.value = '';
+    };
+
+    // =========================
+    // APPEND USER
+    // =========================
+    function appendUser(msg) {
+        let chatBody = document.getElementById('chat-body');
+
+        chatBody.innerHTML += `
+        <div class="message-row user">
+            <div class="chat-bubble">${msg}</div>
+            <div class="msg-icon">👤</div>
+        </div>
+        `;
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // =========================
+    // APPEND BOT
+    // =========================
+    window.appendBot = function(msg, options = []) {
+
+        let chatBody = document.getElementById('chat-body');
+
+        let buttons = options.map(opt => 
+            `<button class="faq-btn" onclick="handleOption('${opt}')">${opt}</button>`
+        ).join('');
+
         chatBody.innerHTML += `
         <div class="message-row bot">
             <div class="msg-icon">🤖</div>
-            <div class="chat-bubble">${data.reply}</div>
+            <div class="chat-bubble">${msg}</div>
         </div>
+        <div>${buttons}</div>
         `;
-        chatBody.scrollTop = chatBody.scrollHeight;
-    });
 
-    input.value = '';
-}
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    // =========================
+    // HANDLE OPTION
+    // =========================
+    window.handleOption = function(option) {
+
+        appendUser(option);
+
+        flowLocked = true;
+        input.disabled = true;
+
+        if (!flowStarted) {
+            flowStarted = true;
+
+            if (option === "Vegan Meal Kit") {
+                currentFlow = "A";
+                currentStep = 1;
+                flowA();
+            } else {
+                currentFlow = "B";
+                currentStep = 1;
+                flowB();
+            }
+        } else {
+            currentStep++;
+            currentFlow === "A" ? flowA(option) : flowB(option);
+        }
+    };
+
+    // =========================
+    // FLOW A
+    // =========================
+    function flowA(option = null) {
+
+        switch (currentStep) {
+
+            case 1:
+                botReply("Got it — that space can get tricky fast...", [
+                    "Managing demand vs ingredients",
+                    "Customers not sticking long-term",
+                    "Getting consistent orders",
+                    "Not sure what’s breaking"
+                ]);
+                break;
+
+            case 2:
+                botReply("When orders increase… does it feel like growth?", [
+                    "Creates more pressure",
+                    "Feels unpredictable",
+                    "Doesn’t really stabilize"
+                ]);
+                break;
+
+            case 3:
+                botReply(`We built GreenScale Formula to fix this.<br><br>Do you already have your meal kit website live?`, [
+                    "Yes",
+                    "Not yet"
+                ]);
+                break;
+
+            case 4:
+                botReply("Do you already have your meal kit website live?", [
+                    "Yes",
+                    "Not yet"
+                ]);
+                break;
+
+            case 5:
+                botReply(option === "Yes"
+                    ? "Perfect — that gives us real data."
+                    : "That’s a great place to start."
+                );
+                currentStep++;
+                flowA();
+                break;
+
+            case 6:
+                botReply("Want help fixing this?", [
+                    "Book Growth Discovery Call",
+                    "See How GreenScale Works"
+                ]);
+                break;
+
+            case 7:
+                resetChat();
+                window.location.assign(
+                    option === "Book Growth Discovery Call"
+                    ? "/contact"
+                    : "/greenscale-ai"
+                );
+                break;
+        }
+    }
+
+    // =========================
+    // FLOW B
+    // =========================
+    function flowB(option = null) {
+
+        switch (currentStep) {
+
+            case 1:
+                botReply("Got it — thanks for that.", [
+                    "Getting consistent sales",
+                    "Ads not performing",
+                    "Low repeat customers",
+                    "Not sure what’s wrong",
+                    "Just exploring"
+                ]);
+                break;
+
+            case 2:
+                botReply("Does your growth sustain?", [
+                    "It drops again",
+                    "Very unpredictable",
+                    "Never really stabilizes"
+                ]);
+                break;
+
+            case 3:
+                botReply(`We fix this by connecting everything.<br><br>Do you already have a website live?`, [
+                    "Yes, it’s live",
+                    "Not yet"
+                ]);
+                break;
+
+            case 4:
+                botReply("Next step?", [
+                    "Book Growth Discovery Call",
+                    "Explore Growth Systems",
+                    "Learn About GreenScale"
+                ]);
+                break;
+
+            case 5:
+            case 6:
+
+                resetChat();
+
+                if (option === "Book Growth Discovery Call") {
+                    window.location.assign("/contact");
+                } 
+                else if (option === "Learn About GreenScale") {
+                    window.location.assign("/greenscale-ai");
+                } 
+                else if (option === "Explore Growth Systems") {
+                    window.location.assign("/contact");
+                }
+
+                break;
+        }
+    }
+
+});
 </script>
