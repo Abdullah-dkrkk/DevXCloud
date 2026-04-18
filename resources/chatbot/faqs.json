@@ -1,98 +1,193 @@
 [
     {
-        "keywords": ["devxcloud", "what is devxcloud", "about devxcloud", "company devxcloud"],
+        "keywords": [
+            "what is devxcloud",
+            "about devxcloud",
+            "company devxcloud",
+            "who is devxcloud",
+            "tell me about devxcloud",
+            "explain devxcloud",
+            "what does devxcloud mean"
+        ],
         "answer": "DevXCloud is a growth systems company. Instead of offering isolated services like ads or SEO, we diagnose what’s holding a business back and build a connected system where marketing, retention, and operations work together."
     },
     {
-        "keywords": ["what does devxcloud do", "services devxcloud", "devxcloud services", "what you do"],
+        "keywords": [
+            "what does devxcloud do",
+            "services devxcloud",
+            "devxcloud services",
+            "what services do you offer",
+            "what services does devxcloud offer",
+            "what do you guys do",
+            "what exactly do you do",
+            "tell me your services",
+            "what kind of services you provide"
+        ],
         "answer": "We help businesses grow more consistently by fixing how their growth works as a system. That includes identifying weak points, building a strategy, and implementing the right tools so everything works together instead of in isolation."
     },
     {
-        "keywords": ["agency", "are you agency", "is devxcloud agency"],
+        "keywords": [
+            "agency",
+            "are you agency",
+            "is devxcloud agency",
+            "are you a marketing agency",
+            "are you like an agency"
+        ],
         "answer": "Not in the traditional sense. Most agencies focus on individual services. We focus on building a complete growth system around your business so results are more stable and predictable."
     },
     {
-        "keywords": ["difference", "different from agencies", "why different", "why choose devxcloud"],
+        "keywords": [
+            "difference",
+            "different from agencies",
+            "why different",
+            "why choose devxcloud",
+            "how are you different",
+            "what makes you different",
+            "difference between devxcloud and agency",
+            "why devxcloud better"
+        ],
         "answer": "Most agencies optimize one area at a time like ads or SEO. We look at how everything connects. When growth channels are disconnected, results don’t last. We fix that by building a system where each part reinforces the other."
     },
     {
-        "keywords": ["greenscale", "greenscale formula", "vegan system", "vegan meal kit"],
+        "keywords": [
+            "greenscale",
+            "greenscale formula",
+            "what is greenscale",
+            "tell me about greenscale",
+            "vegan system",
+            "vegan meal kit system"
+        ],
         "answer": "GreenScale Formula is our growth system built specifically for vegan meal kit brands. It focuses on connecting demand, retention, and operations so growth becomes stable instead of creating more pressure like waste or churn."
     },
     {
-        "keywords": ["commerceai", "ecommerce system", "ecommerce growth", "ai ecommerce"],
+        "keywords": [
+            "commerceai",
+            "what is commerceai",
+            "ecommerce system",
+            "ecommerce growth system",
+            "ai ecommerce",
+            "ecommerce solution"
+        ],
         "answer": "CommerceAI is our growth system for e-commerce brands. It combines strategy, AI-driven personalization, and performance optimization to improve conversions, retention, and overall revenue."
     },
     {
-        "keywords": ["launchpadai", "launch system", "startup system", "early stage business"],
+        "keywords": [
+            "launchpadai",
+            "startup system",
+            "early stage system",
+            "help startups",
+            "startup growth system"
+        ],
         "answer": "LaunchPadAI is designed for founders and early-stage businesses. It helps you build a strong foundation with the right strategy, website, and growth setup so you can launch properly instead of guessing."
     },
     {
-        "keywords": ["scalecloud", "saas system", "saas growth", "saas scaling"],
+        "keywords": [
+            "scalecloud",
+            "saas system",
+            "saas growth",
+            "saas scaling",
+            "help saas companies"
+        ],
         "answer": "ScaleCloud is built for SaaS companies that want to scale efficiently. It focuses on automation, data, and system optimization to improve conversions, reduce churn, and support long-term growth."
     },
     {
-        "keywords": ["elitescale", "advanced scaling", "enterprise growth", "high level growth"],
+        "keywords": [
+            "elitescale",
+            "advanced scaling",
+            "enterprise growth",
+            "high level scaling"
+        ],
         "answer": "EliteScale is our high-level growth system for established businesses. It combines advanced strategy, data, and multi-channel scaling to help brands expand aggressively and operate at a higher level."
     },
     {
-        "keywords": ["vegan brands", "do you work vegan", "vegan meal kit only"],
-        "answer": "No, we work with different types of businesses through our other systems. However, we’ve built a specialized system for vegan meal kit brands because of how unique and complex that space is."
-    },
-    {
-        "keywords": ["startup", "do you work with startups", "early stage"],
+        "keywords": [
+            "do you work with startups",
+            "startup help",
+            "early stage business help",
+            "can you help my startup"
+        ],
         "answer": "Yes. For early-stage businesses, we usually focus on building a strong foundation first so growth doesn’t break later."
     },
     {
-        "keywords": ["saas", "do you work saas", "saas companies"],
-        "answer": "Yes. That’s what our ScaleCloud system is built for. It focuses on improving conversion, retention, and overall scalability."
-    },
-    {
-        "keywords": ["ecommerce", "do you work ecommerce", "online store"],
+        "keywords": [
+            "do you work with ecommerce",
+            "ecommerce help",
+            "online store help",
+            "can you grow my ecommerce"
+        ],
         "answer": "Yes. Our CommerceAI system is designed specifically for e-commerce businesses looking to grow more consistently."
     },
     {
-        "keywords": ["no website", "dont have website", "without website"],
+        "keywords": [
+            "do you work with saas",
+            "saas help",
+            "saas companies",
+            "can you scale saas"
+        ],
+        "answer": "Yes. That’s what our ScaleCloud system is built for. It focuses on improving conversion, retention, and overall scalability."
+    },
+    {
+        "keywords": [
+            "i dont have website",
+            "no website",
+            "dont have website",
+            "without website"
+        ],
         "answer": "Yes. In that case, we usually focus on setting up a strong foundation first before scaling anything. That makes everything easier later."
     },
     {
-        "keywords": ["discovery call", "growth call", "consultation call"],
+        "keywords": [
+            "discovery call",
+            "growth call",
+            "consultation call",
+            "what is discovery call",
+            "what happens in call"
+        ],
         "answer": "It’s a short call where we understand your business, identify what’s not working, and walk you through what’s likely holding growth back. It’s more about clarity than pitching."
     },
     {
-        "keywords": ["after call", "what happens after call", "next step"],
+        "keywords": [
+            "what happens after call",
+            "after call",
+            "next step after call"
+        ],
         "answer": "We review your business before the call, then walk through your current setup and explain what’s limiting growth and what should be fixed first. From there, we can suggest the right next steps."
     },
     {
-        "keywords": ["custom strategy", "do you customize", "tailored strategy"],
-        "answer": "Yes. Everything is customized based on your business, your stage, and your current setup. We don’t use fixed templates."
-    },
-    {
-        "keywords": ["implementation", "do you implement", "setup systems"],
-        "answer": "Yes. We can guide the full process from strategy to implementation, including setting up systems, tools, and optimizations where needed."
-    },
-    {
-        "keywords": ["price", "cost", "charges", "pricing"],
+        "keywords": [
+            "price",
+            "cost",
+            "pricing",
+            "how much do you charge",
+            "what is your pricing"
+        ],
         "answer": "It depends on the business and the level of work required. Since everything is customized, pricing is usually discussed after understanding your setup."
     },
     {
-        "keywords": ["monthly", "subscription", "monthly plans"],
-        "answer": "Yes, most of our work is structured on a monthly basis so we can continuously improve and optimize the system over time."
-    },
-    {
-        "keywords": ["business types", "who do you work with", "clients"],
-        "answer": "We work with e-commerce brands, SaaS companies, startups, and niche businesses like vegan meal kit brands — mainly those looking to grow in a more structured and stable way."
-    },
-    {
-        "keywords": ["get started", "start", "how to begin"],
+        "keywords": [
+            "how to start",
+            "get started",
+            "how can i begin",
+            "start working with you"
+        ],
         "answer": "The best way to start is by booking a Growth Discovery Call. That gives you a clear view of what’s working, what’s not, and what to fix first."
     },
     {
-        "keywords": ["not sure", "dont know problem", "confused business"],
+        "keywords": [
+            "confused",
+            "not sure",
+            "dont know what to do",
+            "dont know problem"
+        ],
         "answer": "That’s actually very common. Most businesses don’t have a clear view of what’s really causing unstable growth. That’s exactly what the discovery process is for."
     },
     {
-        "keywords": ["hello", "hi", "hey"],
+        "keywords": [
+            "hi",
+            "hello",
+            "hey",
+            "hi there"
+        ],
         "answer": "Hi! How can I help you?"
     }
 ]

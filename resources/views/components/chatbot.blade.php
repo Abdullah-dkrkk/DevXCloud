@@ -396,9 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             flowStarted = true;
 
-            botReply(`
-                Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?
-            `, [
+            botReply("Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?", [
                 "E-commerce",
                 "SaaS",
                 "Startup / Founder",
@@ -467,24 +465,39 @@ document.addEventListener('DOMContentLoaded', function () {
         appendUser(message);
 
         // 🔥 SPLIT MULTIPLE QUESTIONS
-        let questions = message.split(/and|\?|,/i).filter(q => q.trim() !== '');
-
-        questions.forEach(q => {
-
-            fetch('/chatbot', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ message: q.trim() })
-            })
-            .then(res => res.json())
-            .then(data => {
-                botReply(data.reply);
-            });
-
+        // let questions = message.split(/and|\?|,/i).filter(q => q.trim() !== '');
+        fetch('/chatbot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(res => res.json())
+        .then(data => {
+            botReply(data.reply);
+        })
+        .catch(() => {
+            botReply("Something went wrong. Please try again.");
         });
+
+        // questions.forEach(q => {
+
+        //     fetch('/chatbot', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        //         },
+        //         body: JSON.stringify({ message: q.trim() })
+        //     })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         botReply(data.reply);
+        //     });
+
+        // });
 
         input.value = '';
     };
@@ -519,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBody.innerHTML += `
         <div class="message-row bot">
             <div class="msg-icon">🤖</div>
-            <div class="chat-bubble">${msg}</div>
+            <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
         </div>
         <div>${buttons}</div>
         `;
