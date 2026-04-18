@@ -67,12 +67,12 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    width: 420px; /* increased */
-    max-width: calc(100vw - 40px); /* responsive fix */
+    width: 420px;
+    max-width: calc(100vw - 40px);
     height: 580px;
     background: #fff;
     border-radius: 14px;
-    display: none;
+    display: flex; /* IMPORTANT */
     flex-direction: column;
     overflow: hidden;
     z-index: 10000;
@@ -80,7 +80,21 @@
     box-shadow:
         0 10px 30px rgba(0,0,0,0.15),
         0 0 40px rgba(1,118,211,0.25);
+
+    /* 🔥 Animation properties */
+    opacity: 0;
+    transform: translateY(20px); /* halki si slide */
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
+
+/* ACTIVE STATE */
+.chatbox.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
 
 /* HEADER */
 .chat-header {
@@ -320,14 +334,28 @@
     background: var(--theme-primary);
 }
 
-.message-row.bot + div:has(button.faq-btn) {
+/* .message-row.bot + div:has(button.faq-btn) {
     display:flex;
     align-items:center;
     justify-content:start;
     flex-wrap:wrap;
     gap: 8px;
     margin-bottom: 24px;
+} */
+
+    .faq-wrapper .faq-btn {
+    margin: 0;
 }
+
+
+    .faq-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 20px;
+}
+
 
 .typing-bubble {
     display: flex;
@@ -355,6 +383,31 @@
     0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
     40% { transform: scale(1); opacity: 1; }
 }
+
+/* ===== MESSAGE ANIMATION ===== */
+.message-row {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+}
+
+.message-row.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== BUTTON STAGGER ANIMATION ===== */
+.faq-btn {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
+
+.faq-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 </style>
 
@@ -390,7 +443,12 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleBtn.onclick = function () {
         const isOpen = chatbox.style.display === 'flex';
 
-        chatbox.style.display = isOpen ? 'none' : 'flex';
+        // chatbox.style.display = isOpen ? 'none' : 'flex';
+        if (chatbox.classList.contains('active')) {
+            chatbox.classList.remove('active');
+        } else {
+            chatbox.classList.add('active');
+        }
 
         if (!isOpen && !flowStarted) {
 
@@ -407,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     closeBtn.onclick = function () {
-        chatbox.style.display = 'none';
+        chatbox.classList.remove('active');
     };
 
     // =========================
@@ -425,12 +483,26 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         `;
 
-        chatBody.scrollTop = chatBody.scrollHeight;
+        // chatBody.scrollTop = chatBody.scrollHeight;
+        setTimeout(() => {
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 
+    // function removeTyping() {
+    //     let typing = document.querySelector('.typing-row');
+    //     if (typing) typing.remove();
+    // }
     function removeTyping() {
         let typing = document.querySelector('.typing-row');
-        if (typing) typing.remove();
+        if (typing) {
+            typing.style.opacity = '0';
+            typing.style.transform = 'translateY(10px)';
+            setTimeout(() => typing.remove(), 200);
+        }
     }
 
     function botReply(msg, options = []) {
@@ -505,39 +577,117 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================
     // APPEND USER
     // =========================
+    // function appendUser(msg) {
+    //     let chatBody = document.getElementById('chat-body');
+
+    //     chatBody.innerHTML += `
+    //     <div class="message-row user">
+    //         <div class="chat-bubble">${msg}</div>
+    //         <div class="msg-icon">👤</div>
+    //     </div>
+    //     `;
+
+    //     chatBody.scrollTop = chatBody.scrollHeight;
+    // }
     function appendUser(msg) {
         let chatBody = document.getElementById('chat-body');
 
-        chatBody.innerHTML += `
-        <div class="message-row user">
-            <div class="chat-bubble">${msg}</div>
-            <div class="msg-icon">👤</div>
-        </div>
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+            <div class="message-row user">
+                <div class="chat-bubble">${msg}</div>
+                <div class="msg-icon">👤</div>
+            </div>
         `;
 
-        chatBody.scrollTop = chatBody.scrollHeight;
+        let el = wrapper.firstElementChild;
+        chatBody.appendChild(el);
+
+        // 🔥 trigger animation
+        setTimeout(() => el.classList.add('show'), 50);
+
+        // chatBody.scrollTop = chatBody.scrollHeight;
+        setTimeout(() => {
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 
     // =========================
     // APPEND BOT
     // =========================
+    // window.appendBot = function(msg, options = []) {
+
+    //     let chatBody = document.getElementById('chat-body');
+
+    //     let buttons = options.map(opt => 
+    //         `<button class="faq-btn" onclick="handleOption('${opt}')">${opt}</button>`
+    //     ).join('');
+
+    //     chatBody.innerHTML += `
+    //     <div class="message-row bot">
+    //         <div class="msg-icon">🤖</div>
+    //         <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
+    //     </div>
+    //     <div>${buttons}</div>
+    //     `;
+
+    //     chatBody.scrollTop = chatBody.scrollHeight;
+    // };
     window.appendBot = function(msg, options = []) {
 
         let chatBody = document.getElementById('chat-body');
 
-        let buttons = options.map(opt => 
-            `<button class="faq-btn" onclick="handleOption('${opt}')">${opt}</button>`
-        ).join('');
-
-        chatBody.innerHTML += `
-        <div class="message-row bot">
-            <div class="msg-icon">🤖</div>
-            <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
-        </div>
-        <div>${buttons}</div>
+        // MESSAGE CREATE
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+            <div class="message-row bot">
+                <div class="msg-icon">🤖</div>
+                <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
+            </div>
         `;
 
-        chatBody.scrollTop = chatBody.scrollHeight;
+        let messageEl = wrapper.firstElementChild;
+        chatBody.appendChild(messageEl);
+
+        // 🔥 MESSAGE ANIMATION
+        setTimeout(() => {
+            messageEl.classList.add('show');
+        }, 50);
+
+        // ===== BUTTON CONTAINER =====
+        if (options.length) {
+
+            let btnWrapper = document.createElement('div');
+            btnWrapper.className = 'faq-wrapper'; // 🔥 ADD THIS
+            chatBody.appendChild(btnWrapper);
+
+            // 🔥 STAGGER BUTTONS
+            options.forEach((opt, index) => {
+
+                let btn = document.createElement('button');
+                btn.className = 'faq-btn';
+                btn.innerText = opt;
+                btn.onclick = () => handleOption(opt);
+
+                btnWrapper.appendChild(btn);
+
+                // 🔥 DELAY SE EK EK BUTTON SHOW
+                setTimeout(() => {
+                    btn.classList.add('show');
+                }, 200 + (index * 120)); // stagger timing
+            });
+        }
+
+        // chatBody.scrollTop = chatBody.scrollHeight;
+        setTimeout(() => {
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     };
 
     // =========================
@@ -545,7 +695,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================
     window.handleOption = function(option) {
 
-        appendUser(option);
+        appendUser(option); // ✅ only once
 
         flowLocked = true;
         input.disabled = true;
@@ -563,8 +713,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 flowB();
             }
         } else {
-            currentStep++;
-            currentFlow === "A" ? flowA(option) : flowB(option);
+
+            // ❌ duplicate removed
+
+            setTimeout(() => {
+                currentStep++;
+                currentFlow === "A" ? flowA(option) : flowB(option);
+            }, 200);
         }
     };
 

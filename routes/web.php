@@ -95,7 +95,7 @@ Route::post('/chatbot', [ChatbotController::class, 'reply']);
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
 
 
 

@@ -133,7 +133,7 @@
                         <div class="inner-wrapper">
                             <img src="{{ asset('images/commerce-ai/commerce-5.svg') }}" alt="Commerce 1">
                             <h3 class="text-white text-center mb-2">Dashboard Reporting & Optimization</h3>
-                            <p>We define your USP, uncover your top-performing products, and map out your ideal customers so your growth starts with strategy, not guesswork.</p>
+                            <p>We track what matters with a live KPI dashboard and ongoing optimization — so you always see what’s working and what to scale next.</p>
                         </div>
                     </div>
                 </div>
@@ -252,7 +252,7 @@
                     <img src="{{ asset('illustrations/i-step-2.svg') }}">
                     <span class="step">Step 2</span>
                     <h3>Custom Growth Blueprint</h3>
-                    <p>We start with a deep-dive call to uncover your store’s strengths, gaps, and growth blockers — building the foundation for a custom strategy.</p>
+                    <p>We map your product strategy, customer personas, and offers into a custom AI-powered blueprint ready to fuel smarter decisions.</p>
                 </div>
                 <div class="col">
                     <img src="{{ asset('illustrations/i-step-3.svg') }}">
