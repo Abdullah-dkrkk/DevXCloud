@@ -3,86 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ChatbotFaq;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
 {
     public function reply(Request $request)
     {
-        $message = strtolower(trim($request->message));
+        $message = trim($request->message);
 
-        $faqs = json_decode(file_get_contents(resource_path('chatbot/faqs.json')), true);
+        if (!$message || strlen($message) > 300) {
+            return response()->json(['reply' => 'Invalid message.']);
+        }
 
-        $exactMatches = [];
-        $scoredMatches = [];
+        $faqs = ChatbotFaq::select('question', 'answer')->get();
+        if ($faqs->isEmpty()) {
+            return response()->json(['reply' => 'No data available.']);
+        }
 
+        $faqText = "";
         foreach ($faqs as $faq) {
-
-            foreach ($faq['keywords'] as $keyword) {
-
-                $keyword = strtolower(trim($keyword));
-
-                // ✅ STRICT MATCH (HIGH PRIORITY)
-                if ($message === $keyword || str_contains($message, $keyword)) {
-                    $exactMatches[] = $faq['answer'];
-                    break;
-                }
-            }
+            $faqText .= "Q:{$faq->question}|A:{$faq->answer}\n";
         }
 
-        // 🔥 If exact match found → return ONLY that
-        if (!empty($exactMatches)) {
-            return response()->json([
-                'reply' => implode("\n\n---\n\n", array_unique($exactMatches))
-            ]);
-        }
+        try {
+            $apiKey = env('GEMINI_API_KEY');
 
-        // 🔥 fallback to smart matching ONLY if no exact match
-        foreach ($faqs as $faq) {
+            // ⚡ UPDATED TO GEMINI 2.5 FLASH
+            $response = Http::timeout(30)->post(
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}",
+                [
+                    'contents' => [
+                        [
+                            'parts' => [
+                                ['text' => "System Instructions:
+                                1. You are DevXCloud Support.
+                                2. Use ONLY the FAQ data provided below.
+                                3. If the user asks MULTIPLE questions, answer each one in a numbered list.
+                                4. If the answer isn't in the FAQ, reply exactly with 'NO_MATCH'.
+                                
+                                FAQ Data:
+                                $faqText
+                                
+                                User Query: $message"]
+                            ]
+                        ]
+                    ],
+                    'generationConfig' => [
+                        'temperature' => 0.1,
+                        'maxOutputTokens' => 800
+                    ]
+                ]
+            );
 
-            $score = 0;
-
-            foreach ($faq['keywords'] as $keyword) {
-
-                $keywordWords = explode(' ', strtolower($keyword));
-                $matchCount = 0;
-
-                foreach ($keywordWords as $word) {
-                    if (strlen($word) > 3 && str_contains($message, $word)) {
-                        $matchCount++;
-                    }
-                }
-
-                if ($matchCount >= ceil(count($keywordWords) * 0.7)) {
-                    $score += $matchCount;
-                }
+            if (!$response->successful()) {
+                Log::error('Gemini 2.5 Error: ' . $response->body());
+                return response()->json(['reply' => 'Connection error. Please try again.']);
             }
 
-            if ($score > 0) {
-                $scoredMatches[] = [
-                    'answer' => $faq['answer'],
-                    'score' => $score
-                ];
+            $data = $response->json();
+            $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+
+            if (!$reply || str_contains(strtoupper($reply), 'NO_MATCH')) {
+                return response()->json([
+                    'reply' => "I couldn't find that in my records. Please ask about DevXCloud services or contact support."
+                ]);
             }
+
+            return response()->json(['reply' => trim($reply)]);
+
+        } catch (\Exception $e) {
+            Log::error('Gemini Exception: ' . $e->getMessage());
+            return response()->json(['reply' => 'Server error occurred.']);
         }
-
-        if (!empty($scoredMatches)) {
-
-            usort($scoredMatches, function ($a, $b) {
-                return $b['score'] <=> $a['score'];
-            });
-
-            // 🔥 LIMIT RESULTS (IMPORTANT)
-            $topMatches = array_slice($scoredMatches, 0, 2);
-
-            $answers = array_unique(array_column($topMatches, 'answer'));
-
-            return response()->json([
-                'reply' => implode("\n\n", $answers)
-            ]);
-        }
-
-        return response()->json([
-            'reply' => "Right now I don’t have a clear answer for that.\n\nBut we can look into it and get back to you properly."
-        ]);
     }
 }

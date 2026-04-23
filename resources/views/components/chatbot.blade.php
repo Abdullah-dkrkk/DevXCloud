@@ -277,7 +277,7 @@
     transition: 0.2s;
 }
 .faq-btn:hover {
-    opacity: 0.7;
+    opacity: 0.8 !important;
 }
 
 /* .faq-btn:hover {
@@ -796,7 +796,11 @@ document.addEventListener('DOMContentLoaded', function () {
         switch (currentStep) {
 
             case 1:
-                botReply("Got it — thanks for that.", [
+                botReply(
+            `Got it — thanks for that.
+
+            What feels the most frustrating or unstable in your growth right now?`,
+                [
                     "Getting consistent sales",
                     "Ads not performing",
                     "Low repeat customers",
@@ -806,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
 
             case 2:
-                botReply("Does your growth sustain?", [
+                botReply("When things do work… does it actually sustain, or does it drop again after a while?", [
                     "It drops again",
                     "Very unpredictable",
                     "Never really stabilizes"
@@ -814,18 +818,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
 
             case 3:
-                botReply(`We fix this by connecting everything.<br><br>Do you already have a website live?`, [
+                botReply(`We usually fix this by connecting everything into one system — so growth actually compounds instead of resetting. <br><br> We see this a lot, especially in models like subscription food and meal kits where everything is tightly connected. <br><br> Quick one — do you already have a website live right now, or are you still setting things up?`, [
                     "Yes, it’s live",
                     "Not yet"
                 ]);
                 break;
 
             case 4:
-                botReply("Next step?", [
-                    "Book Growth Discovery Call",
-                    "Explore Growth Systems",
-                    "Learn About GreenScale"
-                ]);
+
+                if (option === "Yes, it’s live") {
+
+                    botReply(
+                        "Nice — that gives us something real to analyze instead of guessing.<br><br>If you want, we can walk through your setup and show what’s actually holding things back — and what to fix first.",
+                        [
+                            "Book Growth Discovery Call",
+                            "Explore Growth Systems",
+                            "Learn About GreenScale"
+                        ]
+                    );
+
+                } else {
+
+                    botReply(
+                        "That’s actually a good place to start — getting the foundation right early makes everything easier later.<br><br>If you want, we can walk through your setup and show what’s actually holding things back — and what to fix first.",
+                        [
+                            "Book Growth Discovery Call",
+                            "Explore Growth Systems",
+                            "Learn About GreenScale"
+                        ]
+                    );
+
+                }
+
                 break;
 
             case 5:
