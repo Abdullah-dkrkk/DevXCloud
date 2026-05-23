@@ -324,6 +324,12 @@
                                 </div>
                             </div>
 
+                            <!-- reCAPTCHA v3 -->
+                            <input type="hidden" name="g-recaptcha-response" id="recaptchaToken">
+                            @error('g-recaptcha-response')
+                                <small>{{ $message }}</small>
+                            @enderror
+
                             <!-- Submit -->
                             <div class="form-group">
                                 <button type="submit" class="devx__btn-primary">
@@ -331,6 +337,42 @@
                                 </button>
                             </div>
                         </form>
+
+                        @push('scripts')
+                        @php $siteKey = config('services.recaptcha.site_key'); @endphp
+                        @if($siteKey)
+                        <script src="https://www.google.com/recaptcha/api.js?render={{ $siteKey }}&onload=recaptchaOnLoad" async defer></script>
+                        @endif
+                        <script>
+                            @if($siteKey)
+                            let recaptchaReady = false;
+                            window.recaptchaOnLoad = function() { recaptchaReady = true; };
+
+                            function executeRecaptcha(form) {
+                                grecaptcha.ready(function() {
+                                    grecaptcha.execute('{{ $siteKey }}', { action: 'submit' }).then(function(token) {
+                                        document.getElementById('recaptchaToken').value = token;
+                                        form.submit();
+                                    });
+                                });
+                            }
+
+                            document.querySelector('.contact-form').addEventListener('submit', function(e) {
+                                e.preventDefault();
+                                const form = this;
+                                const btn = form.querySelector('button[type="submit"]');
+                                btn.disabled = true;
+                                btn.textContent = 'Verifying...';
+
+                                if (typeof grecaptcha !== 'undefined' && recaptchaReady) {
+                                    executeRecaptcha(form);
+                                } else {
+                                    setTimeout(function() { executeRecaptcha(form); }, 1500);
+                                }
+                            });
+                            @endif
+                        </script>
+                        @endpush
                     </div>
                 </div>
 
