@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ChatHistory extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'session_id',
+        'question',
+        'answer',
+        'source',
+        'answered_by',
+        'asked_at',
+        'answered_at',
+    ];
+
+    protected $casts = [
+        'asked_at' => 'datetime',
+        'answered_at' => 'datetime',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function answeredBy()
+    {
+        return $this->belongsTo(User::class, 'answered_by');
+    }
+}

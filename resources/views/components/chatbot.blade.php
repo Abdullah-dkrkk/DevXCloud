@@ -6,7 +6,7 @@
 </div>
 
 <!-- Chatbox -->
-<div id="chatbox" class="chatbox">
+<div id="chatbox" class="chatbox" data-user="{{ auth()->check() ? auth()->id() : 0 }}">
 
     <div class="chat-header d-flex justify-content-between align-items-center">
         <span><b>SUPPORT CHAT</b></span>
@@ -32,6 +32,9 @@
 </div>
 
 <style>
+#chatbox, .chat-toggle-btn {
+    --theme-light-primary: #0176d3;
+}
 /* TOGGLE */
 .chat-toggle-btn {
     position: fixed;
@@ -206,6 +209,14 @@
     height: 14px;
     background: var(--theme-light-primary);
     clip-path: path("M14 0 C6 0, 0 6, 0 14 L14 14 Z");
+}
+
+.bot .nudge-bubble {
+    background: #10b981;
+}
+
+.bot .nudge-bubble::before {
+    background: #10b981;
 }
 
 /* INPUT */
@@ -423,6 +434,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let flowLocked = false;
     let currentFlow = null;
     let currentStep = 0;
+    let guestMsgCount = 0;
+    const isLoggedIn = parseInt(document.getElementById('chatbox').dataset.user) > 0;
 
     // =========================
     // RESET FUNCTION (FIX)
@@ -474,14 +487,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function showTyping() {
         let chatBody = document.getElementById('chat-body');
 
-        chatBody.innerHTML += `
+        chatBody.insertAdjacentHTML('beforeend', `
         <div class="message-row bot typing-row">
             <div class="msg-icon">🤖</div>
             <div class="chat-bubble typing-bubble">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        `;
+        `);
 
         // chatBody.scrollTop = chatBody.scrollHeight;
         setTimeout(() => {
@@ -549,6 +562,27 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(data => {
             botReply(data.reply);
+            if (!isLoggedIn) {
+                guestMsgCount++;
+                if (guestMsgCount === 1) {
+                    setTimeout(() => {
+                        let chatBody = document.getElementById('chat-body');
+                        let nudge = document.createElement('div');
+                        nudge.className = 'message-row bot';
+                        nudge.innerHTML = `
+                            <div class="msg-icon">💡</div>
+                            <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
+                                Create an account to keep your chat history forever!
+                                <a href="/register" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
+                                or <a href="/login" style="color:#fff;text-decoration:underline;">Login</a>
+                            </div>
+                        `;
+                        chatBody.appendChild(nudge);
+                        setTimeout(() => nudge.classList.add('show'), 50);
+                        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
+                    }, 1200);
+                }
+            }
         })
         .catch(() => {
             botReply("Something went wrong. Please try again.");
@@ -695,32 +729,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================
     window.handleOption = function(option) {
 
-        appendUser(option); // ✅ only once
-
+        appendUser(option);
         flowLocked = true;
         input.disabled = true;
 
-        if (!flowStarted) {
-            flowStarted = true;
-
-            if (option === "Vegan Meal Kit") {
-                currentFlow = "A";
-                currentStep = 1;
-                flowA();
+        setTimeout(() => {
+            if (currentFlow === null) {
+                if (option === "Vegan Meal Kit") {
+                    currentFlow = "A";
+                    currentStep = 1;
+                    flowA();
+                } else {
+                    currentFlow = "B";
+                    currentStep = 1;
+                    flowB();
+                }
             } else {
-                currentFlow = "B";
-                currentStep = 1;
-                flowB();
-            }
-        } else {
-
-            // ❌ duplicate removed
-
-            setTimeout(() => {
                 currentStep++;
                 currentFlow === "A" ? flowA(option) : flowB(option);
-            }, 200);
-        }
+            }
+        }, 200);
     };
 
     // =========================

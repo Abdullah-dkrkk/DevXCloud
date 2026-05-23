@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChatHistory;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -45,6 +46,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        ChatHistory::where('session_id', session()->getId())
+            ->whereNull('user_id')
+            ->update(['user_id' => $user->id]);
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -25,9 +25,9 @@ Route::post('/chatbot', [ChatbotController::class, 'reply']);
 //     return view('welcome');
 // });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware(['auth', 'verified', 'admin'])
 //     ->prefix('admin/bot-questions')
@@ -89,11 +89,11 @@ Route::post('/chatbot', [ChatbotController::class, 'reply']);
 //     })
 //     ->name('chatbot');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
 
@@ -123,7 +123,19 @@ Route::get('/contact', fn () => view('contact'))->name('contact');
 Route::post('/contact-submit', [ContactController::class, 'submit'])
     ->name('contact.submit');
 
-    
+Route::middleware(['auth', 'verified'])
+    ->get('/chat-history', [App\Http\Controllers\UserChatHistoryController::class, 'index'])
+    ->name('user.chat-history');
+
+Route::middleware(['auth', 'verified', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/questions', [App\Http\Controllers\Admin\QuestionController::class, 'index'])->name('questions.index');
+        Route::get('/questions/{id}/answer', [App\Http\Controllers\Admin\QuestionController::class, 'showAnswerForm'])->name('questions.answer');
+        Route::post('/questions/{id}/answer', [App\Http\Controllers\Admin\QuestionController::class, 'submitAnswer'])->name('questions.answer.submit');
+    });
+
 Route::get('/states/{countryCode}', function ($countryCode) {
 
     $result = \Nnjeim\World\World::states([
