@@ -5,6 +5,14 @@
 
 
 @section('content')
+    <style>
+        .grecaptcha-badge {
+            right: auto !important;
+            left: 0 !important;
+            max-width: 70px !important;
+            overflow: hidden !important;
+        }
+    </style>
     <!-- banner starts from here -->
     <section class="contact-banner" style="display:none;">
         <div class="container">
