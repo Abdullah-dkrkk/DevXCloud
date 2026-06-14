@@ -105,6 +105,62 @@
         .navbar-brand {
             margin-top: 6px;
         }
+        @media only screen and (max-width: 1410px) {
+            nav .theme__btn {
+                font-size: 12px;
+                padding: 8px 16px !important;
+            }
+            .navbar-expand-xl .navbar-nav .nav-link {
+                font-size: 12px;
+                padding-right: 4px;
+                padding-left: 4px;
+                text-wrap: nowrap;
+            }
+            body nav .nav-item span {
+                font-size: 12px !important;
+            }
+            .navbar-brand {
+                padding-left: 16px;
+            }
+            .navbar-toggler {
+                margin-right: 16px;
+            }
+        }
+        @media only screen and (max-width: 1199.98px) {
+            .navbar-collapse {
+                position: relative;
+                background: white;
+            }
+            .navbar-collapse::after {
+                content: '';
+                position: absolute;
+                bottom: -15px;
+                left: 0;
+                right: 0;
+                height: 15px;
+                background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.12) 0%, transparent 70%);
+                pointer-events: none;
+            }
+            .navbar-collapse .navbar-nav {
+                display: block !important;
+                text-align: center !important;
+                margin-left: 0 !important;
+                float: none !important;
+            }
+            .navbar-collapse .navbar-nav li {
+                text-align: center !important;
+            }
+            .navbar-collapse .navbar-nav a.theme__btn {
+                min-width: 200px;
+                display: inline-block;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+            .navbar-collapse .navbar-nav a.theme__btn:not(.login__btn) {
+                margin-bottom: 8px;
+                margin-top: 8px;
+            }
+        }
         /* navbar css ends here */
     </style>
     <nav class="navbar navbar-expand-xl" id="navbar">
@@ -158,24 +214,9 @@
                             Get a proposal
                         </a>
                     </li>
-                    {{-- @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button class="nav-link btn btn-link text-white text-decoration-none" type="submit">Logout</button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
-                        </li>
-                    @endauth --}}
+                    <li class="nav-item">
+                        <a class="nav-link active theme__btn login__btn" href="{{ route('login') }}">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>

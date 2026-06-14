@@ -494,3 +494,11 @@ p {
 .lc-fc-panel {
     max-height: 445px !important;
 }
+.login__btn {
+    margin-left: 0px !important;
+}
+
+.grecaptcha-badge {
+    right: auto !important;
+    left: 0 !important;
+}

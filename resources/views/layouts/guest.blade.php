@@ -25,6 +25,17 @@
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+
+            @if (request()->routeIs('login'))
+                <div class="mt-6 text-center">
+                    <p class="text-base text-gray-600">
+                        {{ __("Don't have an account?") }}
+<a class="underline hover:text-gray-900 rounded-md focus:outline-none" href="{{ route('register') }}">
+    {{ __('Sign up') }}
+</a>
+                    </p>
+                </div>
+            @endif
         </div>
     </body>
 </html>
