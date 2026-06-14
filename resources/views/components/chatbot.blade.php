@@ -599,26 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
             botReply(data.reply, data.options || []);
             if (!isLoggedIn) {
                 guestMsgCount++;
-                if (guestMsgCount === 5) {
-                    setTimeout(() => {
-                        let chatBody = document.getElementById('chat-body');
-                        let nudge = document.createElement('div');
-                        nudge.id = 'guest-nudge';
-                        nudge.className = 'message-row bot';
-                        nudge.innerHTML = `
-                            <div class="msg-icon brand-icon" style="font-size:9px;">DX</div>
-                            <div class="chat-bubble" style="background:#f0f4f8;color:#333;font-size:12px;padding:10px 14px;border-bottom-left-radius:6px;">
-                                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
-                                    <span style="line-height:1.4;">Want to keep this conversation? <a href="/register" style="color:var(--theme-light-primary);text-decoration:underline;">Create a free account</a> to save your chat history.</span>
-                                    <button onclick="document.getElementById('guest-nudge').remove()" style="background:none;border:none;color:#999;font-size:16px;cursor:pointer;padding:0;line-height:1;">&times;</button>
-                                </div>
-                            </div>
-                        `;
-                        chatBody.appendChild(nudge);
-                        setTimeout(() => nudge.classList.add('show'), 50);
-                        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
-                    }, 1200);
-                }
+                // Nudge temporarily disabled
             }
         })
         .catch(() => {
