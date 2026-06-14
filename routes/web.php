@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 
 Route::post('/chatbot', [ChatbotController::class, 'reply']);
+Route::post('/chatbot/submit-form', [ChatbotController::class, 'submitForm']);
 /*
 |--------------------------------------------------------------------------
 | Web Routes

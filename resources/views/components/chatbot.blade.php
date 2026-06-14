@@ -9,7 +9,10 @@
 <div id="chatbox" class="chatbox" data-user="{{ auth()->check() ? auth()->id() : 0 }}">
 
     <div class="chat-header d-flex justify-content-between align-items-center">
-        <span><b>SUPPORT CHAT</b></span>
+        <div>
+            <div style="font-size:15px;font-weight:600;letter-spacing:0.3px;text-transform:none;">DevXCloud Growth Advisor</div>
+            <div style="font-size:13px;opacity:0.8;font-weight:400;text-transform:none;letter-spacing:0.2px;">How can we help you grow?</div>
+        </div>
         <button id="closeChat" class="btn-close custom-close"></button>
     </div>
 
@@ -17,7 +20,7 @@
 
     <div class="chat-input-wrapper">
         <div class="chat-input">
-            <input type="text" id="message" placeholder="Type your message...">
+            <input type="text" id="message" placeholder="Ask about DevXCloud...">
 
             <button onclick="sendMessage()" class="send-btn" type="button" aria-label="Send message">
                 <span class="send-btn-inner">
@@ -104,8 +107,6 @@
     background: var(--theme-primary);
     color: #fff;
     padding: 14px 16px;
-    font-size: 16px;
-    text-transform: uppercase;
 }
 
 /* CLOSE FIX */
@@ -156,6 +157,15 @@
     justify-content:center;
     font-size: 14px;
     margin-right: 16px;
+}
+
+.brand-icon {
+    background: var(--theme-primary);
+    border: none;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .user .msg-icon {
@@ -434,8 +444,28 @@ document.addEventListener('DOMContentLoaded', function () {
     let flowLocked = false;
     let currentFlow = null;
     let currentStep = 0;
+    let branch = null;
     let guestMsgCount = 0;
+    let formFlow = null;
+    let formData = {};
+    let formStep = 0;
     const isLoggedIn = parseInt(document.getElementById('chatbox').dataset.user) > 0;
+
+    const guidanceSteps = [
+        { field: 'name', question: "To provide more specific guidance, please share a few details about your business and what you need help with.\n\nWhat is your name?" },
+        { field: 'email', question: "Thanks! What is your email address?" },
+        { field: 'business_type', question: "What type of business do you run?" },
+        { field: 'question', question: "And what specific question or challenge do you need help with?" }
+    ];
+
+    const discoverySteps = [
+        { field: 'name', question: "Before booking, please share a few details so the call is more useful.\n\nWhat is your name?" },
+        { field: 'email', question: "What is your email address?" },
+        { field: 'business_name', question: "What is your business name?" },
+        { field: 'business_type', question: "What type of business do you run?" },
+        { field: 'current_stage', question: "What stage is your business at? (e.g. idea stage, just launched, growing, established)" },
+        { field: 'main_challenge', question: "What is the main challenge you're facing right now?" }
+    ];
 
     // =========================
     // RESET FUNCTION (FIX)
@@ -471,6 +501,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 "E-commerce",
                 "SaaS",
                 "Startup / Founder",
+                "Established Business",
                 "Vegan Meal Kit",
                 "Just exploring"
             ]);
@@ -489,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         chatBody.insertAdjacentHTML('beforeend', `
         <div class="message-row bot typing-row">
-            <div class="msg-icon">🤖</div>
+                <div class="msg-icon brand-icon">DX</div>
             <div class="chat-bubble typing-bubble">
                 <span></span><span></span><span></span>
             </div>
@@ -549,8 +580,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         appendUser(message);
 
-        // 🔥 SPLIT MULTIPLE QUESTIONS
-        // let questions = message.split(/and|\?|,/i).filter(q => q.trim() !== '');
+        if (formFlow) {
+            handleFormInput(message);
+            input.value = '';
+            return;
+        }
+
         fetch('/chatbot', {
             method: 'POST',
             headers: {
@@ -561,20 +596,22 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(res => res.json())
         .then(data => {
-            botReply(data.reply);
+            botReply(data.reply, data.options || []);
             if (!isLoggedIn) {
                 guestMsgCount++;
-                if (guestMsgCount === 1) {
+                if (guestMsgCount === 5) {
                     setTimeout(() => {
                         let chatBody = document.getElementById('chat-body');
                         let nudge = document.createElement('div');
+                        nudge.id = 'guest-nudge';
                         nudge.className = 'message-row bot';
                         nudge.innerHTML = `
-                            <div class="msg-icon">💡</div>
-                            <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
-                                Create an account to keep your chat history forever!
-                                <a href="/register" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
-                                or <a href="/login" style="color:#fff;text-decoration:underline;">Login</a>
+                            <div class="msg-icon brand-icon" style="font-size:9px;">DX</div>
+                            <div class="chat-bubble" style="background:#f0f4f8;color:#333;font-size:12px;padding:10px 14px;border-bottom-left-radius:6px;">
+                                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+                                    <span style="line-height:1.4;">Want to keep this conversation? <a href="/register" style="color:var(--theme-light-primary);text-decoration:underline;">Create a free account</a> to save your chat history.</span>
+                                    <button onclick="document.getElementById('guest-nudge').remove()" style="background:none;border:none;color:#999;font-size:16px;cursor:pointer;padding:0;line-height:1;">&times;</button>
+                                </div>
                             </div>
                         `;
                         chatBody.appendChild(nudge);
@@ -678,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="message-row bot">
-                <div class="msg-icon">🤖</div>
+                <div class="msg-icon brand-icon">DX</div>
                 <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
             </div>
         `;
@@ -725,6 +762,97 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // =========================
+    // START FORM FLOW
+    // =========================
+    function startFormFlow(type) {
+        formFlow = type;
+        formData = {};
+        formStep = 0;
+        flowLocked = true;
+        input.disabled = true;
+        currentFlow = null;
+        currentStep = 0;
+
+        let steps = type === 'guidance' ? guidanceSteps : discoverySteps;
+        botReply(steps[0].question);
+
+        setTimeout(() => {
+            flowLocked = false;
+            input.disabled = false;
+        }, 1200);
+    }
+
+    // =========================
+    // HANDLE FORM INPUT
+    // =========================
+    function handleFormInput(value) {
+        let steps = formFlow === 'guidance' ? guidanceSteps : discoverySteps;
+        let currentField = steps[formStep];
+
+        formData[currentField.field] = value;
+
+        formStep++;
+
+        if (formStep >= steps.length) {
+            submitFormFlow();
+        } else {
+            flowLocked = true;
+            input.disabled = true;
+            botReply(steps[formStep].question);
+            setTimeout(() => {
+                flowLocked = false;
+                input.disabled = false;
+            }, 1200);
+        }
+    }
+
+    // =========================
+    // SUBMIT FORM FLOW
+    // =========================
+    function submitFormFlow() {
+        flowLocked = true;
+        input.disabled = true;
+        botReply("Thanks! Let me submit your details...");
+
+        fetch('/chatbot/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                type: formFlow,
+                data: formData
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            if (formFlow === 'guidance') {
+                botReply("Thank you! We have received your details. Our team will review your request and get back to you shortly.");
+                formFlow = null;
+                formData = {};
+                formStep = 0;
+                flowLocked = false;
+                input.disabled = false;
+            } else {
+                botReply("Thank you! We have saved your details. Let me take you to the booking page.");
+                setTimeout(() => {
+                    resetChat();
+                    window.location.assign("/contact");
+                }, 1500);
+            }
+        })
+        .catch(() => {
+            botReply("Something went wrong. Please try again or contact us directly.");
+            formFlow = null;
+            formData = {};
+            formStep = 0;
+            flowLocked = false;
+            input.disabled = false;
+        });
+    }
+
+    // =========================
     // HANDLE OPTION
     // =========================
     window.handleOption = function(option) {
@@ -734,6 +862,20 @@ document.addEventListener('DOMContentLoaded', function () {
         input.disabled = true;
 
         setTimeout(() => {
+            if (option === "Get Personalized Guidance") {
+                startFormFlow('guidance');
+                return;
+            }
+            if (option === "Book Discovery Call") {
+                startFormFlow('discovery');
+                return;
+            }
+            if (option === "Explore Services") {
+                resetChat();
+                window.location.assign("/about");
+                return;
+            }
+
             if (currentFlow === null) {
                 if (option === "Vegan Meal Kit") {
                     currentFlow = "A";
@@ -752,149 +894,169 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // =========================
-    // FLOW A
+    // FLOW A — GreenScale (Vegan Meal Kit)
     // =========================
     function flowA(option = null) {
 
         switch (currentStep) {
 
             case 1:
-                botReply("Got it — that space can get tricky fast...", [
-                    "Managing demand vs ingredients",
-                    "Customers not sticking long-term",
-                    "Getting consistent orders",
-                    "Not sure what’s breaking"
+                botReply(
+                    "Got it. Meal-kit businesses usually struggle in one of three areas: attracting customers, keeping customers, or managing operations as demand grows. Which feels most familiar right now?", [
+                    "Getting consistent customers",
+                    "Customers are not staying long enough",
+                    "Operations become harder as orders grow",
+                    "Not sure yet"
                 ]);
                 break;
 
             case 2:
-                botReply("When orders increase… does it feel like growth?", [
-                    "Creates more pressure",
-                    "Feels unpredictable",
-                    "Doesn’t really stabilize"
-                ]);
+                if (option === "Getting consistent customers") {
+                    branch = "customers";
+                    botReply("What feels like the biggest challenge?", [
+                        "Not enough traffic",
+                        "Traffic isn't converting",
+                        "Marketing feels inconsistent",
+                        "Not sure"
+                    ]);
+                } else if (option === "Customers are not staying long enough") {
+                    branch = "retention";
+                    botReply("What is happening most often?", [
+                        "Customers order once and leave",
+                        "Subscription cancellations are high",
+                        "Repeat purchases are low",
+                        "Not sure"
+                    ]);
+                } else if (option === "Operations become harder as orders grow") {
+                    branch = "operations";
+                    botReply("When orders increase, what usually happens next?", [
+                        "Fulfillment becomes stressful",
+                        "Inventory planning gets harder",
+                        "Profitability becomes unpredictable",
+                        "Not sure"
+                    ]);
+                } else {
+                    branch = "unsure";
+                    currentStep++;
+                    flowA();
+                    return;
+                }
                 break;
 
             case 3:
-                botReply(`We built GreenScale Formula to fix this.<br><br>Do you already have your meal kit website live?`, [
-                    "Yes",
-                    "Not yet"
+                botReply(
+                    "Understood. That usually means growth is creating pressure instead of stability. Many meal-kit businesses reach a point where more activity does not automatically create better results. That is exactly the type of challenge GreenScale Formula was designed to address.\n\nWhat stage is your business currently at?", [
+                    "Idea Stage",
+                    "Website In Progress",
+                    "Already Selling",
+                    "Growing But Stuck"
                 ]);
                 break;
 
             case 4:
-                botReply("Do you already have your meal kit website live?", [
-                    "Yes",
-                    "Not yet"
+                let stageMsg = "";
+                if (option === "Idea Stage") {
+                    stageMsg = "You are early enough to avoid many of the mistakes that become expensive later. The right systems from the beginning can save significant time and resources as you grow.";
+                } else if (option === "Website In Progress") {
+                    stageMsg = "This is usually the best time to build growth systems because your foundation is still flexible.";
+                } else if (option === "Already Selling") {
+                    stageMsg = "You already have real customer data, which makes it easier to identify where growth opportunities exist.";
+                } else {
+                    stageMsg = "This is often where small bottlenecks create the biggest limitations on growth.";
+                }
+                botReply(stageMsg + "\n\nBased on what you shared, the next step is understanding where your biggest growth opportunities and bottlenecks actually are. Would you like to explore that further?", [
+                    "Book Growth Discovery Call",
+                    "See How GreenScale Works",
+                    "Ask a Specific Question"
                 ]);
                 break;
 
             case 5:
-                botReply(option === "Yes"
-                    ? "Perfect — that gives us real data."
-                    : "That’s a great place to start."
-                );
-                currentStep++;
-                flowA();
-                break;
-
-            case 6:
-                botReply("Want help fixing this?", [
-                    "Book Growth Discovery Call",
-                    "See How GreenScale Works"
-                ]);
-                break;
-
-            case 7:
-                resetChat();
-                window.location.assign(
-                    option === "Book Growth Discovery Call"
-                    ? "/contact"
-                    : "/greenscale-ai"
-                );
+                if (option === "Ask a Specific Question") {
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null;
+                    currentStep = 0;
+                    branch = null;
+                    botReply("Sure! What would you like to know about DevXCloud or our solutions?");
+                } else if (option === "Book Growth Discovery Call") {
+                    startFormFlow('discovery');
+                } else {
+                    resetChat();
+                    window.location.assign("/greenscale-ai");
+                }
                 break;
         }
     }
 
     // =========================
-    // FLOW B
+    // FLOW B — General Business Flow
     // =========================
     function flowB(option = null) {
 
         switch (currentStep) {
 
             case 1:
-                botReply(
-            `Got it — thanks for that.
-
-            What feels the most frustrating or unstable in your growth right now?`,
-                [
+                let b1Msg = "Thanks for that. To help point you in the right direction, what feels the most frustrating or unclear about your growth right now?";
+                if (option === "Just exploring") {
+                    b1Msg = "No problem at all. To help point you in the right direction, what best describes where you are right now?";
+                }
+                botReply(b1Msg, [
                     "Getting consistent sales",
-                    "Ads not performing",
+                    "Ads or marketing not performing",
                     "Low repeat customers",
-                    "Not sure what’s wrong",
+                    "Not sure what's wrong",
                     "Just exploring"
                 ]);
                 break;
 
             case 2:
-                botReply("When things do work… does it actually sustain, or does it drop again after a while?", [
-                    "It drops again",
-                    "Very unpredictable",
+                botReply("When things do work for a moment, does the growth actually hold or does it fade again?", [
+                    "It fades again",
+                    "Feels unpredictable",
                     "Never really stabilizes"
                 ]);
                 break;
 
             case 3:
-                botReply(`We usually fix this by connecting everything into one system — so growth actually compounds instead of resetting. <br><br> We see this a lot, especially in models like subscription food and meal kits where everything is tightly connected. <br><br> Quick one — do you already have a website live right now, or are you still setting things up?`, [
-                    "Yes, it’s live",
+                botReply("Do you already have a website live right now, or are you still setting things up?", [
+                    "Yes, it's live",
                     "Not yet"
                 ]);
                 break;
 
             case 4:
-
-                if (option === "Yes, it’s live") {
-
+                if (option === "Yes, it's live") {
                     botReply(
-                        "Nice — that gives us something real to analyze instead of guessing.<br><br>If you want, we can walk through your setup and show what’s actually holding things back — and what to fix first.",
-                        [
-                            "Book Growth Discovery Call",
-                            "Explore Growth Systems",
-                            "Learn About GreenScale"
-                        ]
-                    );
-
+                        "That gives us something real to work with. Many businesses reach a point where more activity doesn't create more results. That usually means a system issue, not a channel issue.\n\nWe can help identify what's actually holding things back — and what to fix first so growth becomes more consistent.", [
+                        "Book Growth Discovery Call",
+                        "Explore Growth Systems",
+                        "Ask a Specific Question"
+                    ]);
                 } else {
-
                     botReply(
-                        "That’s actually a good place to start — getting the foundation right early makes everything easier later.<br><br>If you want, we can walk through your setup and show what’s actually holding things back — and what to fix first.",
-                        [
-                            "Book Growth Discovery Call",
-                            "Explore Growth Systems",
-                            "Learn About GreenScale"
-                        ]
-                    );
-
+                        "That is actually a good position to be in. Getting the foundation right early makes everything easier later. Many businesses spend more fixing problems that could have been avoided with better setup.\n\nWe can walk through what you need and help you build the right foundation.", [
+                        "Book Growth Discovery Call",
+                        "Explore Growth Systems",
+                        "Ask a Specific Question"
+                    ]);
                 }
-
                 break;
 
             case 5:
-            case 6:
-
-                resetChat();
-
-                if (option === "Book Growth Discovery Call") {
-                    window.location.assign("/contact");
-                } 
-                else if (option === "Learn About GreenScale") {
-                    window.location.assign("/greenscale-ai");
-                } 
-                else if (option === "Explore Growth Systems") {
-                    window.location.assign("/contact");
+                if (option === "Ask a Specific Question") {
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null;
+                    currentStep = 0;
+                    branch = null;
+                    botReply("Sure! What would you like to know about DevXCloud or our solutions?");
+                } else if (option === "Book Growth Discovery Call") {
+                    startFormFlow('discovery');
+                } else {
+                    resetChat();
+                    window.location.assign("/about");
                 }
-
                 break;
         }
     }
