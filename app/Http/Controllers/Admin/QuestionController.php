@@ -20,6 +20,8 @@ class QuestionController extends Controller
             $query->where('source', 'pending');
         } elseif ($filter === 'answered') {
             $query->whereIn('source', ['bot', 'admin']);
+        } elseif ($filter === 'lead') {
+            $query->where('source', 'lead');
         }
 
         $questions = $query->with('user')
@@ -29,6 +31,7 @@ class QuestionController extends Controller
         $counts = [
             'total' => ChatHistory::count(),
             'pending' => ChatHistory::where('source', 'pending')->count(),
+            'lead' => ChatHistory::where('source', 'lead')->count(),
             'bot' => ChatHistory::where('source', 'bot')->count(),
             'admin' => ChatHistory::where('source', 'admin')->count(),
         ];

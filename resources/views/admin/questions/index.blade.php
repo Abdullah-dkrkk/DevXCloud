@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <div class="grid max-[500px]:grid-cols-1 grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="grid max-[500px]:grid-cols-1 grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
                 <div class="bg-white rounded-lg shadow p-4 text-center">
                     <div class="text-3xl font-bold">{{ $counts['total'] }}</div>
                     <div class="text-base text-gray-500">Total</div>
@@ -28,6 +28,10 @@
                 <div class="bg-white rounded-lg shadow p-4 text-center">
                     <div class="text-3xl font-bold text-yellow-600">{{ $counts['pending'] }}</div>
                     <div class="text-base text-gray-500">Pending</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 text-center">
+                    <div class="text-3xl font-bold text-purple-600">{{ $counts['lead'] }}</div>
+                    <div class="text-base text-gray-500">Leads</div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-4 text-center">
                     <div class="text-3xl font-bold text-green-600">{{ $counts['bot'] }}</div>
@@ -42,6 +46,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex flex-wrap gap-2 mb-4">
+                        <a href="{{ route('admin.questions.index', ['filter' => 'lead']) }}"
+                           class="px-3 py-1.5 rounded text-sm {{ $filter === 'lead' ? 'bg-purple-600 text-white' : 'bg-gray-200' }}">
+                            Leads
+                        </a>
                         <a href="{{ route('admin.questions.index', ['filter' => 'pending']) }}"
                            class="px-3 py-1.5 rounded text-sm {{ $filter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-gray-200' }}">
                             Pending
@@ -78,7 +86,9 @@
                                     <td class="py-3 px-3 max-w-xs truncate">{{ $q->question }}</td>
                                     <td class="py-3 px-3">{{ $q->user?->name ?? 'Guest' }}</td>
                                     <td class="py-3 px-3">
-                                        @if($q->source === 'pending')
+                                        @if($q->source === 'lead')
+                                            <span class="text-purple-600 font-semibold">Lead</span>
+                                        @elseif($q->source === 'pending')
                                             <span class="text-yellow-600 font-semibold">Pending</span>
                                         @elseif($q->source === 'bot')
                                             <span class="text-green-600 font-semibold">Bot</span>

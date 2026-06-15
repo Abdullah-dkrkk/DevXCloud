@@ -28,9 +28,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $oldSession = $request->input('gsession', session()->getId());
         $request->session()->regenerate();
 
-        ChatHistory::where('session_id', session()->getId())
+        ChatHistory::where('session_id', $oldSession)
             ->whereNull('user_id')
             ->update(['user_id' => auth()->id()]);
 

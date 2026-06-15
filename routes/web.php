@@ -128,6 +128,12 @@ Route::middleware(['auth', 'verified'])
     ->get('/chat-history', [App\Http\Controllers\UserChatHistoryController::class, 'index'])
     ->name('user.chat-history');
 
+Route::middleware(['auth', 'verified'])
+    ->get('/chatbot/history', [App\Http\Controllers\ChatbotController::class, 'history']);
+
+Route::middleware(['auth', 'verified'])
+    ->post('/chatbot/migrate', [App\Http\Controllers\ChatbotController::class, 'migrateGuest']);
+
 Route::middleware(['auth', 'verified', 'admin'])
     ->prefix('admin')
     ->name('admin.')

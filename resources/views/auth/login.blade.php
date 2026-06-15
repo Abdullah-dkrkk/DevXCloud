@@ -4,6 +4,7 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
+        <input type="hidden" name="gsession" value="{{ request('gsession', '') }}">
 
         <!-- Email Address -->
         <div>

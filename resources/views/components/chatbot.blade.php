@@ -6,12 +6,12 @@
 </div>
 
 <!-- Chatbox -->
-<div id="chatbox" class="chatbox" data-user="{{ auth()->check() ? auth()->id() : 0 }}">
+<div id="chatbox" class="chatbox" data-user="{{ auth()->check() ? auth()->id() : 0 }}" data-session="{{ session()->getId() }}">
 
     <div class="chat-header d-flex justify-content-between align-items-center">
         <div>
             <div style="font-size:15px;font-weight:600;letter-spacing:0.3px;text-transform:none;">DevXCloud Growth Advisor</div>
-            <div style="font-size:13px;opacity:0.8;font-weight:400;text-transform:none;letter-spacing:0.2px;">How can we help you grow?</div>
+            <div style="font-size:13px;opacity:0.8;font-weight:400;text-transform:none;letter-spacing:0.2px;"><i>How can we help you grow?</i></div>
         </div>
         <button id="closeChat" class="btn-close custom-close"></button>
     </div>
@@ -449,7 +449,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let formFlow = null;
     let formData = {};
     let formStep = 0;
+    let chatMessages = [];
+    let chatOffset = 0;
+    let chatHasMore = false;
+    let loadingHistory = false;
     const isLoggedIn = parseInt(document.getElementById('chatbox').dataset.user) > 0;
+    const guestSessionId = document.getElementById('chatbox').dataset.session;
+    const STORAGE_KEY = 'devxcloud_chat_state';
 
     const guidanceSteps = [
         { field: 'name', question: "To provide more specific guidance, please share a few details about your business and what you need help with.\n\nWhat is your name?" },
@@ -478,39 +484,199 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('chat-body').innerHTML = '';
         input.disabled = false;
+        clearChatState();
+    }
+
+    // =========================
+    // LOCALSTORAGE HELPERS
+    // =========================
+    function saveChatState() {
+        let state = {
+            messages: chatMessages,
+            flowStarted: flowStarted,
+            currentFlow: currentFlow,
+            currentStep: currentStep,
+            branch: branch,
+            guestMsgCount: guestMsgCount,
+            formFlow: formFlow,
+            formData: formData,
+            formStep: formStep,
+            flowLocked: flowLocked,
+            chatOpen: chatbox.classList.contains('active')
+        };
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+    }
+
+    function clearChatState() {
+        chatMessages = [];
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    }
+
+    function loadLoggedInHistory(append = false) {
+        if (loadingHistory) return;
+        loadingHistory = true;
+        flowStarted = true;
+
+        let url = '/chatbot/history?offset=' + chatOffset + '&limit=20';
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                let chatBody = document.getElementById('chat-body');
+                let prevHeight = chatBody.scrollHeight;
+
+                if (!append) {
+                    chatBody.innerHTML = '';
+                    chatMessages = [];
+                }
+
+                if (append) {
+                    data.messages.slice().reverse().forEach(msg => {
+                        if (msg.type === 'user') {
+                            appendUser(msg.text, true, true);
+                        } else {
+                            appendBot(msg.text, msg.options || [], true, true);
+                        }
+                    });
+                } else {
+                    data.messages.forEach(msg => {
+                        if (msg.type === 'user') {
+                            appendUser(msg.text, true);
+                        } else {
+                            appendBot(msg.text, msg.options || [], true);
+                        }
+                    });
+                }
+
+                chatHasMore = data.has_more;
+                chatOffset = data.next_offset || chatOffset;
+
+                if (append) {
+                    let newHeight = chatBody.scrollHeight;
+                    if (chatBody.scrollTop < 50) {
+                        chatBody.scrollTop = newHeight - prevHeight;
+                    }
+                } else {
+                    setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
+                    if (!flowStarted) {
+                        flowStarted = true;
+                    }
+                }
+
+                loadingHistory = false;
+            })
+            .catch(() => { loadingHistory = false; });
+    }
+
+    function restoreChatState() {
+        let saved;
+        try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+        if (!saved || !saved.messages || !saved.messages.length) return;
+
+        chatMessages = saved.messages;
+        flowStarted = saved.flowStarted || false;
+        currentFlow = saved.currentFlow || null;
+        currentStep = saved.currentStep || 0;
+        branch = saved.branch || null;
+        guestMsgCount = saved.guestMsgCount || 0;
+        formFlow = saved.formFlow || null;
+        formData = saved.formData || {};
+        formStep = saved.formStep || 0;
+        flowLocked = saved.flowLocked || false;
+
+        let chatBody = document.getElementById('chat-body');
+        chatBody.innerHTML = '';
+
+        saved.messages.forEach(msg => {
+            if (msg.type === 'user') {
+                appendUser(msg.text, true);
+            } else if (msg.type === 'bot') {
+                appendBot(msg.text, msg.options || [], true);
+            } else if (msg.type === 'nudge') {
+                let nudge = document.createElement('div');
+                nudge.className = 'message-row bot';
+                nudge.innerHTML = `
+                    <div class="msg-icon">💡</div>
+                    <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
+                        Create an account to keep your chat history forever!
+                        <a href="/register?gsession=${guestSessionId}" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
+                        or <a href="/login?gsession=${guestSessionId}" style="color:#fff;text-decoration:underline;">Login</a>
+                    </div>
+                `;
+                chatBody.appendChild(nudge);
+                setTimeout(() => nudge.classList.add('show'), 50);
+            }
+        });
+
+        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
+
+        if (saved.chatOpen) {
+            chatbox.classList.add('active');
+        }
+    }
+
+    function loadMoreHistory() {
+        if (!chatHasMore || loadingHistory || !isLoggedIn) return;
+        loadLoggedInHistory(true);
+    }
+
+    function migrateGuestToServer(messages) {
+        let pairs = [];
+        for (let i = 0; i < messages.length; i++) {
+            if (messages[i].type === 'user' && i + 1 < messages.length && messages[i+1].type === 'bot') {
+                pairs.push({ question: messages[i].text, answer: messages[i+1].text });
+                i++;
+            } else if (messages[i].type === 'user') {
+                pairs.push({ question: messages[i].text, answer: null });
+            }
+        }
+        if (!pairs.length) return Promise.resolve();
+        return fetch('/chatbot/migrate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ pairs: pairs })
+        }).then(res => res.json());
     }
 
     // =========================
     // TOGGLE
     // =========================
     toggleBtn.onclick = function () {
-        const isOpen = chatbox.style.display === 'flex';
+        const isOpen = chatbox.classList.contains('active');
 
-        // chatbox.style.display = isOpen ? 'none' : 'flex';
-        if (chatbox.classList.contains('active')) {
+        if (isOpen) {
             chatbox.classList.remove('active');
+            saveChatState();
         } else {
             chatbox.classList.add('active');
-        }
-
-        if (!isOpen && !flowStarted) {
-
-            flowStarted = true;
-
-            botReply("Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?", [
-                "E-commerce",
-                "SaaS",
-                "Startup / Founder",
-                "Established Business",
-                "Vegan Meal Kit",
-                "Just exploring"
-            ]);
+            saveChatState();
+            if (!flowStarted) {
+                flowStarted = true;
+                botReply("Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?", [
+                    "E-commerce",
+                    "SaaS",
+                    "Startup / Founder",
+                    "Established Business",
+                    "Vegan Meal Kit",
+                    "Just exploring"
+                ]);
+            }
         }
     };
 
     closeBtn.onclick = function () {
         chatbox.classList.remove('active');
+        saveChatState();
     };
+
+    document.addEventListener('click', function (e) {
+        if (!chatbox.classList.contains('active')) return;
+        if (chatbox.contains(e.target) || toggleBtn.contains(e.target)) return;
+        chatbox.classList.remove('active');
+        saveChatState();
+    });
 
     // =========================
     // TYPING
@@ -597,9 +763,29 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(data => {
             botReply(data.reply, data.options || []);
-            if (!isLoggedIn) {
+                    if (!isLoggedIn) {
                 guestMsgCount++;
-                // Nudge temporarily disabled
+                saveChatState();
+                if (guestMsgCount === 5) {
+                    setTimeout(() => {
+                        let chatBody = document.getElementById('chat-body');
+                        let nudge = document.createElement('div');
+                        nudge.className = 'message-row bot';
+                        nudge.innerHTML = `
+                            <div class="msg-icon">💡</div>
+                            <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
+                                Create an account to keep your chat history forever!
+                                <a href="/register?gsession=' + guestSessionId + '" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
+                                or <a href="/login?gsession=' + guestSessionId + '" style="color:#fff;text-decoration:underline;">Login</a>
+                            </div>
+                        `;
+                        chatBody.appendChild(nudge);
+                        setTimeout(() => nudge.classList.add('show'), 50);
+                        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
+                        chatMessages.push({type: 'nudge'});
+                        saveChatState();
+                    }, 1200);
+                }
             }
         })
         .catch(() => {
@@ -641,7 +827,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //     chatBody.scrollTop = chatBody.scrollHeight;
     // }
-    function appendUser(msg) {
+    function appendUser(msg, skipSave = false, prepend = false) {
         let chatBody = document.getElementById('chat-body');
 
         let wrapper = document.createElement('div');
@@ -653,18 +839,24 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         let el = wrapper.firstElementChild;
-        chatBody.appendChild(el);
+        if (prepend && chatBody.firstChild) {
+            chatBody.insertBefore(el, chatBody.firstChild);
+        } else {
+            chatBody.appendChild(el);
+        }
 
-        // 🔥 trigger animation
         setTimeout(() => el.classList.add('show'), 50);
 
-        // chatBody.scrollTop = chatBody.scrollHeight;
-        setTimeout(() => {
-            chatBody.scrollTo({
-                top: chatBody.scrollHeight,
-                behavior: 'smooth'
-            });
-        }, 100);
+        if (!skipSave) {
+            setTimeout(() => {
+                chatBody.scrollTo({
+                    top: chatBody.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 100);
+            chatMessages.push({type: 'user', text: msg});
+            saveChatState();
+        }
     }
 
     // =========================
@@ -688,11 +880,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //     chatBody.scrollTop = chatBody.scrollHeight;
     // };
-    window.appendBot = function(msg, options = []) {
+    window.appendBot = function(msg, options = [], skipSave = false, prepend = false) {
 
         let chatBody = document.getElementById('chat-body');
 
-        // MESSAGE CREATE
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="message-row bot">
@@ -702,21 +893,26 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         let messageEl = wrapper.firstElementChild;
-        chatBody.appendChild(messageEl);
+        if (prepend && chatBody.firstChild) {
+            chatBody.insertBefore(messageEl, chatBody.firstChild);
+        } else {
+            chatBody.appendChild(messageEl);
+        }
 
-        // 🔥 MESSAGE ANIMATION
         setTimeout(() => {
             messageEl.classList.add('show');
         }, 50);
 
-        // ===== BUTTON CONTAINER =====
         if (options.length) {
 
             let btnWrapper = document.createElement('div');
-            btnWrapper.className = 'faq-wrapper'; // 🔥 ADD THIS
-            chatBody.appendChild(btnWrapper);
+            btnWrapper.className = 'faq-wrapper';
+            if (prepend && chatBody.firstChild) {
+                chatBody.insertBefore(btnWrapper, chatBody.firstChild);
+            } else {
+                chatBody.appendChild(btnWrapper);
+            }
 
-            // 🔥 STAGGER BUTTONS
             options.forEach((opt, index) => {
 
                 let btn = document.createElement('button');
@@ -726,20 +922,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 btnWrapper.appendChild(btn);
 
-                // 🔥 DELAY SE EK EK BUTTON SHOW
                 setTimeout(() => {
                     btn.classList.add('show');
-                }, 200 + (index * 120)); // stagger timing
+                }, 200 + (index * 120));
             });
         }
 
-        // chatBody.scrollTop = chatBody.scrollHeight;
-        setTimeout(() => {
-            chatBody.scrollTo({
-                top: chatBody.scrollHeight,
-                behavior: 'smooth'
-            });
-        }, 100);
+        if (!skipSave) {
+            setTimeout(() => {
+                chatBody.scrollTo({
+                    top: chatBody.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 100);
+            chatMessages.push({type: 'bot', text: msg, options: options});
+            saveChatState();
+        }
     };
 
     // =========================
@@ -809,12 +1007,13 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(result => {
             if (formFlow === 'guidance') {
-                botReply("Thank you! We have received your details. Our team will review your request and get back to you shortly.");
                 formFlow = null;
                 formData = {};
                 formStep = 0;
                 flowLocked = false;
                 input.disabled = false;
+                saveChatState();
+                botReply("Thank you! We have received your details. Our team will review your request and get back to you shortly.");
             } else {
                 botReply("Thank you! We have saved your details. Let me take you to the booking page.");
                 setTimeout(() => {
@@ -824,12 +1023,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(() => {
-            botReply("Something went wrong. Please try again or contact us directly.");
             formFlow = null;
             formData = {};
             formStep = 0;
             flowLocked = false;
             input.disabled = false;
+            saveChatState();
+            botReply("Something went wrong. Please try again or contact us directly.");
         });
     }
 
@@ -1040,6 +1240,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 break;
         }
+    }
+
+    let chatBody = document.getElementById('chat-body');
+    chatBody.addEventListener('scroll', function () {
+        if (chatBody.scrollTop < 50) {
+            loadMoreHistory();
+        }
+    });
+
+    let savedChat;
+    try { savedChat = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+
+    if (isLoggedIn) {
+        if (savedChat?.chatOpen) {
+            chatbox.classList.add('active');
+        }
+        if (savedChat?.messages?.length > 0) {
+            restoreChatState();
+            migrateGuestToServer(savedChat.messages).then(() => {
+                clearChatState();
+                chatOffset = 0;
+                loadLoggedInHistory();
+            });
+        } else {
+            loadLoggedInHistory();
+        }
+    } else {
+        restoreChatState();
     }
 
 });

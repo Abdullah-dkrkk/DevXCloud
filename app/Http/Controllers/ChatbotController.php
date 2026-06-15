@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ChatbotFaq;
 use App\Models\ChatHistory;
+use App\Models\User;
+use App\Mail\LeadWelcome;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ChatbotController extends Controller
 {
@@ -19,7 +23,25 @@ class ChatbotController extends Controller
         }
 
         $rawMessage = $message;
-        $message = $this->normalizeTypo($message);
+
+        $recent = ChatHistory::where('question', $rawMessage)
+            ->where('asked_at', '>=', now()->subMinutes(5))
+            ->where(function ($q) {
+                if (auth()->check()) {
+                    $q->where('user_id', auth()->id());
+                } else {
+                    $q->where('session_id', session()->getId());
+                }
+            })
+            ->orderBy('asked_at', 'desc')
+            ->first();
+
+        if ($recent && $recent->answer) {
+            $options = $this->getFaqOptions($recent->answer);
+            $res = ['reply' => $recent->answer];
+            if (!empty($options)) $res['options'] = $options;
+            return response()->json($res);
+        }
 
         if ($this->isGreeting($message)) {
             $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
@@ -29,14 +51,15 @@ class ChatbotController extends Controller
 
         $faqs = ChatbotFaq::select('question', 'answer')->get();
         if ($faqs->isEmpty()) {
-            $this->saveHistory($rawMessage, null, 'pending');
+            $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+            $this->saveHistory($rawMessage, $fallback, 'bot');
             return response()->json([
-                'reply' => "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.",
+                'reply' => $fallback,
                 'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
             ]);
         }
 
-        $exactMatch = $this->exactMatch($message, $faqs);
+        $exactMatch = $this->exactMatch($rawMessage, $faqs);
         if ($exactMatch) {
             $this->saveHistory($rawMessage, $exactMatch, 'bot');
             $options = $this->getFaqOptions($exactMatch);
@@ -45,46 +68,54 @@ class ChatbotController extends Controller
             return response()->json($res);
         }
 
-        $localMatch = $this->fuzzyMatch($message, $faqs);
-        if ($localMatch) {
-            $this->saveHistory($rawMessage, $localMatch, 'bot');
-            $options = $this->getFaqOptions($localMatch);
-            $res = ['reply' => $localMatch];
+        $bestMatch = $this->bestMatch($rawMessage, $faqs);
+        if ($bestMatch) {
+            $this->saveHistory($rawMessage, $bestMatch, 'bot');
+            $options = $this->getFaqOptions($bestMatch);
+            $res = ['reply' => $bestMatch];
             if (!empty($options)) $res['options'] = $options;
             return response()->json($res);
         }
 
         $faqText = "";
         foreach ($faqs as $faq) {
-            $faqText .= "Q:{$faq->question}|A:{$faq->answer}\n";
+            $questions = explode('|', $faq->question);
+            foreach ($questions as $q) {
+                $trimmed = trim($q);
+                if ($trimmed) {
+                    $faqText .= "Q: {$trimmed}\nA: {$faq->answer}\n\n";
+                }
+            }
         }
 
         try {
             $apiKey = env('GEMINI_API_KEY');
 
             $response = Http::withoutVerifying()->timeout(30)->post(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}",
+                "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={$apiKey}",
                 [
                     'contents' => [
                         [
                             'parts' => [
-                                ['text' => "System Instructions:
-1. You are DevXCloud Growth Advisor — professional and consultative.
-2. Use ONLY the FAQ data provided below. Never generate answers outside the FAQ.
-3. The user may make spelling mistakes or typos — fix them internally before matching.
-4. If the user asks about 'devxcloud' with any spelling variation (devxxcloud, devvscloud, devxcloud, dxcloud etc.), treat it as 'devxcloud'.
-5. Roman Urdu / Hinglish questions are allowed — understand the intent.
-6. If the user asks MULTIPLE questions, answer each one in a numbered list.
-7. If the answer isn't in the FAQ, reply exactly with: NO_MATCH
-8. Keep answers SHORT — 3 to 5 lines maximum. No long paragraphs.
-9. Do NOT use markdown formatting (no bold, no italic, no bullet points).
-10. Do NOT use emojis.
-11. Sound professional and consultative — not robotic, not hype, not fake friendly.
+                                ['text' => "You are DevXCloud Growth Advisor — professional and consultative.
+
+Your job is to match the user's query to the BEST matching FAQ answer from the list below. The user may write in Roman Urdu (Hinglish), make spelling mistakes, or use creative spellings — understand the INTENT, not the exact words.
+
+Rules:
+- Use ONLY the FAQ data below. Never generate answers outside the FAQ.
+- If the user asks about 'devxcloud' with ANY spelling (devxxcloud, devvscloud, dxcloud, etc.), treat it as 'devxcloud'.
+- If you find a matching FAQ, return its answer EXACTLY as written — do not rewrite or summarize.
+- If the question is a greeting (hi, hello, etc.), return the greeting answer from the FAQ.
+- If the user asks multiple questions, pick the MOST relevant single FAQ match.
+- If NO FAQ matches the user's intent, reply with exactly: NO_MATCH
+- Keep answers SHORT — 3 to 5 lines maximum. No long paragraphs.
+- Do NOT use markdown, bold, italic, bullet points, or emojis.
+- Sound professional, consultative, and natural — not robotic, not hype.
 
 FAQ Data:
 $faqText
 
-User Query: $message"
+User Query: $rawMessage"
                             ]
                         ]
                     ]
@@ -97,10 +128,12 @@ User Query: $message"
             );
 
             if (!$response->successful()) {
-                Log::error('Gemini 2.5 Error: ' . $response->body());
-                $this->saveHistory($rawMessage, null, 'pending');
+                Log::error('Gemini API Error: ' . $response->body());
+                $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+                $this->saveHistory($rawMessage, $fallback, 'bot');
                 return response()->json([
-                    'reply' => "I'm having trouble connecting right now. Please try again in a moment.",
+                    'reply' => $fallback,
+                    'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
                 ]);
             }
 
@@ -108,22 +141,29 @@ User Query: $message"
             $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
             if (!$reply || str_contains(strtoupper($reply), 'NO_MATCH')) {
-                $this->saveHistory($rawMessage, null, 'pending');
+                $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+                $this->saveHistory($rawMessage, $fallback, 'bot');
                 return response()->json([
-                    'reply' => "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.",
+                    'reply' => $fallback,
                     'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
                 ]);
             }
 
             $finalReply = trim($reply);
             $this->saveHistory($rawMessage, $finalReply, 'bot');
-            return response()->json(['reply' => $finalReply]);
+
+            $options = $this->getFaqOptions($finalReply);
+            $res = ['reply' => $finalReply];
+            if (!empty($options)) $res['options'] = $options;
+            return response()->json($res);
 
         } catch (\Exception $e) {
             Log::error('Gemini Exception: ' . $e->getMessage());
-            $this->saveHistory($rawMessage, null, 'pending');
+            $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+            $this->saveHistory($rawMessage, $fallback, 'bot');
             return response()->json([
-                'reply' => "Something went wrong. Please try again.",
+                'reply' => $fallback,
+                'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
             ]);
         }
     }
@@ -137,17 +177,103 @@ User Query: $message"
             return response()->json(['status' => 'error', 'message' => 'Missing data.']);
         }
 
+        $email = $data['email'] ?? null;
+        $name = $data['name'] ?? 'Lead';
+
+        $user = null;
+        $password = null;
+
+        if ($email && !auth()->check()) {
+            $user = User::where('email', $email)->first();
+
+            if (!$user) {
+                $password = Str::random(12);
+                $user = User::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => bcrypt($password),
+                ]);
+
+                try {
+                    Mail::to($email)->send(new LeadWelcome($user, $password));
+                } catch (\Exception $e) {
+                    Log::error('Failed to send lead welcome email: ' . $e->getMessage());
+                }
+            }
+
+            ChatHistory::where('session_id', session()->getId())
+                ->whereNull('user_id')
+                ->update(['user_id' => $user->id]);
+
+            auth()->login($user);
+        }
+
         $questionText = $type === 'guidance'
             ? 'Personalized Guidance Request'
             : 'Discovery Call Booking Request';
 
         $answerText = json_encode($data);
 
-        $this->saveHistory($questionText, $answerText, 'pending');
+        $history = ChatHistory::create([
+            'user_id' => $user ? $user->id : (auth()->check() ? auth()->id() : null),
+            'session_id' => $user ? null : session()->getId(),
+            'question' => $questionText,
+            'answer' => $answerText,
+            'source' => 'lead',
+            'asked_at' => now(),
+        ]);
 
         Log::info('Chatbot form submission: ' . $type, $data);
 
-        return response()->json(['status' => 'ok']);
+        return response()->json([
+            'status' => 'ok',
+            'user_created' => $password !== null,
+            'user_id' => $user ? $user->id : null,
+        ]);
+    }
+
+    public function history(Request $request)
+    {
+        $offset = (int) $request->get('offset', 0);
+        $limit = min((int) $request->get('limit', 20), 50);
+
+        $userId = auth()->id();
+        if (!$userId) {
+            return response()->json(['messages' => [], 'has_more' => false]);
+        }
+
+        $histories = ChatHistory::where('user_id', $userId)
+            ->where('source', '!=', 'lead')
+            ->orderBy('asked_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->skip($offset)
+            ->take($limit + 1)
+            ->get();
+
+        $hasMore = $histories->count() > $limit;
+        if ($hasMore) {
+            $histories = $histories->slice(0, $limit);
+        }
+
+        $messages = [];
+        foreach ($histories->reverse() as $h) {
+            $messages[] = [
+                'type' => 'user',
+                'text' => $h->question,
+            ];
+            if ($h->answer) {
+                $messages[] = [
+                    'type' => 'bot',
+                    'text' => $h->answer,
+                ];
+            }
+        }
+
+        return response()->json([
+            'messages' => $messages,
+            'has_more' => $hasMore,
+            'next_offset' => $offset + $limit,
+        ]);
     }
 
     private function saveHistory($question, $answer, $source)
@@ -197,34 +323,6 @@ User Query: $message"
         return false;
     }
 
-    private function normalizeTypo($message)
-    {
-        $message = mb_strtolower($message);
-
-        $replacements = [
-            '/\bdev+x+cloud\b/i'      => 'devxcloud',
-            '/\bdev+x+clouds?\b/i'    => 'devxcloud',
-            '/\bde[vv]+xcloud\b/i'    => 'devxcloud',
-            '/\bdev*[x]+cloud\b/i'    => 'devxcloud',
-            '/\bdev*[x]+clouds?\b/i'  => 'devxcloud',
-            '/\bdev[x]+cloud\b/i'     => 'devxcloud',
-            '/\bdev+[x]+clouds?\b/i'  => 'devxcloud',
-            '/\bdev[xX]+cloud\b/i'    => 'devxcloud',
-            '/\bdev+[x]+[c]+loud\b/i' => 'devxcloud',
-            '/\bd[x]+cloud\b/i'       => 'devxcloud',
-            '/\bd[vv]+xcloud\b/i'     => 'devxcloud',
-            '/\bd[e]+[v]+xcloud\b/i'  => 'devxcloud',
-            '/\bgreenscale\b/i'       => 'greenscale',
-            '/\bgreen\s*scale\b/i'    => 'greenscale',
-            '/\blaunch[\s-]?pad\b/i'  => 'launchpadai',
-            '/\bscale[\s-]?cloud\b/i' => 'scalecloud',
-            '/\belite[\s-]?scale\b/i' => 'elitescale',
-            '/\bcommerce[\s-]?ai\b/i' => 'commerceai',
-        ];
-
-        return preg_replace(array_keys($replacements), array_values($replacements), $message);
-    }
-
     private function exactMatch($message, $faqs)
     {
         $msg = mb_strtolower(trim($message));
@@ -241,59 +339,83 @@ User Query: $message"
         return null;
     }
 
-    private function fuzzyMatch($message, $faqs)
+    private function bestMatch($message, $faqs)
     {
+        $msg = mb_strtolower(trim($message));
+        $msgWords = explode(' ', $msg);
+        $msgUnique = array_unique($msgWords);
+        $msgCount = count($msgUnique);
+
         $bestScore = 0;
         $bestAnswer = null;
-        $msg = mb_strtolower(trim($message));
-
-        $stopWords = ['the', 'a', 'an', 'is', 'are', 'am', 'was', 'were', 'be', 'been',
-                       'i', 'my', 'me', 'we', 'you', 'your', 'he', 'she', 'it', 'they',
-                       'this', 'that', 'these', 'those', 'in', 'on', 'at', 'for', 'to',
-                       'of', 'with', 'by', 'from', 'and', 'or', 'but', 'not', 'no',
-                       'do', 'does', 'did', 'have', 'has', 'had', 'can', 'will', 'would',
-                       'could', 'should', 'may', 'might', 'shall', 'about', 'into',
-                       'through', 'during', 'before', 'after', 'above', 'below',
-                       'up', 'down', 'out', 'off', 'over', 'under', 'again', 'further',
-                       'then', 'once', 'here', 'there', 'when', 'where', 'why',
-                       'how', 'all', 'each', 'every', 'both', 'few', 'more', 'most',
-                       'some', 'any', 'other', 'such', 'only', 'own', 'same', 'so',
-                       'than', 'too', 'very', 'just', 'because', 'as', 'until',
-                       'while', 'if', 'else', 'hi', 'hello', 'hey', 'thanks'];
-
-        $msgWords = array_diff(explode(' ', $msg), $stopWords);
 
         foreach ($faqs as $faq) {
             $variations = explode('|', $faq->question);
             foreach ($variations as $variation) {
-                $question = mb_strtolower(trim($variation));
+                $v = mb_strtolower(trim($variation));
+                if (!$v) continue;
 
-                similar_text($question, $msg, $charScore);
+                $vWords = explode(' ', $v);
+                $vUnique = array_unique($vWords);
+                $vCount = count($vUnique);
 
-                $qWords = array_diff(explode(' ', $question), $stopWords);
+                $common = array_intersect($msgUnique, $vUnique);
+                $commonCount = count($common);
 
-                if (count($qWords) === 0) continue;
-
-                $common = array_intersect($msgWords, $qWords);
-                $wordScore = count($common) / max(count($qWords), 1) * 100;
-
-                $msgLen = count($msgWords);
-                if ($msgLen > 0) {
-                    $msgCommon = count(array_intersect($msgWords, $qWords));
-                    $msgCoverage = $msgCommon / $msgLen * 100;
-                    $wordScore = ($wordScore + $msgCoverage) / 2;
+                $stopWords = ['the','are','you','he','she','it','we','they','is','am','was','were','be','have','has','had','do','does','did','will','can','not','no','but','if','so','ka','ke','ki','ko','se','he','hai','ho','kya','kia','aap','ap','tum','main','yeh','ye','wo','too','my','your','his','our','its','in','on','at','to','for','of','and','or','hi','hello','hey'];
+                $hasSignificant = false;
+                foreach ($common as $w) {
+                    $len = mb_strlen($w);
+                    if ($len >= 4) { $hasSignificant = true; break; }
+                    if ($len >= 3 && !in_array($w, $stopWords)) { $hasSignificant = true; break; }
                 }
 
-                $totalScore = ($charScore * 0.4) + ($wordScore * 0.6);
+                foreach ($msgWords as $mw) {
+                    if (mb_strlen($mw) < 4) continue;
+                    foreach ($vWords as $vw) {
+                        if (mb_strlen($vw) < 4) continue;
+                        if ($mw[0] !== $vw[0]) continue;
+                        if (str_contains($mw, $vw) || str_contains($vw, $mw)) {
+                            $commonCount = max($commonCount, 1);
+                            $hasSignificant = true;
+                            break 2;
+                        }
+                        $mwBigrams = [];
+                        for ($i = 0; $i < mb_strlen($mw) - 1; $i++) {
+                            $mwBigrams[] = mb_substr($mw, $i, 2);
+                        }
+                        $vwBigrams = [];
+                        for ($i = 0; $i < mb_strlen($vw) - 1; $i++) {
+                            $vwBigrams[] = mb_substr($vw, $i, 2);
+                        }
+                        $commonBigrams = array_intersect($mwBigrams, $vwBigrams);
+                        $dice = (2 * count($commonBigrams)) / (count($mwBigrams) + count($vwBigrams));
+                        if ($dice >= 0.5) {
+                            $commonCount = max($commonCount, 1);
+                            $hasSignificant = true;
+                            break 2;
+                        }
+                    }
+                }
 
-                if ($totalScore > $bestScore) {
-                    $bestScore = $totalScore;
+                if ($commonCount === 0 || !$hasSignificant) continue;
+
+                $uniqueAll = count(array_unique(array_merge($msgUnique, $vUnique)));
+                $overlap = ($commonCount / $uniqueAll) * 100;
+
+                $shorter = min($msgCount, $vCount);
+                $coverage = ($commonCount / $shorter) * 100;
+
+                $finalScore = ($overlap * 0.4) + ($coverage * 0.6);
+
+                if ($finalScore > $bestScore) {
+                    $bestScore = $finalScore;
                     $bestAnswer = $faq->answer;
                 }
             }
         }
 
-        return $bestScore >= 60 ? $bestAnswer : null;
+        return $bestScore >= 40 ? $bestAnswer : null;
     }
 
     private function getFaqOptions($answer)
@@ -334,5 +456,46 @@ User Query: $message"
         }
 
         return [];
+    }
+
+    public function migrateGuest(Request $request)
+    {
+        $pairs = $request->input('pairs', []);
+        $userId = auth()->id();
+        if (!$userId) {
+            return response()->json(['status' => 'error', 'message' => 'Not authenticated.']);
+        }
+
+        $saved = 0;
+        foreach ($pairs as $pair) {
+            $question = trim($pair['question'] ?? '');
+            $answer = $pair['answer'] ?? null;
+            if (!$question) continue;
+
+            $existing = ChatHistory::where('user_id', $userId)
+                ->where('question', $question)
+                ->where('asked_at', '>=', now()->subHour())
+                ->first();
+
+            if ($existing) {
+                if ($answer && !$existing->answer) {
+                    $existing->update(['answer' => $answer, 'source' => 'bot', 'answered_at' => now()]);
+                }
+                continue;
+            }
+
+            ChatHistory::create([
+                'user_id' => $userId,
+                'session_id' => null,
+                'question' => $question,
+                'answer' => $answer,
+                'source' => $answer ? 'bot' : 'pending',
+                'asked_at' => now(),
+                'answered_at' => $answer ? now() : null,
+            ]);
+            $saved++;
+        }
+
+        return response()->json(['status' => 'ok', 'saved' => $saved]);
     }
 }

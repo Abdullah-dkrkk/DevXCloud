@@ -1,6 +1,7 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        <input type="hidden" name="gsession" value="{{ request('gsession', '') }}">
 
         <!-- Name -->
         <div>

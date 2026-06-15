@@ -45,11 +45,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $oldSession = $request->input('gsession');
+        if ($oldSession) {
+            ChatHistory::where('session_id', $oldSession)
+                ->whereNull('user_id')
+                ->update(['user_id' => $user->id]);
+        } else {
+            ChatHistory::where('session_id', session()->getId())
+                ->whereNull('user_id')
+                ->update(['user_id' => $user->id]);
+        }
 
-        ChatHistory::where('session_id', session()->getId())
-            ->whereNull('user_id')
-            ->update(['user_id' => $user->id]);
+        Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
