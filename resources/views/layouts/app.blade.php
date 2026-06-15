@@ -541,6 +541,7 @@
             }
 
             function syncCountryUI(loadOldState = false) {
+                if (!countrySelect) return;
                 const opt = countrySelect.options[countrySelect.selectedIndex];
                 if (!countrySelect.value || !opt) {
                     phoneStateRow.style.display = 'none';

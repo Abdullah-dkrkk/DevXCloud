@@ -233,7 +233,10 @@
 .chat-input-wrapper {
     padding: 12px;
     background: #fff;
+    transition: background 0.3s;
 }
+
+
 
 .chat-input {
     display: flex;
@@ -265,6 +268,25 @@
     border: none;
     padding: 0;
     margin-left: 4px;
+    transition: transform 0.2s;
+}
+
+.chat-input.busy .send-btn {
+    animation: send-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes send-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(1, 118, 211, 0.5); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(1, 118, 211, 0.1); }
+}
+
+.chat-input.busy {
+    animation: input-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes input-pulse {
+    0%, 100% { box-shadow: inset 0 0 0 1px rgba(1, 118, 211, 0.15); }
+    50% { box-shadow: inset 0 0 0 2px rgba(1, 118, 211, 0.35); }
 }
 
 
@@ -457,6 +479,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const guestSessionId = document.getElementById('chatbox').dataset.session;
     const STORAGE_KEY = 'devxcloud_chat_state';
 
+    let chatContentLoaded = false;
+
+    function setInputBusy() {
+        input.disabled = true;
+    }
+
+    function setInputReady() {
+        input.disabled = false;
+        input.placeholder = 'Ask about DevXCloud...';
+    }
+
     const guidanceSteps = [
         { field: 'name', question: "To provide more specific guidance, please share a few details about your business and what you need help with.\n\nWhat is your name?" },
         { field: 'email', question: "Thanks! What is your email address?" },
@@ -484,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('chat-body').innerHTML = '';
         input.disabled = false;
+        input.placeholder = 'Ask about DevXCloud...';
         clearChatState();
     }
 
@@ -515,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadLoggedInHistory(append = false) {
         if (loadingHistory) return;
         loadingHistory = true;
-        flowStarted = true;
+        if (!append) setInputBusy('Loading history...');
 
         let url = '/chatbot/history?offset=' + chatOffset + '&limit=20';
         fetch(url)
@@ -555,16 +589,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (chatBody.scrollTop < 50) {
                         chatBody.scrollTop = newHeight - prevHeight;
                     }
+                    setTimeout(() => { loadingHistory = false; }, 100);
                 } else {
-                    setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
-                    if (!flowStarted) {
+                    if (!data.messages.length && !flowStarted) {
                         flowStarted = true;
+                        setInputReady();
+                        setTimeout(() => botReply("Hey — quick question so I don't point you in the wrong direction… what kind of business are you running?", [
+                            "E-commerce",
+                            "SaaS",
+                            "Startup / Founder",
+                            "Established Business",
+                            "Vegan Meal Kit",
+                            "Just exploring"
+                        ]), 200);
+                    } else {
+                        if (data.messages.length) flowStarted = true;
+                        setInputReady();
+                        chatBody.scrollTop = chatBody.scrollHeight;
                     }
+                    loadingHistory = false;
                 }
-
-                loadingHistory = false;
             })
-            .catch(() => { loadingHistory = false; });
+            .catch(() => { loadingHistory = false; setInputReady(); });
     }
 
     function restoreChatState() {
@@ -607,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
+        chatBody.scrollTop = chatBody.scrollHeight;
 
         if (saved.chatOpen) {
             chatbox.classList.add('active');
@@ -617,6 +663,42 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadMoreHistory() {
         if (!chatHasMore || loadingHistory || !isLoggedIn) return;
         loadLoggedInHistory(true);
+    }
+
+    function loadChatContent() {
+        if (chatContentLoaded) return;
+        chatContentLoaded = true;
+
+        if (isLoggedIn) {
+            let saved;
+            try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+
+            if (saved?.messages?.length > 0) {
+                if (!flowStarted) flowStarted = true;
+                setInputBusy('Syncing your previous chat...');
+                restoreChatState();
+                migrateGuestToServer(saved.messages).then(() => {
+                    clearChatState();
+                    chatOffset = 0;
+                    loadLoggedInHistory();
+                });
+            } else {
+                loadLoggedInHistory();
+            }
+        } else {
+            restoreChatState();
+            if (!flowStarted) {
+                flowStarted = true;
+                setTimeout(() => botReply("Hey — quick question so I don't point you in the wrong direction… what kind of business are you running?", [
+                    "E-commerce",
+                    "SaaS",
+                    "Startup / Founder",
+                    "Established Business",
+                    "Vegan Meal Kit",
+                    "Just exploring"
+                ]), 300);
+            }
+        }
     }
 
     function migrateGuestToServer(messages) {
@@ -652,17 +734,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             chatbox.classList.add('active');
             saveChatState();
-            if (!flowStarted) {
-                flowStarted = true;
-                botReply("Hey — quick question so I don’t point you in the wrong direction… what kind of business are you running?", [
-                    "E-commerce",
-                    "SaaS",
-                    "Startup / Founder",
-                    "Established Business",
-                    "Vegan Meal Kit",
-                    "Just exploring"
-                ]);
-            }
+            loadChatContent();
         }
     };
 
@@ -682,6 +754,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // TYPING
     // =========================
     function showTyping() {
+        setInputBusy();
         let chatBody = document.getElementById('chat-body');
 
         chatBody.insertAdjacentHTML('beforeend', `
@@ -693,7 +766,6 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         `);
 
-        // chatBody.scrollTop = chatBody.scrollHeight;
         setTimeout(() => {
             chatBody.scrollTo({
                 top: chatBody.scrollHeight,
@@ -702,11 +774,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 100);
     }
 
-    // function removeTyping() {
-    //     let typing = document.querySelector('.typing-row');
-    //     if (typing) typing.remove();
-    // }
     function removeTyping() {
+        setInputReady();
         let typing = document.querySelector('.typing-row');
         if (typing) {
             typing.style.opacity = '0';
@@ -744,6 +813,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let message = customMsg || input.value;
         if (!message) return;
 
+        input.disabled = true;
+
         appendUser(message);
 
         if (formFlow) {
@@ -751,6 +822,8 @@ document.addEventListener('DOMContentLoaded', function () {
             input.value = '';
             return;
         }
+
+        showTyping();
 
         fetch('/chatbot', {
             method: 'POST',
@@ -762,7 +835,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(res => res.json())
         .then(data => {
-            botReply(data.reply, data.options || []);
+            removeTyping();
+            input.disabled = false;
+            appendBot(data.reply, data.options || []);
                     if (!isLoggedIn) {
                 guestMsgCount++;
                 saveChatState();
@@ -789,25 +864,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(() => {
-            botReply("Something went wrong. Please try again.");
+            removeTyping();
+            input.disabled = false;
+            appendBot("Something went wrong. Please try again.");
         });
-
-        // questions.forEach(q => {
-
-        //     fetch('/chatbot', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        //         },
-        //         body: JSON.stringify({ message: q.trim() })
-        //     })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         botReply(data.reply);
-        //     });
-
-        // });
 
         input.value = '';
     };
@@ -1252,22 +1312,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let savedChat;
     try { savedChat = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
 
-    if (isLoggedIn) {
-        if (savedChat?.chatOpen) {
-            chatbox.classList.add('active');
+    const autoOpen = savedChat?.chatOpen || new URLSearchParams(window.location.search).has('chat');
+    if (autoOpen) {
+        chatbox.classList.add('active');
+        if (new URLSearchParams(window.location.search).has('chat')) {
+            history.replaceState(null, '', window.location.pathname);
         }
-        if (savedChat?.messages?.length > 0) {
-            restoreChatState();
-            migrateGuestToServer(savedChat.messages).then(() => {
-                clearChatState();
-                chatOffset = 0;
-                loadLoggedInHistory();
-            });
-        } else {
-            loadLoggedInHistory();
-        }
-    } else {
-        restoreChatState();
+        loadChatContent();
     }
 
 });

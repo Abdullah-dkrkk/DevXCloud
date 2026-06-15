@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             ->whereNull('user_id')
             ->update(['user_id' => auth()->id()]);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect('/?chat=open');
     }
 
     /**

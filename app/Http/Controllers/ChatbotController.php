@@ -70,6 +70,15 @@ class ChatbotController extends Controller
 
         $bestMatch = $this->bestMatch($rawMessage, $faqs);
         if ($bestMatch) {
+            $multi = $this->tryMultiQuestion($rawMessage, $faqs, $bestMatch);
+            if ($multi) {
+                $this->saveHistory($rawMessage, $multi, 'bot');
+                $options = $this->getFaqOptions($multi);
+                $res = ['reply' => $multi];
+                if (!empty($options)) $res['options'] = $options;
+                return response()->json($res);
+            }
+
             $this->saveHistory($rawMessage, $bestMatch, 'bot');
             $options = $this->getFaqOptions($bestMatch);
             $res = ['reply' => $bestMatch];
@@ -456,6 +465,35 @@ User Query: $rawMessage"
         }
 
         return [];
+    }
+
+    private function tryMultiQuestion($message, $faqs, $bestAnswer)
+    {
+        $msg = mb_strtolower(trim($message));
+
+        $parts = preg_split('/\s+(?:and|aur|,)\s+/i', $msg);
+        if (count($parts) < 2) return null;
+
+        $answers = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if (mb_strlen($part) < 5) continue;
+            $match = $this->bestMatch($part, $faqs);
+            if ($match) {
+                $answers[$match] = true;
+            }
+        }
+
+        $answers = array_keys($answers);
+        if (count($answers) < 2) return null;
+
+        $result = '';
+        $num = 1;
+        foreach ($answers as $a) {
+            $result .= "$num. $a\n\n";
+            $num++;
+        }
+        return trim($result);
     }
 
     public function migrateGuest(Request $request)
