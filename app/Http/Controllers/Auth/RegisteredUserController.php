@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\ChatHistory;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -45,19 +44,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        $oldSession = $request->input('gsession');
-        if ($oldSession) {
-            ChatHistory::where('session_id', $oldSession)
-                ->whereNull('user_id')
-                ->update(['user_id' => $user->id]);
-        } else {
-            ChatHistory::where('session_id', session()->getId())
-                ->whereNull('user_id')
-                ->update(['user_id' => $user->id]);
-        }
-
         Auth::login($user);
 
-        return redirect('/?chat=open');
+        return redirect('/');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\ChatHistory;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,14 +27,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $oldSession = $request->input('gsession', session()->getId());
         $request->session()->regenerate();
 
-        ChatHistory::where('session_id', $oldSession)
-            ->whereNull('user_id')
-            ->update(['user_id' => auth()->id()]);
-
-        return redirect('/?chat=open');
+        return redirect('/');
     }
 
     /**

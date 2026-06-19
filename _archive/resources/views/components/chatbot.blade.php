@@ -467,19 +467,34 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentFlow = null;
     let currentStep = 0;
     let branch = null;
-    let guestMsgCount = 0;
-    let formFlow = null;
-    let formData = {};
-    let formStep = 0;
-    let chatMessages = [];
-    let chatOffset = 0;
-    let chatHasMore = false;
-    let loadingHistory = false;
+
+    // Agent connection state
+    let agentConnected = false;
+    let conversationId = null;
+    let echoSubscribed = false;
+
     const isLoggedIn = parseInt(document.getElementById('chatbox').dataset.user) > 0;
     const guestSessionId = document.getElementById('chatbox').dataset.session;
-    const STORAGE_KEY = 'devxcloud_chat_state';
 
-    let chatContentLoaded = false;
+    // =========================
+    // TYPING DEBOUNCE
+    // =========================
+    let typingTimer = null;
+
+    function broadcastTyping(isTyping) {
+        if (!conversationId) return;
+        fetch('/chatbot/typing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                conversation_id: conversationId,
+                is_typing: isTyping
+            })
+        }).catch(() => {});
+    }
 
     function setInputBusy() {
         input.disabled = true;
@@ -490,236 +505,114 @@ document.addEventListener('DOMContentLoaded', function () {
         input.placeholder = 'Ask about DevXCloud...';
     }
 
-    const guidanceSteps = [
-        { field: 'name', question: "To provide more specific guidance, please share a few details about your business and what you need help with.\n\nWhat is your name?" },
-        { field: 'email', question: "Thanks! What is your email address?" },
-        { field: 'business_type', question: "What type of business do you run?" },
-        { field: 'question', question: "And what specific question or challenge do you need help with?" }
-    ];
-
-    const discoverySteps = [
-        { field: 'name', question: "Before booking, please share a few details so the call is more useful.\n\nWhat is your name?" },
-        { field: 'email', question: "What is your email address?" },
-        { field: 'business_name', question: "What is your business name?" },
-        { field: 'business_type', question: "What type of business do you run?" },
-        { field: 'current_stage', question: "What stage is your business at? (e.g. idea stage, just launched, growing, established)" },
-        { field: 'main_challenge', question: "What is the main challenge you're facing right now?" }
-    ];
-
     // =========================
-    // RESET FUNCTION (FIX)
+    // RESET FUNCTION
     // =========================
     function resetChat() {
         flowStarted = false;
         flowLocked = false;
         currentFlow = null;
         currentStep = 0;
+        agentConnected = false;
+        conversationId = null;
+        echoSubscribed = false;
 
         document.getElementById('chat-body').innerHTML = '';
         input.disabled = false;
         input.placeholder = 'Ask about DevXCloud...';
-        clearChatState();
     }
 
     // =========================
-    // LOCALSTORAGE HELPERS
+    // ECHO INIT
     // =========================
-    function saveChatState() {
-        let state = {
-            messages: chatMessages,
-            flowStarted: flowStarted,
-            currentFlow: currentFlow,
-            currentStep: currentStep,
-            branch: branch,
-            guestMsgCount: guestMsgCount,
-            formFlow: formFlow,
-            formData: formData,
-            formStep: formStep,
-            flowLocked: flowLocked,
-            chatOpen: chatbox.classList.contains('active')
-        };
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-    }
+    function initEcho() {
+        if (typeof window.Echo === 'undefined') return;
+        if (echoSubscribed) return;
 
-    function clearChatState() {
-        chatMessages = [];
-        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-    }
+        let channel;
+        if (isLoggedIn) {
+            channel = window.Echo.private('conversation.user.' + isLoggedIn);
+        } else {
+            channel = window.Echo.channel('conversation.guest.' + guestSessionId);
+        }
 
-    function loadLoggedInHistory(append = false) {
-        if (loadingHistory) return;
-        loadingHistory = true;
-        if (!append) setInputBusy('Loading history...');
+        channel.listen('.agent.message.sent', (e) => {
+            appendAgent(e.message);
+        });
 
-        let url = '/chatbot/history?offset=' + chatOffset + '&limit=20';
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                let chatBody = document.getElementById('chat-body');
-                let prevHeight = chatBody.scrollHeight;
-
-                if (!append) {
-                    chatBody.innerHTML = '';
-                    chatMessages = [];
+        channel.listen('.agent.typing', (e) => {
+            let existing = document.querySelector('.agent-typing-row');
+            if (e.isTyping) {
+                if (!existing) {
+                    let chatBody = document.getElementById('chat-body');
+                    let wrapper = document.createElement('div');
+                    wrapper.className = 'message-row bot agent-typing-row';
+                    wrapper.innerHTML = `
+                        <div class="msg-icon brand-icon" style="background:#10b981;border:none;">👤</div>
+                        <div class="chat-bubble typing-bubble" style="background:#10b981;">
+                            <span></span><span></span><span></span>
+                        </div>
+                    `;
+                    chatBody.appendChild(wrapper);
+                    setTimeout(() => wrapper.classList.add('show'), 50);
+                    chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' });
                 }
-
-                if (append) {
-                    data.messages.slice().reverse().forEach(msg => {
-                        if (msg.type === 'user') {
-                            appendUser(msg.text, true, true);
-                        } else {
-                            appendBot(msg.text, msg.options || [], true, true);
-                        }
-                    });
-                } else {
-                    data.messages.forEach(msg => {
-                        if (msg.type === 'user') {
-                            appendUser(msg.text, true);
-                        } else {
-                            appendBot(msg.text, msg.options || [], true);
-                        }
-                    });
+            } else {
+                if (existing) {
+                    existing.style.opacity = '0';
+                    existing.style.transform = 'translateY(10px)';
+                    setTimeout(() => existing.remove(), 200);
                 }
-
-                chatHasMore = data.has_more;
-                chatOffset = data.next_offset || chatOffset;
-
-                if (append) {
-                    let newHeight = chatBody.scrollHeight;
-                    if (chatBody.scrollTop < 50) {
-                        chatBody.scrollTop = newHeight - prevHeight;
-                    }
-                    setTimeout(() => { loadingHistory = false; }, 100);
-                } else {
-                    if (!data.messages.length && !flowStarted) {
-                        flowStarted = true;
-                        setInputReady();
-                        setTimeout(() => botReply("Hey — quick question so I don't point you in the wrong direction… what kind of business are you running?", [
-                            "E-commerce",
-                            "SaaS",
-                            "Startup / Founder",
-                            "Established Business",
-                            "Vegan Meal Kit",
-                            "Just exploring"
-                        ]), 200);
-                    } else {
-                        if (data.messages.length) flowStarted = true;
-                        setInputReady();
-                        chatBody.scrollTop = chatBody.scrollHeight;
-                    }
-                    loadingHistory = false;
-                }
-            })
-            .catch(() => { loadingHistory = false; setInputReady(); });
-    }
-
-    function restoreChatState() {
-        let saved;
-        try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
-        if (!saved || !saved.messages || !saved.messages.length) return;
-
-        chatMessages = saved.messages;
-        flowStarted = saved.flowStarted || false;
-        currentFlow = saved.currentFlow || null;
-        currentStep = saved.currentStep || 0;
-        branch = saved.branch || null;
-        guestMsgCount = saved.guestMsgCount || 0;
-        formFlow = saved.formFlow || null;
-        formData = saved.formData || {};
-        formStep = saved.formStep || 0;
-        flowLocked = saved.flowLocked || false;
-
-        let chatBody = document.getElementById('chat-body');
-        chatBody.innerHTML = '';
-
-        saved.messages.forEach(msg => {
-            if (msg.type === 'user') {
-                appendUser(msg.text, true);
-            } else if (msg.type === 'bot') {
-                appendBot(msg.text, msg.options || [], true);
-            } else if (msg.type === 'nudge') {
-                let nudge = document.createElement('div');
-                nudge.className = 'message-row bot';
-                nudge.innerHTML = `
-                    <div class="msg-icon">💡</div>
-                    <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
-                        Create an account to keep your chat history forever!
-                        <a href="/register?gsession=${guestSessionId}" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
-                        or <a href="/login?gsession=${guestSessionId}" style="color:#fff;text-decoration:underline;">Login</a>
-                    </div>
-                `;
-                chatBody.appendChild(nudge);
-                setTimeout(() => nudge.classList.add('show'), 50);
             }
         });
 
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-        if (saved.chatOpen) {
-            chatbox.classList.add('active');
-        }
+        echoSubscribed = true;
     }
 
-    function loadMoreHistory() {
-        if (!chatHasMore || loadingHistory || !isLoggedIn) return;
-        loadLoggedInHistory(true);
+    // =========================
+    // APPEND AGENT
+    // =========================
+    function appendAgent(msg) {
+        agentConnected = true;
+        let chatBody = document.getElementById('chat-body');
+        removeTyping();
+
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+            <div class="message-row bot">
+                <div class="msg-icon" style="background:#10b981;border:none;display:flex;align-items:center;justify-content:center;">👤</div>
+                <div class="chat-bubble" style="background:#10b981;white-space:pre-line;">${msg}</div>
+            </div>
+        `;
+
+        let el = wrapper.firstElementChild;
+        chatBody.appendChild(el);
+
+        setTimeout(() => {
+            el.classList.add('show');
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 50);
     }
 
+    // =========================
+    // LOAD CHAT CONTENT
+    // =========================
     function loadChatContent() {
-        if (chatContentLoaded) return;
-        chatContentLoaded = true;
-
-        if (isLoggedIn) {
-            let saved;
-            try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
-
-            if (saved?.messages?.length > 0) {
-                if (!flowStarted) flowStarted = true;
-                setInputBusy('Syncing your previous chat...');
-                restoreChatState();
-                migrateGuestToServer(saved.messages).then(() => {
-                    clearChatState();
-                    chatOffset = 0;
-                    loadLoggedInHistory();
-                });
-            } else {
-                loadLoggedInHistory();
-            }
-        } else {
-            restoreChatState();
-            if (!flowStarted) {
-                flowStarted = true;
-                setTimeout(() => botReply("Hey — quick question so I don't point you in the wrong direction… what kind of business are you running?", [
-                    "E-commerce",
-                    "SaaS",
-                    "Startup / Founder",
-                    "Established Business",
-                    "Vegan Meal Kit",
-                    "Just exploring"
-                ]), 300);
-            }
+        if (!flowStarted) {
+            flowStarted = true;
+            setTimeout(() => botReply("Hey — quick question so I don't point you in the wrong direction… what kind of business are you running?", [
+                "E-commerce",
+                "SaaS",
+                "Startup / Founder",
+                "Established Business",
+                "Vegan Meal Kit",
+                "Just exploring"
+            ]), 300);
         }
-    }
-
-    function migrateGuestToServer(messages) {
-        let pairs = [];
-        for (let i = 0; i < messages.length; i++) {
-            if (messages[i].type === 'user' && i + 1 < messages.length && messages[i+1].type === 'bot') {
-                pairs.push({ question: messages[i].text, answer: messages[i+1].text });
-                i++;
-            } else if (messages[i].type === 'user') {
-                pairs.push({ question: messages[i].text, answer: null });
-            }
-        }
-        if (!pairs.length) return Promise.resolve();
-        return fetch('/chatbot/migrate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ pairs: pairs })
-        }).then(res => res.json());
+        initEcho();
     }
 
     // =========================
@@ -727,27 +620,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================
     toggleBtn.onclick = function () {
         const isOpen = chatbox.classList.contains('active');
-
         if (isOpen) {
             chatbox.classList.remove('active');
-            saveChatState();
         } else {
             chatbox.classList.add('active');
-            saveChatState();
             loadChatContent();
         }
     };
 
     closeBtn.onclick = function () {
         chatbox.classList.remove('active');
-        saveChatState();
     };
 
     document.addEventListener('click', function (e) {
         if (!chatbox.classList.contains('active')) return;
         if (chatbox.contains(e.target) || toggleBtn.contains(e.target)) return;
         chatbox.classList.remove('active');
-        saveChatState();
     });
 
     // =========================
@@ -757,9 +645,12 @@ document.addEventListener('DOMContentLoaded', function () {
         setInputBusy();
         let chatBody = document.getElementById('chat-body');
 
+        let iconText = agentConnected ? '👤' : 'DX';
+        let iconExtra = agentConnected ? 'style="background:#10b981;border:none;"' : '';
+
         chatBody.insertAdjacentHTML('beforeend', `
         <div class="message-row bot typing-row">
-                <div class="msg-icon brand-icon">DX</div>
+                <div class="msg-icon brand-icon" ${iconExtra}>${iconText}</div>
             <div class="chat-bubble typing-bubble">
                 <span></span><span></span><span></span>
             </div>
@@ -786,7 +677,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function botReply(msg, options = []) {
         showTyping();
-
         setTimeout(() => {
             removeTyping();
             appendBot(msg, options);
@@ -794,7 +684,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // =========================
-    // ENTER KEY
+    // ENTER KEY & INPUT TYPING
     // =========================
     input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
@@ -803,25 +693,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    input.addEventListener('input', function() {
+        if (typingTimer) clearTimeout(typingTimer);
+        if (conversationId && input.value.length > 0) {
+            broadcastTyping(true);
+        }
+        typingTimer = setTimeout(() => {
+            if (conversationId) {
+                broadcastTyping(false);
+            }
+        }, 300);
+    });
+
     // =========================
     // SEND MESSAGE
     // =========================
     window.sendMessage = function(customMsg = null) {
-
         if (flowLocked) return;
 
         let message = customMsg || input.value;
         if (!message) return;
 
         input.disabled = true;
-
         appendUser(message);
-
-        if (formFlow) {
-            handleFormInput(message);
-            input.value = '';
-            return;
-        }
 
         showTyping();
 
@@ -837,31 +731,14 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             removeTyping();
             input.disabled = false;
-            appendBot(data.reply, data.options || []);
-                    if (!isLoggedIn) {
-                guestMsgCount++;
-                saveChatState();
-                if (guestMsgCount === 5) {
-                    setTimeout(() => {
-                        let chatBody = document.getElementById('chat-body');
-                        let nudge = document.createElement('div');
-                        nudge.className = 'message-row bot';
-                        nudge.innerHTML = `
-                            <div class="msg-icon">💡</div>
-                            <div class="chat-bubble nudge-bubble" style="color:#fff;font-size:12px;padding:8px 12px;">
-                                Create an account to keep your chat history forever!
-                                <a href="/register?gsession=' + guestSessionId + '" style="color:#fff;text-decoration:underline;display:inline-block;margin-top:4px;">Register here</a>
-                                or <a href="/login?gsession=' + guestSessionId + '" style="color:#fff;text-decoration:underline;">Login</a>
-                            </div>
-                        `;
-                        chatBody.appendChild(nudge);
-                        setTimeout(() => nudge.classList.add('show'), 50);
-                        setTimeout(() => chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' }), 100);
-                        chatMessages.push({type: 'nudge'});
-                        saveChatState();
-                    }, 1200);
-                }
+
+            // Check if this is an escalated response with a conversation_id
+            if (data.conversation_id) {
+                conversationId = data.conversation_id;
+                initEcho();
             }
+
+            appendBot(data.reply, data.options || []);
         })
         .catch(() => {
             removeTyping();
@@ -875,19 +752,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================
     // APPEND USER
     // =========================
-    // function appendUser(msg) {
-    //     let chatBody = document.getElementById('chat-body');
-
-    //     chatBody.innerHTML += `
-    //     <div class="message-row user">
-    //         <div class="chat-bubble">${msg}</div>
-    //         <div class="msg-icon">👤</div>
-    //     </div>
-    //     `;
-
-    //     chatBody.scrollTop = chatBody.scrollHeight;
-    // }
-    function appendUser(msg, skipSave = false, prepend = false) {
+    function appendUser(msg) {
         let chatBody = document.getElementById('chat-body');
 
         let wrapper = document.createElement('div');
@@ -899,87 +764,53 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         let el = wrapper.firstElementChild;
-        if (prepend && chatBody.firstChild) {
-            chatBody.insertBefore(el, chatBody.firstChild);
-        } else {
-            chatBody.appendChild(el);
-        }
+        chatBody.appendChild(el);
 
         setTimeout(() => el.classList.add('show'), 50);
 
-        if (!skipSave) {
-            setTimeout(() => {
-                chatBody.scrollTo({
-                    top: chatBody.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }, 100);
-            chatMessages.push({type: 'user', text: msg});
-            saveChatState();
-        }
+        setTimeout(() => {
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 
     // =========================
     // APPEND BOT
     // =========================
-    // window.appendBot = function(msg, options = []) {
-
-    //     let chatBody = document.getElementById('chat-body');
-
-    //     let buttons = options.map(opt => 
-    //         `<button class="faq-btn" onclick="handleOption('${opt}')">${opt}</button>`
-    //     ).join('');
-
-    //     chatBody.innerHTML += `
-    //     <div class="message-row bot">
-    //         <div class="msg-icon">🤖</div>
-    //         <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
-    //     </div>
-    //     <div>${buttons}</div>
-    //     `;
-
-    //     chatBody.scrollTop = chatBody.scrollHeight;
-    // };
-    window.appendBot = function(msg, options = [], skipSave = false, prepend = false) {
-
+    window.appendBot = function(msg, options = []) {
         let chatBody = document.getElementById('chat-body');
+
+        let iconText = agentConnected ? '👤' : 'DX';
+        let iconClass = agentConnected ? 'msg-icon' : 'msg-icon brand-icon';
+        let iconStyle = agentConnected ? 'style="background:#10b981;border:none;display:flex;align-items:center;justify-content:center;"' : '';
 
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="message-row bot">
-                <div class="msg-icon brand-icon">DX</div>
+                <div class="${iconClass}" ${iconStyle}>${iconText}</div>
                 <div class="chat-bubble" style="white-space: pre-line;">${msg}</div>
             </div>
         `;
 
         let messageEl = wrapper.firstElementChild;
-        if (prepend && chatBody.firstChild) {
-            chatBody.insertBefore(messageEl, chatBody.firstChild);
-        } else {
-            chatBody.appendChild(messageEl);
-        }
+        chatBody.appendChild(messageEl);
 
         setTimeout(() => {
             messageEl.classList.add('show');
         }, 50);
 
         if (options.length) {
-
             let btnWrapper = document.createElement('div');
             btnWrapper.className = 'faq-wrapper';
-            if (prepend && chatBody.firstChild) {
-                chatBody.insertBefore(btnWrapper, chatBody.firstChild);
-            } else {
-                chatBody.appendChild(btnWrapper);
-            }
+            chatBody.appendChild(btnWrapper);
 
             options.forEach((opt, index) => {
-
                 let btn = document.createElement('button');
                 btn.className = 'faq-btn';
                 btn.innerText = opt;
                 btn.onclick = () => handleOption(opt);
-
                 btnWrapper.appendChild(btn);
 
                 setTimeout(() => {
@@ -988,70 +819,101 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        if (!skipSave) {
-            setTimeout(() => {
-                chatBody.scrollTo({
-                    top: chatBody.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }, 100);
-            chatMessages.push({type: 'bot', text: msg, options: options});
-            saveChatState();
-        }
+        setTimeout(() => {
+            chatBody.scrollTo({
+                top: chatBody.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     };
 
     // =========================
-    // START FORM FLOW
+    // SHOW GUIDANCE FORM CARD
     // =========================
-    function startFormFlow(type) {
-        formFlow = type;
-        formData = {};
-        formStep = 0;
+    function showGuidanceForm() {
         flowLocked = true;
         input.disabled = true;
-        currentFlow = null;
-        currentStep = 0;
 
-        let steps = type === 'guidance' ? guidanceSteps : discoverySteps;
-        botReply(steps[0].question);
+        let chatBody = document.getElementById('chat-body');
+
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+            <div class="message-row bot">
+                <div class="msg-icon brand-icon">DX</div>
+                <div class="chat-bubble" style="padding:0;background:transparent;max-width:100%;">
+                    <div class="form-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.1);color:#333;width:280px;">
+                        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:#0176d3;">Get Personalized Guidance</div>
+                        <input type="text" id="guidance-name" placeholder="Your name" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="email" id="guidance-email" placeholder="Your email" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="text" id="guidance-business" placeholder="Business type" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <textarea id="guidance-question" placeholder="Your question or challenge" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px;font-size:13px;resize:vertical;min-height:60px;box-sizing:border-box;"></textarea>
+                        <button onclick="submitGuidanceForm()" style="width:100%;padding:10px;background:#0176d3;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Submit</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        let el = wrapper.firstElementChild;
+        chatBody.appendChild(el);
 
         setTimeout(() => {
-            flowLocked = false;
-            input.disabled = false;
-        }, 1200);
+            el.classList.add('show');
+            chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' });
+        }, 50);
     }
 
     // =========================
-    // HANDLE FORM INPUT
+    // SHOW DISCOVERY FORM CARD
     // =========================
-    function handleFormInput(value) {
-        let steps = formFlow === 'guidance' ? guidanceSteps : discoverySteps;
-        let currentField = steps[formStep];
-
-        formData[currentField.field] = value;
-
-        formStep++;
-
-        if (formStep >= steps.length) {
-            submitFormFlow();
-        } else {
-            flowLocked = true;
-            input.disabled = true;
-            botReply(steps[formStep].question);
-            setTimeout(() => {
-                flowLocked = false;
-                input.disabled = false;
-            }, 1200);
-        }
-    }
-
-    // =========================
-    // SUBMIT FORM FLOW
-    // =========================
-    function submitFormFlow() {
+    function showDiscoveryForm() {
         flowLocked = true;
         input.disabled = true;
-        botReply("Thanks! Let me submit your details...");
+
+        let chatBody = document.getElementById('chat-body');
+
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+            <div class="message-row bot">
+                <div class="msg-icon brand-icon">DX</div>
+                <div class="chat-bubble" style="padding:0;background:transparent;max-width:100%;">
+                    <div class="form-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.1);color:#333;width:280px;">
+                        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:#0176d3;">Book Discovery Call</div>
+                        <input type="text" id="disc-name" placeholder="Your name" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="email" id="disc-email" placeholder="Your email" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="text" id="disc-business-name" placeholder="Business name" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="text" id="disc-business-type" placeholder="Business type" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <input type="text" id="disc-stage" placeholder="Current stage (e.g. idea, launched, growing)" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+                        <textarea id="disc-challenge" placeholder="Main challenge you're facing" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px;font-size:13px;resize:vertical;min-height:60px;box-sizing:border-box;"></textarea>
+                        <button onclick="submitDiscoveryForm()" style="width:100%;padding:10px;background:#0176d3;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Submit</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        let el = wrapper.firstElementChild;
+        chatBody.appendChild(el);
+
+        setTimeout(() => {
+            el.classList.add('show');
+            chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' });
+        }, 50);
+    }
+
+    // =========================
+    // SUBMIT GUIDANCE FORM
+    // =========================
+    window.submitGuidanceForm = function() {
+        let name = document.getElementById('guidance-name').value.trim();
+        let email = document.getElementById('guidance-email').value.trim();
+        let businessType = document.getElementById('guidance-business').value.trim();
+        let question = document.getElementById('guidance-question').value.trim();
+
+        if (!name || !email) {
+            appendBot("Please fill in your name and email to continue.");
+            return;
+        }
+
+        showTyping();
 
         fetch('/chatbot/submit-form', {
             method: 'POST',
@@ -1060,60 +922,109 @@ document.addEventListener('DOMContentLoaded', function () {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-                type: formFlow,
-                data: formData
+                type: 'guidance',
+                data: {
+                    name: name,
+                    email: email,
+                    business_type: businessType,
+                    question: question
+                }
             })
         })
         .then(res => res.json())
         .then(result => {
-            if (formFlow === 'guidance') {
-                formFlow = null;
-                formData = {};
-                formStep = 0;
-                flowLocked = false;
-                input.disabled = false;
-                saveChatState();
-                botReply("Thank you! We have received your details. Our team will review your request and get back to you shortly.");
-            } else {
-                botReply("Thank you! We have saved your details. Let me take you to the booking page.");
-                setTimeout(() => {
-                    resetChat();
-                    window.location.assign("/contact");
-                }, 1500);
-            }
-        })
-        .catch(() => {
-            formFlow = null;
-            formData = {};
-            formStep = 0;
+            removeTyping();
             flowLocked = false;
             input.disabled = false;
-            saveChatState();
-            botReply("Something went wrong. Please try again or contact us directly.");
+            appendBot("Thank you! We have received your details. Our team will review your request and get back to you shortly.");
+        })
+        .catch(() => {
+            removeTyping();
+            flowLocked = false;
+            input.disabled = false;
+            appendBot("Something went wrong. Please try again or contact us directly.");
         });
-    }
+    };
+
+    // =========================
+    // SUBMIT DISCOVERY FORM
+    // =========================
+    window.submitDiscoveryForm = function() {
+        let name = document.getElementById('disc-name').value.trim();
+        let email = document.getElementById('disc-email').value.trim();
+        let businessName = document.getElementById('disc-business-name').value.trim();
+        let businessType = document.getElementById('disc-business-type').value.trim();
+        let stage = document.getElementById('disc-stage').value.trim();
+        let challenge = document.getElementById('disc-challenge').value.trim();
+
+        if (!name || !email) {
+            appendBot("Please fill in your name and email to continue.");
+            return;
+        }
+
+        showTyping();
+
+        fetch('/chatbot/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                type: 'discovery',
+                data: {
+                    name: name,
+                    email: email,
+                    business_name: businessName,
+                    business_type: businessType,
+                    current_stage: stage,
+                    main_challenge: challenge
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            removeTyping();
+            flowLocked = false;
+            input.disabled = false;
+            appendBot("Thank you! We have saved your details. Let me take you to the booking page.");
+            setTimeout(() => {
+                resetChat();
+                window.location.assign("/contact");
+            }, 1500);
+        })
+        .catch(() => {
+            removeTyping();
+            flowLocked = false;
+            input.disabled = false;
+            appendBot("Something went wrong. Please try again or contact us directly.");
+        });
+    };
 
     // =========================
     // HANDLE OPTION
     // =========================
     window.handleOption = function(option) {
-
         appendUser(option);
         flowLocked = true;
         input.disabled = true;
 
         setTimeout(() => {
             if (option === "Get Personalized Guidance") {
-                startFormFlow('guidance');
+                showGuidanceForm();
                 return;
             }
             if (option === "Book Discovery Call") {
-                startFormFlow('discovery');
+                showDiscoveryForm();
                 return;
             }
             if (option === "Explore Services") {
                 resetChat();
                 window.location.assign("/about");
+                return;
+            }
+            if (option === "Talk to an Agent") {
+                escalateToAgent();
                 return;
             }
 
@@ -1135,12 +1046,44 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // =========================
+    // ESCALATE TO AGENT
+    // =========================
+    function escalateToAgent() {
+        let message = input.value || "I need help from a human agent.";
+        showTyping();
+
+        fetch('/chatbot/escalate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(res => res.json())
+        .then(data => {
+            removeTyping();
+            if (data.conversation_id) {
+                conversationId = data.conversation_id;
+                initEcho();
+            }
+            flowLocked = false;
+            input.disabled = false;
+            appendBot("An agent will be with you shortly. Please wait while we connect you.");
+        })
+        .catch(() => {
+            removeTyping();
+            flowLocked = false;
+            input.disabled = false;
+            appendBot("Something went wrong. Please try again or contact us directly.");
+        });
+    }
+
+    // =========================
     // FLOW A — GreenScale (Vegan Meal Kit)
     // =========================
     function flowA(option = null) {
-
         switch (currentStep) {
-
             case 1:
                 botReply(
                     "Got it. Meal-kit businesses usually struggle in one of three areas: attracting customers, keeping customers, or managing operations as demand grows. Which feels most familiar right now?", [
@@ -1221,7 +1164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     branch = null;
                     botReply("Sure! What would you like to know about DevXCloud or our solutions?");
                 } else if (option === "Book Growth Discovery Call") {
-                    startFormFlow('discovery');
+                    showDiscoveryForm();
                 } else {
                     resetChat();
                     window.location.assign("/greenscale-ai");
@@ -1234,9 +1177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // FLOW B — General Business Flow
     // =========================
     function flowB(option = null) {
-
         switch (currentStep) {
-
             case 1:
                 let b1Msg = "Thanks for that. To help point you in the right direction, what feels the most frustrating or unclear about your growth right now?";
                 if (option === "Just exploring") {
@@ -1293,7 +1234,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     branch = null;
                     botReply("Sure! What would you like to know about DevXCloud or our solutions?");
                 } else if (option === "Book Growth Discovery Call") {
-                    startFormFlow('discovery');
+                    showDiscoveryForm();
                 } else {
                     resetChat();
                     window.location.assign("/about");
@@ -1302,22 +1243,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    let chatBody = document.getElementById('chat-body');
-    chatBody.addEventListener('scroll', function () {
-        if (chatBody.scrollTop < 50) {
-            loadMoreHistory();
-        }
-    });
-
-    let savedChat;
-    try { savedChat = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
-
-    const autoOpen = savedChat?.chatOpen || new URLSearchParams(window.location.search).has('chat');
+    const autoOpen = new URLSearchParams(window.location.search).has('chat');
     if (autoOpen) {
         chatbox.classList.add('active');
-        if (new URLSearchParams(window.location.search).has('chat')) {
-            history.replaceState(null, '', window.location.pathname);
-        }
+        history.replaceState(null, '', window.location.pathname);
         loadChatContent();
     }
 

@@ -1,16 +1,11 @@
 <?php
 
-use BotMan\BotMan\BotMan;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ChatbotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-
-Route::post('/chatbot', [ChatbotController::class, 'reply']);
-Route::post('/chatbot/submit-form', [ChatbotController::class, 'submitForm']);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,66 +25,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware(['auth', 'verified', 'admin'])
-//     ->prefix('admin/bot-questions')
-//     ->group(function () {
-//         // Package routes are already registered inside vendor
-//         // Wrapping them ensures middleware protection
-
-//         // Now you can use named routes safely
-//         Route::get('/', function () {
-//             return redirect()->route('bot-questions.index');
-//         });
-
-//         Route::get('/create', function () {
-//             return redirect()->route('bot-questions.create');
-//         });
-
-//         Route::get('/import', function () {
-//             return redirect()->route('bot-questions.import');
-//         });
-//     });
-
-/*
-|--------------------------------------------------------------------------
-| Laravel-Chatbot (PROTECTED)
-| Requirement:
-| - If NOT logged in => redirect to homepage (NOT login page)
-| - If logged in => allow access
-|--------------------------------------------------------------------------
-// */
-// Route::middleware(['guest.to.home', 'admin'])
-//     ->prefix('admin/bot-questions')
-//     ->group(function () {
-
-//         Route::get('/', function () {
-//             return view('vendor.laravel-chatbot.pages.bot-questions.index');
-//         })->name('bot-questions.index');
-
-//         Route::get('/create', function () {
-//             return view('vendor.laravel-chatbot.pages.bot-questions.create');
-//         })->name('bot-questions.create');
-
-//         Route::get('/import', function () {
-//             return view('vendor.laravel-chatbot.pages.bot-questions.import');
-//         })->name('bot-questions.import');
-
-//     });
-
-/*
-|--------------------------------------------------------------------------
-| /chatbot page protection
-| Package provides route('botman.web-chat') for chat UI. :contentReference[oaicite:2]{index=2}
-| We create a friendly URL /chatbot that redirects to the package chat route.
-|--------------------------------------------------------------------------
-*/
-
-// Route::middleware(['guest.to.home', 'admin'])
-//     ->get('/chatbot', function () {
-//         return view('vendor.laravel-chatbot.pages.botman-chat');
-//     })
-//     ->name('chatbot');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -98,7 +33,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
+Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply']);
+Route::get('/chat/history', [App\Http\Controllers\ChatController::class, 'history']);
 
 Route::get('/', function () {
     return view('home');
@@ -124,24 +60,7 @@ Route::get('/contact', fn () => view('contact'))->name('contact');
 Route::post('/contact-submit', [ContactController::class, 'submit'])
     ->name('contact.submit');
 
-Route::middleware(['auth', 'verified'])
-    ->get('/chat-history', [App\Http\Controllers\UserChatHistoryController::class, 'index'])
-    ->name('user.chat-history');
 
-Route::middleware(['auth', 'verified'])
-    ->get('/chatbot/history', [App\Http\Controllers\ChatbotController::class, 'history']);
-
-Route::middleware(['auth', 'verified'])
-    ->post('/chatbot/migrate', [App\Http\Controllers\ChatbotController::class, 'migrateGuest']);
-
-Route::middleware(['auth', 'verified', 'admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-        Route::get('/questions', [App\Http\Controllers\Admin\QuestionController::class, 'index'])->name('questions.index');
-        Route::get('/questions/{id}/answer', [App\Http\Controllers\Admin\QuestionController::class, 'showAnswerForm'])->name('questions.answer');
-        Route::post('/questions/{id}/answer', [App\Http\Controllers\Admin\QuestionController::class, 'submitAnswer'])->name('questions.answer.submit');
-    });
 
 Route::get('/states/{countryCode}', function ($countryCode) {
 

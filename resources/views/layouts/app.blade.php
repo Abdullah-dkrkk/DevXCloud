@@ -436,9 +436,6 @@
     </div>
     <!-- video modal ends here -->
 
-    <!-- chatbot component -->
-    @include('components.chatbot')
-
     <!-- Bootstrap JS CDN -->
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -640,6 +637,9 @@
     </script>
 
     @stack('scripts')
+
+    <!-- Chat Toggle -->
+    @include('components.chat-toggle')
 
 </body>
 </html>

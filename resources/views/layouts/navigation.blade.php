@@ -15,14 +15,6 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.chat-history')" :active="request()->routeIs('user.chat-history')">
-                        {{ __('My Chats') }}
-                    </x-nav-link>
-                    @if(in_array(Auth::user()->email, config('admin.emails', [])))
-                        <x-nav-link :href="route('admin.questions.index')" :active="request()->routeIs('admin.questions.*')">
-                            {{ __('Support Questions') }}
-                        </x-nav-link>
-                    @endif
                 </div>
             </div>
 
@@ -78,14 +70,6 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('user.chat-history')" :active="request()->routeIs('user.chat-history')">
-                {{ __('My Chats') }}
-            </x-responsive-nav-link>
-            @if(in_array(Auth::user()->email, config('admin.emails', [])))
-                <x-responsive-nav-link :href="route('admin.questions.index')" :active="request()->routeIs('admin.questions.*')">
-                    {{ __('Support Questions') }}
-                </x-responsive-nav-link>
-            @endif
         </div>
 
         <!-- Responsive Settings Options -->

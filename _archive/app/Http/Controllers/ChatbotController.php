@@ -7,6 +7,8 @@ use App\Models\ChatbotFaq;
 use App\Models\ChatHistory;
 use App\Models\User;
 use App\Mail\LeadWelcome;
+use App\Events\CustomerTyping;
+use App\Events\NewPendingQuestion;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -535,5 +537,51 @@ User Query: $rawMessage"
         }
 
         return response()->json(['status' => 'ok', 'saved' => $saved]);
+    }
+
+    public function typing(Request $request)
+    {
+        $request->validate([
+            'conversation_id' => 'required|string',
+            'is_typing' => 'required|boolean',
+        ]);
+
+        try {
+            broadcast(new CustomerTyping(
+                $request->conversation_id,
+                $request->boolean('is_typing')
+            ))->toOthers();
+        } catch (\Exception $e) {
+            Log::error('Failed to broadcast customer typing: ' . $e->getMessage());
+        }
+
+        return response()->json(['status' => 'ok']);
+    }
+
+    public function escalateToAgent(Request $request)
+    {
+        $message = trim($request->message ?? '');
+        $conversationId = (string) Str::uuid();
+
+        $history = ChatHistory::create([
+            'user_id' => auth()->check() ? auth()->id() : null,
+            'session_id' => session()->getId(),
+            'question' => $message ?: 'Customer requested agent assistance',
+            'source' => 'pending',
+            'status' => 'pending',
+            'conversation_id' => $conversationId,
+            'asked_at' => now(),
+        ]);
+
+        try {
+            broadcast(new NewPendingQuestion($history))->toOthers();
+        } catch (\Exception $e) {
+            Log::error('Failed to broadcast new pending question: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'conversation_id' => $conversationId,
+        ]);
     }
 }

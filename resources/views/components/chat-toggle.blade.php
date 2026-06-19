@@ -1,0 +1,620 @@
+<button id="chat-toggle" class="chat-toggle-btn" aria-label="Toggle chat" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60" class="chat-toggle-icon">
+        <path d="M41.216 29.026c0 3.576-.895 5.847-2.647 7.268l-.066.052c-.213.173-.448.362-.6.559a1.958 1.958 0 0 0-.311.562c-.086.233-.117.494-.144.719l-.008.062-.303 2.48c-.063.516-.102.834-.151 1.06a1.595 1.595 0 0 1-.04.151.091.091 0 0 1-.015.006 1.42 1.42 0 0 1-.137-.076 14.087 14.087 0 0 1-.868-.626l-2.98-2.244-.041-.03a3.046 3.046 0 0 0-.53-.343 2.061 2.061 0 0 0-.554-.17 3.13 3.13 0 0 0-.648-.016l-.054.002c-.496.023-1.014.034-1.553.034-4.41 0-7.28-.758-9.048-2.22-1.721-1.421-2.602-3.683-2.602-7.23 0-3.546.88-5.808 2.602-7.23 1.769-1.46 4.639-2.22 9.048-2.22 4.41 0 7.28.76 9.048 2.22 1.721 1.422 2.602 3.684 2.602 7.23Z" stroke="#fff" stroke-width="2" class="line-path"></path>
+    </svg>
+</button>
+
+<div id="chat-panel" class="chat-panel" role="dialog" aria-label="Chat with DevXCloud Growth Advisor" aria-hidden="true" aria-modal="true">
+    <div class="chat-panel__header">
+        <div>
+            <div class="chat-panel__title">DevXCloud Growth Advisor</div>
+            <div class="chat-panel__subtitle"><i>How can we help you grow?</i></div>
+        </div>
+        <button id="chat-panel-close" class="chat-panel__close-btn" aria-label="Close chat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+    <div id="chat-panel-body" class="chat-panel__body">
+        <div id="chat-panel-empty" class="chat-panel__empty">
+                        <svg class="chat-panel__empty-icon" width="54" height="54" viewBox="15 18 30 28" fill="none" stroke="#000" stroke-width="1.5">
+                <path d="M41.216 29.026c0 3.576-.895 5.847-2.647 7.268l-.066.052c-.213.173-.448.362-.6.559a1.958 1.958 0 0 0-.311.562c-.086.233-.117.494-.144.719l-.008.062-.303 2.48c-.063.516-.102.834-.151 1.06a1.595 1.595 0 0 1-.04.151.091.091 0 0 1-.015.006 1.42 1.42 0 0 1-.137-.076 14.087 14.087 0 0 1-.868-.626l-2.98-2.244-.041-.03a3.046 3.046 0 0 0-.53-.343 2.061 2.061 0 0 0-.554-.17 3.13 3.13 0 0 0-.648-.016l-.054.002c-.496.023-1.014.034-1.553.034-4.41 0-7.28-.758-9.048-2.22-1.721-1.421-2.602-3.683-2.602-7.23 0-3.546.88-5.808 2.602-7.23 1.769-1.46 4.639-2.22 9.048-2.22 4.41 0 7.28.76 9.048 2.22 1.721 1.422 2.602 3.684 2.602 7.23Z"/>
+            </svg>
+            <p class="chat-panel__empty-title">Start a conversation</p>
+            <p class="chat-panel__empty-text">Your Growth Advisor is ready to assist.</p>
+        </div>
+    </div>
+
+    <div class="chat-panel__footer">
+        <div class="chat-panel__input-wrapper">
+            <input type="text" id="chat-panel-input" class="chat-panel__input" placeholder="Type your message..." aria-label="Type your message">
+            <button id="chat-panel-send" class="chat-panel__send-btn" aria-label="Send message">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.chat-panel__body--has-messages {
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.chat-msg {
+    max-width: 85%;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    flex-shrink: 0;
+}
+
+.chat-msg--user {
+    align-self: flex-end;
+    background: #0176D3;
+    color: #fff;
+    border-radius: 18px 18px 4px 18px;
+    padding: 10px 14px;
+}
+
+.chat-msg--bot {
+    align-self: flex-start;
+    background: #fff;
+    color: #1a2a3a;
+    border-radius: 18px 18px 18px 4px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.chat-msg__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.chat-msg__option-btn {
+    background: #fff;
+    border: 1.5px solid #0176D3;
+    color: #0176D3;
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.chat-msg__option-btn:hover {
+    background: #0176D3;
+    color: #fff;
+}
+
+.chat-typing {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 14px 14px 14px 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
+}
+
+.chat-typing__dot {
+    width: 7px;
+    height: 7px;
+    background: #b8c8dc;
+    border-radius: 50%;
+    animation: chat-bounce 1.4s ease-in-out infinite;
+}
+
+.chat-typing__dot:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing__dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes chat-bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+.chat-starter-questions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 260px;
+}
+
+.chat-starter-question {
+    background: #fff;
+    border: 1.5px solid #e0e4e8;
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: #1a2a3a;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.chat-starter-question:hover {
+    border-color: #0176D3;
+    background: #f0f7ff;
+}
+
+
+
+.chat-toggle-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10000;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #0176D3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(1, 118, 211, 0.35);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.chat-toggle-btn:hover {
+    background: #026bbd;
+    transform: scale(1.06);
+    box-shadow: 0 6px 24px rgba(1, 118, 211, 0.45);
+}
+
+.chat-toggle-btn:focus-visible {
+    outline: 3px solid rgba(1, 118, 211, 0.5);
+    outline-offset: 3px;
+}
+
+.chat-toggle-icon {
+    width: 44px;
+    height: 44px;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.chat-toggle-btn:hover .chat-toggle-icon {
+    transform: scale(1.04);
+}
+
+.chat-toggle-btn {
+    animation: chat-pulse 3s ease-in-out infinite;
+}
+
+@keyframes chat-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 16px rgba(1, 118, 211, 0.35); }
+    50% { opacity: 0.92; transform: scale(1.04); box-shadow: 0 4px 24px rgba(1, 118, 211, 0.50); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-toggle-btn { animation: none; }
+    .chat-toggle-btn:hover { transform: none; }
+    .chat-toggle-icon { transition: none; }
+}
+
+.chat-panel {
+    position: fixed;
+    bottom: calc(24px + 52px + 16px);
+    right: 24px;
+    width: 380px;
+    height: 560px;
+    max-height: calc(100vh - 120px);
+    z-index: 9999;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 14px;
+    box-shadow: 0 16px 56px rgba(0, 0, 0, 0.16), 0 4px 20px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.chat-panel--open {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: all;
+}
+
+.chat-panel__header {
+    position: relative;
+    background: #0176D3;
+    padding: 22px 18px 28px;
+    color: #fff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.chat-panel__header::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q190,28 380,0 L380,28 L0,28 Z' fill='%23f5f7fa'/%3E%3C/svg%3E") no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+.chat-panel__title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.chat-panel__subtitle {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: 3px;
+    line-height: 1.4;
+}
+
+.chat-panel__close-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 12px;
+    margin-top: 1px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+
+.chat-panel__body {
+    flex: 1;
+    background: #f5f7fa;
+    overflow-y: auto;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-panel__body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chat-panel__body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-panel__body::-webkit-scrollbar-thumb {
+    background: #d0d8e0;
+    border-radius: 4px;
+}
+
+.chat-panel__empty {
+    text-align: center;
+    max-width: 220px;
+}
+
+.chat-panel__empty-icon {
+    display: block;
+    margin: 0 auto 10px;
+    opacity: 0.4;
+}
+
+.chat-panel__empty-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 3px;
+    letter-spacing: -0.01em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.chat-panel__empty-text {
+    font-size: 11px;
+    color: #000;
+    line-height: 1.5;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.chat-panel__footer {
+    background: #fff;
+    border-top: 1px solid #e8ecf0;
+    padding: 10px 14px;
+    flex-shrink: 0;
+}
+
+.chat-panel__input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.chat-panel__input {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    color: #1a2a3a;
+    background: transparent;
+    transition: border-color 0.2s ease;
+}
+
+.chat-panel__input::placeholder {
+    color: #a0b0be;
+    font-size: 13px;
+}
+
+.chat-panel__input:focus {
+    border-color: #0176D3;
+    background: #fff;
+}
+
+.chat-panel__send-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    background: #0176D3;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+
+.chat-panel__send-btn:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+    .chat-panel {
+        width: calc(100vw - 32px);
+        right: 16px;
+        bottom: calc(16px + 52px + 12px);
+        height: 520px;
+        max-height: calc(100vh - 96px);
+        border-radius: 12px;
+    }
+    .chat-toggle-btn {
+        bottom: 16px;
+        right: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-panel { transition: none; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+
+    var toggleBtn = document.getElementById('chat-toggle');
+    var chatPanel = document.getElementById('chat-panel');
+    var closeBtn = document.getElementById('chat-panel-close');
+    var body = document.getElementById('chat-panel-body');
+    var input = document.getElementById('chat-panel-input');
+    var sendBtn = document.getElementById('chat-panel-send');
+    var emptyState = document.getElementById('chat-panel-empty');
+
+    var STARTERS = [
+        'What is DevXCloud?',
+        'How much does it cost?',
+        'Can you help my business?',
+        'What is a Discovery Call?',
+        'Do you work with startups?',
+        'How are you different?'
+    ];
+
+    if (!toggleBtn || !chatPanel || !body) return;
+
+    function openPanel() {
+        chatPanel.classList.add('chat-panel--open');
+        chatPanel.setAttribute('aria-hidden', 'false');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        if (body.children.length === 0 || (emptyState && body.children.length === 1 && body.contains(emptyState))) {
+            showStarters();
+        }
+        if (input) {
+            setTimeout(function() { input.focus(); }, 350);
+        }
+    }
+
+    function closePanel() {
+        chatPanel.classList.remove('chat-panel--open');
+        chatPanel.setAttribute('aria-hidden', 'true');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.focus();
+    }
+
+    function togglePanel() {
+        if (chatPanel.classList.contains('chat-panel--open')) {
+            closePanel();
+        } else {
+            openPanel();
+        }
+    }
+
+    function showStarters() {
+        clearMessages();
+        if (emptyState) emptyState.style.display = '';
+        var existingStarters = body.querySelector('.chat-starter-questions');
+        if (existingStarters) return;
+        var container = document.createElement('div');
+        container.className = 'chat-starter-questions';
+        STARTERS.forEach(function(q) {
+            var btn = document.createElement('button');
+            btn.className = 'chat-starter-question';
+            btn.textContent = q;
+            btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(q); });
+            container.appendChild(btn);
+        });
+        body.appendChild(container);
+    }
+
+    function clearMessages() {
+        var msgs = body.querySelectorAll('.chat-msg, .chat-typing, .chat-starter-questions');
+        msgs.forEach(function(el) { el.remove(); });
+    }
+
+    function addMessage(type, text, options) {
+        if (emptyState) emptyState.style.display = 'none';
+        var starters = body.querySelector('.chat-starter-questions');
+        if (starters) starters.remove();
+        body.classList.add('chat-panel__body--has-messages');
+
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg chat-msg--' + type;
+        bubble.textContent = text;
+        body.appendChild(bubble);
+
+        if (options && options.length > 0) {
+            var optionsDiv = document.createElement('div');
+            optionsDiv.className = 'chat-msg__options';
+            options.forEach(function(opt) {
+                var btn = document.createElement('button');
+                btn.className = 'chat-msg__option-btn';
+                btn.textContent = opt;
+                btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(opt); });
+                optionsDiv.appendChild(btn);
+            });
+            bubble.appendChild(optionsDiv);
+        }
+
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function showTyping() {
+        var existing = body.querySelector('.chat-typing');
+        if (existing) return;
+        var typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        for (var i = 0; i < 3; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'chat-typing__dot';
+            typing.appendChild(dot);
+        }
+        body.appendChild(typing);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function hideTyping() {
+        var typing = body.querySelector('.chat-typing');
+        if (typing) typing.remove();
+    }
+
+    function sendMessage(text) {
+        if (!text || text.trim() === '') return;
+        var msg = text.trim();
+
+        addMessage('user', msg);
+
+        if (input) input.value = '';
+        showTyping();
+
+        var formData = new FormData();
+        formData.append('message', msg);
+
+        fetch('/chat/reply', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            hideTyping();
+            if (data.reply) {
+                addMessage('bot', data.reply, data.options || null);
+            }
+        })
+        .catch(function() {
+            hideTyping();
+            addMessage('bot', 'Sorry, something went wrong. Please try again.');
+        });
+    }
+
+    toggleBtn.addEventListener('click', togglePanel);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closePanel();
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!chatPanel.classList.contains('chat-panel--open')) return;
+        if (!chatPanel.contains(e.target) && !toggleBtn.contains(e.target)) {
+            closePanel();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && chatPanel.classList.contains('chat-panel--open')) {
+            closePanel();
+        }
+    });
+
+    if (sendBtn) {
+        sendBtn.addEventListener('click', function() {
+            if (input && input.value.trim() !== '') {
+                sendMessage(input.value);
+            }
+        });
+    }
+
+    if (input) {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && input.value.trim() !== '') {
+                e.preventDefault();
+                sendMessage(input.value);
+            }
+        });
+    }
+});
+</script>
