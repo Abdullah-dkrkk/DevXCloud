@@ -318,7 +318,7 @@
 .chat-panel__subtitle {
     font-size: 12px;
     font-weight: 400;
-    opacity: 0.75;
+    opacity: 0.88;
     margin-top: 3px;
     line-height: 1.4;
 }
@@ -486,13 +486,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var sendBtn = document.getElementById('chat-panel-send');
     var emptyState = document.getElementById('chat-panel-empty');
 
-    var STARTERS = [
-        'What is DevXCloud?',
-        'How much does it cost?',
-        'Can you help my business?',
-        'What is a Discovery Call?',
-        'Do you work with startups?'
-    ];
+    var flowStarted = false;
+    var flowLocked = false;
+    var currentFlow = null;
+    var currentStep = 0;
+    var branch = null;
 
     if (!toggleBtn || !chatPanel || !body) return;
 
@@ -501,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chatPanel.setAttribute('aria-hidden', 'false');
         toggleBtn.setAttribute('aria-expanded', 'true');
         if (body.children.length === 0 || (emptyState && body.children.length === 1 && body.contains(emptyState))) {
-            showStarters();
+            loadChatContent();
         }
         if (input) {
             setTimeout(function() { input.focus(); }, 350);
@@ -523,32 +521,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function showStarters() {
-        clearMessages();
-        body.classList.remove('chat-panel__body--has-messages');
-        if (emptyState) emptyState.style.display = '';
-        var existingStarters = body.querySelector('.chat-starter-questions');
-        if (existingStarters) return;
-        var container = document.createElement('div');
-        container.className = 'chat-starter-questions';
-        STARTERS.forEach(function(q, i) {
-            var btn = document.createElement('button');
-            btn.className = 'chat-starter-question';
-            btn.textContent = q;
-            btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(q); });
-            container.appendChild(btn);
-            setTimeout(function() { btn.classList.add('show'); }, 200 + i * 120);
-        });
-        body.appendChild(container);
-    }
-
-    function clearMessages() {
-        var msgs = body.querySelectorAll('.chat-msg, .chat-typing, .chat-starter-questions');
-        msgs.forEach(function(el) { el.remove(); });
+    function loadChatContent() {
+        if (!flowStarted) {
+            flowStarted = true;
+            if (emptyState) emptyState.style.display = 'none';
+            setTimeout(function() {
+                botReply("Hey — quick question so I don't point you in the wrong direction\u2026 what kind of business are you running?", [
+                    "E-commerce",
+                    "SaaS",
+                    "Startup / Founder",
+                    "Established Business",
+                    "Vegan Meal Kit",
+                    "Just exploring"
+                ]);
+            }, 400);
+        }
     }
 
     var USER_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21c0-3.3-2.7-6-6-6h-4c-3.3 0-6 2.7-6 6"/><circle cx="12" cy="8" r="4"/></svg>';
     var BOT_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M9 16c1.5.7 3 .7 4.5 0"/></svg>';
+
+    function botReply(text, options) {
+        addMessage('bot', text, options);
+    }
 
     function addMessage(type, text, options) {
         if (emptyState) emptyState.style.display = 'none';
@@ -574,7 +569,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 var btn = document.createElement('button');
                 btn.className = 'chat-msg__option-btn';
                 btn.textContent = opt;
-                btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(opt); });
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleOption(opt);
+                });
                 optionsDiv.appendChild(btn);
                 setTimeout(function() { btn.classList.add('show'); }, 200 + i * 120);
             });
@@ -585,6 +583,300 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.add('chat-panel__body--has-messages');
         setTimeout(function() { msg.classList.add('show'); }, 50);
         body.scrollTop = body.scrollHeight;
+    }
+
+    function clearMessages() {
+        var msgs = body.querySelectorAll('.chat-msg, .chat-typing, .chat-starter-questions');
+        msgs.forEach(function(el) { el.remove(); });
+    }
+
+    function unlockInput() {
+        flowLocked = false;
+        currentFlow = null;
+        currentStep = 0;
+        branch = null;
+        input.disabled = false;
+        input.focus();
+    }
+
+    function handleOption(option) {
+        addMessage('user', option);
+        flowLocked = true;
+        input.disabled = true;
+
+        setTimeout(function() {
+            if (option === "Get Personalized Guidance") { showGuidanceForm(); return; }
+            if (option === "Book Discovery Call") { showDiscoveryForm(); return; }
+            if (option === "Explore Services") { exploreServices(); return; }
+            if (option === "Talk to an Agent") { escalateToAgent(); return; }
+            if (option === "Ask a Specific Question") { unlockInput(); botReply("Go ahead\u2014ask me anything about DevXCloud."); return; }
+
+            if (currentFlow === null) {
+                if (option === "Vegan Meal Kit") {
+                    currentFlow = "A";
+                    currentStep = 1;
+                    flowA();
+                } else {
+                    currentFlow = "B";
+                    currentStep = 1;
+                    flowB(option);
+                }
+            } else {
+                currentStep++;
+                if (currentFlow === "A") flowA(option);
+                else flowB(option);
+            }
+        }, 200);
+    }
+
+    function flowA(option) {
+        if (currentStep === 1) {
+            botReply("Meal-kit businesses usually struggle in one of three areas. Which one feels closest to where you are right now?", [
+                "Getting consistent customers",
+                "Customers are not staying long enough",
+                "Operations become harder as orders grow",
+                "Not sure yet"
+            ]);
+        } else if (currentStep === 2) {
+            branch = option;
+            if (option === "Getting consistent customers") {
+                botReply("What feels like the biggest challenge right now?", [
+                    "Not enough traffic",
+                    "Traffic isn't converting",
+                    "Marketing feels inconsistent",
+                    "Not sure"
+                ]);
+            } else if (option === "Customers are not staying long enough") {
+                botReply("What is happening most often?", [
+                    "Customers order once and leave",
+                    "Subscription cancellations are high",
+                    "Repeat purchases are low",
+                    "Not sure"
+                ]);
+            } else if (option === "Operations become harder as orders grow") {
+                botReply("When orders increase, what usually happens next?", [
+                    "Fulfillment becomes stressful",
+                    "Inventory planning gets harder",
+                    "Profitability becomes unpredictable",
+                    "Not sure"
+                ]);
+            } else {
+                flowAStage();
+            }
+        } else if (currentStep === 3 && branch !== "Not sure yet") {
+            flowAStage();
+        } else if (currentStep === 3 || currentStep === 4) {
+            botReply("Understood. That usually means growth is creating pressure instead of stability. What stage is your business currently at?", [
+                "Idea Stage",
+                "Website In Progress",
+                "Already Selling",
+                "Growing But Stuck"
+            ]);
+        } else if (currentStep === 4 || currentStep === 5) {
+            var stageMsg = "";
+            if (option === "Idea Stage") {
+                stageMsg = "You are early enough to avoid many mistakes\u2014this is the best time to plan growth properly.";
+            } else if (option === "Website In Progress") {
+                stageMsg = "This is usually the best time to build growth systems before the noise of daily operations kicks in.";
+            } else if (option === "Already Selling") {
+                stageMsg = "You already have real customer data\u2014that makes your next moves more strategic and less guesswork.";
+            } else {
+                stageMsg = "This is often where small bottlenecks create the biggest limitations. A fresh look can unlock things quickly.";
+            }
+            botReply(stageMsg + " Based on what you shared, would you like to explore that further?", [
+                "Book Growth Discovery Call",
+                "See How GreenScale Works",
+                "Ask a Specific Question"
+            ]);
+        } else {
+            handleEndOption(option);
+        }
+    }
+
+    function flowAStage() {
+        currentStep = 3;
+        setTimeout(function() {
+            botReply("Understood. That usually means growth is creating pressure instead of stability. What stage is your business currently at?", [
+                "Idea Stage",
+                "Website In Progress",
+                "Already Selling",
+                "Growing But Stuck"
+            ]);
+        }, 200);
+    }
+
+    function flowB(option) {
+        if (currentStep === 1) {
+            var msg = "Thanks for that. To help point you in the right direction, what feels the most frustrating or unclear about your growth right now?";
+            var opts = [
+                "Getting consistent sales",
+                "Ads or marketing not performing",
+                "Low repeat customers",
+                "Not sure what's wrong"
+            ];
+            if (option === "Just exploring") {
+                msg = "No problem at all. To help point you in the right direction, what best describes where you are right now?";
+                opts = [
+                    "Getting consistent sales",
+                    "Ads or marketing not performing",
+                    "Low repeat customers",
+                    "Not sure what's wrong",
+                    "Just exploring"
+                ];
+            }
+            botReply(msg, opts);
+        } else if (currentStep === 2) {
+            botReply("When things do work for a moment, does the growth actually hold or does it fade again?", [
+                "It fades again",
+                "Feels unpredictable",
+                "Never really stabilizes"
+            ]);
+        } else if (currentStep === 3) {
+            botReply("Do you already have a website live right now, or are you still setting things up?", [
+                "Yes, it's live",
+                "Not yet"
+            ]);
+        } else if (currentStep === 4) {
+            if (option === "Yes, it's live") {
+                botReply("That gives us something real to work with. Based on what you shared, you might benefit from a quick growth discovery call.", [
+                    "Book Growth Discovery Call",
+                    "Explore Growth Systems",
+                    "Ask a Specific Question"
+                ]);
+            } else {
+                botReply("That is actually a good position to be in\u2014you can build the right foundation from the start. Would you like to explore how?", [
+                    "Book Growth Discovery Call",
+                    "Explore Growth Systems",
+                    "Ask a Specific Question"
+                ]);
+            }
+        } else {
+            handleEndOption(option);
+        }
+    }
+
+    function handleEndOption(option) {
+        if (option === "Book Growth Discovery Call") {
+            showDiscoveryForm();
+        } else if (option === "See How GreenScale Works") {
+            exploreServices();
+        } else if (option === "Explore Growth Systems") {
+            exploreServices();
+        } else if (option === "Ask a Specific Question") {
+            unlockInput();
+            botReply("Go ahead\u2014ask me anything about DevXCloud.");
+        }
+    }
+
+    function showGuidanceForm() {
+        flowLocked = true;
+        input.disabled = true;
+        var formHtml = '<div style="padding:10px 0"><div style="font-weight:600;font-size:13px;margin-bottom:8px">Get Personalized Guidance</div>';
+        formHtml += '<input type="text" id="gf-name" placeholder="Your Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+        formHtml += '<input type="email" id="gf-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+        formHtml += '<textarea id="gf-question" placeholder="Your question..." style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+        formHtml += '<button id="gf-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button></div>';
+
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg__bubble';
+        bubble.style.background = '#fff';
+        bubble.style.borderRadius = '18px 18px 18px 4px';
+        bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+        bubble.style.padding = '0';
+        bubble.innerHTML = formHtml;
+
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--bot';
+        var av = document.createElement('div');
+        av.className = 'chat-msg__avatar chat-msg__avatar--bot';
+        av.innerHTML = BOT_ICON;
+        msg.appendChild(av);
+        msg.appendChild(bubble);
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
+        body.scrollTop = body.scrollHeight;
+
+        document.getElementById('gf-submit').addEventListener('click', submitGuidanceForm);
+    }
+
+    function submitGuidanceForm() {
+        var name = document.getElementById('gf-name').value.trim();
+        var email = document.getElementById('gf-email').value.trim();
+        var question = document.getElementById('gf-question').value.trim();
+        if (!name || !email) {
+            botReply("Please fill in your name and email so we can follow up.");
+            return;
+        }
+        addMessage('user', "Name: " + name + ", Email: " + email + ", Question: " + question);
+        flowLocked = false;
+        input.disabled = false;
+        setTimeout(function() {
+            botReply("Thank you! We have received your details. Our team will get back to you shortly.");
+        }, 300);
+    }
+
+    function showDiscoveryForm() {
+        flowLocked = true;
+        input.disabled = true;
+        var formHtml = '<div style="padding:10px 0"><div style="font-weight:600;font-size:13px;margin-bottom:8px">Book Discovery Call</div>';
+        formHtml += '<input type="text" id="df-name" placeholder="Your Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+        formHtml += '<input type="email" id="df-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+        formHtml += '<input type="text" id="df-business" placeholder="Business Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+        formHtml += '<button id="df-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button></div>';
+
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg__bubble';
+        bubble.style.background = '#fff';
+        bubble.style.borderRadius = '18px 18px 18px 4px';
+        bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+        bubble.style.padding = '0';
+        bubble.innerHTML = formHtml;
+
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--bot';
+        var av = document.createElement('div');
+        av.className = 'chat-msg__avatar chat-msg__avatar--bot';
+        av.innerHTML = BOT_ICON;
+        msg.appendChild(av);
+        msg.appendChild(bubble);
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
+        body.scrollTop = body.scrollHeight;
+
+        document.getElementById('df-submit').addEventListener('click', submitDiscoveryForm);
+    }
+
+    function submitDiscoveryForm() {
+        var name = document.getElementById('df-name').value.trim();
+        var email = document.getElementById('df-email').value.trim();
+        var business = document.getElementById('df-business').value.trim();
+        if (!name || !email) {
+            botReply("Please fill in your name and email so we can follow up.");
+            return;
+        }
+        addMessage('user', "Name: " + name + ", Email: " + email + ", Business: " + business);
+        setTimeout(function() {
+            botReply("Thank you! We have saved your details. Let me take you to the booking page.");
+            setTimeout(function() {
+                window.location.href = "/contact";
+            }, 1500);
+        }, 300);
+    }
+
+    function exploreServices() {
+        window.location.href = "/about";
+    }
+
+    function escalateToAgent() {
+        addMessage('user', 'Talk to an Agent');
+        flowLocked = true;
+        input.disabled = true;
+        setTimeout(function() {
+            botReply("Let me find an available agent for you. In the meantime, feel free to share more details about what you need help with.");
+            unlockInput();
+        }, 300);
     }
 
     function showTyping() {

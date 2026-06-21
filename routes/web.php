@@ -35,6 +35,7 @@ require __DIR__.'/auth.php';
 
 Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply']);
 Route::get('/chat/history', [App\Http\Controllers\ChatController::class, 'history']);
+Route::post('/chat/submit-form', [App\Http\Controllers\ChatController::class, 'submitForm']);
 
 Route::get('/', function () {
     return view('home');

@@ -427,4 +427,27 @@ User Query: $rawMessage"
         }
         return trim($result);
     }
+
+    public function submitForm(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'type' => 'required|in:guidance,discovery',
+            'business' => 'nullable|string|max:255',
+            'question' => 'nullable|string|max:1000',
+        ]);
+
+        ChatHistory::create([
+            'user_id' => auth()->id(),
+            'session_id' => session()->getId(),
+            'question' => 'Form: ' . $data['type'],
+            'answer' => json_encode($data),
+            'source' => 'lead',
+            'asked_at' => now(),
+            'answered_at' => now(),
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 }
