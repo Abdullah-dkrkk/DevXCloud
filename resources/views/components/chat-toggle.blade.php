@@ -42,34 +42,71 @@
 </div>
 
 <style>
-.chat-panel__body--has-messages {
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
 .chat-msg {
+    display: flex;
+    gap: 8px;
     max-width: 85%;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 13px;
     line-height: 1.5;
     word-wrap: break-word;
     flex-shrink: 0;
+    align-items: flex-end;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+}
+
+.chat-msg.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .chat-msg--user {
     align-self: flex-end;
-    background: #0176D3;
-    color: #fff;
-    border-radius: 18px 18px 4px 18px;
-    padding: 10px 14px;
+    flex-direction: row-reverse;
 }
 
 .chat-msg--bot {
     align-self: flex-start;
+}
+
+.chat-msg__avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-msg__avatar--user {
+    background: #0176D3;
+    color: #fff;
+}
+
+.chat-msg__avatar--bot {
+    background: #fff;
+    color: #000;
+    border: 1.5px solid #e0e4e8;
+}
+
+.chat-msg__bubble {
+    padding: 10px 14px;
+    max-width: calc(100% - 42px);
+}
+
+.chat-msg--user .chat-msg__bubble {
+    background: #0176D3;
+    color: #fff;
+    border-radius: 18px 18px 4px 18px;
+}
+
+.chat-msg--bot .chat-msg__bubble {
     background: #fff;
     color: #1a2a3a;
     border-radius: 18px 18px 18px 4px;
-    padding: 10px 14px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
@@ -90,7 +127,14 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, opacity 0.25s ease, transform 0.25s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.chat-msg__option-btn.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .chat-msg__option-btn:hover {
@@ -127,12 +171,13 @@
 }
 
 .chat-starter-questions {
-    margin-top: 16px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 6px;
     width: 100%;
     max-width: 260px;
+    align-self: center;
 }
 
 .chat-starter-question {
@@ -145,7 +190,14 @@
     color: #1a2a3a;
     cursor: pointer;
     text-align: center;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease, opacity 0.25s ease, transform 0.25s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.chat-starter-question.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .chat-starter-question:hover {
@@ -159,7 +211,7 @@
     position: fixed;
     bottom: 24px;
     right: 24px;
-    z-index: 10000;
+    z-index: 99999;
     width: 52px;
     height: 52px;
     padding: 0;
@@ -197,17 +249,7 @@
     transform: scale(1.04);
 }
 
-.chat-toggle-btn {
-    animation: chat-pulse 3s ease-in-out infinite;
-}
-
-@keyframes chat-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 16px rgba(1, 118, 211, 0.35); }
-    50% { opacity: 0.92; transform: scale(1.04); box-shadow: 0 4px 24px rgba(1, 118, 211, 0.50); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .chat-toggle-btn { animation: none; }
     .chat-toggle-btn:hover { transform: none; }
     .chat-toggle-icon { transition: none; }
 }
@@ -216,10 +258,10 @@
     position: fixed;
     bottom: calc(24px + 52px + 16px);
     right: 24px;
-    width: 380px;
-    height: 560px;
+    width: 420px;
+    height: 600px;
     max-height: calc(100vh - 120px);
-    z-index: 9999;
+    z-index: 99999;
     background: #fff;
     font-family: 'Montserrat', sans-serif;
     border-radius: 14px;
@@ -260,7 +302,7 @@
     left: 0;
     right: 0;
     height: 28px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q190,28 380,0 L380,28 L0,28 Z' fill='%23f5f7fa'/%3E%3C/svg%3E") no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q210,28 420,0 L420,28 L0,28 Z' fill='%23f5f7fa'/%3E%3C/svg%3E") no-repeat;
     background-size: 100% 100%;
     pointer-events: none;
 }
@@ -303,11 +345,15 @@
     flex: 1;
     background: #f5f7fa;
     overflow-y: auto;
-    padding: 24px 18px;
+    padding: 12px 18px 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
+}
+
+.chat-panel__body--has-messages {
+    justify-content: flex-start;
 }
 
 .chat-panel__body::-webkit-scrollbar {
@@ -326,11 +372,12 @@
 .chat-panel__empty {
     text-align: center;
     max-width: 220px;
+    align-self: center;
 }
 
 .chat-panel__empty-icon {
     display: block;
-    margin: 0 auto 10px;
+    margin: 0 auto;
     opacity: 0.4;
 }
 
@@ -338,7 +385,7 @@
     font-size: 15px;
     font-weight: 600;
     color: #2c3e50;
-    margin: 0 0 3px;
+    margin: 8px 0 0;
     letter-spacing: -0.01em;
     font-family: 'Montserrat', sans-serif;
 }
@@ -347,7 +394,7 @@
     font-size: 11px;
     color: #000;
     line-height: 1.5;
-    margin: 0;
+    margin: 6px 0 0;
     white-space: nowrap;
 }
 
@@ -412,7 +459,7 @@
         width: calc(100vw - 32px);
         right: 16px;
         bottom: calc(16px + 52px + 12px);
-        height: 520px;
+        height: 540px;
         max-height: calc(100vh - 96px);
         border-radius: 12px;
     }
@@ -444,8 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'How much does it cost?',
         'Can you help my business?',
         'What is a Discovery Call?',
-        'Do you work with startups?',
-        'How are you different?'
+        'Do you work with startups?'
     ];
 
     if (!toggleBtn || !chatPanel || !body) return;
@@ -479,17 +525,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showStarters() {
         clearMessages();
+        body.classList.remove('chat-panel__body--has-messages');
         if (emptyState) emptyState.style.display = '';
         var existingStarters = body.querySelector('.chat-starter-questions');
         if (existingStarters) return;
         var container = document.createElement('div');
         container.className = 'chat-starter-questions';
-        STARTERS.forEach(function(q) {
+        STARTERS.forEach(function(q, i) {
             var btn = document.createElement('button');
             btn.className = 'chat-starter-question';
             btn.textContent = q;
             btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(q); });
             container.appendChild(btn);
+            setTimeout(function() { btn.classList.add('show'); }, 200 + i * 120);
         });
         body.appendChild(container);
     }
@@ -499,30 +547,43 @@ document.addEventListener('DOMContentLoaded', function() {
         msgs.forEach(function(el) { el.remove(); });
     }
 
+    var USER_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21c0-3.3-2.7-6-6-6h-4c-3.3 0-6 2.7-6 6"/><circle cx="12" cy="8" r="4"/></svg>';
+    var BOT_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M9 16c1.5.7 3 .7 4.5 0"/></svg>';
+
     function addMessage(type, text, options) {
         if (emptyState) emptyState.style.display = 'none';
         var starters = body.querySelector('.chat-starter-questions');
         if (starters) starters.remove();
-        body.classList.add('chat-panel__body--has-messages');
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--' + type;
+
+        var avatar = document.createElement('div');
+        avatar.className = 'chat-msg__avatar chat-msg__avatar--' + type;
+        avatar.innerHTML = type === 'user' ? USER_ICON : BOT_ICON;
+        msg.appendChild(avatar);
 
         var bubble = document.createElement('div');
-        bubble.className = 'chat-msg chat-msg--' + type;
+        bubble.className = 'chat-msg__bubble';
         bubble.textContent = text;
-        body.appendChild(bubble);
+        msg.appendChild(bubble);
 
         if (options && options.length > 0) {
             var optionsDiv = document.createElement('div');
             optionsDiv.className = 'chat-msg__options';
-            options.forEach(function(opt) {
+            options.forEach(function(opt, i) {
                 var btn = document.createElement('button');
                 btn.className = 'chat-msg__option-btn';
                 btn.textContent = opt;
                 btn.addEventListener('click', function(e) { e.stopPropagation(); sendMessage(opt); });
                 optionsDiv.appendChild(btn);
+                setTimeout(function() { btn.classList.add('show'); }, 200 + i * 120);
             });
             bubble.appendChild(optionsDiv);
         }
 
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
         body.scrollTop = body.scrollHeight;
     }
 
