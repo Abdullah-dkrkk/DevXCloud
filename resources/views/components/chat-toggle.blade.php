@@ -45,7 +45,7 @@
 .chat-msg {
     display: flex;
     gap: 8px;
-    max-width: 85%;
+    max-width: 92%;
     margin-bottom: 12px;
     font-size: 13px;
     line-height: 1.5;
@@ -95,6 +95,7 @@
 .chat-msg__bubble {
     padding: 10px 14px;
     max-width: calc(100% - 42px);
+    min-width: 60px;
 }
 
 .chat-msg--user .chat-msg__bubble {
@@ -115,6 +116,7 @@
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
+    width: 100%;
 }
 
 .chat-msg__option-btn {
