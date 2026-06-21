@@ -169,6 +169,22 @@
     40% { transform: scale(1); opacity: 1; }
 }
 
+@keyframes chat-spin {
+    to { transform: rotate(360deg); }
+}
+
+.btn-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: chat-spin 0.6s linear infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
 .chat-starter-questions {
     margin-top: 8px;
     display: flex;
@@ -323,7 +339,7 @@
 }
 
 .chat-panel__close-btn {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.25);
     border: none;
     border-radius: 50%;
     color: #fff;
@@ -541,6 +557,59 @@ document.addEventListener('DOMContentLoaded', function() {
     var USER_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21c0-3.3-2.7-6-6-6h-4c-3.3 0-6 2.7-6 6"/><circle cx="12" cy="8" r="4"/></svg>';
     var BOT_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M9 16c1.5.7 3 .7 4.5 0"/></svg>';
 
+
+    function validateField(field) {
+        var errorEl = field._errorEl;
+        var val = field.value.trim();
+        var label = field.getAttribute('data-label') || field.placeholder || 'This field';
+        var error = '';
+        if (field.hasAttribute('required') && !val) {
+            error = label + ' is required';
+        } else if (field.type === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+            error = 'Please enter a valid email address';
+        }
+        if (error) {
+            field.style.borderColor = '#e74c3c';
+            field.style.backgroundColor = '#fff6f6';
+            if (!errorEl) {
+                errorEl = document.createElement('div');
+                errorEl.className = 'field-error';
+                var mt = field.tagName === 'TEXTAREA' ? '-4px' : '0px';
+                errorEl.style.cssText = 'color:#e74c3c;font-size:11px;margin-top:' + mt + ';margin-bottom:10px;line-height:1.3';
+                field.insertAdjacentElement('afterend', errorEl);
+                field._errorEl = errorEl;
+            }
+            errorEl.textContent = error;
+            return false;
+        } else {
+            field.style.borderColor = '#d0d8e0';
+            field.style.backgroundColor = '';
+            if (errorEl) {
+                errorEl.remove();
+                field._errorEl = null;
+            }
+            return true;
+        }
+    }
+
+    function setupFormValidation(formId, fieldIds) {
+        fieldIds.forEach(function(id) {
+            var el = document.getElementById(formId + '-' + id);
+            if (!el) return;
+            el.addEventListener('blur', function() { validateField(el); });
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    var submitBtn = document.getElementById(formId + '-submit');
+                    if (submitBtn && !submitBtn.disabled) {
+                        if (formId === 'gf') submitGuidanceForm();
+                        else submitDiscoveryForm();
+                    }
+                }
+            });
+        });
+    }
+
     function botReply(text, options) {
         var elapsed = Date.now() - typingStartTime;
         var delay = Math.max(0, 500 - elapsed);
@@ -627,7 +696,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (option === "Book Discovery Call") { showDiscoveryForm(); return; }
             if (option === "Explore Services") { exploreServices(); return; }
             if (option === "Talk to an Agent") { escalateToAgent(); return; }
-            if (option === "Ask a Specific Question") { unlockInput(); botReply("Go ahead\u2014ask me anything about DevXCloud."); return; }
+            if (option === "Ask a Specific Question") { unlockInput(); botReply("Please feel free to ask me anything about DevXCloud."); return; }
 
             if (currentFlow === null) {
                 if (option === "Vegan Meal Kit") {
@@ -783,7 +852,7 @@ document.addEventListener('DOMContentLoaded', function() {
             exploreServices();
         } else if (option === "Ask a Specific Question") {
             unlockInput();
-            botReply("Go ahead\u2014ask me anything about DevXCloud.");
+            botReply("Please feel free to ask me anything about DevXCloud.");
         }
     }
 
@@ -796,13 +865,14 @@ document.addEventListener('DOMContentLoaded', function() {
             input.disabled = true;
             var formHtml = '<div style="font-weight:600;font-size:13px;margin-bottom:4px">Get Personalized Guidance</div>';
             formHtml += '<div style="font-size:12px;color:#5a6a7a;margin-bottom:10px;line-height:1.4">To provide more specific guidance, please share a few details about your business and what you need help with.</div>';
-            formHtml += '<input type="text" id="gf-name" placeholder="Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="email" id="gf-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="text" id="gf-btype" placeholder="Business Type" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<textarea id="gf-question" placeholder="Question" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
-            formHtml += '<button id="gf-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
+            formHtml += '<input type="text" id="gf-name" data-label="Name" placeholder="Name" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="email" id="gf-email" data-label="Email Address" placeholder="Email Address" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="gf-btype" data-label="Business Type" placeholder="Business Type" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<textarea id="gf-question" data-label="Question" placeholder="Question" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<button id="gf-submit" style="width:100%;padding:8px;margin-bottom:14px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
             var bubble = document.createElement('div');
+            bubble.id = 'gf-form-bubble';
             bubble.className = 'chat-msg__bubble';
             bubble.style.background = '#fff';
             bubble.style.borderRadius = '18px 18px 18px 4px';
@@ -821,25 +891,56 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() { msg.classList.add('show'); }, 50);
             body.scrollTop = body.scrollHeight;
 
-            document.getElementById('gf-submit').addEventListener('click', submitGuidanceForm);
+            document.getElementById('gf-submit').addEventListener('click', function(e) { e.stopPropagation(); submitGuidanceForm(); });
+            setupFormValidation('gf', ['name', 'email', 'btype', 'question']);
+            setTimeout(function() { document.getElementById('gf-name').focus(); }, 100);
         }, delay);
     }
 
     function submitGuidanceForm() {
-        var name = document.getElementById('gf-name').value.trim();
-        var email = document.getElementById('gf-email').value.trim();
-        var btype = document.getElementById('gf-btype').value.trim();
-        var question = document.getElementById('gf-question').value.trim();
-        if (!name || !email) {
-            botReply("Please fill in your name and email so we can follow up.");
+        var nameEl = document.getElementById('gf-name');
+        var emailEl = document.getElementById('gf-email');
+        var btypeEl = document.getElementById('gf-btype');
+        var questionEl = document.getElementById('gf-question');
+        if (!nameEl || !emailEl) return;
+
+        var valid = true;
+        [nameEl, emailEl, btypeEl, questionEl].forEach(function(el) {
+            if (el && !validateField(el)) valid = false;
+        });
+        if (!valid) {
+            var firstInvalid = document.querySelector('#gf-form-bubble input:invalid, #gf-form-bubble textarea:invalid');
+            if (firstInvalid) firstInvalid.focus();
             return;
         }
-        addMessage('user', "Name: " + name + ", Email: " + email + ", Business Type: " + btype + ", Question: " + question);
-        flowLocked = false;
-        input.disabled = false;
+
+        var name = nameEl.value.trim();
+        var email = emailEl.value.trim();
+        var btype = btypeEl ? btypeEl.value.trim() : '';
+        var question = questionEl ? questionEl.value.trim() : '';
+
+        var submitBtn = document.getElementById('gf-submit');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.style.background = '#95b8d9';
+            submitBtn.style.cursor = 'default';
+            submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
+        }
+
         setTimeout(function() {
-            botReply("Thank you! We have received your details. Our team will get back to you shortly.");
-        }, 300);
+            var data = { name: name, email: email, business_type: btype, question: question };
+            console.log('Guidance Form:', JSON.stringify(data));
+
+            var bubble = document.getElementById('gf-form-bubble');
+            if (bubble) {
+                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
+            }
+
+            addMessage('user', "Guidance: " + name + " (" + email + ")");
+
+            flowLocked = false;
+            input.disabled = false;
+        }, 1000);
     }
 
     function showDiscoveryForm() {
@@ -851,15 +952,16 @@ document.addEventListener('DOMContentLoaded', function() {
             input.disabled = true;
             var formHtml = '<div style="font-weight:600;font-size:13px;margin-bottom:4px">Book Discovery Call</div>';
             formHtml += '<div style="font-size:12px;color:#5a6a7a;margin-bottom:10px;line-height:1.4">Before booking, please share a few details so the call is more useful.</div>';
-            formHtml += '<input type="text" id="df-name" placeholder="Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="email" id="df-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="text" id="df-business" placeholder="Business Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="text" id="df-btype" placeholder="Business Type" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<input type="text" id="df-stage" placeholder="Current Stage" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-            formHtml += '<textarea id="df-challenge" placeholder="Main Challenge" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
-            formHtml += '<button id="df-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
+            formHtml += '<input type="text" id="df-name" data-label="Name" placeholder="Name" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="email" id="df-email" data-label="Email Address" placeholder="Email Address" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-business" data-label="Business Name" placeholder="Business Name" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-btype" data-label="Business Type" placeholder="Business Type" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-stage" data-label="Current Stage" placeholder="Current Stage" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<textarea id="df-challenge" data-label="Main Challenge" placeholder="Main Challenge" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<button id="df-submit" style="width:100%;padding:8px;margin-bottom:14px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
             var bubble = document.createElement('div');
+            bubble.id = 'df-form-bubble';
             bubble.className = 'chat-msg__bubble';
             bubble.style.background = '#fff';
             bubble.style.borderRadius = '18px 18px 18px 4px';
@@ -878,28 +980,60 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() { msg.classList.add('show'); }, 50);
             body.scrollTop = body.scrollHeight;
 
-            document.getElementById('df-submit').addEventListener('click', submitDiscoveryForm);
+            document.getElementById('df-submit').addEventListener('click', function(e) { e.stopPropagation(); submitDiscoveryForm(); });
+            setupFormValidation('df', ['name', 'email', 'business', 'btype', 'stage', 'challenge']);
+            setTimeout(function() { document.getElementById('df-name').focus(); }, 100);
         }, delay);
     }
 
     function submitDiscoveryForm() {
-        var name = document.getElementById('df-name').value.trim();
-        var email = document.getElementById('df-email').value.trim();
-        var business = document.getElementById('df-business').value.trim();
-        var btype = document.getElementById('df-btype').value.trim();
-        var stage = document.getElementById('df-stage').value.trim();
-        var challenge = document.getElementById('df-challenge').value.trim();
-        if (!name || !email) {
-            botReply("Please fill in your name and email so we can follow up.");
+        var nameEl = document.getElementById('df-name');
+        var emailEl = document.getElementById('df-email');
+        var businessEl = document.getElementById('df-business');
+        var btypeEl = document.getElementById('df-btype');
+        var stageEl = document.getElementById('df-stage');
+        var challengeEl = document.getElementById('df-challenge');
+        if (!nameEl || !emailEl) return;
+
+        var valid = true;
+        [nameEl, emailEl, businessEl, btypeEl, stageEl, challengeEl].forEach(function(el) {
+            if (el && !validateField(el)) valid = false;
+        });
+        if (!valid) {
+            var firstInvalid = document.querySelector('#df-form-bubble input:invalid, #df-form-bubble textarea:invalid');
+            if (firstInvalid) firstInvalid.focus();
             return;
         }
-        addMessage('user', "Name: " + name + ", Email: " + email + ", Business: " + business + ", Type: " + btype + ", Stage: " + stage + ", Challenge: " + challenge);
+
+        var name = nameEl.value.trim();
+        var email = emailEl.value.trim();
+        var business = businessEl ? businessEl.value.trim() : '';
+        var btype = btypeEl ? btypeEl.value.trim() : '';
+        var stage = stageEl ? stageEl.value.trim() : '';
+        var challenge = challengeEl ? challengeEl.value.trim() : '';
+
+        var submitBtn = document.getElementById('df-submit');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.style.background = '#95b8d9';
+            submitBtn.style.cursor = 'default';
+            submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
+        }
+
         setTimeout(function() {
-            botReply("Thank you! We have saved your details. Let me take you to the booking page.");
-            setTimeout(function() {
-                window.location.href = "/contact";
-            }, 1500);
-        }, 300);
+            var data = { name: name, email: email, business: business, business_type: btype, stage: stage, challenge: challenge };
+            console.log('Discovery Form:', JSON.stringify(data));
+
+            var bubble = document.getElementById('df-form-bubble');
+            if (bubble) {
+                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
+            }
+
+            addMessage('user', "Discovery: " + name + " (" + email + ")");
+
+            flowLocked = false;
+            input.disabled = false;
+        }, 1000);
     }
 
     function exploreServices() {
