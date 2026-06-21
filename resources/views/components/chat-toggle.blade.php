@@ -927,20 +927,41 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
         }
 
-        setTimeout(function() {
-            var data = { name: name, email: email, business_type: btype, question: question };
-            console.log('Guidance Form:', JSON.stringify(data));
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('type', 'guidance');
+        formData.append('form_data[business_type]', btype);
+        formData.append('form_data[question]', question);
 
+        fetch('/chat/submit-form', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
             var bubble = document.getElementById('gf-form-bubble');
             if (bubble) {
                 bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
             }
-
             addMessage('user', "Guidance: " + name + " (" + email + ")");
-
             flowLocked = false;
             input.disabled = false;
-        }, 1000);
+        })
+        .catch(function() {
+            var submitBtn = document.getElementById('gf-submit');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.background = '#0176D3';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.innerHTML = 'Submit';
+            }
+            botReply("Something went wrong. Please try again.");
+        });
     }
 
     function showDiscoveryForm() {
@@ -1020,20 +1041,43 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
         }
 
-        setTimeout(function() {
-            var data = { name: name, email: email, business: business, business_type: btype, stage: stage, challenge: challenge };
-            console.log('Discovery Form:', JSON.stringify(data));
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('type', 'discovery');
+        formData.append('form_data[business_name]', business);
+        formData.append('form_data[business_type]', btype);
+        formData.append('form_data[stage]', stage);
+        formData.append('form_data[challenge]', challenge);
 
+        fetch('/chat/submit-form', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
             var bubble = document.getElementById('df-form-bubble');
             if (bubble) {
                 bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
             }
-
             addMessage('user', "Discovery: " + name + " (" + email + ")");
-
             flowLocked = false;
             input.disabled = false;
-        }, 1000);
+        })
+        .catch(function() {
+            var submitBtn = document.getElementById('df-submit');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.background = '#0176D3';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.innerHTML = 'Submit';
+            }
+            botReply("Something went wrong. Please try again.");
+        });
     }
 
     function exploreServices() {

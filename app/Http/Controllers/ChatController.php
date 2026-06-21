@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ChatbotFaq;
 use App\Models\ChatHistory;
+use App\Models\ChatTicket;
+use App\Models\ChatMessage;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -434,20 +437,50 @@ User Query: $rawMessage"
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'type' => 'required|in:guidance,discovery',
-            'business' => 'nullable|string|max:255',
-            'question' => 'nullable|string|max:1000',
+            'form_data' => 'nullable|array',
         ]);
 
-        ChatHistory::create([
-            'user_id' => auth()->id(),
+        $user = $this->findOrCreateUser($data['name'], $data['email']);
+
+        $ticket = ChatTicket::create([
+            'ticket_number' => 'DEVX-' . strtoupper(substr(uniqid(), -6)),
+            'user_id' => $user->id,
             'session_id' => session()->getId(),
-            'question' => 'Form: ' . $data['type'],
-            'answer' => json_encode($data),
-            'source' => 'lead',
-            'asked_at' => now(),
-            'answered_at' => now(),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'form_type' => $data['type'],
+            'form_data' => $data['form_data'] ?? [],
+            'status' => 'pending',
+            'last_activity_at' => now(),
         ]);
 
-        return response()->json(['success' => true]);
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'user',
+            'message' => 'Form submitted: ' . $data['type'],
+            'created_at' => now(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'ticket_number' => $ticket->ticket_number,
+        ]);
+    }
+
+    private function findOrCreateUser($name, $email)
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => bcrypt(str()->random(32)),
+                'role' => 'user',
+            ]);
+        }
+
+        return $user;
     }
 }

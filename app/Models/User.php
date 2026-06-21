@@ -21,7 +21,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_available',
     ];
+
+    public function isAgent(): bool
+    {
+        return $this->role === 'agent' || $this->role === 'admin';
+    }
+
+    public function assignedTickets()
+    {
+        return $this->hasMany(ChatTicket::class, 'assigned_to');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(ChatTicket::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
