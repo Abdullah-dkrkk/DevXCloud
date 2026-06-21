@@ -129,6 +129,8 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     cursor: pointer;
+    text-align: start;
+    white-space: nowrap;
     transition: background 0.2s ease, color 0.2s ease, opacity 0.25s ease, transform 0.25s ease;
     opacity: 0;
     transform: translateY(10px);
@@ -145,15 +147,10 @@
 }
 
 .chat-typing {
-    align-self: flex-start;
     display: flex;
     align-items: center;
     gap: 4px;
     padding: 10px 14px;
-    background: #fff;
-    border-radius: 14px 14px 14px 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    margin-bottom: 10px;
 }
 
 .chat-typing__dot {
@@ -493,6 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentFlow = null;
     var currentStep = 0;
     var branch = null;
+    var typingStartTime = 0;
 
     if (!toggleBtn || !chatPanel || !body) return;
 
@@ -528,13 +526,13 @@ document.addEventListener('DOMContentLoaded', function() {
             flowStarted = true;
             if (emptyState) emptyState.style.display = 'none';
             setTimeout(function() {
-                botReply("Hey — quick question so I don't point you in the wrong direction\u2026 what kind of business are you running?", [
+                botReply("Hey \u2014 quick question so I don\u2019t point you in the wrong direction\u2026 what kind of business are you running?", [
                     "E-commerce",
                     "SaaS",
                     "Startup / Founder",
-                    "Established Business",
                     "Vegan Meal Kit",
-                    "Just exploring"
+                    "Established Business",
+                    "Exploring Options"
                 ]);
             }, 400);
         }
@@ -544,13 +542,29 @@ document.addEventListener('DOMContentLoaded', function() {
     var BOT_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M9 16c1.5.7 3 .7 4.5 0"/></svg>';
 
     function botReply(text, options) {
-        addMessage('bot', text, options);
+        var elapsed = Date.now() - typingStartTime;
+        var delay = Math.max(0, 500 - elapsed);
+        if (delay > 0) {
+            setTimeout(function() {
+                hideTyping();
+                addMessage('bot', text, options);
+            }, delay);
+        } else {
+            hideTyping();
+            addMessage('bot', text, options);
+        }
     }
 
     function addMessage(type, text, options) {
         if (emptyState) emptyState.style.display = 'none';
         var starters = body.querySelector('.chat-starter-questions');
         if (starters) starters.remove();
+        var oldBtns = body.querySelectorAll('.chat-msg__option-btn');
+        for (var i = 0; i < oldBtns.length; i++) {
+            oldBtns[i].disabled = true;
+            oldBtns[i].style.pointerEvents = 'none';
+            oldBtns[i].style.opacity = '0.35';
+        }
         var msg = document.createElement('div');
         msg.className = 'chat-msg chat-msg--' + type;
 
@@ -603,6 +617,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleOption(option) {
         addMessage('user', option);
+        showTyping();
+        typingStartTime = Date.now();
         flowLocked = true;
         input.disabled = true;
 
@@ -633,16 +649,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function flowA(option) {
         if (currentStep === 1) {
-            botReply("Meal-kit businesses usually struggle in one of three areas. Which one feels closest to where you are right now?", [
+            botReply("Got it. Meal-kit businesses usually struggle in one of three areas: attracting customers, keeping customers, or managing operations as demand grows. Which feels most familiar right now?", [
                 "Getting consistent customers",
                 "Customers are not staying long enough",
-                "Operations become harder as orders grow",
+                "Operations harder as orders grow",
                 "Not sure yet"
             ]);
         } else if (currentStep === 2) {
             branch = option;
             if (option === "Getting consistent customers") {
-                botReply("What feels like the biggest challenge right now?", [
+                botReply("What feels like the biggest challenge?", [
                     "Not enough traffic",
                     "Traffic isn't converting",
                     "Marketing feels inconsistent",
@@ -655,7 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Repeat purchases are low",
                     "Not sure"
                 ]);
-            } else if (option === "Operations become harder as orders grow") {
+            } else if (option === "Operations harder as orders grow") {
                 botReply("When orders increase, what usually happens next?", [
                     "Fulfillment becomes stressful",
                     "Inventory planning gets harder",
@@ -663,48 +679,49 @@ document.addEventListener('DOMContentLoaded', function() {
                     "Not sure"
                 ]);
             } else {
-                flowAStage();
+                currentStep = 3;
+                showUnderstoodThenStage();
             }
-        } else if (currentStep === 3 && branch !== "Not sure yet") {
-            flowAStage();
-        } else if (currentStep === 3 || currentStep === 4) {
-            botReply("Understood. That usually means growth is creating pressure instead of stability. What stage is your business currently at?", [
-                "Idea Stage",
-                "Website In Progress",
-                "Already Selling",
-                "Growing But Stuck"
-            ]);
-        } else if (currentStep === 4 || currentStep === 5) {
-            var stageMsg = "";
-            if (option === "Idea Stage") {
-                stageMsg = "You are early enough to avoid many mistakes\u2014this is the best time to plan growth properly.";
-            } else if (option === "Website In Progress") {
-                stageMsg = "This is usually the best time to build growth systems before the noise of daily operations kicks in.";
-            } else if (option === "Already Selling") {
-                stageMsg = "You already have real customer data\u2014that makes your next moves more strategic and less guesswork.";
-            } else {
-                stageMsg = "This is often where small bottlenecks create the biggest limitations. A fresh look can unlock things quickly.";
-            }
-            botReply(stageMsg + " Based on what you shared, would you like to explore that further?", [
-                "Book Growth Discovery Call",
-                "See How GreenScale Works",
-                "Ask a Specific Question"
-            ]);
+        } else if (currentStep === 3) {
+            showUnderstoodThenStage();
+        } else if (currentStep === 4) {
+            showStageResponse(option);
         } else {
             handleEndOption(option);
         }
     }
 
+    function showUnderstoodThenStage() {
+        botReply("Understood. That usually means growth is creating pressure instead of stability. Many meal-kit businesses reach a point where more activity does not automatically create better results. That is exactly the type of challenge GreenScale Formula was designed to address.\n\nWhat stage is your business currently at?", [
+            "Idea Stage",
+            "Website In Progress",
+            "Already Selling",
+            "Growing But Stuck"
+        ]);
+    }
+
+    function showStageResponse(option) {
+        var stageMsg = "";
+        if (option === "Idea Stage") {
+            stageMsg = "You are early enough to avoid many of the mistakes that become expensive later. The right systems from the beginning can save significant time and resources as you grow.";
+        } else if (option === "Website In Progress") {
+            stageMsg = "This is usually the best time to build growth systems because your foundation is still flexible.";
+        } else if (option === "Already Selling") {
+            stageMsg = "You already have real customer data, which makes it easier to identify where growth opportunities exist.";
+        } else {
+            stageMsg = "This is often where small bottlenecks create the biggest limitations on growth.";
+        }
+        currentStep = 6;
+        botReply(stageMsg + "\n\nBased on what you shared, the next step is understanding where your biggest growth opportunities and bottlenecks actually are. Would you like to explore that further?", [
+            "Book Growth Discovery Call",
+            "See How GreenScale Works",
+            "Ask a Specific Question"
+        ]);
+    }
+
     function flowAStage() {
         currentStep = 3;
-        setTimeout(function() {
-            botReply("Understood. That usually means growth is creating pressure instead of stability. What stage is your business currently at?", [
-                "Idea Stage",
-                "Website In Progress",
-                "Already Selling",
-                "Growing But Stuck"
-            ]);
-        }, 200);
+        showUnderstoodThenStage();
     }
 
     function flowB(option) {
@@ -716,14 +733,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 "Low repeat customers",
                 "Not sure what's wrong"
             ];
-            if (option === "Just exploring") {
+            if (option === "Exploring Options") {
                 msg = "No problem at all. To help point you in the right direction, what best describes where you are right now?";
                 opts = [
                     "Getting consistent sales",
                     "Ads or marketing not performing",
                     "Low repeat customers",
                     "Not sure what's wrong",
-                    "Just exploring"
+                    "Exploring Options"
                 ];
             }
             botReply(msg, opts);
@@ -761,7 +778,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (option === "Book Growth Discovery Call") {
             showDiscoveryForm();
         } else if (option === "See How GreenScale Works") {
-            exploreServices();
+            window.location.href = "/greenscale-ai";
         } else if (option === "Explore Growth Systems") {
             exploreServices();
         } else if (option === "Ask a Specific Question") {
@@ -771,46 +788,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showGuidanceForm() {
-        flowLocked = true;
-        input.disabled = true;
-        var formHtml = '<div style="padding:10px 0"><div style="font-weight:600;font-size:13px;margin-bottom:8px">Get Personalized Guidance</div>';
-        formHtml += '<input type="text" id="gf-name" placeholder="Your Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-        formHtml += '<input type="email" id="gf-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-        formHtml += '<textarea id="gf-question" placeholder="Your question..." style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
-        formHtml += '<button id="gf-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button></div>';
+        var elapsed = Date.now() - typingStartTime;
+        var delay = Math.max(0, 500 - elapsed);
+        setTimeout(function() {
+            hideTyping();
+            flowLocked = true;
+            input.disabled = true;
+            var formHtml = '<div style="font-weight:600;font-size:13px;margin-bottom:4px">Get Personalized Guidance</div>';
+            formHtml += '<div style="font-size:12px;color:#5a6a7a;margin-bottom:10px;line-height:1.4">To provide more specific guidance, please share a few details about your business and what you need help with.</div>';
+            formHtml += '<input type="text" id="gf-name" placeholder="Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="email" id="gf-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="gf-btype" placeholder="Business Type" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<textarea id="gf-question" placeholder="Question" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<button id="gf-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
-        var bubble = document.createElement('div');
-        bubble.className = 'chat-msg__bubble';
-        bubble.style.background = '#fff';
-        bubble.style.borderRadius = '18px 18px 18px 4px';
-        bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
-        bubble.style.padding = '0';
-        bubble.innerHTML = formHtml;
+            var bubble = document.createElement('div');
+            bubble.className = 'chat-msg__bubble';
+            bubble.style.background = '#fff';
+            bubble.style.borderRadius = '18px 18px 18px 4px';
+            bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+            bubble.innerHTML = formHtml;
 
-        var msg = document.createElement('div');
-        msg.className = 'chat-msg chat-msg--bot';
-        var av = document.createElement('div');
-        av.className = 'chat-msg__avatar chat-msg__avatar--bot';
-        av.innerHTML = BOT_ICON;
-        msg.appendChild(av);
-        msg.appendChild(bubble);
-        body.appendChild(msg);
-        body.classList.add('chat-panel__body--has-messages');
-        setTimeout(function() { msg.classList.add('show'); }, 50);
-        body.scrollTop = body.scrollHeight;
+            var msg = document.createElement('div');
+            msg.className = 'chat-msg chat-msg--bot';
+            var av = document.createElement('div');
+            av.className = 'chat-msg__avatar chat-msg__avatar--bot';
+            av.innerHTML = BOT_ICON;
+            msg.appendChild(av);
+            msg.appendChild(bubble);
+            body.appendChild(msg);
+            body.classList.add('chat-panel__body--has-messages');
+            setTimeout(function() { msg.classList.add('show'); }, 50);
+            body.scrollTop = body.scrollHeight;
 
-        document.getElementById('gf-submit').addEventListener('click', submitGuidanceForm);
+            document.getElementById('gf-submit').addEventListener('click', submitGuidanceForm);
+        }, delay);
     }
 
     function submitGuidanceForm() {
         var name = document.getElementById('gf-name').value.trim();
         var email = document.getElementById('gf-email').value.trim();
+        var btype = document.getElementById('gf-btype').value.trim();
         var question = document.getElementById('gf-question').value.trim();
         if (!name || !email) {
             botReply("Please fill in your name and email so we can follow up.");
             return;
         }
-        addMessage('user', "Name: " + name + ", Email: " + email + ", Question: " + question);
+        addMessage('user', "Name: " + name + ", Email: " + email + ", Business Type: " + btype + ", Question: " + question);
         flowLocked = false;
         input.disabled = false;
         setTimeout(function() {
@@ -819,46 +843,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showDiscoveryForm() {
-        flowLocked = true;
-        input.disabled = true;
-        var formHtml = '<div style="padding:10px 0"><div style="font-weight:600;font-size:13px;margin-bottom:8px">Book Discovery Call</div>';
-        formHtml += '<input type="text" id="df-name" placeholder="Your Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-        formHtml += '<input type="email" id="df-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-        formHtml += '<input type="text" id="df-business" placeholder="Business Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
-        formHtml += '<button id="df-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button></div>';
+        var elapsed = Date.now() - typingStartTime;
+        var delay = Math.max(0, 500 - elapsed);
+        setTimeout(function() {
+            hideTyping();
+            flowLocked = true;
+            input.disabled = true;
+            var formHtml = '<div style="font-weight:600;font-size:13px;margin-bottom:4px">Book Discovery Call</div>';
+            formHtml += '<div style="font-size:12px;color:#5a6a7a;margin-bottom:10px;line-height:1.4">Before booking, please share a few details so the call is more useful.</div>';
+            formHtml += '<input type="text" id="df-name" placeholder="Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="email" id="df-email" placeholder="Email Address" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-business" placeholder="Business Name" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-btype" placeholder="Business Type" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<input type="text" id="df-stage" placeholder="Current Stage" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
+            formHtml += '<textarea id="df-challenge" placeholder="Main Challenge" style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<button id="df-submit" style="width:100%;padding:8px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
-        var bubble = document.createElement('div');
-        bubble.className = 'chat-msg__bubble';
-        bubble.style.background = '#fff';
-        bubble.style.borderRadius = '18px 18px 18px 4px';
-        bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
-        bubble.style.padding = '0';
-        bubble.innerHTML = formHtml;
+            var bubble = document.createElement('div');
+            bubble.className = 'chat-msg__bubble';
+            bubble.style.background = '#fff';
+            bubble.style.borderRadius = '18px 18px 18px 4px';
+            bubble.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+            bubble.innerHTML = formHtml;
 
-        var msg = document.createElement('div');
-        msg.className = 'chat-msg chat-msg--bot';
-        var av = document.createElement('div');
-        av.className = 'chat-msg__avatar chat-msg__avatar--bot';
-        av.innerHTML = BOT_ICON;
-        msg.appendChild(av);
-        msg.appendChild(bubble);
-        body.appendChild(msg);
-        body.classList.add('chat-panel__body--has-messages');
-        setTimeout(function() { msg.classList.add('show'); }, 50);
-        body.scrollTop = body.scrollHeight;
+            var msg = document.createElement('div');
+            msg.className = 'chat-msg chat-msg--bot';
+            var av = document.createElement('div');
+            av.className = 'chat-msg__avatar chat-msg__avatar--bot';
+            av.innerHTML = BOT_ICON;
+            msg.appendChild(av);
+            msg.appendChild(bubble);
+            body.appendChild(msg);
+            body.classList.add('chat-panel__body--has-messages');
+            setTimeout(function() { msg.classList.add('show'); }, 50);
+            body.scrollTop = body.scrollHeight;
 
-        document.getElementById('df-submit').addEventListener('click', submitDiscoveryForm);
+            document.getElementById('df-submit').addEventListener('click', submitDiscoveryForm);
+        }, delay);
     }
 
     function submitDiscoveryForm() {
         var name = document.getElementById('df-name').value.trim();
         var email = document.getElementById('df-email').value.trim();
         var business = document.getElementById('df-business').value.trim();
+        var btype = document.getElementById('df-btype').value.trim();
+        var stage = document.getElementById('df-stage').value.trim();
+        var challenge = document.getElementById('df-challenge').value.trim();
         if (!name || !email) {
             botReply("Please fill in your name and email so we can follow up.");
             return;
         }
-        addMessage('user', "Name: " + name + ", Email: " + email + ", Business: " + business);
+        addMessage('user', "Name: " + name + ", Email: " + email + ", Business: " + business + ", Type: " + btype + ", Stage: " + stage + ", Challenge: " + challenge);
         setTimeout(function() {
             botReply("Thank you! We have saved your details. Let me take you to the booking page.");
             setTimeout(function() {
@@ -868,7 +903,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function exploreServices() {
-        window.location.href = "/about";
+        clearMessages();
+        flowStarted = false;
+        flowLocked = false;
+        currentFlow = null;
+        currentStep = 0;
+        branch = null;
+        input.disabled = false;
+        loadChatContent();
     }
 
     function escalateToAgent() {
@@ -882,8 +924,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showTyping() {
-        var existing = body.querySelector('.chat-typing');
+        var existing = body.querySelector('.chat-typing-msg');
         if (existing) return;
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--bot chat-typing-msg';
+        var av = document.createElement('div');
+        av.className = 'chat-msg__avatar chat-msg__avatar--bot';
+        av.innerHTML = BOT_ICON;
+        msg.appendChild(av);
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg__bubble';
+        bubble.style.padding = '0';
         var typing = document.createElement('div');
         typing.className = 'chat-typing';
         for (var i = 0; i < 3; i++) {
@@ -891,12 +942,16 @@ document.addEventListener('DOMContentLoaded', function() {
             dot.className = 'chat-typing__dot';
             typing.appendChild(dot);
         }
-        body.appendChild(typing);
+        bubble.appendChild(typing);
+        msg.appendChild(bubble);
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
         body.scrollTop = body.scrollHeight;
     }
 
     function hideTyping() {
-        var typing = body.querySelector('.chat-typing');
+        var typing = body.querySelector('.chat-typing-msg');
         if (typing) typing.remove();
     }
 
@@ -908,6 +963,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (input) input.value = '';
         showTyping();
+        typingStartTime = Date.now();
 
         var formData = new FormData();
         formData.append('message', msg);
@@ -922,14 +978,22 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-            hideTyping();
-            if (data.reply) {
-                addMessage('bot', data.reply, data.options || null);
-            }
+            var elapsed = Date.now() - typingStartTime;
+            var delay = Math.max(0, 500 - elapsed);
+            setTimeout(function() {
+                hideTyping();
+                if (data.reply) {
+                    addMessage('bot', data.reply, data.options || null);
+                }
+            }, delay);
         })
         .catch(function() {
-            hideTyping();
-            addMessage('bot', 'Sorry, something went wrong. Please try again.');
+            var elapsed = Date.now() - typingStartTime;
+            var delay = Math.max(0, 500 - elapsed);
+            setTimeout(function() {
+                hideTyping();
+                addMessage('bot', 'Sorry, something went wrong. Please try again.');
+            }, delay);
         });
     }
 
