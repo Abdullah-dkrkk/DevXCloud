@@ -640,5 +640,15 @@
     <!-- Chat Toggle -->
     @include('components.chat-toggle')
 
+    @php
+        $reengageTicketId = request()->query('re');
+        if ($reengageTicketId && !\App\Models\ChatTicket::find($reengageTicketId)) {
+            $reengageTicketId = null;
+        }
+    @endphp
+    @if($reengageTicketId)
+        <input type="hidden" id="reengage-ticket-id" value="{{ $reengageTicketId }}">
+    @endif
+
 </body>
 </html>

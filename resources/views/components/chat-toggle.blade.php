@@ -146,6 +146,31 @@
     color: #fff;
 }
 
+.chat-msg--agent {
+    align-self: flex-start;
+    flex-direction: row;
+}
+
+.chat-msg--agent .chat-msg__avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    border: 1.5px solid #e0e4e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-msg--agent .chat-msg__bubble {
+    background: #fff;
+    color: #1a2a3a;
+    border-radius: 18px 18px 18px 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
 .chat-typing {
     display: flex;
     align-items: center;
@@ -308,6 +333,35 @@
     justify-content: space-between;
     flex-shrink: 0;
     z-index: 1;
+}
+
+.chat-panel__header::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q210,28 420,0 L420,28 L0,28 Z' fill='%23f5f7fa'/%3E%3C/svg%3E") no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+.chat-panel__close-btn {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 12px;
+    margin-top: 1px;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .chat-panel__header::after {
@@ -507,6 +561,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentStep = 0;
     var branch = null;
     var typingStartTime = 0;
+    var activeTicketId = null;
+    var lastAgentMsgId = 0;
+    var ticketPollInterval = null;
+    var reengageBotMode = false;
+    var guestConversation = [];
+    var typingTimeoutId = null;
 
     if (!toggleBtn || !chatPanel || !body) return;
 
@@ -624,16 +684,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function addMessage(type, text, options) {
+    function addMessage(type, text, options, disabledOptions) {
         if (emptyState) emptyState.style.display = 'none';
         var starters = body.querySelector('.chat-starter-questions');
         if (starters) starters.remove();
-        var oldBtns = body.querySelectorAll('.chat-msg__option-btn');
-        for (var i = 0; i < oldBtns.length; i++) {
-            oldBtns[i].disabled = true;
-            oldBtns[i].style.pointerEvents = 'none';
-            oldBtns[i].style.opacity = '0.35';
-        }
         var msg = document.createElement('div');
         msg.className = 'chat-msg chat-msg--' + type;
 
@@ -648,16 +702,30 @@ document.addEventListener('DOMContentLoaded', function() {
         msg.appendChild(bubble);
 
         if (options && options.length > 0) {
+            var oldBtns = body.querySelectorAll('.chat-msg__option-btn');
+            for (var i = 0; i < oldBtns.length; i++) {
+                oldBtns[i].disabled = true;
+                oldBtns[i].style.pointerEvents = 'none';
+                oldBtns[i].style.opacity = '0.35';
+            }
             var optionsDiv = document.createElement('div');
             optionsDiv.className = 'chat-msg__options';
             options.forEach(function(opt, i) {
                 var btn = document.createElement('button');
                 btn.className = 'chat-msg__option-btn';
+                if (disabledOptions) {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.4';
+                    btn.style.cursor = 'default';
+                    btn.style.pointerEvents = 'none';
+                }
                 btn.textContent = opt;
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    handleOption(opt);
-                });
+                if (!disabledOptions) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        handleOption(opt);
+                    });
+                }
                 optionsDiv.appendChild(btn);
                 setTimeout(function() { btn.classList.add('show'); }, 200 + i * 120);
             });
@@ -668,6 +736,10 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.add('chat-panel__body--has-messages');
         setTimeout(function() { msg.classList.add('show'); }, 50);
         body.scrollTop = body.scrollHeight;
+
+        if (!activeTicketId && !reengageBotMode) {
+            guestConversation.push({ type: type, message: text, options: options || [] });
+        }
     }
 
     function clearMessages() {
@@ -681,10 +753,13 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStep = 0;
         branch = null;
         input.disabled = false;
+        input.disabled = false;
         input.focus();
     }
 
     function handleOption(option) {
+        if (activeTicketId && !reengageBotMode) { addMessage('user', option); return; }
+        if (reengageBotMode) { addMessage('user', option); return; }
         addMessage('user', option);
         showTyping();
         typingStartTime = Date.now();
@@ -933,6 +1008,9 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('type', 'guidance');
         formData.append('form_data[business_type]', btype);
         formData.append('form_data[question]', question);
+        if (guestConversation.length > 0) {
+            formData.append('conversation', JSON.stringify(guestConversation));
+        }
 
         fetch('/chat/submit-form', {
             method: 'POST',
@@ -944,13 +1022,32 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-            var bubble = document.getElementById('gf-form-bubble');
-            if (bubble) {
-                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
-            }
-            addMessage('user', "Guidance: " + name + " (" + email + ")");
-            flowLocked = false;
-            input.disabled = false;
+            startTicketPolling(data.ticket_id, data.last_message_id || 0);
+            var ticketNum = data.ticket_number || '';
+            fetch('/chat/agent-status')
+                .then(function(r) { return r.json(); })
+                .then(function(status) {
+                    var bubble = document.getElementById('gf-form-bubble');
+                    if (bubble) {
+                        if (status.available) {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
+                        } else {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. No agents are currently online. Your ticket <strong>#' + ticketNum + '</strong> has been created. You will receive an email when an agent responds.</div>';
+                        }
+                    }
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                })
+                .catch(function() {
+                    var bubble = document.getElementById('gf-form-bubble');
+                    if (bubble) {
+                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
+                    }
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                });
         })
         .catch(function() {
             var submitBtn = document.getElementById('gf-submit');
@@ -1049,6 +1146,9 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('form_data[business_type]', btype);
         formData.append('form_data[stage]', stage);
         formData.append('form_data[challenge]', challenge);
+        if (guestConversation.length > 0) {
+            formData.append('conversation', JSON.stringify(guestConversation));
+        }
 
         fetch('/chat/submit-form', {
             method: 'POST',
@@ -1060,13 +1160,32 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-            var bubble = document.getElementById('df-form-bubble');
-            if (bubble) {
-                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
-            }
-            addMessage('user', "Discovery: " + name + " (" + email + ")");
-            flowLocked = false;
-            input.disabled = false;
+            startTicketPolling(data.ticket_id, data.last_message_id || 0);
+            var ticketNum = data.ticket_number || '';
+            fetch('/chat/agent-status')
+                .then(function(r) { return r.json(); })
+                .then(function(status) {
+                    var bubble = document.getElementById('df-form-bubble');
+                    if (bubble) {
+                        if (status.available) {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
+                        } else {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. No agents are currently online. Your ticket <strong>#' + ticketNum + '</strong> has been created. You will receive an email when an agent responds.</div>';
+                        }
+                    }
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                })
+                .catch(function() {
+                    var bubble = document.getElementById('df-form-bubble');
+                    if (bubble) {
+                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
+                    }
+                    flowLocked = false;
+                    input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                });
         })
         .catch(function() {
             var submitBtn = document.getElementById('df-submit');
@@ -1092,9 +1211,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function escalateToAgent() {
-        addMessage('user', 'Talk to an Agent');
-        flowLocked = true;
-        input.disabled = true;
         setTimeout(function() {
             botReply("Let me find an available agent for you. In the meantime, feel free to share more details about what you need help with.");
             unlockInput();
@@ -1104,6 +1220,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function showTyping() {
         var existing = body.querySelector('.chat-typing-msg');
         if (existing) return;
+        if (typingTimeoutId) clearTimeout(typingTimeoutId);
+        typingTimeoutId = setTimeout(function() {
+            hideTyping();
+            typingTimeoutId = null;
+        }, 15000);
         var msg = document.createElement('div');
         msg.className = 'chat-msg chat-msg--bot chat-typing-msg';
         var av = document.createElement('div');
@@ -1129,6 +1250,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function hideTyping() {
+        if (typingTimeoutId) { clearTimeout(typingTimeoutId); typingTimeoutId = null; }
         var typing = body.querySelector('.chat-typing-msg');
         if (typing) typing.remove();
     }
@@ -1140,19 +1262,44 @@ document.addEventListener('DOMContentLoaded', function() {
         addMessage('user', msg);
 
         if (input) input.value = '';
+
+        if (activeTicketId && !reengageBotMode) {
+            fetch('/chat/reply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ message: msg, ticket_id: activeTicketId })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.message_id && data.message_id > lastAgentMsgId) {
+                    lastAgentMsgId = data.message_id;
+                }
+            })
+            .catch(function() {});
+            return;
+        }
+
         showTyping();
         typingStartTime = Date.now();
 
-        var formData = new FormData();
-        formData.append('message', msg);
+        var bodyData = { message: msg };
+        if (activeTicketId) {
+            bodyData.ticket_id = activeTicketId;
+            if (reengageBotMode) bodyData.bot_mode = true;
+        }
 
         fetch('/chat/reply', {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 'Accept': 'application/json',
             },
-            body: formData
+            body: JSON.stringify(bodyData)
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -1160,8 +1307,11 @@ document.addEventListener('DOMContentLoaded', function() {
             var delay = Math.max(0, 500 - elapsed);
             setTimeout(function() {
                 hideTyping();
+                if (data.message_id && data.message_id > lastAgentMsgId) {
+                    lastAgentMsgId = data.message_id;
+                }
                 if (data.reply) {
-                    addMessage('bot', data.reply, data.options || null);
+                    addMessage('bot', data.reply, data.options || null, reengageBotMode);
                 }
             }, delay);
         })
@@ -1212,6 +1362,244 @@ document.addEventListener('DOMContentLoaded', function() {
                 sendMessage(input.value);
             }
         });
+    }
+
+    function addAgentMessage(text) {
+        if (emptyState) emptyState.style.display = 'none';
+        var starters = body.querySelector('.chat-starter-questions');
+        if (starters) starters.remove();
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--agent';
+
+        var avatar = document.createElement('div');
+        avatar.className = 'chat-msg__avatar';
+        avatar.innerHTML = USER_ICON;
+        msg.appendChild(avatar);
+
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg__bubble';
+        bubble.textContent = text;
+        msg.appendChild(bubble);
+
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function showAgentTyping() {
+        var existing = body.querySelector('.chat-typing-msg');
+        if (existing) return;
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg chat-msg--agent chat-typing-msg';
+        var av = document.createElement('div');
+        av.className = 'chat-msg__avatar';
+        av.innerHTML = USER_ICON;
+        msg.appendChild(av);
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-msg__bubble';
+        bubble.style.padding = '0';
+        var typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        for (var i = 0; i < 3; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'chat-typing__dot';
+            typing.appendChild(dot);
+        }
+        bubble.appendChild(typing);
+        msg.appendChild(bubble);
+        body.appendChild(msg);
+        body.classList.add('chat-panel__body--has-messages');
+        setTimeout(function() { msg.classList.add('show'); }, 50);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function startTicketPolling(ticketId, initialMsgId) {
+        activeTicketId = ticketId;
+        lastAgentMsgId = initialMsgId || 0;
+        if (ticketPollInterval) clearInterval(ticketPollInterval);
+        ticketPollInterval = setInterval(function() {
+            if (!activeTicketId) return;
+            fetch('/chat/ticket/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    ticket_id: activeTicketId,
+                    since_id: lastAgentMsgId
+                })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.messages && data.messages.length > 0) {
+                    var hasAgent = false;
+                    var typingEl = body.querySelector('.chat-typing-msg');
+                    if (typingEl) typingEl.remove();
+                    data.messages.forEach(function(msg) {
+                        if (msg.id > lastAgentMsgId) {
+                            lastAgentMsgId = msg.id;
+                            if (msg.sender_type === 'agent') {
+                                hasAgent = true;
+                                addAgentMessage(msg.message);
+                            } else {
+                                addMessage('user', msg.message);
+                            }
+                        }
+                    });
+                    if (hasAgent && reengageBotMode) {
+                        reengageBotMode = false;
+                        var oldMsg = body.querySelector('[data-bot-msg]');
+                        if (oldMsg) oldMsg.remove();
+                        var onlineMsg = document.createElement('div');
+                        onlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#1a7d3a;padding:4px 14px;margin-bottom:4px;';
+                        onlineMsg.textContent = 'An agent is now online and has responded.';
+                        body.appendChild(onlineMsg);
+                        body.scrollTop = body.scrollHeight;
+                    }
+                }
+            })
+            .catch(function() {});
+        }, 5000);
+    }
+
+    function stopTicketPolling() {
+        activeTicketId = null;
+        if (ticketPollInterval) {
+            clearInterval(ticketPollInterval);
+            ticketPollInterval = null;
+        }
+    }
+
+    var userTypingTimer = null;
+    var agentTypingPoll = null;
+
+    function startUserTypingListener() {
+        if (input) {
+            input.addEventListener('input', function() {
+                if (!activeTicketId) return;
+                if (userTypingTimer) clearTimeout(userTypingTimer);
+                fetch('/chat/typing', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ticket_id: activeTicketId,
+                        sender_type: 'user'
+                    })
+                }).catch(function() {});
+                userTypingTimer = setTimeout(function() {
+                    fetch('/chat/typing', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ticket_id: activeTicketId,
+                            sender_type: 'none'
+                        })
+                    }).catch(function() {});
+                }, 3000);
+            });
+        }
+    }
+
+    function startAgentTypingPoll() {
+        if (agentTypingPoll) clearInterval(agentTypingPoll);
+        agentTypingPoll = setInterval(function() {
+            if (!activeTicketId) return;
+            fetch('/chat/typing/' + activeTicketId)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.typing && data.sender_type === 'agent') {
+                        showAgentTyping();
+                    } else {
+                        var typingEl = body.querySelector('.chat-typing-msg');
+                        if (typingEl) typingEl.remove();
+                    }
+                })
+                .catch(function() {});
+        }, 3000);
+    }
+
+    startUserTypingListener();
+    startAgentTypingPoll();
+
+    var reengageId = document.getElementById('reengage-ticket-id');
+    if (reengageId && reengageId.value) {
+        var tid = parseInt(reengageId.value);
+        if (emptyState) emptyState.style.display = 'none';
+        body.classList.add('chat-panel__body--has-messages');
+        var reconnectMsg = document.createElement('div');
+        reconnectMsg.style.cssText = 'text-align:center;font-size:12px;color:#888;padding:8px 14px;margin-bottom:8px;';
+        reconnectMsg.textContent = 'Re-connected to your ticket.';
+        body.appendChild(reconnectMsg);
+        body.scrollTop = body.scrollHeight;
+        flowStarted = true;
+        fetch('/chat/ticket/history', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ ticket_id: tid })
+        })
+        .then(function(r) { if (!r.ok) throw new Error('gone'); return r.json(); })
+        .then(function(data) {
+            var maxMsgId = 0;
+            if (data.conversation) {
+                data.conversation.forEach(function(msg) {
+                    var opts = (msg.options && msg.options.length > 0) ? msg.options : null;
+                    if (msg.sender_type === 'agent') {
+                        addAgentMessage(msg.message);
+                    } else if (msg.sender_type === 'bot') {
+                        addMessage('bot', msg.message, opts, true);
+                    } else {
+                        addMessage('user', msg.message);
+                    }
+                    if (msg.id > maxMsgId) maxMsgId = msg.id;
+                });
+            }
+            body.scrollTop = body.scrollHeight;
+            fetch('/chat/agent-status')
+                .then(function(r) { return r.json(); })
+                .then(function(status) {
+                    if (status.available) {
+                        unlockInput();
+                        startTicketPolling(tid, maxMsgId);
+                        var onlineMsg = document.createElement('div');
+                        onlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#1a7d3a;padding:4px 14px;margin-bottom:4px;';
+                        onlineMsg.textContent = 'An agent is online and will be with you shortly.';
+                        body.appendChild(onlineMsg);
+                        body.scrollTop = body.scrollHeight;
+                    } else {
+                        reengageBotMode = true;
+                        unlockInput();
+                        var offlineMsg = document.createElement('div');
+                        offlineMsg.setAttribute('data-bot-msg', '1');
+                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#888;padding:4px 14px 8px;margin-bottom:4px;';
+                        offlineMsg.textContent = 'Agent is not available right now. Ask DevXCloud bot for any clarification needed.';
+                        body.appendChild(offlineMsg);
+                        body.scrollTop = body.scrollHeight;
+                        startTicketPolling(tid, maxMsgId);
+                    }
+                })
+                .catch(function() {
+                    unlockInput();
+                });
+        })
+        .catch(function() {
+            unlockInput();
+        });
+        openPanel();
     }
 });
 </script>

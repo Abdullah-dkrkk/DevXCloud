@@ -10,6 +10,8 @@ use App\Models\ChatMessage;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketCreated;
 
 class ChatController extends Controller
 {
@@ -21,49 +23,85 @@ class ChatController extends Controller
             return response()->json(['reply' => 'Invalid message.']);
         }
 
+        $ticketId = $request->ticket_id;
+        $botMode = $request->boolean('bot_mode');
+
+        if ($ticketId && !$botMode) {
+            $ticket = ChatTicket::find($ticketId);
+            if ($ticket) {
+                if (auth()->check()) {
+                    $userId = auth()->id();
+                } else {
+                    $sessionUser = User::where('email', $ticket->email)->first();
+                    $userId = $sessionUser?->id;
+                }
+                $msg = ChatMessage::create([
+                    'ticket_id' => $ticket->id,
+                    'sender_id' => $userId,
+                    'sender_type' => 'user',
+                    'message' => $message,
+                    'created_at' => now(),
+                ]);
+                $ticket->update(['last_activity_at' => now()]);
+                return response()->json(['reply' => null, 'ticket_message' => true, 'message_id' => $msg->id]);
+            }
+        }
+
+        $savedMsgId = 0;
+        if ($ticketId) {
+            $ticket = ChatTicket::find($ticketId);
+            if ($ticket) {
+                $sessionUser = User::where('email', $ticket->email)->first();
+                $saved = ChatMessage::create([
+                    'ticket_id' => $ticket->id,
+                    'sender_id' => $sessionUser?->id,
+                    'sender_type' => 'user',
+                    'message' => $message,
+                    'created_at' => now(),
+                ]);
+                $ticket->update(['last_activity_at' => now()]);
+                $savedMsgId = $saved->id;
+            }
+        }
+
         $rawMessage = $message;
 
         $recent = ChatHistory::where('question', $rawMessage)
             ->where('asked_at', '>=', now()->subMinutes(5))
-            ->where(function ($q) {
-                if (auth()->check()) {
-                    $q->where('user_id', auth()->id());
-                } else {
-                    $q->where('session_id', session()->getId());
-                }
-            })
             ->orderBy('asked_at', 'desc')
             ->first();
 
         if ($recent && $recent->answer) {
-            $options = $this->getFaqOptions($recent->answer);
             $res = ['reply' => $recent->answer];
+            $options = $this->getFaqOptions($recent->answer);
             if (!empty($options)) $res['options'] = $options;
+            $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
 
         if ($this->isGreeting($message)) {
             $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
             $this->saveHistory($rawMessage, $greeting, 'bot');
-            return response()->json(['reply' => $greeting]);
+            return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
         }
 
         $faqs = ChatbotFaq::select('question', 'answer')->get();
         if ($faqs->isEmpty()) {
             $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
             $this->saveHistory($rawMessage, $fallback, 'bot');
-            return response()->json([
-                'reply' => $fallback,
-                'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
-            ]);
+            $res = ['reply' => $fallback];
+            $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+            $res['message_id'] = $savedMsgId;
+            return response()->json($res);
         }
 
         $exactMatch = $this->exactMatch($rawMessage, $faqs);
         if ($exactMatch) {
             $this->saveHistory($rawMessage, $exactMatch, 'bot');
-            $options = $this->getFaqOptions($exactMatch);
             $res = ['reply' => $exactMatch];
+            $options = $this->getFaqOptions($exactMatch);
             if (!empty($options)) $res['options'] = $options;
+            $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
 
@@ -72,16 +110,18 @@ class ChatController extends Controller
             $multi = $this->tryMultiQuestion($rawMessage, $faqs, $bestMatch);
             if ($multi) {
                 $this->saveHistory($rawMessage, $multi, 'bot');
-                $options = $this->getFaqOptions($multi);
                 $res = ['reply' => $multi];
+                $options = $this->getFaqOptions($multi);
                 if (!empty($options)) $res['options'] = $options;
+                $res['message_id'] = $savedMsgId;
                 return response()->json($res);
             }
 
             $this->saveHistory($rawMessage, $bestMatch, 'bot');
-            $options = $this->getFaqOptions($bestMatch);
             $res = ['reply' => $bestMatch];
+            $options = $this->getFaqOptions($bestMatch);
             if (!empty($options)) $res['options'] = $options;
+            $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
 
@@ -99,7 +139,7 @@ class ChatController extends Controller
         try {
             $apiKey = env('GEMINI_API_KEY');
 
-            $response = Http::withoutVerifying()->timeout(30)->post(
+            $response = Http::withoutVerifying()->timeout(10)->post(
                 "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={$apiKey}",
                 [
                     'contents' => [
@@ -139,10 +179,10 @@ User Query: $rawMessage"
                 Log::error('Gemini API Error: ' . $response->body());
                 $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
                 $this->saveHistory($rawMessage, $fallback, 'bot');
-                return response()->json([
-                    'reply' => $fallback,
-                    'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
-                ]);
+                $res = ['reply' => $fallback];
+                $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
             }
 
             $data = $response->json();
@@ -151,28 +191,29 @@ User Query: $rawMessage"
             if (!$reply || str_contains(strtoupper($reply), 'NO_MATCH')) {
                 $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
                 $this->saveHistory($rawMessage, $fallback, 'bot');
-                return response()->json([
-                    'reply' => $fallback,
-                    'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
-                ]);
+                $res = ['reply' => $fallback];
+                $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
             }
 
             $finalReply = trim($reply);
             $this->saveHistory($rawMessage, $finalReply, 'bot');
 
-            $options = $this->getFaqOptions($finalReply);
             $res = ['reply' => $finalReply];
+            $options = $this->getFaqOptions($finalReply);
             if (!empty($options)) $res['options'] = $options;
+            $res['message_id'] = $savedMsgId;
             return response()->json($res);
 
         } catch (\Exception $e) {
             Log::error('Gemini Exception: ' . $e->getMessage());
             $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
             $this->saveHistory($rawMessage, $fallback, 'bot');
-            return response()->json([
-                'reply' => $fallback,
-                'options' => ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services']
-            ]);
+            $res = ['reply' => $fallback];
+            $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+            $res['message_id'] = $savedMsgId;
+            return response()->json($res);
         }
     }
 
@@ -431,6 +472,16 @@ User Query: $rawMessage"
         return trim($result);
     }
 
+    public function agentStatus()
+    {
+        $available = User::whereIn('role', ['admin', 'agent'])
+            ->where('is_available', true)
+            ->where('last_active_at', '>=', now()->subMinutes(3))
+            ->exists();
+
+        return response()->json(['available' => $available]);
+    }
+
     public function submitForm(Request $request)
     {
         $data = $request->validate([
@@ -438,6 +489,7 @@ User Query: $rawMessage"
             'email' => 'required|email|max:255',
             'type' => 'required|in:guidance,discovery',
             'form_data' => 'nullable|array',
+            'conversation' => 'nullable|string',
         ]);
 
         $user = $this->findOrCreateUser($data['name'], $data['email']);
@@ -454,17 +506,100 @@ User Query: $rawMessage"
             'last_activity_at' => now(),
         ]);
 
-        ChatMessage::create([
-            'ticket_id' => $ticket->id,
-            'sender_id' => $user->id,
-            'sender_type' => 'user',
-            'message' => 'Form submitted: ' . $data['type'],
-            'created_at' => now(),
-        ]);
+        $conversation = !empty($data['conversation']) ? json_decode($data['conversation'], true) : [];
+        $lastMessageId = 0;
+        if (is_array($conversation)) {
+            $sortOrder = 0;
+            $count = count($conversation);
+            foreach ($conversation as $entry) {
+                $sortOrder++;
+                $msgType = ($entry['type'] ?? 'user') === 'user' ? 'user' : 'bot';
+                $msgOptions = !empty($entry['options']) ? $entry['options'] : [];
+                $msg = ChatMessage::create([
+                    'ticket_id' => $ticket->id,
+                    'sender_id' => $msgType === 'user' ? $user->id : null,
+                    'sender_type' => $msgType,
+                    'message' => $entry['message'] ?? '',
+                    'options' => $msgOptions,
+                    'created_at' => now()->subSeconds($count - $sortOrder),
+                ]);
+                $lastMessageId = $msg->id;
+            }
+        }
+
+        try {
+            Mail::to($ticket->email)->send(new TicketCreated($ticket));
+        } catch (\Exception $e) {
+            Log::error('Ticket created email failed: ' . $e->getMessage());
+        }
 
         return response()->json([
             'success' => true,
             'ticket_number' => $ticket->ticket_number,
+            'ticket_id' => $ticket->id,
+            'last_message_id' => $lastMessageId,
+        ]);
+    }
+
+    public function userMessages(Request $request)
+    {
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+            'since_id' => 'nullable|integer|min:0',
+        ]);
+
+        $sinceId = $data['since_id'] ?? 0;
+
+        $messages = ChatMessage::where('ticket_id', $data['ticket_id'])
+            ->where('id', '>', $sinceId)
+            ->where('message', 'not like', 'Form submitted:%')
+            ->orderBy('id')
+            ->get(['id', 'message', 'sender_type', 'options', 'created_at']);
+
+        return response()->json(['messages' => $messages]);
+    }
+
+    public function ticketHistory(Request $request)
+    {
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+        ]);
+
+        $conversation = ChatMessage::where('ticket_id', $data['ticket_id'])
+            ->where('message', 'not like', 'Form submitted:%')
+            ->orderBy('created_at')
+            ->get(['id', 'message', 'sender_type', 'options', 'created_at']);
+
+        return response()->json(['conversation' => $conversation]);
+    }
+
+    public function typing(Request $request)
+    {
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+            'sender_type' => 'required|in:user,agent,none',
+        ]);
+
+        if ($data['sender_type'] === 'none') {
+            cache()->forget('ticket_typing_' . $data['ticket_id']);
+        } else {
+            cache()->put(
+                'ticket_typing_' . $data['ticket_id'],
+                $data['sender_type'],
+                now()->addSeconds(7)
+            );
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    public function typingStatus($ticketId)
+    {
+        $typing = cache()->get('ticket_typing_' . $ticketId);
+
+        return response()->json([
+            'typing' => !is_null($typing),
+            'sender_type' => $typing,
         ]);
     }
 

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'is_available',
+        'last_active_at',
     ];
 
     public function isAgent(): bool

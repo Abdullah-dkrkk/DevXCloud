@@ -36,6 +36,22 @@ require __DIR__.'/auth.php';
 Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply']);
 Route::get('/chat/history', [App\Http\Controllers\ChatController::class, 'history']);
 Route::post('/chat/submit-form', [App\Http\Controllers\ChatController::class, 'submitForm']);
+Route::get('/chat/agent-status', [App\Http\Controllers\ChatController::class, 'agentStatus']);
+Route::post('/chat/ticket/messages', [App\Http\Controllers\ChatController::class, 'userMessages']);
+Route::post('/chat/ticket/history', [App\Http\Controllers\ChatController::class, 'ticketHistory']);
+Route::post('/chat/typing', [App\Http\Controllers\ChatController::class, 'typing']);
+Route::get('/chat/typing/{ticketId}', [App\Http\Controllers\ChatController::class, 'typingStatus']);
+
+Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () {
+    Route::get('/tickets', [App\Http\Controllers\AgentController::class, 'dashboard'])->name('tickets');
+});
+
+Route::middleware(['auth'])->prefix('chat/agent')->name('chat.agent.')->group(function () {
+    Route::post('/claim', [App\Http\Controllers\AgentController::class, 'claim'])->name('claim');
+    Route::post('/reply', [App\Http\Controllers\AgentController::class, 'reply'])->name('reply');
+    Route::get('/tickets', [App\Http\Controllers\AgentController::class, 'tickets'])->name('tickets');
+    Route::get('/tickets/{ticket}/messages', [App\Http\Controllers\AgentController::class, 'messages'])->name('messages');
+});
 
 Route::get('/', function () {
     return view('home');
@@ -75,3 +91,17 @@ Route::get('/states/{countryCode}', function ($countryCode) {
         'data' => $result->data ?? []
     ]);
 });
+
+Route::get('/chat/re-engage/{ticket_id}/{token}', function ($ticketId, $token) {
+    $ticket = \App\Models\ChatTicket::find($ticketId);
+    if (!$ticket) {
+        abort(404, 'Ticket not found');
+    }
+
+    $expected = sha1($ticket->id . $ticket->email . 'devxcloud-salt');
+    if ($token !== $expected) {
+        abort(403, 'Invalid token');
+    }
+
+    return redirect(route('home') . '?re=' . $ticketId);
+})->name('chat.reengage');

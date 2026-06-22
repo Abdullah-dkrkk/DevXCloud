@@ -16,11 +16,13 @@ class ChatMessage extends Model
         'sender_id',
         'sender_type',
         'message',
+        'options',
         'created_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
+        'options' => 'array',
     ];
 
     public function ticket()
