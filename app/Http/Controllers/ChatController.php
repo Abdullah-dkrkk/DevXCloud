@@ -15,6 +15,10 @@ use App\Mail\TicketCreated;
 
 class ChatController extends Controller
 {
+    const FALLBACK_MESSAGE = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+
+    const FALLBACK_OPTIONS = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+
     public function reply(Request $request)
     {
         $message = trim($request->message);
@@ -64,6 +68,55 @@ class ChatController extends Controller
             }
         }
 
+        if ($request->boolean('bot_mode')) {
+            $rawMessage = $message;
+
+            if ($this->isGreeting($message)) {
+                $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
+                return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
+            }
+
+            $faqs = ChatbotFaq::select('question', 'answer')->get();
+            if ($faqs->isEmpty()) {
+                $res = ['reply' => self::FALLBACK_MESSAGE];
+                $res['options'] = self::FALLBACK_OPTIONS;
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
+            }
+
+            $exactMatch = $this->exactMatch($rawMessage, $faqs);
+            if ($exactMatch) {
+                $res = ['reply' => $exactMatch];
+                $options = $this->getFaqOptions($exactMatch);
+                if (!empty($options)) $res['options'] = $options;
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
+            }
+
+            $bestMatch = $this->bestMatch($rawMessage, $faqs);
+            if ($bestMatch) {
+                $multi = $this->tryMultiQuestion($rawMessage, $faqs, $bestMatch);
+                if ($multi) {
+                    $res = ['reply' => $multi];
+                    $options = $this->getFaqOptions($multi);
+                    if (!empty($options)) $res['options'] = $options;
+                    $res['message_id'] = $savedMsgId;
+                    return response()->json($res);
+                }
+
+                $res = ['reply' => $bestMatch];
+                $options = $this->getFaqOptions($bestMatch);
+                if (!empty($options)) $res['options'] = $options;
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
+            }
+
+            $res = ['reply' => self::FALLBACK_MESSAGE];
+            $res['options'] = self::FALLBACK_OPTIONS;
+            $res['message_id'] = $savedMsgId;
+            return response()->json($res);
+        }
+
         $rawMessage = $message;
 
         $recent = ChatHistory::where('question', $rawMessage)
@@ -73,8 +126,12 @@ class ChatController extends Controller
 
         if ($recent && $recent->answer) {
             $res = ['reply' => $recent->answer];
-            $options = $this->getFaqOptions($recent->answer);
-            if (!empty($options)) $res['options'] = $options;
+            if ($this->isFallback($recent->answer)) {
+                $res['options'] = self::FALLBACK_OPTIONS;
+            } else {
+                $options = $this->getFaqOptions($recent->answer);
+                if (!empty($options)) $res['options'] = $options;
+            }
             $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
@@ -87,10 +144,9 @@ class ChatController extends Controller
 
         $faqs = ChatbotFaq::select('question', 'answer')->get();
         if ($faqs->isEmpty()) {
-            $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
-            $this->saveHistory($rawMessage, $fallback, 'bot');
-            $res = ['reply' => $fallback];
-            $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+            $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
+            $res = ['reply' => self::FALLBACK_MESSAGE];
+            $res['options'] = self::FALLBACK_OPTIONS;
             $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
@@ -177,10 +233,9 @@ User Query: $rawMessage"
 
             if (!$response->successful()) {
                 Log::error('Gemini API Error: ' . $response->body());
-                $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
-                $this->saveHistory($rawMessage, $fallback, 'bot');
-                $res = ['reply' => $fallback];
-                $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+                $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
+                $res = ['reply' => self::FALLBACK_MESSAGE];
+                $res['options'] = self::FALLBACK_OPTIONS;
                 $res['message_id'] = $savedMsgId;
                 return response()->json($res);
             }
@@ -189,10 +244,9 @@ User Query: $rawMessage"
             $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
             if (!$reply || str_contains(strtoupper($reply), 'NO_MATCH')) {
-                $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
-                $this->saveHistory($rawMessage, $fallback, 'bot');
-                $res = ['reply' => $fallback];
-                $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+                $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
+                $res = ['reply' => self::FALLBACK_MESSAGE];
+                $res['options'] = self::FALLBACK_OPTIONS;
                 $res['message_id'] = $savedMsgId;
                 return response()->json($res);
             }
@@ -208,13 +262,17 @@ User Query: $rawMessage"
 
         } catch (\Exception $e) {
             Log::error('Gemini Exception: ' . $e->getMessage());
-            $fallback = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
-            $this->saveHistory($rawMessage, $fallback, 'bot');
-            $res = ['reply' => $fallback];
-            $res['options'] = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
+            $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
+            $res = ['reply' => self::FALLBACK_MESSAGE];
+            $res['options'] = self::FALLBACK_OPTIONS;
             $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
+    }
+
+    private function isFallback($answer)
+    {
+        return $answer === self::FALLBACK_MESSAGE;
     }
 
     public function history(Request $request)
@@ -247,10 +305,14 @@ User Query: $rawMessage"
                 'text' => $h->question,
             ];
             if ($h->answer) {
-                $messages[] = [
+                $msg = [
                     'type' => 'bot',
                     'text' => $h->answer,
                 ];
+                if ($this->isFallback($h->answer)) {
+                    $msg['options'] = self::FALLBACK_OPTIONS;
+                }
+                $messages[] = $msg;
             }
         }
 
@@ -531,6 +593,15 @@ User Query: $rawMessage"
             Mail::to($ticket->email)->send(new TicketCreated($ticket));
         } catch (\Exception $e) {
             Log::error('Ticket created email failed: ' . $e->getMessage());
+        }
+
+        try {
+            $adminEmails = config('admin.emails', []);
+            foreach ($adminEmails as $adminEmail) {
+                Mail::to($adminEmail)->send(new TicketCreated($ticket, true));
+            }
+        } catch (\Exception $e) {
+            Log::error('Ticket admin notification failed: ' . $e->getMessage());
         }
 
         return response()->json([
