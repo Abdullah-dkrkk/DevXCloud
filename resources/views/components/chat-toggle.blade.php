@@ -179,6 +179,7 @@
 }
 
 .chat-typing__dot {
+    display: inline-block;
     width: 7px;
     height: 7px;
     background: #b8c8dc;
@@ -503,6 +504,11 @@
     background: #fff;
 }
 
+.chat-panel__input:disabled {
+    pointer-events: none;
+    user-select: none;
+}
+
 .chat-panel__send-btn {
     width: 36px;
     height: 36px;
@@ -521,6 +527,11 @@
 
 .chat-panel__send-btn:active {
     transform: scale(0.95);
+}
+
+.chat-panel__send-btn:disabled {
+    pointer-events: none;
+    user-select: none;
 }
 
 @media (max-width: 480px) {
@@ -551,6 +562,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var chatPanel = document.getElementById('chat-panel');
     var closeBtn = document.getElementById('chat-panel-close');
     var body = document.getElementById('chat-panel-body');
+    var urlParams = new URLSearchParams(window.location.search);
+    var autoOpenBot = urlParams.get('re_bot') === '1';
+
     var input = document.getElementById('chat-panel-input');
     var sendBtn = document.getElementById('chat-panel-send');
     var emptyState = document.getElementById('chat-panel-empty');
@@ -566,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var ticketPollInterval = null;
     var reengageBotMode = false;
     var guestConversation = [];
-    var typingTimeoutId = null;
 
     if (!toggleBtn || !chatPanel || !body) return;
 
@@ -677,10 +690,12 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 hideTyping();
                 addMessage('bot', text, options);
+                enableInput();
             }, delay);
         } else {
             hideTyping();
             addMessage('bot', text, options);
+            enableInput();
         }
     }
 
@@ -747,14 +762,38 @@ document.addEventListener('DOMContentLoaded', function() {
         msgs.forEach(function(el) { el.remove(); });
     }
 
+    function lockInput() {
+        if (input) input.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+    }
+
     function unlockInput() {
         flowLocked = false;
         currentFlow = null;
         currentStep = 0;
         branch = null;
         input.disabled = false;
-        input.disabled = false;
+        if (sendBtn) sendBtn.disabled = false;
         input.focus();
+    }
+
+    function disableInput() {
+        if (input) {
+            input._hadFocus = document.activeElement === input;
+            input.disabled = true;
+        }
+        if (sendBtn) sendBtn.disabled = true;
+    }
+
+    function enableInput() {
+        if (input) {
+            input.disabled = false;
+            if (input._hadFocus) {
+                input.focus();
+                input._hadFocus = false;
+            }
+        }
+        if (sendBtn) sendBtn.disabled = false;
     }
 
     function handleOption(option) {
@@ -766,7 +805,13 @@ document.addEventListener('DOMContentLoaded', function() {
         flowLocked = true;
         input.disabled = true;
 
+        var fallbackTimer = setTimeout(function() {
+            hideTyping();
+            enableInput();
+        }, 10000);
+
         setTimeout(function() {
+            clearTimeout(fallbackTimer);
             if (option === "Get Personalized Guidance") { showGuidanceForm(); return; }
             if (option === "Book Discovery Call") { showDiscoveryForm(); return; }
             if (option === "Explore Services") { exploreServices(); return; }
@@ -1220,11 +1265,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function showTyping() {
         var existing = body.querySelector('.chat-typing-msg');
         if (existing) return;
-        if (typingTimeoutId) clearTimeout(typingTimeoutId);
-        typingTimeoutId = setTimeout(function() {
-            hideTyping();
-            typingTimeoutId = null;
-        }, 15000);
         var msg = document.createElement('div');
         msg.className = 'chat-msg chat-msg--bot chat-typing-msg';
         var av = document.createElement('div');
@@ -1243,14 +1283,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         bubble.appendChild(typing);
         msg.appendChild(bubble);
+        msg.classList.add('show');
         body.appendChild(msg);
         body.classList.add('chat-panel__body--has-messages');
-        setTimeout(function() { msg.classList.add('show'); }, 50);
         body.scrollTop = body.scrollHeight;
     }
 
     function hideTyping() {
-        if (typingTimeoutId) { clearTimeout(typingTimeoutId); typingTimeoutId = null; }
         var typing = body.querySelector('.chat-typing-msg');
         if (typing) typing.remove();
     }
@@ -1262,6 +1301,13 @@ document.addEventListener('DOMContentLoaded', function() {
         addMessage('user', msg);
 
         if (input) input.value = '';
+
+        disableInput();
+
+        var fallbackTimer = setTimeout(function() {
+            hideTyping();
+            enableInput();
+        }, 10000);
 
         if (activeTicketId && !reengageBotMode) {
             fetch('/chat/reply', {
@@ -1275,22 +1321,29 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
+                clearTimeout(fallbackTimer);
+                enableInput();
                 if (data.message_id && data.message_id > lastAgentMsgId) {
                     lastAgentMsgId = data.message_id;
                 }
             })
-            .catch(function() {});
+            .catch(function() {
+                clearTimeout(fallbackTimer);
+                enableInput();
+            });
             return;
         }
 
         showTyping();
         typingStartTime = Date.now();
-
         var bodyData = { message: msg };
         if (activeTicketId) {
             bodyData.ticket_id = activeTicketId;
             if (reengageBotMode) bodyData.bot_mode = true;
         }
+
+        var controller = new AbortController();
+        var apiTimeoutId = setTimeout(function() { controller.abort(); }, 25000);
 
         fetch('/chat/reply', {
             method: 'POST',
@@ -1299,29 +1352,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 'Accept': 'application/json',
             },
-            body: JSON.stringify(bodyData)
+            body: JSON.stringify(bodyData),
+            signal: controller.signal
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-            var elapsed = Date.now() - typingStartTime;
-            var delay = Math.max(0, 500 - elapsed);
-            setTimeout(function() {
-                hideTyping();
-                if (data.message_id && data.message_id > lastAgentMsgId) {
-                    lastAgentMsgId = data.message_id;
-                }
-                if (data.reply) {
-                    addMessage('bot', data.reply, data.options || null, reengageBotMode);
-                }
-            }, delay);
+            clearTimeout(fallbackTimer);
+            clearTimeout(apiTimeoutId);
+            if (data.message_id && data.message_id > lastAgentMsgId) {
+                lastAgentMsgId = data.message_id;
+            }
+            if (data.reply) {
+                addMessage('bot', data.reply, data.options || null, reengageBotMode);
+            } else {
+                addMessage('bot', 'I could not find an answer right now. An agent will respond when available.', null, true);
+            }
+            var lastMsg = body.querySelector('.chat-msg:last-child');
+            if (lastMsg) lastMsg.classList.add('show');
+            hideTyping();
+            enableInput();
         })
         .catch(function() {
-            var elapsed = Date.now() - typingStartTime;
-            var delay = Math.max(0, 500 - elapsed);
-            setTimeout(function() {
-                hideTyping();
-                addMessage('bot', 'Sorry, something went wrong. Please try again.');
-            }, delay);
+            clearTimeout(fallbackTimer);
+            clearTimeout(apiTimeoutId);
+            addMessage('bot', 'Sorry, something went wrong. Please try again.', null, true);
+            var lastMsg = body.querySelector('.chat-msg:last-child');
+            if (lastMsg) lastMsg.classList.add('show');
+            hideTyping();
+            enableInput();
         });
     }
 
@@ -1349,7 +1407,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (sendBtn) {
         sendBtn.addEventListener('click', function() {
-            if (input && input.value.trim() !== '') {
+            if (input && !input.disabled && input.value.trim() !== '') {
                 sendMessage(input.value);
             }
         });
@@ -1357,7 +1415,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (input) {
         input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && input.value.trim() !== '') {
+            if (e.key === 'Enter' && !input.disabled && input.value.trim() !== '') {
                 e.preventDefault();
                 sendMessage(input.value);
             }
@@ -1538,7 +1596,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (emptyState) emptyState.style.display = 'none';
         body.classList.add('chat-panel__body--has-messages');
         var reconnectMsg = document.createElement('div');
-        reconnectMsg.style.cssText = 'text-align:center;font-size:12px;color:#888;padding:8px 14px;margin-bottom:8px;';
+        reconnectMsg.style.cssText = 'text-align:center;font-size:12px;color:#555;padding:8px 14px;margin-bottom:8px;';
         reconnectMsg.textContent = 'Re-connected to your ticket.';
         body.appendChild(reconnectMsg);
         body.scrollTop = body.scrollHeight;
@@ -1581,12 +1639,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         body.appendChild(onlineMsg);
                         body.scrollTop = body.scrollHeight;
                     } else {
-                        reengageBotMode = true;
-                        unlockInput();
+                        lockInput();
                         var offlineMsg = document.createElement('div');
                         offlineMsg.setAttribute('data-bot-msg', '1');
-                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#888;padding:4px 14px 8px;margin-bottom:4px;';
-                        offlineMsg.textContent = 'Agent is not available right now. Ask DevXCloud bot for any clarification needed.';
+                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#666;padding:4px 14px 8px;margin-bottom:4px;line-height:1.5;';
+                        offlineMsg.innerHTML = 'Agent is not available right now.<br><a href="/?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:600;">Click here</a> to continue with the bot.';
                         body.appendChild(offlineMsg);
                         body.scrollTop = body.scrollHeight;
                         startTicketPolling(tid, maxMsgId);
@@ -1599,6 +1656,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(function() {
             unlockInput();
         });
+        openPanel();
+    }
+
+    if (autoOpenBot) {
         openPanel();
     }
 });
