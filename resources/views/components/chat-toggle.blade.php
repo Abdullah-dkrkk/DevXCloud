@@ -1676,14 +1676,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         body.scrollTop = body.scrollHeight;
                     } else {
                         var offlineMsg = document.createElement('div');
-                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#666;padding:4px 14px 8px;margin-bottom:4px;line-height:1.6;';
+                        offlineMsg.style.cssText = 'text-align:center;font-size:13.5px;color:#666;padding:6px 14px 10px;margin-bottom:6px;line-height:1.7;';
                         var offlineText = document.createElement('span');
-                        offlineText.textContent = 'Agent is not available right now. ';
+                        offlineText.textContent = 'No agents are available at the moment. ';
                         offlineMsg.appendChild(offlineText);
                         var botLink = document.createElement('a');
                         botLink.href = '#';
                         botLink.style.cssText = 'color:#0176D3;text-decoration:underline;cursor:pointer;font-weight:500;';
-                        botLink.textContent = 'Chat with our bot instead';
+                        botLink.textContent = 'Please chat with our bot for quick help instead';
                         botLink.addEventListener('click', function(e) {
                             e.preventDefault();
                             window.location.search = '?re_bot=1';

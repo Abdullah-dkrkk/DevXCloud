@@ -55,7 +55,7 @@ class ChatController extends Controller
         }
 
         $savedMsgId = 0;
-        if ($replyTicket && $replySessionUser) {
+        if ($replyTicket) {
             $saved = ChatMessage::create([
                 'ticket_id' => $replyTicket->id,
                 'sender_id' => $replySessionUser?->id,

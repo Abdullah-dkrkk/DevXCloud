@@ -263,6 +263,14 @@ class Dashboard extends Component
 
     public function render()
     {
+        if ($this->selectedTicketId) {
+            $this->messages = ChatMessage::where('ticket_id', $this->selectedTicketId)
+                ->with('sender')
+                ->orderBy('created_at')
+                ->get()
+                ->toArray();
+        }
+
         return view('livewire.agent.dashboard');
     }
 }

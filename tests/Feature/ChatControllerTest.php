@@ -253,7 +253,7 @@ class ChatControllerTest extends TestCase
             'form_type' => 'guidance',
         ]);
 
-        Mail::assertSent(TicketCreated::class);
+        Mail::assertQueued(TicketCreated::class);
     }
 
     public function test_submit_form_stores_conversation(): void

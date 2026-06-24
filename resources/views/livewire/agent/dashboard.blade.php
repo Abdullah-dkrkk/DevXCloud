@@ -97,6 +97,7 @@
 
                 <div class="flex-1 overflow-y-auto p-4 flex flex-col" x-ref="messagesContainer">
                     <template x-for="msg in $wire.messages" :key="msg.id">
+                        <div>
                         <template x-if="msg.sender_type === 'system'">
                             <div class="flex justify-center my-2">
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-center max-w-[80%]">
@@ -140,6 +141,7 @@
                                 </div>
                             </div>
                         </template>
+                    </div>
                     </template>
                     <div x-show="$wire.userTyping" class="self-start flex items-end gap-2 max-w-[85%] mb-2.5">
                         <div class="w-[34px] h-[34px] rounded-full flex items-center justify-center bg-white border border-gray-200 flex-shrink-0">
