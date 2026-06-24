@@ -20,12 +20,16 @@ class ChatTicket extends Model
         'status',
         'assigned_to',
         'last_activity_at',
+        'reminder_sent_at',
+        'admin_notified_at',
         'closed_at',
     ];
 
     protected $casts = [
         'form_data' => 'array',
         'last_activity_at' => 'datetime',
+        'reminder_sent_at' => 'datetime',
+        'admin_notified_at' => 'datetime',
         'closed_at' => 'datetime',
     ];
 
@@ -42,5 +46,39 @@ class ChatTicket extends Model
     public function messages()
     {
         return $this->hasMany(ChatMessage::class, 'ticket_id');
+    }
+
+    public function lastMessage()
+    {
+        return $this->hasOne(ChatMessage::class, 'ticket_id')->latestOfMany();
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->whereIn('status', ['pending', 'open', 'in_progress']);
+    }
+
+    public function scopeClosed($query)
+    {
+        return $query->where('status', 'closed');
+    }
+
+    public function close(): void
+    {
+        $this->update([
+            'status' => 'closed',
+            'closed_at' => now(),
+        ]);
+    }
+
+    public function reopen(): void
+    {
+        $this->update([
+            'status' => 'open',
+            'closed_at' => null,
+            'last_activity_at' => now(),
+            'reminder_sent_at' => null,
+            'admin_notified_at' => null,
+        ]);
     }
 }

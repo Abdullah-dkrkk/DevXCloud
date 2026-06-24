@@ -8,10 +8,12 @@ use App\Models\ChatHistory;
 use App\Models\ChatTicket;
 use App\Models\ChatMessage;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketCreated;
+use App\Mail\TicketClosed;
 
 class ChatController extends Controller
 {
@@ -30,42 +32,39 @@ class ChatController extends Controller
         $ticketId = $request->ticket_id;
         $botMode = $request->boolean('bot_mode');
 
-        if ($ticketId && !$botMode) {
-            $ticket = ChatTicket::find($ticketId);
-            if ($ticket) {
-                if (auth()->check()) {
-                    $userId = auth()->id();
-                } else {
-                    $sessionUser = User::where('email', $ticket->email)->first();
-                    $userId = $sessionUser?->id;
-                }
-                $msg = ChatMessage::create([
-                    'ticket_id' => $ticket->id,
-                    'sender_id' => $userId,
-                    'sender_type' => 'user',
-                    'message' => $message,
-                    'created_at' => now(),
-                ]);
-                $ticket->update(['last_activity_at' => now()]);
-                return response()->json(['reply' => null, 'ticket_message' => true, 'message_id' => $msg->id]);
+        $replyTicket = null;
+        $replySessionUser = null;
+        if ($ticketId) {
+            $replyTicket = ChatTicket::find($ticketId);
+            if ($replyTicket) {
+                $replySessionUser = User::where('email', $replyTicket->email)->first();
             }
         }
 
+        if ($ticketId && !$botMode && $replyTicket) {
+            $userId = auth()->check() ? auth()->id() : ($replySessionUser?->id);
+            $msg = ChatMessage::create([
+                'ticket_id' => $replyTicket->id,
+                'sender_id' => $userId,
+                'sender_type' => 'user',
+                'message' => $message,
+                'created_at' => now(),
+            ]);
+            $replyTicket->update(['last_activity_at' => now()]);
+            return response()->json(['reply' => null, 'ticket_message' => true, 'message_id' => $msg->id]);
+        }
+
         $savedMsgId = 0;
-        if ($ticketId) {
-            $ticket = ChatTicket::find($ticketId);
-            if ($ticket) {
-                $sessionUser = User::where('email', $ticket->email)->first();
-                $saved = ChatMessage::create([
-                    'ticket_id' => $ticket->id,
-                    'sender_id' => $sessionUser?->id,
-                    'sender_type' => 'user',
-                    'message' => $message,
-                    'created_at' => now(),
-                ]);
-                $ticket->update(['last_activity_at' => now()]);
-                $savedMsgId = $saved->id;
-            }
+        if ($replyTicket && $replySessionUser) {
+            $saved = ChatMessage::create([
+                'ticket_id' => $replyTicket->id,
+                'sender_id' => $replySessionUser?->id,
+                'sender_type' => 'user',
+                'message' => $message,
+                'created_at' => now(),
+            ]);
+            $replyTicket->update(['last_activity_at' => now()]);
+            $savedMsgId = $saved->id;
         }
 
         if ($request->boolean('bot_mode')) {
@@ -76,7 +75,9 @@ class ChatController extends Controller
                 return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
             }
 
-            $faqs = ChatbotFaq::select('question', 'answer')->get();
+            $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
+                return ChatbotFaq::select('question', 'answer')->get();
+            });
             if ($faqs->isEmpty()) {
                 $res = ['reply' => self::FALLBACK_MESSAGE];
                 $res['options'] = self::FALLBACK_OPTIONS;
@@ -142,7 +143,9 @@ class ChatController extends Controller
             return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
         }
 
-        $faqs = ChatbotFaq::select('question', 'answer')->get();
+        $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
+            return ChatbotFaq::select('question', 'answer')->get();
+        });
         if ($faqs->isEmpty()) {
             $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
             $res = ['reply' => self::FALLBACK_MESSAGE];
@@ -190,6 +193,18 @@ class ChatController extends Controller
                     $faqText .= "Q: {$trimmed}\nA: {$faq->answer}\n\n";
                 }
             }
+        }
+
+        $geminiCacheKey = 'gemini_' . md5($rawMessage . sha1($faqText));
+
+        $cachedReply = Cache::get($geminiCacheKey);
+        if ($cachedReply !== null) {
+            $this->saveHistory($rawMessage, $cachedReply, 'bot');
+            $res = ['reply' => $cachedReply];
+            $options = $this->getFaqOptions($cachedReply);
+            if (!empty($options)) $res['options'] = $options;
+            $res['message_id'] = $savedMsgId;
+            return response()->json($res);
         }
 
         try {
@@ -252,6 +267,7 @@ User Query: $rawMessage"
             }
 
             $finalReply = trim($reply);
+            Cache::put($geminiCacheKey, $finalReply, 3600);
             $this->saveHistory($rawMessage, $finalReply, 'bot');
 
             $res = ['reply' => $finalReply];
@@ -534,11 +550,22 @@ User Query: $rawMessage"
         return trim($result);
     }
 
-    public function agentStatus()
+    public function agentStatus(Request $request)
     {
+        $user = $request->user();
+
+        if ($user && $user->isAgent()) {
+            $user->update([
+                'is_available' => true,
+                'last_active_at' => now(),
+            ]);
+            return response()->json(['available' => true]);
+        }
+
         $available = User::whereIn('role', ['admin', 'agent'])
             ->where('is_available', true)
-            ->where('last_active_at', '>=', now()->subMinutes(3))
+            ->whereNotNull('last_active_at')
+            ->where('last_active_at', '>=', now()->subSeconds(30))
             ->exists();
 
         return response()->json(['available' => $available]);
@@ -590,7 +617,7 @@ User Query: $rawMessage"
         }
 
         try {
-            Mail::to($ticket->email)->send(new TicketCreated($ticket));
+            Mail::to($ticket->email)->queue(new TicketCreated($ticket));
         } catch (\Exception $e) {
             Log::error('Ticket created email failed: ' . $e->getMessage());
         }
@@ -598,7 +625,7 @@ User Query: $rawMessage"
         try {
             $adminEmails = config('admin.emails', []);
             foreach ($adminEmails as $adminEmail) {
-                Mail::to($adminEmail)->send(new TicketCreated($ticket, true));
+                Mail::to($adminEmail)->queue(new TicketCreated($ticket, true));
             }
         } catch (\Exception $e) {
             Log::error('Ticket admin notification failed: ' . $e->getMessage());
@@ -688,5 +715,53 @@ User Query: $rawMessage"
         }
 
         return $user;
+    }
+
+    public function userCloseTicket(Request $request)
+    {
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+            'token' => 'required|string',
+        ]);
+
+        $ticket = ChatTicket::find($data['ticket_id']);
+        if (!$ticket) {
+            return response()->json(['error' => 'Ticket not found'], 404);
+        }
+
+        $expected = sha1($ticket->id . $ticket->email . 'devxcloud-salt');
+        if ($data['token'] !== $expected && $ticket->session_id !== session()->getId()) {
+            return response()->json(['error' => 'Invalid token'], 403);
+        }
+
+        if ($ticket->status === 'closed') {
+            return response()->json(['success' => true, 'already_closed' => true]);
+        }
+
+        $ticket->close();
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_type' => 'system',
+            'message' => 'This ticket has been closed.',
+            'created_at' => now(),
+        ]);
+
+        try {
+            Mail::to($ticket->email)->queue(new TicketClosed($ticket, null));
+        } catch (\Exception $e) {
+            Log::error('User closed ticket email failed: ' . $e->getMessage());
+        }
+
+        try {
+            $adminEmails = config('admin.emails', []);
+            foreach ($adminEmails as $adminEmail) {
+                Mail::to($adminEmail)->queue(new TicketClosed($ticket, null, true));
+            }
+        } catch (\Exception $e) {
+            Log::error('User closed ticket admin email failed: ' . $e->getMessage());
+        }
+
+        return response()->json(['success' => true]);
     }
 }
