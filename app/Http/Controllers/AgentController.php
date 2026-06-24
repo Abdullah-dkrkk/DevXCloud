@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ChatTicket;
 use App\Models\ChatMessage;
+use App\Models\User;
 use App\Mail\AgentReplied;
+use App\Mail\TicketClaimed;
+use App\Mail\TicketClosed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
@@ -13,9 +16,7 @@ class AgentController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $user = $request->user();
-        $user->update(['last_active_at' => now()]);
-        return view('agent.dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function claim(Request $request)
@@ -46,6 +47,12 @@ class AgentController extends Controller
             'message' => 'Agent ' . $user->name . ' has joined the conversation.',
             'created_at' => now(),
         ]);
+
+        try {
+            Mail::to($ticket->email)->queue(new TicketClaimed($ticket, $user));
+        } catch (\Exception $e) {
+            Log::error('Ticket claimed email failed: ' . $e->getMessage());
+        }
 
         return response()->json(['success' => true, 'ticket' => $ticket]);
     }
@@ -81,7 +88,7 @@ class AgentController extends Controller
         $ticket->update(['last_activity_at' => now()]);
 
         try {
-            Mail::to($ticket->email)->send(new AgentReplied($ticket, $msg));
+            Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
         } catch (\Exception $e) {
             Log::error('Agent replied email failed: ' . $e->getMessage());
         }
@@ -124,5 +131,85 @@ class AgentController extends Controller
             ->get();
 
         return response()->json(['tickets' => $tickets]);
+    }
+
+    public function closeTicket(Request $request)
+    {
+        $user = $request->user();
+        if (!$user->isAgent()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+            'message' => 'nullable|string|max:1000',
+        ]);
+
+        $ticket = ChatTicket::where('id', $data['ticket_id'])
+            ->where('assigned_to', $user->id)
+            ->first();
+
+        if (!$ticket) {
+            return response()->json(['error' => 'Ticket not assigned to you'], 403);
+        }
+
+        $satisfactionMsg = $data['message'] ?? 'Based on our conversation, it looks like your needs have been taken care of. If you\'re satisfied, please close this ticket. Feel free to reach out anytime you need help again.';
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'system',
+            'message' => $satisfactionMsg,
+            'options' => ['Close this Ticket', 'Open New Ticket'],
+            'created_at' => now(),
+        ]);
+
+        $ticket->update(['last_activity_at' => now()]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function forceClose(Request $request)
+    {
+        $user = $request->user();
+        if (!$user->isAgent()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $data = $request->validate([
+            'ticket_id' => 'required|exists:chat_tickets,id',
+        ]);
+
+        $ticket = ChatTicket::find($data['ticket_id']);
+        if (!$ticket || $ticket->status === 'closed') {
+            return response()->json(['error' => 'Ticket not available'], 404);
+        }
+
+        $ticket->close();
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'system',
+            'message' => 'This ticket has been closed by ' . $user->name . '.',
+            'created_at' => now(),
+        ]);
+
+        try {
+            Mail::to($ticket->email)->queue(new TicketClosed($ticket, $user));
+        } catch (\Exception $e) {
+            Log::error('Ticket closed email to user failed: ' . $e->getMessage());
+        }
+
+        try {
+            $adminEmails = config('admin.emails', []);
+            foreach ($adminEmails as $adminEmail) {
+                Mail::to($adminEmail)->queue(new TicketClosed($ticket, $user, true));
+            }
+        } catch (\Exception $e) {
+            Log::error('Ticket closed admin email failed: ' . $e->getMessage());
+        }
+
+        return response()->json(['success' => true, 'ticket' => $ticket]);
     }
 }

@@ -29,6 +29,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+        if ($user && $user->isAgent()) {
+            $user->update([
+                'is_available' => true,
+                'last_active_at' => now(),
+            ]);
+            return redirect()->route('dashboard');
+        }
+
         return redirect('/');
     }
 
@@ -37,6 +46,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+        if ($user && $user->isAgent()) {
+            $user->update([
+                'is_available' => false,
+                'last_active_at' => now()->subHours(1),
+            ]);
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

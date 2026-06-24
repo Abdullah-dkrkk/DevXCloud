@@ -34,7 +34,7 @@
                 @endif
             @endif
 
-            <main>
+            <main class="flex-1 flex flex-col min-h-0">
                 @isset($slot)
                     {{ $slot }}
                 @endisset
@@ -42,5 +42,6 @@
             </main>
         </div>
         @livewireScripts
+        @stack('scripts')
     </body>
 </html>

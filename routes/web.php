@@ -42,16 +42,18 @@ Route::post('/chat/ticket/history', [App\Http\Controllers\ChatController::class,
 Route::post('/chat/typing', [App\Http\Controllers\ChatController::class, 'typing']);
 Route::get('/chat/typing/{ticketId}', [App\Http\Controllers\ChatController::class, 'typingStatus']);
 
-Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () {
-    Route::get('/tickets', [App\Http\Controllers\AgentController::class, 'dashboard'])->name('tickets');
-});
+// Agent tickets page removed — now handled inside main /dashboard
 
 Route::middleware(['auth'])->prefix('chat/agent')->name('chat.agent.')->group(function () {
     Route::post('/claim', [App\Http\Controllers\AgentController::class, 'claim'])->name('claim');
     Route::post('/reply', [App\Http\Controllers\AgentController::class, 'reply'])->name('reply');
     Route::get('/tickets', [App\Http\Controllers\AgentController::class, 'tickets'])->name('tickets');
     Route::get('/tickets/{ticket}/messages', [App\Http\Controllers\AgentController::class, 'messages'])->name('messages');
+    Route::post('/close-request', [App\Http\Controllers\AgentController::class, 'closeTicket'])->name('close-request');
+    Route::post('/force-close', [App\Http\Controllers\AgentController::class, 'forceClose'])->name('force-close');
 });
+
+Route::post('/chat/user-close', [App\Http\Controllers\ChatController::class, 'userCloseTicket']);
 
 Route::get('/', function () {
     return view('home');
