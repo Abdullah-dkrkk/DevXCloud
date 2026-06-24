@@ -211,40 +211,6 @@
     vertical-align: middle;
 }
 
-.chat-starter-questions {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-    max-width: 260px;
-    align-self: center;
-}
-
-.chat-starter-question {
-    background: #fff;
-    border: 1.5px solid #e0e4e8;
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 12px;
-    font-family: 'Montserrat', sans-serif;
-    color: #1a2a3a;
-    cursor: pointer;
-    text-align: center;
-    transition: border-color 0.2s ease, background 0.2s ease, opacity 0.25s ease, transform 0.25s ease;
-    opacity: 0;
-    transform: translateY(10px);
-}
-
-.chat-starter-question.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chat-starter-question:hover {
-    border-color: #0176D3;
-    background: #f0f7ff;
-}
 
 
 
@@ -334,35 +300,6 @@
     justify-content: space-between;
     flex-shrink: 0;
     z-index: 1;
-}
-
-.chat-panel__header::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 0;
-    right: 0;
-    height: 28px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q210,28 420,0 L420,28 L0,28 Z' fill='%23f5f7fa'/%3E%3C/svg%3E") no-repeat;
-    background-size: 100% 100%;
-    pointer-events: none;
-}
-
-.chat-panel__close-btn {
-    background: rgba(255, 255, 255, 0.25);
-    border: none;
-    border-radius: 50%;
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-left: 12px;
-    margin-top: 1px;
-    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .chat-panel__header::after {
@@ -479,6 +416,19 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    position: relative;
+}
+
+.chat-panel__input-wrapper:has(input:disabled) {
+    cursor: not-allowed;
+}
+
+.chat-panel__input-wrapper:has(input:disabled)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    cursor: not-allowed;
 }
 
 .chat-panel__input {
@@ -505,8 +455,11 @@
 }
 
 .chat-panel__input:disabled {
-    pointer-events: none;
-    user-select: none;
+    cursor: not-allowed !important;
+    background: #f0f2f4 !important;
+    color: #9aa6b2 !important;
+    -webkit-text-fill-color: #9aa6b2;
+    opacity: 1;
 }
 
 .chat-panel__send-btn {
@@ -530,8 +483,10 @@
 }
 
 .chat-panel__send-btn:disabled {
+    cursor: not-allowed !important;
+    background: #d0d5dd !important;
+    color: #98a2b3 !important;
     pointer-events: none;
-    user-select: none;
 }
 
 @media (max-width: 480px) {
@@ -772,9 +727,11 @@ document.addEventListener('DOMContentLoaded', function() {
         currentFlow = null;
         currentStep = 0;
         branch = null;
-        input.disabled = false;
+        if (input) {
+            input.disabled = false;
+            input.focus();
+        }
         if (sendBtn) sendBtn.disabled = false;
-        input.focus();
     }
 
     function disableInput() {
@@ -797,8 +754,49 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleOption(option) {
-        if (activeTicketId && !reengageBotMode) { addMessage('user', option); return; }
-        if (reengageBotMode) { addMessage('user', option); return; }
+        if (option === "Close this Ticket" && activeTicketId) {
+            addMessage('user', option);
+            disableInput();
+            userCloseTicket(activeTicketId);
+            return;
+        }
+        if (option === "Open New Ticket") {
+            addMessage('user', option);
+            stopTicketPolling();
+            activeTicketId = null;
+            reengageBotMode = false;
+            guestConversation = [];
+            unlockInput();
+            clearMessages();
+            flowStarted = false;
+            loadChatContent();
+            return;
+        }
+        if (option === "I'm still here" && activeTicketId) {
+            addMessage('user', option);
+            fetch('/chat/reply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ message: option, ticket_id: activeTicketId })
+            }).catch(function() {});
+            return;
+        }
+        if (activeTicketId) {
+            addMessage('user', option);
+            fetch('/chat/reply', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ message: option, ticket_id: activeTicketId, bot_mode: false })
+            }).catch(function() {});
+            return;
+        }
         addMessage('user', option);
         showTyping();
         typingStartTime = Date.now();
@@ -963,6 +961,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function userCloseTicket(ticketId) {
+        fetch('/chat/user-close', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ ticket_id: ticketId, token: 'session' })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success) {
+                stopTicketPolling();
+                activeTicketId = null;
+                botReply('Your ticket has been closed. Feel free to start a new conversation anytime!', ['Open New Ticket']);
+            } else {
+                enableInput();
+                botReply('Sorry, something went wrong. Please try again.', null, true);
+            }
+        })
+        .catch(function() {
+            enableInput();
+            botReply('Sorry, something went wrong. Please try again.', null, true);
+        });
+    }
+
     function handleEndOption(option) {
         if (option === "Book Growth Discovery Call") {
             showDiscoveryForm();
@@ -1077,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (status.available) {
                             bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
                         } else {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. No agents are currently online. Your ticket <strong>#' + ticketNum + '</strong> has been created. You will receive an email when an agent responds.</div>';
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
                         }
                     }
                     flowLocked = false;
@@ -1215,7 +1240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (status.available) {
                             bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
                         } else {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. No agents are currently online. Your ticket <strong>#' + ticketNum + '</strong> has been created. You will receive an email when an agent responds.</div>';
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
                         }
                     }
                     flowLocked = false;
@@ -1502,6 +1527,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (msg.sender_type === 'agent') {
                                 hasAgent = true;
                                 addAgentMessage(msg.message);
+                            } else if (msg.sender_type === 'system') {
+                                addMessage('bot', msg.message, msg.options || null);
+                            } else if (msg.sender_type === 'bot') {
+                                addMessage('bot', msg.message, msg.options || null);
                             } else {
                                 addMessage('user', msg.message);
                             }
@@ -1520,7 +1549,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(function() {});
-        }, 5000);
+        }, 10000);
     }
 
     function stopTicketPolling() {
@@ -1533,24 +1562,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var userTypingTimer = null;
     var agentTypingPoll = null;
+    var lastTypingSent = 0;
 
     function startUserTypingListener() {
         if (input) {
             input.addEventListener('input', function() {
                 if (!activeTicketId) return;
                 if (userTypingTimer) clearTimeout(userTypingTimer);
-                fetch('/chat/typing', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        ticket_id: activeTicketId,
-                        sender_type: 'user'
-                    })
-                }).catch(function() {});
+                var now = Date.now();
+                if (now - lastTypingSent >= 2000) {
+                    lastTypingSent = now;
+                    fetch('/chat/typing', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ticket_id: activeTicketId,
+                            sender_type: 'user'
+                        })
+                    }).catch(function() {});
+                }
                 userTypingTimer = setTimeout(function() {
                     fetch('/chat/typing', {
                         method: 'POST',
@@ -1584,7 +1618,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(function() {});
-        }, 3000);
+        }, 5000);
     }
 
     startUserTypingListener();
@@ -1618,6 +1652,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     var opts = (msg.options && msg.options.length > 0) ? msg.options : null;
                     if (msg.sender_type === 'agent') {
                         addAgentMessage(msg.message);
+                    } else if (msg.sender_type === 'system') {
+                        addMessage('bot', msg.message, msg.options && msg.options.length > 0 ? msg.options : null, true);
                     } else if (msg.sender_type === 'bot') {
                         addMessage('bot', msg.message, opts, true);
                     } else {
@@ -1639,14 +1675,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         body.appendChild(onlineMsg);
                         body.scrollTop = body.scrollHeight;
                     } else {
-                        lockInput();
                         var offlineMsg = document.createElement('div');
-                        offlineMsg.setAttribute('data-bot-msg', '1');
-                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#666;padding:4px 14px 8px;margin-bottom:4px;line-height:1.5;';
-                        offlineMsg.innerHTML = 'Agent is not available right now.<br><a href="/?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:600;">Click here</a> to continue with the bot.';
+                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#666;padding:4px 14px 8px;margin-bottom:4px;line-height:1.6;';
+                        var offlineText = document.createElement('span');
+                        offlineText.textContent = 'Agent is not available right now. ';
+                        offlineMsg.appendChild(offlineText);
+                        var botLink = document.createElement('a');
+                        botLink.href = '#';
+                        botLink.style.cssText = 'color:#0176D3;text-decoration:underline;cursor:pointer;font-weight:500;';
+                        botLink.textContent = 'Chat with our bot instead';
+                        botLink.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            window.location.search = '?re_bot=1';
+                        });
+                        offlineMsg.appendChild(botLink);
                         body.appendChild(offlineMsg);
+
+                        lockInput();
                         body.scrollTop = body.scrollHeight;
-                        startTicketPolling(tid, maxMsgId);
                     }
                 })
                 .catch(function() {

@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\ChatTicket;
 use App\Models\ChatMessage;
 use App\Mail\AgentReplied;
+use App\Mail\TicketClaimed;
+use App\Mail\TicketClosed;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
@@ -17,6 +19,7 @@ class Dashboard extends Component
     public $messages = [];
     public $selectedTicket;
     public $userTyping = false;
+    public $showForceConfirm = false;
 
     protected $listeners = ['ticketSelected' => 'selectTicket'];
 
@@ -28,7 +31,10 @@ class Dashboard extends Component
     public function loadTickets()
     {
         $user = auth()->user();
-        $user->update(['last_active_at' => now()]);
+        $user->update([
+            'is_available' => true,
+            'last_active_at' => now(),
+        ]);
 
         $this->tickets = ChatTicket::whereIn('status', ['pending', 'open', 'in_progress'])
             ->when($user->role !== 'admin', function ($q) use ($user) {
@@ -50,7 +56,8 @@ class Dashboard extends Component
 
         $this->selectedTicket = ChatTicket::with('agent')
             ->where('id', $ticketId)
-            ->first();
+            ->first()
+            ?->toArray();
 
         if (!$this->selectedTicket) {
             $this->selectedTicketId = null;
@@ -114,6 +121,12 @@ class Dashboard extends Component
             'created_at' => now(),
         ]);
 
+        try {
+            Mail::to($ticket->email)->queue(new TicketClaimed($ticket, $user));
+        } catch (\Exception $e) {
+            Log::error('Ticket claimed email from Livewire failed: ' . $e->getMessage());
+        }
+
         $this->loadTickets();
         $this->selectTicket($ticket->id);
     }
@@ -140,13 +153,111 @@ class Dashboard extends Component
         $ticket->update(['last_activity_at' => now()]);
 
         try {
-            Mail::to($ticket->email)->send(new AgentReplied($ticket, $msg));
+            Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
         } catch (\Exception $e) {
             Log::error('Agent replied email from Livewire failed: ' . $e->getMessage());
         }
 
-        $this->messages[] = $msg->load('sender')->toArray();
         $this->newMessage = '';
+        $this->refreshMessages();
+        $this->loadTickets();
+    }
+
+    public function requestClose()
+    {
+        $user = auth()->user();
+        $ticket = ChatTicket::where('id', $this->selectedTicketId)
+            ->where('assigned_to', $user->id)
+            ->first();
+
+        if (!$ticket) return;
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'system',
+            'message' => 'Based on our conversation, it looks like your needs have been taken care of. If you\'re satisfied, please close this ticket. Feel free to reach out anytime you need help again.',
+            'options' => ['Close this Ticket', 'Open New Ticket'],
+            'created_at' => now(),
+        ]);
+
+        $ticket->update(['last_activity_at' => now()]);
+        $this->refreshMessages();
+    }
+
+    public function sendReminder()
+    {
+        $user = auth()->user();
+        $ticket = ChatTicket::where('id', $this->selectedTicketId)
+            ->where('assigned_to', $user->id)
+            ->first();
+
+        if (!$ticket) return;
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'agent',
+            'message' => 'Reminder: Agent ' . $user->name . ' is waiting for your response. Please reply to continue.',
+            'created_at' => now(),
+        ]);
+
+        $ticket->update([
+            'last_activity_at' => now(),
+            'reminder_sent_at' => now(),
+        ]);
+        $this->refreshMessages();
+    }
+
+    public function confirmForceClose()
+    {
+        $this->showForceConfirm = true;
+    }
+
+    public function cancelForceClose()
+    {
+        $this->showForceConfirm = false;
+    }
+
+    public function forceClose()
+    {
+        $this->showForceConfirm = false;
+
+        $user = auth()->user();
+        $ticket = ChatTicket::where('id', $this->selectedTicketId)
+            ->where('assigned_to', $user->id)
+            ->first();
+
+        if (!$ticket) return;
+
+        $ticket->close();
+
+        ChatMessage::create([
+            'ticket_id' => $ticket->id,
+            'sender_id' => $user->id,
+            'sender_type' => 'system',
+            'message' => 'This ticket has been closed by ' . $user->name . '.',
+            'created_at' => now(),
+        ]);
+
+        try {
+            Mail::to($ticket->email)->queue(new TicketClosed($ticket, $user));
+        } catch (\Exception $e) {
+            Log::error('Ticket closed email from Livewire failed: ' . $e->getMessage());
+        }
+
+        try {
+            $adminEmails = config('admin.emails', []);
+            foreach ($adminEmails as $adminEmail) {
+                Mail::to($adminEmail)->queue(new TicketClosed($ticket, $user, true));
+            }
+        } catch (\Exception $e) {
+            Log::error('Ticket closed admin email from Livewire failed: ' . $e->getMessage());
+        }
+
+        $this->selectedTicketId = null;
+        $this->selectedTicket = null;
+        $this->messages = [];
         $this->loadTickets();
     }
 
