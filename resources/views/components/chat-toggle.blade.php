@@ -782,6 +782,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({ message: option, ticket_id: activeTicketId })
+            }).then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.message_id && data.message_id > lastAgentMsgId) lastAgentMsgId = data.message_id;
             }).catch(function() {});
             return;
         }
@@ -794,6 +797,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({ message: option, ticket_id: activeTicketId, bot_mode: false })
+            }).then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.message_id && data.message_id > lastAgentMsgId) lastAgentMsgId = data.message_id;
             }).catch(function() {});
             return;
         }
@@ -1676,7 +1682,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         body.scrollTop = body.scrollHeight;
                     } else {
                         var offlineMsg = document.createElement('div');
-                        offlineMsg.style.cssText = 'text-align:center;font-size:13.5px;color:#666;padding:6px 14px 10px;margin-bottom:6px;line-height:1.7;';
+                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#555;padding:8px 14px;margin-bottom:8px;';
                         var offlineText = document.createElement('span');
                         offlineText.textContent = 'No agents are available at the moment. ';
                         offlineMsg.appendChild(offlineText);

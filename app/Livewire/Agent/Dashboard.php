@@ -36,7 +36,10 @@ class Dashboard extends Component
             'last_active_at' => now(),
         ]);
 
-        $this->tickets = ChatTicket::whereIn('status', ['pending', 'open', 'in_progress'])
+        $this->tickets = ChatTicket::where(function ($q) {
+                $q->whereIn('status', ['pending', 'open', 'in_progress'])
+                  ->orWhere('status', 'closed');
+            })
             ->when($user->role !== 'admin', function ($q) use ($user) {
                 $q->where(function ($q) use ($user) {
                     $q->whereNull('assigned_to')
@@ -197,8 +200,9 @@ class Dashboard extends Component
         ChatMessage::create([
             'ticket_id' => $ticket->id,
             'sender_id' => $user->id,
-            'sender_type' => 'agent',
-            'message' => 'Reminder: Agent ' . $user->name . ' is waiting for your response. Please reply to continue.',
+            'sender_type' => 'system',
+            'message' => 'Reminder: ' . $user->name . ' is waiting for your response. Please reply to continue.',
+            'options' => ['I\'m still here', 'Close this Ticket'],
             'created_at' => now(),
         ]);
 
