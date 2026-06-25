@@ -555,17 +555,11 @@ User Query: $rawMessage"
         $user = $request->user();
 
         if ($user && $user->isAgent()) {
-            $user->update([
-                'is_available' => true,
-                'last_active_at' => now(),
-            ]);
             return response()->json(['available' => true]);
         }
 
         $available = User::whereIn('role', ['admin', 'agent'])
             ->where('is_available', true)
-            ->whereNotNull('last_active_at')
-            ->where('last_active_at', '>=', now()->subSeconds(30))
             ->exists();
 
         return response()->json(['available' => $available]);
@@ -763,5 +757,14 @@ User Query: $rawMessage"
         }
 
         return response()->json(['success' => true]);
+    }
+
+    public function agentOffline(Request $request)
+    {
+        $user = $request->user();
+        if ($user && $user->isAgent()) {
+            $user->update(['is_available' => false]);
+        }
+        return response()->json(['available' => false]);
     }
 }

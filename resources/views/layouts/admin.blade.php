@@ -43,5 +43,10 @@
         </div>
         @livewireScripts
         @stack('scripts')
+        <script>
+            window.addEventListener('beforeunload', function () {
+                navigator.sendBeacon('/chat/agent-offline');
+            });
+        </script>
     </body>
 </html>

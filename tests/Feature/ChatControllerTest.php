@@ -39,7 +39,7 @@ class ChatControllerTest extends TestCase
 
     // ─── AGENT STATUS TESTS ────────────────────────────────────────────
 
-    public function test_agent_status_returns_false_when_no_agents(): void
+    public function test_agent_status_false_when_no_agents(): void
     {
         $res = $this->getJson('/chat/agent-status');
 
@@ -48,24 +48,43 @@ class ChatControllerTest extends TestCase
 
     public function test_agent_status_returns_true_when_agent_available(): void
     {
-        $this->createAgent();
+        User::factory()->create([
+            'role' => 'agent',
+            'is_available' => true,
+        ]);
 
         $res = $this->getJson('/chat/agent-status');
 
         $res->assertOk()->assertJson(['available' => true]);
     }
 
-    public function test_agent_status_false_when_agent_inactive(): void
+    public function test_agent_status_false_when_agent_not_available(): void
     {
         User::factory()->create([
             'role' => 'agent',
-            'is_available' => true,
-            'last_active_at' => now()->subMinutes(10),
+            'is_available' => false,
         ]);
 
         $res = $this->getJson('/chat/agent-status');
 
         $res->assertOk()->assertJson(['available' => false]);
+    }
+
+    public function test_agent_offline_marks_unavailable(): void
+    {
+        $agent = User::factory()->create([
+            'role' => 'agent',
+            'is_available' => true,
+        ]);
+
+        $this->actingAs($agent);
+        $res = $this->postJson('/chat/agent-offline');
+
+        $res->assertOk()->assertJson(['available' => false]);
+        $this->assertDatabaseHas('users', [
+            'id' => $agent->id,
+            'is_available' => false,
+        ]);
     }
 
     // ─── REPLY — NORMAL CHAT (NO TICKET) ───────────────────────────────

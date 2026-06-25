@@ -37,6 +37,7 @@ Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply']
 Route::get('/chat/history', [App\Http\Controllers\ChatController::class, 'history']);
 Route::post('/chat/submit-form', [App\Http\Controllers\ChatController::class, 'submitForm']);
 Route::get('/chat/agent-status', [App\Http\Controllers\ChatController::class, 'agentStatus']);
+Route::post('/chat/agent-offline', [App\Http\Controllers\ChatController::class, 'agentOffline']);
 Route::post('/chat/ticket/messages', [App\Http\Controllers\ChatController::class, 'userMessages']);
 Route::post('/chat/ticket/history', [App\Http\Controllers\ChatController::class, 'ticketHistory']);
 Route::post('/chat/typing', [App\Http\Controllers\ChatController::class, 'typing']);
