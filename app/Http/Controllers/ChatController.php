@@ -209,7 +209,7 @@ class ChatController extends Controller
         }
 
         try {
-            $apiKey = env('GEMINI_API_KEY');
+            $apiKey = config('services.gemini.api_key');
 
             $response = Http::withoutVerifying()->timeout(10)->post(
                 "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={$apiKey}",
@@ -644,7 +644,7 @@ User Query: $rawMessage"
             'success' => true,
             'ticket_number' => $ticket->ticket_number,
             'ticket_id' => $ticket->id,
-            'token' => sha1($ticket->id . $ticket->email . 'devxcloud-salt'),
+            'token' => hash_hmac('sha256', $ticket->id . $ticket->email, config('app.key')),
             'last_message_id' => $lastMessageId,
         ]);
     }
@@ -739,7 +739,7 @@ User Query: $rawMessage"
             return response()->json(['error' => 'Ticket not found'], 404);
         }
 
-        $expected = sha1($ticket->id . $ticket->email . 'devxcloud-salt');
+        $expected = hash_hmac('sha256', $ticket->id . $ticket->email, config('app.key'));
         if ($data['token'] !== $expected && $ticket->session_id !== session()->getId()) {
             return response()->json(['error' => 'Invalid token'], 403);
         }
