@@ -555,6 +555,7 @@ User Query: $rawMessage"
     {
         $available = User::whereIn('role', ['admin', 'agent'])
             ->where('is_available', true)
+            ->where('last_active_at', '>=', now()->subSeconds(30))
             ->exists();
 
         return response()->json(['available' => $available]);

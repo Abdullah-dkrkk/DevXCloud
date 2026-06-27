@@ -32,6 +32,8 @@ class Dashboard extends Component
     public function loadTickets()
     {
         $user = auth()->user();
+        if (!$user) return;
+
         $user->update([
             'is_available' => true,
             'last_active_at' => now(),
