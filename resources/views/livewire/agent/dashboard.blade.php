@@ -1,4 +1,4 @@
-<div class="flex h-full gap-4 overflow-hidden" x-data="{ activeTab: 'open' }">
+<div class="flex h-full gap-4 overflow-hidden" x-data="{ activeTab: 'open', pollId: null }" x-init="pollId = setInterval(() => { $wire.$refresh(); }, 2000)">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col" style="width: 40%; min-width: 400px;">
         <style>
             .agent-ticket-list::-webkit-scrollbar,
@@ -161,11 +161,17 @@
                         </div>
                         <div class="flex flex-col">
                             <div class="bg-gray-50 rounded-t-2xl rounded-br-2xl shadow-sm border border-gray-200 px-3.5 py-3">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:0s"></span>
-                                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:0.15s"></span>
-                                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:0.3s"></span>
+                                <div class="flex items-center gap-[4px]">
+                                    <span class="rounded-full" style="width:7px;height:7px;background:#b8c8dc;animation:chat-bounce 1.4s ease-in-out infinite;animation-delay:0s"></span>
+                                    <span class="rounded-full" style="width:7px;height:7px;background:#b8c8dc;animation:chat-bounce 1.4s ease-in-out infinite;animation-delay:0.2s"></span>
+                                    <span class="rounded-full" style="width:7px;height:7px;background:#b8c8dc;animation:chat-bounce 1.4s ease-in-out infinite;animation-delay:0.4s"></span>
                                 </div>
+                                <style>
+                                    @keyframes chat-bounce {
+                                        0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+                                        40% { transform: scale(1); opacity: 1; }
+                                    }
+                                </style>
                             </div>
                         </div>
                     </div>
@@ -259,6 +265,10 @@
         return date.toLocaleDateString();
     }
 
+    function isNearBottom(container) {
+        return container.scrollHeight - container.scrollTop - container.clientHeight < 80;
+    }
+
     function scrollMessagesToBottom() {
         var container = document.getElementById('messages-container');
         if (!container) return;
@@ -266,12 +276,29 @@
     }
 
     function setupAutoScroll() {
-        var container = document.getElementById('messages-container');
-        if (!container) return;
-        var observer = new MutationObserver(function() {
-            container.scrollTop = container.scrollHeight;
+        var chatArea = document.querySelector('.flex-1.min-w-0');
+        if (!chatArea) return;
+        var msgObs = null;
+
+        function watchContainer() {
+            var el = document.getElementById('messages-container');
+            if (!el) return;
+            if (msgObs) msgObs.disconnect();
+            msgObs = new MutationObserver(function() {
+                if (isNearBottom(el)) {
+                    el.scrollTop = el.scrollHeight;
+                }
+            });
+            msgObs.observe(el, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+        }
+
+        var areaObs = new MutationObserver(function() {
+            if (document.getElementById('messages-container')) {
+                watchContainer();
+            }
         });
-        observer.observe(container, { childList: true, subtree: true });
+        areaObs.observe(chatArea, { childList: true, subtree: true });
+        watchContainer();
     }
 
     scrollMessagesToBottom();
@@ -283,22 +310,5 @@
     window.addEventListener('load', function () {
         setTimeout(scrollMessagesToBottom, 50);
     });
-
-    window.addEventListener('beforeunload', function () {
-        navigator.sendBeacon('/chat/agent-offline');
-    });
-
-    var livewirePollId = null;
-    function startLivewirePoll() {
-        if (livewirePollId) return;
-        livewirePollId = setInterval(function() {
-            var components = window.Livewire && window.Livewire.all();
-            if (components && components.length > 0) {
-                components[0].$refresh();
-            }
-        }, 2000);
-    }
-    document.addEventListener('livewire:init', startLivewirePoll);
-    if (window.Livewire && window.Livewire.all) startLivewirePoll();
 </script>
 @endpush

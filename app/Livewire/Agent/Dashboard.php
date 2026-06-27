@@ -315,11 +315,20 @@ class Dashboard extends Component
                     ->get()
                     ->toArray();
 
+                if ($this->selectedTicket['status'] !== 'closed') {
+                    $ck = 'msg_count_' . $this->selectedTicketId;
+                    $cnt = count($this->messages);
+                    $prev = (int) cache()->get($ck, 0);
+                    if ($cnt > $prev) {
+                        $this->dispatch('scroll-down');
+                    }
+                    cache()->put($ck, $cnt, now()->addHours(1));
+                }
+
                 $typing = cache()->get('ticket_typing_' . $this->selectedTicketId);
                 $this->userTyping = ($typing === 'user');
 
                 $this->dispatch('input-visibility', status: $this->selectedTicket['status']);
-                $this->dispatch('scroll-down');
             }
         } else {
             $this->userTyping = false;
