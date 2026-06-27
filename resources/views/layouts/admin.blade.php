@@ -45,7 +45,13 @@
         @stack('scripts')
         <script>
             window.addEventListener('beforeunload', function () {
-                navigator.sendBeacon('/chat/agent-offline');
+                fetch('/chat/agent-offline', {
+                    method: 'POST',
+                    keepalive: true,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                    },
+                });
             });
         </script>
     </body>

@@ -211,7 +211,7 @@ class ChatController extends Controller
         try {
             $apiKey = config('services.gemini.api_key');
 
-            $response = Http::withoutVerifying()->timeout(10)->post(
+            $response = Http::timeout(10)->post(
                 "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={$apiKey}",
                 [
                     'contents' => [
@@ -568,6 +568,11 @@ User Query: $rawMessage"
             'email' => 'required|email|max:255',
             'type' => 'required|in:guidance,discovery',
             'form_data' => 'nullable|array',
+            'form_data.business_type' => 'nullable|string|max:255',
+            'form_data.question' => 'nullable|string|max:5000',
+            'form_data.business_name' => 'nullable|string|max:255',
+            'form_data.stage' => 'nullable|string|max:255',
+            'form_data.challenge' => 'nullable|string|max:5000',
             'conversation' => 'nullable|string',
         ]);
 
