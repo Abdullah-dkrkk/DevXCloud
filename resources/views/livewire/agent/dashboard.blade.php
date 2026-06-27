@@ -265,7 +265,17 @@
         container.scrollTop = container.scrollHeight;
     }
 
+    function setupAutoScroll() {
+        var container = document.getElementById('messages-container');
+        if (!container) return;
+        var observer = new MutationObserver(function() {
+            container.scrollTop = container.scrollHeight;
+        });
+        observer.observe(container, { childList: true, subtree: true });
+    }
+
     scrollMessagesToBottom();
+    setupAutoScroll();
     window.addEventListener('scroll-down', function () {
         setTimeout(scrollMessagesToBottom, 50);
     });
@@ -286,7 +296,7 @@
             if (components && components.length > 0) {
                 components[0].$refresh();
             }
-        }, 7000);
+        }, 2000);
     }
     document.addEventListener('livewire:init', startLivewirePoll);
     if (window.Livewire && window.Livewire.all) startLivewirePoll();

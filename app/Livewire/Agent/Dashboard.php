@@ -309,6 +309,7 @@ class Dashboard extends Component
                 $this->messages = ChatMessage::where('ticket_id', $this->selectedTicketId)
                     ->with('sender')
                     ->orderBy('created_at')
+                    ->orderBy('id')
                     ->get()
                     ->toArray();
 
@@ -316,6 +317,7 @@ class Dashboard extends Component
                 $this->userTyping = ($typing === 'user');
 
                 $this->dispatch('input-visibility', status: $this->selectedTicket['status']);
+                $this->dispatch('scroll-down');
             }
         } else {
             $this->userTyping = false;
