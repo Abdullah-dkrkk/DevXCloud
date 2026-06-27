@@ -12,7 +12,6 @@ return [
     */
 
     'emails' => [
-        'testing.testing@gmail.com',
         'admin@devxcloud.com',
     ],
 

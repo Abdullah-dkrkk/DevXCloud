@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Your Ticket Has Been Claimed</title>
+    <title>New Support Request</title>
     <style type="text/css">
         @media only screen and (max-width: 600px) {
             .email-wrapper { padding: 20px 0 !important; }
@@ -67,80 +67,87 @@
                     <!-- Header -->
                     <tr>
                         <td class="email-header" style="background:#0176d3;color:#ffffff;padding:20px 30px;">
-                            <h2 style="margin:0;font-size:22px;font-weight:600;line-height:1.3;color:#ffffff;">Your Ticket Has Been Claimed</h2>
-                            <p style="margin:6px 0 0;font-size:14px;opacity:0.9;line-height:1.4;color:#ffffff;">{{ $ticket->ticket_number }}</p>
+                            <h2 style="margin:0;font-size:22px;font-weight:600;line-height:1.3;color:#ffffff;">New Support Request</h2>
+                            <p style="margin:6px 0 0;font-size:14px;opacity:0.9;line-height:1.4;color:#ffffff;">A new request requires your attention</p>
                         </td>
                     </tr>
 
                     <!-- Body -->
                     <tr>
                         <td class="email-body" style="padding:30px;">
-                            <p style="font-size:15px;color:#333333;line-height:1.6;margin:0 0 12px;">Hi {{ $ticket->name }},</p>
-                            <p style="font-size:14px;color:#555555;line-height:1.6;margin:0 0 18px;">
-                                A member of our support team has picked up your ticket and will be assisting you shortly.
+
+                            <p style="font-size:15px;color:#333333;line-height:1.6;margin:0 0 18px;">
+                                A user has submitted a new support request on the website. Please review the details below:
                             </p>
 
-                            <!-- Details table -->
+                            <h3 style="margin:0 0 16px;color:#333333;font-size:16px;font-weight:600;line-height:1.3;">Request Details</h3>
+
                             <table class="detail-table" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:14px;line-height:1.5;">
+
                                 <tr style="background:#f9fafb;">
                                     <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Ticket #</td>
                                     <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $ticket->ticket_number }}</td>
                                 </tr>
+
                                 <tr>
-                                    <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Name</td>
+                                    <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Customer Name</td>
                                     <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $ticket->name }}</td>
                                 </tr>
+
                                 <tr style="background:#f9fafb;">
                                     <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Email</td>
                                     <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $ticket->email }}</td>
                                 </tr>
+
                                 <tr>
-                                    <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Agent</td>
-                                    <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $agent->name }}</td>
+                                    <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Request Type</td>
+                                    <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $formTypeLabel }}</td>
                                 </tr>
+
                                 <tr style="background:#f9fafb;">
-                                    <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Status</td>
-                                    <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">In Progress</td>
-                                </tr>
-                                <tr>
                                     <td class="detail-label" width="35%" style="padding:10px;vertical-align:top;font-weight:700;color:#333333;font-size:13px;">Submitted At</td>
                                     <td class="detail-value" width="65%" style="padding:10px;vertical-align:top;color:#555555;font-size:14px;">{{ $ticket->created_at->format('F j, Y, g:i a') }}</td>
                                 </tr>
+
                             </table>
 
-                            <!-- CTA Button — continue conversation -->
-                            <h3 style="color:#333333;margin:28px 0 12px;font-size:16px;font-weight:600;line-height:1.3;">Continue the Conversation</h3>
-                            <p style="font-size:14px;color:#555555;line-height:1.6;margin:0 0 16px;">
-                                Click the button below to continue your conversation with our team:
+                            <p style="font-size:14px;color:#555555;line-height:1.6;margin:24px 0 0;">
+                                Please log in to the dashboard to review and respond to this request.
                             </p>
 
                             <!-- CTA Button — Outlook-compatible table wrapper -->
-                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0 0;">
                                 <tr>
                                     <td class="email-btn-td" style="border-radius:4px;background:#0176d3;text-align:left;padding:0;">
                                         <!--[if mso]>
-                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ $reengagementUrl }}" style="height:44px;v-text-anchor:middle;width:260px;" arcsize="9%" strokecolor="#0176d3" fillcolor="#0176d3">
+                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ route('dashboard') }}" style="height:44px;v-text-anchor:middle;width:220px;" arcsize="9%" strokecolor="#0176d3" fillcolor="#0176d3">
                                         <w:anchorlock/>
                                         <center style="color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;">
-                                        Continue the Conversation
+                                        Open {{ $role }} Dashboard
                                         </center>
                                         </v:roundrect>
                                         <![endif]-->
                                         <!--[if !mso]><!-- -->
-                                        <a class="email-btn-responsive" href="{{ $reengagementUrl }}" target="_blank" style="display:inline-block;width:auto;min-width:200px;min-height:44px;line-height:44px;padding:0 24px;background:#0176d3;border:1px solid #0176d3;border-radius:4px;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;">
-                                            <span class="email-btn-text" style="font-size:14px;">Continue the Conversation</span>
+                                        <a class="email-btn-responsive" href="{{ route('dashboard') }}" target="_blank" style="display:inline-block;width:auto;min-width:180px;min-height:44px;line-height:44px;padding:0 24px;background:#0176d3;border:1px solid #0176d3;border-radius:4px;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;">
+                                            <span class="email-btn-text" style="font-size:14px;">Open {{ $role }} Dashboard</span>
                                         </a>
                                         <!--<![endif]-->
                                     </td>
                                 </tr>
                             </table>
                             <p style="font-size:12px;color:#666666;line-height:1.4;margin:12px 0 0;font-style:italic;word-break:break-all;word-wrap:break-word;overflow-wrap:break-word;">
-                                Or copy this link: {{ $reengagementUrl }}
+                                Or copy this link: {{ route('dashboard') }}
                             </p>
+
                         </td>
                     </tr>
 
-                    @include('emails.partials.footer')
+                    <!-- Footer -->
+                    <tr>
+                        <td class="email-footer" style="background:#f1f3f5;padding:20px 30px;text-align:center;font-size:12px;color:#666666;line-height:1.6;">
+                            This email was automatically generated by your website support system.
+                        </td>
+                    </tr>
 
                 </table>
                 <!--[if mso]>

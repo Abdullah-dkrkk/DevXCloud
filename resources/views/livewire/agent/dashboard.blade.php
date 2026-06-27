@@ -10,23 +10,23 @@
             .agent-ticket-list::-webkit-scrollbar-thumb:hover,
             .chat-messages-scroll::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
         </style>
-        <div class="p-4 border-b bg-gray-50 flex items-center justify-between">
-            <span class="text-sm font-semibold text-gray-700">Tickets</span>
-            <div class="flex gap-1.5">
-                <button @click="activeTab = 'open'"
-                        :class="activeTab === 'open' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
-                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Open</button>
-                <button @click="activeTab = 'mine'"
-                        :class="activeTab === 'mine' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
-                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Mine</button>
-                <button @click="activeTab = 'closed'"
-                        :class="activeTab === 'closed' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
-                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Closed</button>
-            </div>
-        </div>
-        <div class="flex-1 overflow-y-auto agent-ticket-list flex flex-col" wire:poll.5s="loadTickets">
+                        <div class="p-4 border-b bg-gray-50 flex items-center justify-between">
+                            <span class="text-sm font-semibold text-gray-700">Tickets</span>
+                            <div class="flex gap-1.5">
+                                <button x-on:click="activeTab = 'open'"
+                                        :class="activeTab === 'open' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
+                                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Open</button>
+                                <button x-on:click="activeTab = 'mine'"
+                                        :class="activeTab === 'mine' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
+                                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Mine</button>
+                                <button x-on:click="activeTab = 'closed'"
+                                        :class="activeTab === 'closed' ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'"
+                                        class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition">Closed</button>
+                            </div>
+                        </div>
+        <div class="flex-1 overflow-y-auto agent-ticket-list flex flex-col">
             <template x-for="ticket in $wire.tickets.filter(t => activeTab === 'open' ? (t.status !== 'closed' && !t.assigned_to) : activeTab === 'mine' ? (t.status !== 'closed' && t.assigned_to === {{ auth()->id() }}) : t.status === 'closed')" :key="ticket.id">
-                <div @click="$wire.selectTicket(ticket.id)"
+                <div wire:click="selectTicket(ticket.id)"
                      :class="{
                          'bg-blue-50 border-blue-400': ticket.id === $wire.selectedTicketId,
                          'hover:bg-gray-50 border-transparent': ticket.id !== $wire.selectedTicketId
@@ -59,7 +59,7 @@
                                 </span>
                             </div>
                             <button x-show="!ticket.assigned_to && activeTab === 'open'"
-                                    @click.stop="$wire.claimTicket(ticket.id)"
+                                    wire:click="claimTicket(ticket.id)"
                                     class="mt-2.5 text-xs bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition font-medium">
                                 + Claim
                             </button>
@@ -77,11 +77,9 @@
         </div>
     </div>
 
-    <div wire:poll.3s="refreshMessages" class="hidden"></div>
-
-    <div class="flex-1 min-w-0 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+    <div class="flex-1 min-w-0 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col relative">
         <template x-if="$wire.selectedTicketId">
-            <div class="flex flex-col h-full">
+            <div class="flex flex-col flex-1 min-h-0">
                 <div class="p-3.5 border-b bg-gray-50 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
                          :style="'background: ' + ['#0176D3','#2E7D32','#E65100','#6A1B9A','#C62828','#00695C','#F57F17','#4E342E'][($wire.selectedTicket?.name?.length || 0) % 8]">
@@ -111,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="flex-1 overflow-y-auto p-4 flex flex-col chat-messages-scroll" x-ref="messagesContainer">
+                <div class="flex-1 overflow-y-auto p-4 flex flex-col chat-messages-scroll" id="messages-container">
                     <template x-for="msg in $wire.messages" :key="msg.id">
                         <div>
                         <template x-if="msg.sender_type === 'system'">
@@ -130,7 +128,7 @@
                                         </template>
                                     </div>
                                 </div>
-                                <span class="text-[11px] text-gray-400 italic mt-1.5" x-text="new Date(msg.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})"></span>
+                                <span style="font-size:11px;font-style:italic;color:#9ca3af;display:block;margin-top:6px;" x-text="new Date(msg.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})"></span>
                             </div>
                         </template>
                         <template x-if="msg.sender_type !== 'system'">
@@ -151,7 +149,7 @@
                                          class="px-3.5 py-2.5 text-sm leading-relaxed overflow-hidden">
                                         <div x-text="msg.message"></div>
                                     </div>
-                                    <span class="text-[11px] text-gray-400 italic mt-1" x-text="new Date(msg.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})"></span>
+                                    <span style="font-size:11px;font-style:italic;color:#9ca3af;display:block;margin-top:4px;" x-text="new Date(msg.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})"></span>
                                 </div>
                             </div>
                         </template>
@@ -171,7 +169,6 @@
                             </div>
                         </div>
                     </div>
-                    <div x-init="$nextTick(() => { $refs.messagesContainer.scrollTop = $refs.messagesContainer.scrollHeight; })"></div>
                 </div>
 
                 <div x-show="$wire.showForceConfirm" class="px-4 py-4">
@@ -181,9 +178,9 @@
                             <span class="text-sm text-red-700">Are you sure you want to force close this ticket?</span>
                         </div>
                         <div class="flex gap-2 flex-shrink-0">
-                            <button wire:click="cancelForceClose"
+                            <button wire:click="cancelForceClose()"
                                     class="text-xs px-3 py-1.5 rounded-lg bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 transition font-medium">Cancel</button>
-                            <button wire:click="forceClose"
+                            <button wire:click="forceClose()"
                                     class="text-xs px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-medium">Yes, Close</button>
                         </div>
                     </div>
@@ -191,17 +188,17 @@
 
                 <div x-show="$wire.selectedTicket?.status !== 'closed'" class="px-4 py-2.5 border-t bg-gray-50">
                     <div class="flex gap-2">
-                        <button wire:click="sendReminder"
+                        <button wire:click="sendReminder()"
                                 class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition font-medium">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                             Remind
                         </button>
-                        <button wire:click="requestClose"
+                        <button wire:click="requestClose()"
                                 class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 transition font-medium">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             Close with Buttons
                         </button>
-                        <button wire:click="confirmForceClose"
+                        <button wire:click="confirmForceClose()"
                                 class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 transition font-medium">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                             Force Close
@@ -214,25 +211,6 @@
                         <p class="text-xs text-gray-500 italic">This ticket is closed. Viewing conversation history only.</p>
                     </div>
                 </div>
-
-                <div x-show="$wire.selectedTicket?.status !== 'closed'" class="p-3.5 border-t">
-                    <form @submit.prevent="$wire.sendMessage()" class="flex gap-2.5">
-                        <input type="text" x-model="$wire.newMessage"
-                               @keydown.debounce.500ms="$wire.agentTyping()"
-                               class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                               placeholder="Type your response...">
-                        <button type="submit" wire:loading.attr="disabled" wire:target="sendMessage"
-                                class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition shadow-sm disabled:opacity-70 disabled:cursor-not-allowed min-w-[72px] flex items-center justify-center gap-1.5">
-                            <span wire:loading.remove wire:target="sendMessage">Send</span>
-                            <span wire:loading wire:target="sendMessage" class="flex items-center gap-1.5">
-                                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                                </svg>
-                            </span>
-                        </button>
-                    </form>
-                </div>
             </div>
         </template>
         <template x-if="!$wire.selectedTicketId">
@@ -243,9 +221,28 @@
                 </div>
             </div>
         </template>
+        <div wire:key="agent-input-bar" x-data="{ showInput: false, localMsg: '', sending: false }" x-on:input-visibility.window="showInput = $event.detail.status !== 'closed'" x-show="showInput" class="border-t">
+            <div class="flex gap-2.5 p-3.5">
+                <input type="text" x-model="localMsg"
+                       x-on:keydown.enter.prevent="if (!sending && localMsg.trim()) { sending = true; $wire.sendMessage(localMsg).then(function(){ sending = false; localMsg = ''; }).catch(function(){ sending = false; localMsg = ''; }); }"
+                       x-on:keydown="$wire.agentTyping()"
+                       class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                       placeholder="Type your response...">
+                <button type="button" x-on:click.prevent="if (!sending && localMsg.trim()) { sending = true; $wire.sendMessage(localMsg).then(function(){ sending = false; localMsg = ''; }).catch(function(){ sending = false; localMsg = ''; }); }"
+                        :disabled="sending"
+                        class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition shadow-sm disabled:opacity-70 disabled:cursor-not-allowed min-w-[72px] flex items-center justify-center gap-1.5">
+                    <span x-show="!sending">Send</span>
+                    <span x-show="sending" class="flex items-center gap-1.5">
+                        <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div wire:poll.3s="checkTyping" class="hidden"></div>
 </div>
 
 @push('scripts')
@@ -263,18 +260,35 @@
     }
 
     function scrollMessagesToBottom() {
-        var container = document.querySelector('[x-ref="messagesContainer"]');
+        var container = document.getElementById('messages-container');
         if (!container) return;
         container.scrollTop = container.scrollHeight;
     }
 
     scrollMessagesToBottom();
-    document.addEventListener('livewire:updated', function () {
-        scrollMessagesToBottom();
+    window.addEventListener('scroll-down', function () {
+        setTimeout(scrollMessagesToBottom, 50);
+    });
+
+    window.addEventListener('load', function () {
+        setTimeout(scrollMessagesToBottom, 50);
     });
 
     window.addEventListener('beforeunload', function () {
         navigator.sendBeacon('/chat/agent-offline');
     });
+
+    var livewirePollId = null;
+    function startLivewirePoll() {
+        if (livewirePollId) return;
+        livewirePollId = setInterval(function() {
+            var components = window.Livewire && window.Livewire.all();
+            if (components && components.length > 0) {
+                components[0].$refresh();
+            }
+        }, 7000);
+    }
+    document.addEventListener('livewire:init', startLivewirePoll);
+    if (window.Livewire && window.Livewire.all) startLivewirePoll();
 </script>
 @endpush

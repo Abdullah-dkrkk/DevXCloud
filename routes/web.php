@@ -106,5 +106,5 @@ Route::get('/chat/re-engage/{ticket_id}/{token}', function ($ticketId, $token) {
         abort(403, 'Invalid token');
     }
 
-    return redirect(route('home') . '?re=' . $ticketId);
+    return redirect(route('home') . '?re=' . $ticketId . '&tk=' . $token);
 })->name('chat.reengage');

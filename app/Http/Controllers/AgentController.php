@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChatTicket;
 use App\Models\ChatMessage;
 use App\Models\User;
-use App\Mail\AgentReplied;
+// use App\Mail\AgentReplied;
 use App\Mail\TicketClaimed;
 use App\Mail\TicketClosed;
 use Illuminate\Http\Request;
@@ -87,11 +87,11 @@ class AgentController extends Controller
 
         $ticket->update(['last_activity_at' => now()]);
 
-        try {
-            Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
-        } catch (\Exception $e) {
-            Log::error('Agent replied email failed: ' . $e->getMessage());
-        }
+        // try {
+        //     Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
+        // } catch (\Exception $e) {
+        //     Log::error('Agent replied email failed: ' . $e->getMessage());
+        // }
 
         return response()->json(['success' => true, 'message' => $msg->load('sender')]);
     }

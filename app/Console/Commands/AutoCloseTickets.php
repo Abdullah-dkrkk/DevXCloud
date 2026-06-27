@@ -22,8 +22,53 @@ class AutoCloseTickets extends Command
         $this->sendCustomerReminders();
         $this->notifyAdmins();
         $this->autoCloseStale();
+        $this->autoCloseRequestedTickets();
 
         $this->info('Done.');
+    }
+
+    private function autoCloseRequestedTickets(): void
+    {
+        $tickets = ChatTicket::whereIn('status', ['pending', 'open', 'in_progress'])
+            ->whereNotNull('close_requested_at')
+            ->where('close_requested_at', '<=', now()->subMinutes(30))
+            ->get();
+
+        foreach ($tickets as $ticket) {
+            $lastMsg = ChatMessage::where('ticket_id', $ticket->id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($lastMsg && $lastMsg->sender_type === 'user') {
+                continue;
+            }
+
+            $ticket->close();
+
+            ChatMessage::create([
+                'ticket_id' => $ticket->id,
+                'sender_type' => 'system',
+                'message' => 'This ticket has been closed due to no response from the customer.',
+                'created_at' => now(),
+            ]);
+
+            try {
+                Mail::to($ticket->email)->queue(new TicketClosed($ticket, null));
+            } catch (\Exception $e) {
+                Log::error("Auto-close (requested) customer email failed for ticket {$ticket->ticket_number}: " . $e->getMessage());
+            }
+
+            try {
+                $adminEmails = config('admin.emails', []);
+                foreach ($adminEmails as $adminEmail) {
+                    Mail::to($adminEmail)->queue(new TicketClosed($ticket, null, true));
+                }
+            } catch (\Exception $e) {
+                Log::error("Auto-close (requested) admin email failed for ticket {$ticket->ticket_number}: " . $e->getMessage());
+            }
+
+            $this->info("Auto-closed requested ticket {$ticket->ticket_number}");
+        }
     }
 
     private function sendCustomerReminders(): void
@@ -77,21 +122,21 @@ class AutoCloseTickets extends Command
                 continue;
             }
 
-            $agent = $ticket->agent;
+            // $agent = $ticket->agent;
             $adminEmails = config('admin.emails', []);
 
             $subject = "Action Needed: Ticket {$ticket->ticket_number} - No response from customer";
             $message = "Ticket {$ticket->ticket_number} by {$ticket->name} ({$ticket->email}) hasn't received a response for over an hour after the reminder was sent. It's a good time to close this ticket if the customer's needs have been addressed.";
 
-            if ($agent) {
-                try {
-                    Mail::raw($message, function ($mail) use ($agent, $subject) {
-                        $mail->to($agent->email)->subject($subject);
-                    });
-                } catch (\Exception $e) {
-                    Log::error("Failed to notify agent about ticket {$ticket->ticket_number}: " . $e->getMessage());
-                }
-            }
+            // if ($agent) {
+            //     try {
+            //         Mail::raw($message, function ($mail) use ($agent, $subject) {
+            //             $mail->to($agent->email)->subject($subject);
+            //         });
+            //     } catch (\Exception $e) {
+            //         Log::error("Failed to notify agent about ticket {$ticket->ticket_number}: " . $e->getMessage());
+            //     }
+            // }
 
             foreach ($adminEmails as $adminEmail) {
                 try {
@@ -135,7 +180,7 @@ class AutoCloseTickets extends Command
             ]);
 
             try {
-                Mail::to($ticket->email)->send(new TicketClosed($ticket, null));
+                Mail::to($ticket->email)->queue(new TicketClosed($ticket, null));
             } catch (\Exception $e) {
                 Log::error("Auto-close email failed for ticket {$ticket->ticket_number}: " . $e->getMessage());
             }
@@ -143,7 +188,7 @@ class AutoCloseTickets extends Command
             try {
                 $adminEmails = config('admin.emails', []);
                 foreach ($adminEmails as $adminEmail) {
-                    Mail::to($adminEmail)->send(new TicketClosed($ticket, null, true));
+                    Mail::to($adminEmail)->queue(new TicketClosed($ticket, null, true));
                 }
             } catch (\Exception $e) {
                 Log::error("Auto-close admin email failed for ticket {$ticket->ticket_number}: " . $e->getMessage());

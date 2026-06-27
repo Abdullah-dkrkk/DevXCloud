@@ -531,6 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var branch = null;
     var typingStartTime = 0;
     var activeTicketId = null;
+    var closeTicketToken = '';
     var lastAgentMsgId = 0;
     var ticketPollInterval = null;
     var reengageBotMode = false;
@@ -761,15 +762,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         if (option === "Open New Ticket") {
-            addMessage('user', option);
-            stopTicketPolling();
-            activeTicketId = null;
-            reengageBotMode = false;
-            guestConversation = [];
-            unlockInput();
-            clearMessages();
-            flowStarted = false;
-            loadChatContent();
+            window.location.href = '/?re_bot=1';
             return;
         }
         if (option === "I'm still here" && activeTicketId) {
@@ -975,14 +968,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 'Accept': 'application/json',
             },
-            body: JSON.stringify({ ticket_id: ticketId, token: 'session' })
+            body: JSON.stringify({ ticket_id: ticketId, token: closeTicketToken })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
             if (data.success) {
                 stopTicketPolling();
                 activeTicketId = null;
-                botReply('Your ticket has been closed. Feel free to start a new conversation anytime!', ['Open New Ticket']);
+                hideTyping();
+                addMessage('bot', 'Your ticket has been closed. Feel free to start a new conversation anytime!', ['Open New Ticket']);
             } else {
                 enableInput();
                 botReply('Sorry, something went wrong. Please try again.', null, true);
@@ -1099,6 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(function(res) { return res.json(); })
         .then(function(data) {
             startTicketPolling(data.ticket_id, data.last_message_id || 0);
+            closeTicketToken = data.token || '';
             var ticketNum = data.ticket_number || '';
             fetch('/chat/agent-status')
                 .then(function(r) { return r.json(); })
@@ -1118,7 +1113,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(function() {
                     var bubble = document.getElementById('gf-form-bubble');
                     if (bubble) {
-                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
+                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
                     }
                     flowLocked = false;
                     input.disabled = false;
@@ -1237,6 +1232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(function(res) { return res.json(); })
         .then(function(data) {
             startTicketPolling(data.ticket_id, data.last_message_id || 0);
+            closeTicketToken = data.token || '';
             var ticketNum = data.ticket_number || '';
             fetch('/chat/agent-status')
                 .then(function(r) { return r.json(); })
@@ -1256,7 +1252,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(function() {
                     var bubble = document.getElementById('df-form-bubble');
                     if (bubble) {
-                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
+                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
                     }
                     flowLocked = false;
                     input.disabled = false;
@@ -1525,6 +1521,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(function(data) {
                 if (data.messages && data.messages.length > 0) {
                     var hasAgent = false;
+                    var isClosed = false;
                     var typingEl = body.querySelector('.chat-typing-msg');
                     if (typingEl) typingEl.remove();
                     data.messages.forEach(function(msg) {
@@ -1535,6 +1532,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 addAgentMessage(msg.message);
                             } else if (msg.sender_type === 'system') {
                                 addMessage('bot', msg.message, msg.options || null);
+                                if (msg.message.indexOf('has been closed') !== -1) {
+                                    isClosed = true;
+                                }
                             } else if (msg.sender_type === 'bot') {
                                 addMessage('bot', msg.message, msg.options || null);
                             } else {
@@ -1542,6 +1542,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         }
                     });
+                    if (isClosed) {
+                        disableInput();
+                    }
+                    if (isClosed) {
+                        stopTicketPolling();
+                    }
                     if (hasAgent && reengageBotMode) {
                         reengageBotMode = false;
                         var oldMsg = body.querySelector('[data-bot-msg]');
@@ -1633,6 +1639,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var reengageId = document.getElementById('reengage-ticket-id');
     if (reengageId && reengageId.value) {
         var tid = parseInt(reengageId.value);
+        closeTicketToken = urlParams.get('tk') || '';
         if (emptyState) emptyState.style.display = 'none';
         body.classList.add('chat-panel__body--has-messages');
         var reconnectMsg = document.createElement('div');
@@ -1653,57 +1660,69 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(function(r) { if (!r.ok) throw new Error('gone'); return r.json(); })
         .then(function(data) {
             var maxMsgId = 0;
+            var ticketClosed = false;
             if (data.conversation) {
-                data.conversation.forEach(function(msg) {
+                data.conversation.forEach(function(msg, idx) {
                     var opts = (msg.options && msg.options.length > 0) ? msg.options : null;
+                    var isLast = (idx === data.conversation.length - 1);
+                    var isSysOrBot = (msg.sender_type === 'system' || msg.sender_type === 'bot');
+                    var disableOpts = !(isLast && isSysOrBot && opts);
                     if (msg.sender_type === 'agent') {
                         addAgentMessage(msg.message);
-                    } else if (msg.sender_type === 'system') {
-                        addMessage('bot', msg.message, msg.options && msg.options.length > 0 ? msg.options : null, true);
-                    } else if (msg.sender_type === 'bot') {
-                        addMessage('bot', msg.message, opts, true);
+                    } else if (isSysOrBot) {
+                        addMessage('bot', msg.message, opts, disableOpts);
                     } else {
                         addMessage('user', msg.message);
                     }
                     if (msg.id > maxMsgId) maxMsgId = msg.id;
+                    if (msg.sender_type === 'system' && msg.message.indexOf('has been closed') !== -1) {
+                        ticketClosed = true;
+                    }
                 });
             }
+            if (ticketClosed) {
+                disableInput();
+                stopTicketPolling();
+                activeTicketId = null;
+            }
             body.scrollTop = body.scrollHeight;
-            fetch('/chat/agent-status')
-                .then(function(r) { return r.json(); })
-                .then(function(status) {
-                    if (status.available) {
-                        unlockInput();
-                        startTicketPolling(tid, maxMsgId);
-                        var onlineMsg = document.createElement('div');
-                        onlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#1a7d3a;padding:4px 14px;margin-bottom:4px;';
-                        onlineMsg.textContent = 'An agent is online and will be with you shortly.';
-                        body.appendChild(onlineMsg);
-                        body.scrollTop = body.scrollHeight;
-                    } else {
-                        var offlineMsg = document.createElement('div');
-                        offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#555;padding:8px 14px;margin-bottom:8px;';
-                        var offlineText = document.createElement('span');
-                        offlineText.textContent = 'No agents are available at the moment. ';
-                        offlineMsg.appendChild(offlineText);
-                        var botLink = document.createElement('a');
-                        botLink.href = '#';
-                        botLink.style.cssText = 'color:#0176D3;text-decoration:underline;cursor:pointer;font-weight:500;';
-                        botLink.textContent = 'Please chat with our bot for quick help instead';
-                        botLink.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            window.location.search = '?re_bot=1';
-                        });
-                        offlineMsg.appendChild(botLink);
-                        body.appendChild(offlineMsg);
+            if (!ticketClosed) {
+                fetch('/chat/agent-status')
+                    .then(function(r) { return r.json(); })
+                    .then(function(status) {
+                        if (status.available) {
+                            unlockInput();
+                            startTicketPolling(tid, maxMsgId);
+                            var onlineMsg = document.createElement('div');
+                            onlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#1a7d3a;padding:4px 14px;margin-bottom:4px;';
+                            onlineMsg.textContent = 'An agent is online and will be with you shortly.';
+                            body.appendChild(onlineMsg);
+                            body.scrollTop = body.scrollHeight;
+                        } else {
+                            var offlineMsg = document.createElement('div');
+                            offlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#555;padding:8px 14px;margin-bottom:8px;';
+                            var offlineText = document.createElement('span');
+                            offlineText.textContent = 'No agents are available at the moment. ';
+                            offlineMsg.appendChild(offlineText);
+                            var botLink = document.createElement('a');
+                            botLink.href = '#';
+                            botLink.style.cssText = 'color:#0176D3;text-decoration:underline;cursor:pointer;font-weight:500;';
+                            botLink.textContent = 'Please chat with our bot for quick help instead';
+                            botLink.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                window.location.search = '?re_bot=1';
+                            });
+                            offlineMsg.appendChild(botLink);
+                            body.appendChild(offlineMsg);
 
-                        lockInput();
-                        body.scrollTop = body.scrollHeight;
-                    }
-                })
-                .catch(function() {
-                    unlockInput();
-                });
+                            lockInput();
+                            body.scrollTop = body.scrollHeight;
+                        }
+                    })
+                    .catch(function() {
+                        unlockInput();
+                    });
+            }
         })
         .catch(function() {
             unlockInput();

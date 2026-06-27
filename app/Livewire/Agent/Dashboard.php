@@ -5,9 +5,10 @@ namespace App\Livewire\Agent;
 use Livewire\Component;
 use App\Models\ChatTicket;
 use App\Models\ChatMessage;
-use App\Mail\AgentReplied;
+// use App\Mail\AgentReplied;
 use App\Mail\TicketClaimed;
 use App\Mail\TicketClosed;
+use App\Mail\TicketReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
@@ -67,6 +68,9 @@ class Dashboard extends Component
             return;
         }
 
+        $status = $this->selectedTicket['status'] ?? 'closed';
+        $this->dispatch('input-visibility', status: $status);
+
         $this->refreshMessages();
     }
 
@@ -79,6 +83,8 @@ class Dashboard extends Component
             ->orderBy('created_at')
             ->get()
             ->toArray();
+
+        $this->dispatch('scroll-down');
     }
 
     public function checkTyping()
@@ -134,12 +140,16 @@ class Dashboard extends Component
         $this->selectTicket($ticket->id);
     }
 
-    public function sendMessage()
+    public function sendMessage($message = null)
     {
+        if ($message !== null) {
+            $this->newMessage = $message;
+        }
         $this->validate(['newMessage' => 'required|string|max:5000']);
 
         $user = auth()->user();
-        $ticket = ChatTicket::where('id', $this->selectedTicketId)
+        $ticketId = (int) $this->selectedTicketId;
+        $ticket = ChatTicket::where('id', $ticketId)
             ->where('assigned_to', $user->id)
             ->first();
 
@@ -155,11 +165,11 @@ class Dashboard extends Component
 
         $ticket->update(['last_activity_at' => now()]);
 
-        try {
-            Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
-        } catch (\Exception $e) {
-            Log::error('Agent replied email from Livewire failed: ' . $e->getMessage());
-        }
+        // try {
+        //     Mail::to($ticket->email)->queue(new AgentReplied($ticket, $msg));
+        // } catch (\Exception $e) {
+        //     Log::error('Agent replied email from Livewire failed: ' . $e->getMessage());
+        // }
 
         $this->newMessage = '';
         $this->refreshMessages();
@@ -177,14 +187,16 @@ class Dashboard extends Component
 
         ChatMessage::create([
             'ticket_id' => $ticket->id,
-            'sender_id' => $user->id,
             'sender_type' => 'system',
             'message' => 'Based on our conversation, it looks like your needs have been taken care of. If you\'re satisfied, please close this ticket. Feel free to reach out anytime you need help again.',
             'options' => ['Close this Ticket', 'Open New Ticket'],
             'created_at' => now(),
         ]);
 
-        $ticket->update(['last_activity_at' => now()]);
+        $ticket->update([
+            'last_activity_at' => now(),
+            'close_requested_at' => now(),
+        ]);
         $this->refreshMessages();
     }
 
@@ -210,6 +222,13 @@ class Dashboard extends Component
             'last_activity_at' => now(),
             'reminder_sent_at' => now(),
         ]);
+
+        try {
+            Mail::to($ticket->email)->queue(new TicketReminder($ticket, $user));
+        } catch (\Exception $e) {
+            Log::error('Ticket reminder email failed: ' . $e->getMessage());
+        }
+
         $this->refreshMessages();
     }
 
@@ -228,7 +247,8 @@ class Dashboard extends Component
         $this->showForceConfirm = false;
 
         $user = auth()->user();
-        $ticket = ChatTicket::where('id', $this->selectedTicketId)
+        $ticketId = (int) $this->selectedTicketId;
+        $ticket = ChatTicket::where('id', $ticketId)
             ->where('assigned_to', $user->id)
             ->first();
 
@@ -255,10 +275,17 @@ class Dashboard extends Component
             foreach ($adminEmails as $adminEmail) {
                 Mail::to($adminEmail)->queue(new TicketClosed($ticket, $user, true));
             }
+            // if ($ticket->assigned_to && $ticket->assigned_to !== $user->id) {
+            //     $assignedAgent = User::find($ticket->assigned_to);
+            //     if ($assignedAgent) {
+            //         Mail::to($assignedAgent->email)->queue(new TicketClosed($ticket, $user, true));
+            //     }
+            // }
         } catch (\Exception $e) {
             Log::error('Ticket closed admin email from Livewire failed: ' . $e->getMessage());
         }
 
+        $this->dispatch('input-visibility', status: 'closed');
         $this->selectedTicketId = null;
         $this->selectedTicket = null;
         $this->messages = [];
@@ -267,12 +294,31 @@ class Dashboard extends Component
 
     public function render()
     {
+        $this->loadTickets();
+
         if ($this->selectedTicketId) {
-            $this->messages = ChatMessage::where('ticket_id', $this->selectedTicketId)
-                ->with('sender')
-                ->orderBy('created_at')
-                ->get()
-                ->toArray();
+            $this->selectedTicket = ChatTicket::with('agent')
+                ->where('id', $this->selectedTicketId)
+                ->first()
+                ?->toArray();
+
+            if (!$this->selectedTicket) {
+                $this->selectedTicketId = null;
+                $this->userTyping = false;
+            } else {
+                $this->messages = ChatMessage::where('ticket_id', $this->selectedTicketId)
+                    ->with('sender')
+                    ->orderBy('created_at')
+                    ->get()
+                    ->toArray();
+
+                $typing = cache()->get('ticket_typing_' . $this->selectedTicketId);
+                $this->userTyping = ($typing === 'user');
+
+                $this->dispatch('input-visibility', status: $this->selectedTicket['status']);
+            }
+        } else {
+            $this->userTyping = false;
         }
 
         return view('livewire.agent.dashboard');

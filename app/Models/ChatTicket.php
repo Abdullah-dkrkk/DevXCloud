@@ -22,6 +22,7 @@ class ChatTicket extends Model
         'last_activity_at',
         'reminder_sent_at',
         'admin_notified_at',
+        'close_requested_at',
         'closed_at',
     ];
 
@@ -30,6 +31,7 @@ class ChatTicket extends Model
         'last_activity_at' => 'datetime',
         'reminder_sent_at' => 'datetime',
         'admin_notified_at' => 'datetime',
+        'close_requested_at' => 'datetime',
         'closed_at' => 'datetime',
     ];
 

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketCreated;
 use App\Mail\TicketClosed;
+use App\Mail\AdminAgentTicketNotification;
 
 class ChatController extends Controller
 {
@@ -552,12 +553,6 @@ User Query: $rawMessage"
 
     public function agentStatus(Request $request)
     {
-        $user = $request->user();
-
-        if ($user && $user->isAgent()) {
-            return response()->json(['available' => true]);
-        }
-
         $available = User::whereIn('role', ['admin', 'agent'])
             ->where('is_available', true)
             ->exists();
@@ -618,17 +613,37 @@ User Query: $rawMessage"
 
         try {
             $adminEmails = config('admin.emails', []);
-            foreach ($adminEmails as $adminEmail) {
-                Mail::to($adminEmail)->queue(new TicketCreated($ticket, true));
+            $adminRecipients = collect($adminEmails)->unique()->values()->take(5);
+
+            if ($adminRecipients->isNotEmpty()) {
+                $to = $adminRecipients->shift();
+                $mail = Mail::to($to);
+                if ($adminRecipients->isNotEmpty()) {
+                    $mail->bcc($adminRecipients->values()->all());
+                }
+                $mail->queue(new AdminAgentTicketNotification($ticket, 'Admin'));
             }
+
+            // $agentEmails = User::where('role', 'agent')->limit(10)->pluck('email')->toArray();
+            // $agentRecipients = collect($agentEmails)->unique()->values()->take(5);
+            // 
+            // if ($agentRecipients->isNotEmpty()) {
+            //     $to = $agentRecipients->shift();
+            //     $mail = Mail::to($to);
+            //     if ($agentRecipients->isNotEmpty()) {
+            //         $mail->bcc($agentRecipients->values()->all());
+            //     }
+            //     $mail->queue(new AdminAgentTicketNotification($ticket, 'Agent'));
+            // }
         } catch (\Exception $e) {
-            Log::error('Ticket admin notification failed: ' . $e->getMessage());
+            Log::error('Ticket admin/agent notification failed: ' . $e->getMessage());
         }
 
         return response()->json([
             'success' => true,
             'ticket_number' => $ticket->ticket_number,
             'ticket_id' => $ticket->id,
+            'token' => sha1($ticket->id . $ticket->email . 'devxcloud-salt'),
             'last_message_id' => $lastMessageId,
         ]);
     }
@@ -737,12 +752,12 @@ User Query: $rawMessage"
         ChatMessage::create([
             'ticket_id' => $ticket->id,
             'sender_type' => 'system',
-            'message' => 'This ticket has been closed.',
+            'message' => 'This ticket has been closed by ' . $ticket->name . '.',
             'created_at' => now(),
         ]);
 
         try {
-            Mail::to($ticket->email)->queue(new TicketClosed($ticket, null));
+            Mail::to($ticket->email)->queue(new TicketClosed($ticket, null, false, $ticket->name));
         } catch (\Exception $e) {
             Log::error('User closed ticket email failed: ' . $e->getMessage());
         }
@@ -750,7 +765,7 @@ User Query: $rawMessage"
         try {
             $adminEmails = config('admin.emails', []);
             foreach ($adminEmails as $adminEmail) {
-                Mail::to($adminEmail)->queue(new TicketClosed($ticket, null, true));
+                Mail::to($adminEmail)->queue(new TicketClosed($ticket, null, true, $ticket->name));
             }
         } catch (\Exception $e) {
             Log::error('User closed ticket admin email failed: ' . $e->getMessage());
