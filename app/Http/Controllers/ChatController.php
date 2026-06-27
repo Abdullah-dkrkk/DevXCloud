@@ -574,7 +574,26 @@ User Query: $rawMessage"
             'form_data.stage' => 'nullable|string|max:255',
             'form_data.challenge' => 'nullable|string|max:5000',
             'conversation' => 'nullable|string',
+            'g-recaptcha-response' => app()->environment('production') ? 'required|string' : 'nullable',
         ]);
+
+        if (app()->environment('production')) {
+            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => config('services.recaptcha.secret_key'),
+                'response' => $data['g-recaptcha-response'],
+                'remoteip' => $request->ip(),
+            ]);
+
+            $body = $response->json();
+
+            if (!($body['success'] ?? false)) {
+                return response()->json(['error' => 'reCAPTCHA verification failed. Please try again.'], 422);
+            }
+
+            if (($body['score'] ?? 0) < 0.5) {
+                return response()->json(['error' => 'reCAPTCHA score too low. Please try again.'], 422);
+            }
+        }
 
         $user = $this->findOrCreateUser($data['name'], $data['email']);
 
@@ -659,7 +678,15 @@ User Query: $rawMessage"
         $data = $request->validate([
             'ticket_id' => 'required|exists:chat_tickets,id',
             'since_id' => 'nullable|integer|min:0',
+            'token' => 'nullable|string',
         ]);
+
+        $ticket = ChatTicket::findOrFail($data['ticket_id']);
+        if ($ticket->session_id !== session()->getId()) {
+            if (empty($data['token']) || !$ticket->verifyToken($data['token'])) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+        }
 
         $sinceId = $data['since_id'] ?? 0;
 
@@ -676,7 +703,15 @@ User Query: $rawMessage"
     {
         $data = $request->validate([
             'ticket_id' => 'required|exists:chat_tickets,id',
+            'token' => 'nullable|string',
         ]);
+
+        $ticket = ChatTicket::findOrFail($data['ticket_id']);
+        if ($ticket->session_id !== session()->getId()) {
+            if (empty($data['token']) || !$ticket->verifyToken($data['token'])) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+        }
 
         $conversation = ChatMessage::where('ticket_id', $data['ticket_id'])
             ->where('message', 'not like', 'Form submitted:%')
@@ -744,8 +779,7 @@ User Query: $rawMessage"
             return response()->json(['error' => 'Ticket not found'], 404);
         }
 
-        $expected = hash_hmac('sha256', $ticket->id . $ticket->email, config('app.key'));
-        if ($data['token'] !== $expected && $ticket->session_id !== session()->getId()) {
+        if (!$ticket->verifyToken($data['token']) && $ticket->session_id !== session()->getId()) {
             return response()->json(['error' => 'Invalid token'], 403);
         }
 

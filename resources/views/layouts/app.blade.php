@@ -214,9 +214,9 @@
                             Get a proposal
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link active theme__btn login__btn" href="{{ route('login') }}">Login</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

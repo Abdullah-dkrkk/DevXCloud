@@ -35,6 +35,8 @@
             .detail-label { font-size: 12px !important; }
             .detail-value { font-size: 13px !important; }
             .email-btn-text { font-size: 13px !important; }
+            .email-btn-responsive { min-width: 0 !important; width: 100% !important; padding-left: 16px !important; padding-right: 16px !important; box-sizing: border-box !important; }
+            .email-btn-td { display: block !important; width: 100% !important; text-align: center !important; }
         }
         @media only screen and (max-width: 320px) {
             .email-body { padding: 10px !important; }
@@ -170,7 +172,7 @@
                                 If you need help again in the future, feel free to reach out anytime.
                             </p>
 
-                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 10px 0;">
                                 <tr>
                                     <td class="email-btn-td" style="border-radius:4px;background:#0176d3;text-align:left;padding:0;">
                                         <!--[if mso]>

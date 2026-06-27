@@ -621,7 +621,31 @@
 }
 </style>
 
+@php $recaptchaSiteKey = config('services.recaptcha.site_key'); @endphp
+
+@if($recaptchaSiteKey)
+<script src="https://www.google.com/recaptcha/api.js?render={{ $recaptchaSiteKey }}&onload=recaptchaOnLoad" async defer></script>
+@endif
+
 <script>
+var recaptchaSiteKey = '{{ $recaptchaSiteKey }}';
+var recaptchaReady = false;
+window.recaptchaOnLoad = function() { recaptchaReady = true; };
+
+function executeRecaptcha(actionId, callback) {
+    if (!recaptchaSiteKey) { if (callback) callback(''); return; }
+    if (typeof grecaptcha !== 'undefined' && recaptchaReady) {
+        grecaptcha.ready(function() {
+            grecaptcha.execute(recaptchaSiteKey, { action: 'submit' }).then(function(token) {
+                document.getElementById(actionId + '-recaptcha-token').value = token;
+                if (callback) callback(token);
+            });
+        });
+    } else {
+        setTimeout(function() { executeRecaptcha(actionId, callback); }, 1500);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
@@ -1126,6 +1150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formHtml += '<input type="email" id="gf-email" data-label="Email Address" placeholder="Email Address" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
             formHtml += '<input type="text" id="gf-btype" data-label="Business Type" placeholder="Business Type" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
             formHtml += '<textarea id="gf-question" data-label="Question" placeholder="Question" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<input type="hidden" id="gf-recaptcha-token" name="g-recaptcha-response" value="">';
             formHtml += '<button id="gf-submit" style="width:100%;padding:8px;margin-bottom:14px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
             var bubble = document.createElement('div');
@@ -1184,63 +1209,75 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
         }
 
-        var formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('type', 'guidance');
-        formData.append('form_data[business_type]', btype);
-        formData.append('form_data[question]', question);
-        if (guestConversation.length > 0) {
-            formData.append('conversation', JSON.stringify(guestConversation));
-        }
+        executeRecaptcha('gf', function() {
+            var token = document.getElementById('gf-recaptcha-token').value;
 
-        fetch('/chat/submit-form', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json',
-            },
-            body: formData
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            startTicketPolling(data.ticket_id, data.last_message_id || 0);
-            closeTicketToken = data.token || '';
-            var ticketNum = data.ticket_number || '';
-            fetch('/chat/agent-status')
-                .then(function(r) { return r.json(); })
-                .then(function(status) {
-                    var bubble = document.getElementById('gf-form-bubble');
-                    if (bubble) {
-                        if (status.available) {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
-                        } else {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
-                        }
-                    }
-                    flowLocked = false;
-                    input.disabled = false;
-                    currentFlow = null; currentStep = 0; branch = null;
-                })
-                .catch(function() {
-                    var bubble = document.getElementById('gf-form-bubble');
-                    if (bubble) {
-                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
-                    }
-                    flowLocked = false;
-                    input.disabled = false;
-                    currentFlow = null; currentStep = 0; branch = null;
-                });
-        })
-        .catch(function() {
-            var submitBtn = document.getElementById('gf-submit');
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.style.background = '#0176D3';
-                submitBtn.style.cursor = 'pointer';
-                submitBtn.innerHTML = 'Submit';
+            var formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('type', 'guidance');
+            formData.append('form_data[business_type]', btype);
+            formData.append('form_data[question]', question);
+            formData.append('g-recaptcha-response', token);
+            if (guestConversation.length > 0) {
+                formData.append('conversation', JSON.stringify(guestConversation));
             }
-            botReply("Something went wrong. Please try again.");
+
+            fetch('/chat/submit-form', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (!data.ticket_id) {
+                    var bubble = document.getElementById('gf-form-bubble');
+                    if (bubble) bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Something went wrong. Please try again in a few minutes.</div>';
+                    flowLocked = false; input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                    return;
+                }
+                startTicketPolling(data.ticket_id, data.last_message_id || 0);
+                closeTicketToken = data.token || '';
+                var ticketNum = data.ticket_number || '';
+                fetch('/chat/agent-status')
+                    .then(function(r) { return r.json(); })
+                    .then(function(status) {
+                        var bubble = document.getElementById('gf-form-bubble');
+                        if (bubble) {
+                            if (status.available) {
+                                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your personalized guidance.</div>';
+                            } else {
+                                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
+                            }
+                        }
+                        flowLocked = false;
+                        input.disabled = false;
+                        currentFlow = null; currentStep = 0; branch = null;
+                    })
+                    .catch(function() {
+                        var bubble = document.getElementById('gf-form-bubble');
+                        if (bubble) {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
+                        }
+                        flowLocked = false;
+                        input.disabled = false;
+                        currentFlow = null; currentStep = 0; branch = null;
+                    });
+            })
+            .catch(function() {
+                var submitBtn = document.getElementById('gf-submit');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '#0176D3';
+                    submitBtn.style.cursor = 'pointer';
+                    submitBtn.innerHTML = 'Submit';
+                }
+                botReply("Something went wrong. Please try again.");
+            });
         });
     }
 
@@ -1259,6 +1296,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formHtml += '<input type="text" id="df-btype" data-label="Business Type" placeholder="Business Type" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
             formHtml += '<input type="text" id="df-stage" data-label="Current Stage" placeholder="Current Stage" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;box-sizing:border-box">';
             formHtml += '<textarea id="df-challenge" data-label="Main Challenge" placeholder="Main Challenge" required style="width:100%;padding:8px;border:1px solid #d0d8e0;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;min-height:50px"></textarea>';
+            formHtml += '<input type="hidden" id="df-recaptcha-token" name="g-recaptcha-response" value="">';
             formHtml += '<button id="df-submit" style="width:100%;padding:8px;margin-bottom:14px;background:#0176D3;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:inherit;font-weight:600;cursor:pointer">Submit</button>';
 
             var bubble = document.createElement('div');
@@ -1321,65 +1359,80 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<span class="btn-spinner"></span>Submitting...';
         }
 
-        var formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('type', 'discovery');
-        formData.append('form_data[business_name]', business);
-        formData.append('form_data[business_type]', btype);
-        formData.append('form_data[stage]', stage);
-        formData.append('form_data[challenge]', challenge);
-        if (guestConversation.length > 0) {
-            formData.append('conversation', JSON.stringify(guestConversation));
-        }
+        executeRecaptcha('df', function() {
+            var token = document.getElementById('df-recaptcha-token').value;
 
-        fetch('/chat/submit-form', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json',
-            },
-            body: formData
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            startTicketPolling(data.ticket_id, data.last_message_id || 0);
-            closeTicketToken = data.token || '';
-            var ticketNum = data.ticket_number || '';
-            fetch('/chat/agent-status')
-                .then(function(r) { return r.json(); })
-                .then(function(status) {
-                    var bubble = document.getElementById('df-form-bubble');
-                    if (bubble) {
-                        if (status.available) {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
-                        } else {
-                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
-                        }
-                    }
-                    flowLocked = false;
-                    input.disabled = false;
-                    currentFlow = null; currentStep = 0; branch = null;
-                })
-                .catch(function() {
-                    var bubble = document.getElementById('df-form-bubble');
-                    if (bubble) {
-                        bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
-                    }
-                    flowLocked = false;
-                    input.disabled = false;
-                    currentFlow = null; currentStep = 0; branch = null;
-                });
-        })
-        .catch(function() {
-            var submitBtn = document.getElementById('df-submit');
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.style.background = '#0176D3';
-                submitBtn.style.cursor = 'pointer';
-                submitBtn.innerHTML = 'Submit';
+            var formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('type', 'discovery');
+            formData.append('form_data[business_name]', business);
+            formData.append('form_data[business_type]', btype);
+            formData.append('form_data[stage]', stage);
+            formData.append('form_data[challenge]', challenge);
+            formData.append('g-recaptcha-response', token);
+            if (guestConversation.length > 0) {
+                formData.append('conversation', JSON.stringify(guestConversation));
             }
-            botReply("Something went wrong. Please try again.");
+
+            fetch('/chat/submit-form', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (!data.ticket_id) {
+                    var bubble = document.getElementById('df-form-bubble');
+                    if (bubble) bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Something went wrong. Please try again in a few minutes.</div>';
+                    flowLocked = false; input.disabled = false;
+                    currentFlow = null; currentStep = 0; branch = null;
+                    return;
+                }
+                startTicketPolling(data.ticket_id, data.last_message_id || 0);
+                closeTicketToken = data.token || '';
+                var ticketNum = data.ticket_number || '';
+                fetch('/chat/agent-status')
+                    .then(function(r) { return r.json(); })
+                    .then(function(status) {
+                        var bubble = document.getElementById('df-form-bubble');
+                        if (bubble) {
+                            if (status.available) {
+                                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Thanks for submitting your details! One of our human agents will get in touch with you for your growth discovery call.</div>';
+                            } else {
+                                bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. No agents are currently online. <a href="?re_bot=1" style="color:#0176D3;text-decoration:underline;font-weight:500;">Chat with our bot instead</a></div>';
+                            }
+                        }
+                        flowLocked = false;
+                        input.disabled = false;
+                        currentFlow = null; currentStep = 0; branch = null;
+                    })
+                    .catch(function() {
+                        var bubble = document.getElementById('df-form-bubble');
+                        if (bubble) {
+                            bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Your request has been received. <strong>#' + ticketNum + '</strong> has been created. We will get back to you shortly.</div>';
+                        }
+                        flowLocked = false;
+                        input.disabled = false;
+                        currentFlow = null; currentStep = 0; branch = null;
+                    });
+            })
+            .catch(function() {
+                var submitBtn = document.getElementById('df-submit');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '#0176D3';
+                    submitBtn.style.cursor = 'pointer';
+                    submitBtn.innerHTML = 'Submit';
+                }
+                var bubble = document.getElementById('df-form-bubble');
+                if (bubble) bubble.innerHTML = '<div style="font-size:13px;line-height:1.5;color:#1a2a3a;padding:4px 0">Something went wrong. Please try again.</div>';
+                flowLocked = false; input.disabled = false;
+                currentFlow = null; currentStep = 0; branch = null;
+            });
         });
     }
 
@@ -1611,12 +1664,17 @@ document.addEventListener('DOMContentLoaded', function() {
         body.scrollTop = body.scrollHeight;
     }
 
-    function startTicketPolling(ticketId, initialMsgId) {
+    function startTicketPolling(ticketId, initialMsgId, token) {
         activeTicketId = ticketId;
         lastAgentMsgId = initialMsgId || 0;
         if (ticketPollInterval) clearInterval(ticketPollInterval);
         ticketPollInterval = setInterval(function() {
             if (!activeTicketId) return;
+            var payload = {
+                ticket_id: activeTicketId,
+                since_id: lastAgentMsgId
+            };
+            if (token) payload.token = token;
             fetch('/chat/ticket/messages', {
                 method: 'POST',
                 headers: {
@@ -1624,10 +1682,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify({
-                    ticket_id: activeTicketId,
-                    since_id: lastAgentMsgId
-                })
+                body: JSON.stringify(payload)
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
@@ -1767,7 +1822,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 'Accept': 'application/json',
             },
-            body: JSON.stringify({ ticket_id: tid })
+            body: JSON.stringify({ ticket_id: tid, token: closeTicketToken })
         })
         .then(function(r) { if (!r.ok) throw new Error('gone'); return r.json(); })
         .then(function(data) {
@@ -1804,7 +1859,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(function(status) {
                         if (status.available) {
                             unlockInput();
-                            startTicketPolling(tid, maxMsgId);
+                            startTicketPolling(tid, maxMsgId, closeTicketToken);
                             var onlineMsg = document.createElement('div');
                             onlineMsg.style.cssText = 'text-align:center;font-size:12px;color:#1a7d3a;padding:4px 14px;margin-bottom:4px;';
                             onlineMsg.textContent = 'An agent is online and will be with you shortly.';

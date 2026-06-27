@@ -73,6 +73,17 @@ class ChatTicket extends Model
         ]);
     }
 
+    public function verifyToken($token): bool
+    {
+        $newExpected = hash_hmac('sha256', $this->id . $this->email, config('app.key'));
+        if ($token === $newExpected) {
+            return true;
+        }
+
+        $oldExpected = sha1($this->id . $this->email . 'devxcloud-salt');
+        return $token === $oldExpected;
+    }
+
     public function reopen(): void
     {
         $this->update([

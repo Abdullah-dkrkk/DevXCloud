@@ -33,14 +33,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply'])->middleware('throttle:30,1');
+Route::post('/chat/reply', [App\Http\Controllers\ChatController::class, 'reply']);
 Route::get('/chat/history', [App\Http\Controllers\ChatController::class, 'history']);
-Route::post('/chat/submit-form', [App\Http\Controllers\ChatController::class, 'submitForm'])->middleware('throttle:5,60');
+Route::post('/chat/submit-form', [App\Http\Controllers\ChatController::class, 'submitForm']);
 Route::get('/chat/agent-status', [App\Http\Controllers\ChatController::class, 'agentStatus']);
-Route::post('/chat/agent-offline', [App\Http\Controllers\ChatController::class, 'agentOffline'])->middleware('throttle:30,1');
-Route::post('/chat/ticket/messages', [App\Http\Controllers\ChatController::class, 'userMessages'])->middleware('throttle:60,1');
-Route::post('/chat/ticket/history', [App\Http\Controllers\ChatController::class, 'ticketHistory'])->middleware('throttle:60,1');
-Route::post('/chat/typing', [App\Http\Controllers\ChatController::class, 'typing'])->middleware('throttle:60,1');
+Route::post('/chat/agent-offline', [App\Http\Controllers\ChatController::class, 'agentOffline']);
+Route::post('/chat/ticket/messages', [App\Http\Controllers\ChatController::class, 'userMessages']);
+Route::post('/chat/ticket/history', [App\Http\Controllers\ChatController::class, 'ticketHistory']);
+Route::post('/chat/typing', [App\Http\Controllers\ChatController::class, 'typing']);
 Route::get('/chat/typing/{ticketId}', [App\Http\Controllers\ChatController::class, 'typingStatus']);
 
 // Agent tickets page removed — now handled inside main /dashboard
@@ -54,7 +54,7 @@ Route::middleware(['auth'])->prefix('chat/agent')->name('chat.agent.')->group(fu
     Route::post('/force-close', [App\Http\Controllers\AgentController::class, 'forceClose'])->name('force-close');
 });
 
-Route::post('/chat/user-close', [App\Http\Controllers\ChatController::class, 'userCloseTicket'])->middleware('throttle:10,1');
+Route::post('/chat/user-close', [App\Http\Controllers\ChatController::class, 'userCloseTicket']);
 
 Route::get('/', function () {
     return view('home');
@@ -78,7 +78,6 @@ Route::get('/contact', fn () => view('contact'))->name('contact');
 
 
 Route::post('/contact-submit', [ContactController::class, 'submit'])
-    ->middleware('throttle:5,60')
     ->name('contact.submit');
 
 
@@ -102,8 +101,7 @@ Route::get('/chat/re-engage/{ticket_id}/{token}', function ($ticketId, $token) {
         abort(404, 'Ticket not found');
     }
 
-    $expected = hash_hmac('sha256', $ticket->id . $ticket->email, config('app.key'));
-    if ($token !== $expected) {
+    if (!$ticket->verifyToken($token)) {
         abort(403, 'Invalid token');
     }
 
