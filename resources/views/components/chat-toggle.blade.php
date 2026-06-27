@@ -504,6 +504,118 @@
     }
 }
 
+@media (max-width: 360px) {
+    .chat-panel {
+        width: calc(100vw - 16px);
+        right: 8px;
+        bottom: calc(8px + 44px + 10px);
+        height: auto;
+        max-height: calc(100vh - 80px);
+        border-radius: 10px;
+    }
+    .chat-toggle-btn {
+        width: 44px;
+        height: 44px;
+        bottom: 8px;
+        right: 8px;
+    }
+    .chat-toggle-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .chat-panel__header {
+        padding: 18px 14px 22px;
+    }
+    .chat-panel__body {
+        padding: 10px 14px 18px;
+    }
+    .chat-msg {
+        max-width: 100%;
+    }
+    .chat-msg__bubble {
+        padding: 8px 12px;
+        max-width: calc(100% - 42px);
+    }
+    .chat-msg__option-btn {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+    .chat-panel__footer {
+        padding: 8px 12px;
+    }
+    .chat-panel__input {
+        padding: 8px 12px;
+    }
+    .chat-panel__title {
+        font-size: 14px;
+    }
+    .chat-panel__subtitle {
+        font-size: 11px;
+    }
+    .chat-panel__send-btn {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 320px) {
+    .chat-panel {
+        width: calc(100vw - 12px);
+        right: 6px;
+        bottom: calc(6px + 44px + 8px);
+        max-height: calc(100vh - 72px);
+        border-radius: 8px;
+    }
+    .chat-toggle-btn {
+        bottom: 6px;
+        right: 6px;
+    }
+    .chat-panel__header {
+        padding: 14px 12px 18px;
+    }
+    .chat-panel__body {
+        padding: 8px 12px 14px;
+    }
+    .chat-msg__bubble {
+        padding: 7px 10px;
+        max-width: calc(100% - 36px);
+    }
+    .chat-panel__footer {
+        padding: 6px 10px;
+    }
+    .chat-panel__input {
+        padding: 7px 10px;
+    }
+    .chat-msg__option-btn {
+        padding: 4px 10px;
+    }
+    .chat-panel__send-btn {
+        width: 32px;
+        height: 32px;
+    }
+    .chat-panel__close-btn {
+        width: 24px;
+        height: 24px;
+    }
+    .chat-msg__avatar {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+    }
+    .chat-msg__avatar svg {
+        width: 14px;
+        height: 14px;
+    }
+    .chat-msg--agent .chat-msg__avatar {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+    }
+    .chat-panel__title {
+        font-size: 13px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .chat-panel { transition: none; }
 }
