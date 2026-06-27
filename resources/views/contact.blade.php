@@ -346,8 +346,10 @@
                         @endif
                         <script>
                             @if($siteKey)
-                            let recaptchaReady = false;
-                            window.recaptchaOnLoad = function() { recaptchaReady = true; };
+                            if (typeof recaptchaReady === 'undefined') {
+                                var recaptchaReady = false;
+                                window.recaptchaOnLoad = function() { recaptchaReady = true; };
+                            }
 
                             function executeRecaptcha(form) {
                                 grecaptcha.ready(function() {
