@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-column align-items-center justify-content-end">
-                    <h2 class="text-center devx__color-primary">Your AI-driven growth partner <br> for modern brands.</h2>
+                    <h2 class="text-center devx__color-primary">Your AI-driven growth partner <br class="d-none d-lg-inline"> for modern brands.</h2>
                     <p class="text-center">We help modern brands grow by building AI-powered growth systems tailored to their business. Unlike agencies that rely on random campaigns, we create predictable strategies designed to increase traffic, convert more customers, and scale revenue consistently.</p>
                     <img src="{{ asset('images/about-page/about-hero-banner-robot.svg') }}" alt="About Banner Hero Robot">
                 </div>

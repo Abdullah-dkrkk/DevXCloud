@@ -11,8 +11,8 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
-                    <h2 class="text-white text-lg-start text-center">Growth Engine for <br> High-Revenue Digital Brands</h2>
-                    <p class="text-white mt-2 mb-4 text-lg-start text-center">LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
+                    <h2 class="text-white text-lg-start text-center">Growth Engine for <br class="d-none d-lg-inline"> High-Revenue Digital Brands</h2>
+                    <p class="text-white mt-2 mb-4 text-lg-start text-center">LaunchPadAI combines tailored startup strategy with <br class="d-none d-lg-inline"> intelligent automation, delivering positioning, traction, <br class="d-none d-lg-inline"> and scale in one complete system.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
                         <a href="{{ url('/contact') }}" class="devx__btn-primary">Build My Launch Plan</a>
                     </div>

@@ -9,15 +9,15 @@
         <div class="container">
             <div class="row">
                 <div class="px-0 col-lg-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1 class="devx__color-primary mb-2">Custom Growth <br> Systems Built Around <br> Your Business</h1>
-                    <p>We diagnose what’s holding your growth back, <br> design a clear roadmap, and execute with data, <br> automation, and strategy working as one system.</p>
+                    <h1 class="devx__color-primary mb-2">Custom Growth <br class="d-none d-lg-inline"> Systems Built Around <br class="d-none d-lg-inline"> Your Business</h1>
+                    <p>We diagnose what’s holding your growth back, <br class="d-none d-lg-inline"> design a clear roadmap, and execute with data, <br class="d-none d-lg-inline"> automation, and strategy working as one system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
                         <a href="{{ url('/contact') }}" class="devx__btn-primary">Start Your Growth Diagnosis</a>
                         <a href="#devx__home-explore-growth-engine" class="devx__btn-secondary">Explore Growth Systems</a>
                     </div>
                 </div>
                 <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                    <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
+                    <video class="img-fluid" controls autoplay muted loop playsinline style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
                         <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
                         Your browser does not support HTML video.
                     </video>

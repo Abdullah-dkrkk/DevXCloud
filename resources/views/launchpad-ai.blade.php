@@ -10,8 +10,8 @@
         <div class="container">
             <div class="row d-flex flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 px-0 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
-                    <h1 class="mb-2 devx__color-primary">Custom-Built Launch <br> Engine for Early-Stage <br> Startups</h1>
-                    <p>LaunchPadAI combines tailored startup strategy with <br> intelligent automation, delivering positioning, traction, <br> and scale in one complete system.</p>
+                    <h1 class="mb-2 devx__color-primary">Custom-Built Launch <br class="d-none d-lg-inline"> Engine for Early-Stage <br class="d-none d-lg-inline"> Startups</h1>
+                    <p>LaunchPadAI combines tailored startup strategy with <br class="d-none d-lg-inline"> intelligent automation, delivering positioning, traction, <br class="d-none d-lg-inline"> and scale in one complete system.</p>
                     <div class="button-wrapper d-flex align-items-center justify-content-start gap-12">
                         <a href="{{ url('/contact') }}" class="first-button text-white devx__btn-primary">Build My Launch Plan</a>
                         <a href="#devx__launchpad-explore-how" class="second-button devx__btn-secondary bg-white">See How It Works</a>

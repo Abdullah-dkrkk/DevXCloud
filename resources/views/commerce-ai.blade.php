@@ -13,9 +13,9 @@
             <div class="container">
                 <div class="row px-0">
                     <div class="col-lg-6 px-0 d-flex flex-column align-items-start justify-content-center content-section">
-                        <h1 class="mb-0 text-white">Custom-Built AI Growth <br> Engine for eCommerce</h1>
+                        <h1 class="mb-0 text-white">Custom-Built AI Growth <br class="d-none d-lg-inline"> Engine for eCommerce</h1>
                         <p class="text-white py-2">
-                            CommerceAI combines custom growth strategy with full-stack <br> AI automation delivering forecasting, personalization, <br> and optimization in one complete system.
+                            CommerceAI combines custom growth strategy with full-stack <br class="d-none d-lg-inline"> AI automation delivering forecasting, personalization, <br class="d-none d-lg-inline"> and optimization in one complete system.
                         </p>
                         {{-- <div class="buttons-wrapper d-flex align-items-center justfy-content-center">
                             <button class="theme__btn" href="javascript:void(0);">Get Your Growth Blueprint</button>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 px-0 d-flex align-items-center justify-content-center">
-                        <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
+                        <video class="img-fluid" controls autoplay muted loop playsinline style="height: 78%; width: 70%; max-width: 550px; max-height: 300px; margin-left: -50px;">
                             <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
                             Your browser does not support HTML video.
                         </video>

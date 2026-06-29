@@ -8,8 +8,8 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-between flex-lg-row flex-column-reverse">
                 <div class="col-lg-6 px-0 d-flex align-items-lg-start align-items-center justify-content-center flex-column">
-                    <h1 class="devx__color-primary mb-2">Performance Stack for <br> Scaling SaaS Brands</h1>
-                    <p class="text-lg-start text-center">ScaleCloud unifies your SaaS stack with predictive analytics, <br> API integrations, and automated systems, built to accelerate <br> your growth without the chaos.</p>
+                    <h1 class="devx__color-primary mb-2">Performance Stack for <br class="d-none d-lg-inline"> Scaling SaaS Brands</h1>
+                    <p class="text-lg-start text-center">ScaleCloud unifies your SaaS stack with predictive analytics, <br class="d-none d-lg-inline"> API integrations, and automated systems, built to accelerate <br class="d-none d-lg-inline"> your growth without the chaos.</p>
                     <div class="buttons-wrapper d-flex align-items-center justify-content-start">
                         <a href="{{ url('/contact') }}" class="devx__btn-primary">Get My Scaling Plan</a>
                     </div>

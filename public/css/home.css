@@ -5,7 +5,7 @@
 */
 
 .devx__home-hero-section {
-    background: url("../illustrations/i-hero-section-desktop.svg");
+    background: url("../illustrations/i-hero-section-desktop.svg"), #f5f7fa;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -476,7 +476,7 @@
         min-width: 100% !important;
     }
     .devx__home-hero-section {
-        background: url("../illustrations/i-hero-section-mobile.svg");
+        background: url("../illustrations/i-hero-section-mobile.svg"), #f5f7fa;
     }
 }
 
