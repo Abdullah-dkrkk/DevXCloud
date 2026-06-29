@@ -698,6 +698,23 @@
         padding: 30px !important;
         padding-bottom: 40px !important;
     }
+    .devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper .header,
+    .devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper .content {
+        align-items: center !important;
+        text-align: center !important;
+    }
+    .devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper h3 {
+        font-size: 18px !important;
+        line-height: 28px !important;
+    }
+    .devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper .content {
+        font-size: 14px !important;
+        line-height: 24px !important;
+    }
+    .devx__commerce-ai-turns .cards-wrapper .col-lg-4 .inner-wrapper img {
+        width: 60px !important;
+        height: 60px !important;
+    }
 }
 @media only screen and (max-width: 576px) {
     .devx__commerce-ai-turns .cards-wrapper .col-lg-4 {
@@ -826,7 +843,10 @@
         grid-template-columns: repeat(2, 1fr)
     }
     .devx__commerce-strategy-section .strategy-grid .col img {
-        min-width: fit-content !important;
+        width: 100% !important;
+        min-width: unset !important;
+        object-position: left !important;
+        object-fit: cover !important;
     }
 }
 @media only screen and (max-width: 576px) {
@@ -835,6 +855,12 @@
     }
     .devx__commerce-strategy-section {
         padding-bottom: 60px !important;
+    }
+    .devx__commerce-strategy-section .strategy-grid .col {
+        padding: 20px 16px !important;
+    }
+    .devx__commerce-strategy-section .strategy-grid .col img {
+        max-height: 180px !important;
     }
 }
 
