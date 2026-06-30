@@ -115,7 +115,7 @@ class ChatControllerTest extends TestCase
 
         $res->assertOk();
         $this->assertEquals(
-            "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.",
+            "Your requirement needs personalized attention from our team. Please connect with us using one of the options below, and we will help you find the right solution.",
             $res->json('reply')
         );
         $this->assertNotNull($res->json('options'));
@@ -208,7 +208,7 @@ class ChatControllerTest extends TestCase
 
         $res->assertOk();
         $this->assertEquals(
-            "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.",
+            "Your requirement needs personalized attention from our team. Please connect with us using one of the options below, and we will help you find the right solution.",
             $res->json('reply')
         );
         $this->assertEquals(
@@ -229,7 +229,7 @@ class ChatControllerTest extends TestCase
 
         $res->assertOk();
         $this->assertEquals(
-            "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.",
+            "Your requirement needs personalized attention from our team. Please connect with us using one of the options below, and we will help you find the right solution.",
             $res->json('reply')
         );
         $this->assertNotNull($res->json('options'));
@@ -393,7 +393,7 @@ class ChatControllerTest extends TestCase
 
     public function test_reply_rejects_overlong_message(): void
     {
-        $res = $this->postJson('/chat/reply', ['message' => str_repeat('a', 301)]);
+        $res = $this->postJson('/chat/reply', ['message' => str_repeat('a', 2001)]);
         $res->assertOk();
         $this->assertEquals('Invalid message.', $res->json('reply'));
     }

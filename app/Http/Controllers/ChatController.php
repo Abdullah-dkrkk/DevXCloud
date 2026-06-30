@@ -18,7 +18,7 @@ use App\Mail\AdminAgentTicketNotification;
 
 class ChatController extends Controller
 {
-    const FALLBACK_MESSAGE = "I don't have enough context to answer that accurately. If your question is specific to your business, I can help you continue in one of the following ways.";
+    const FALLBACK_MESSAGE = "Your requirement needs personalized attention from our team. Please connect with us using one of the options below, and we will help you find the right solution.";
 
     const FALLBACK_OPTIONS = ['Get Personalized Guidance', 'Book Discovery Call', 'Explore Services'];
 
@@ -26,7 +26,7 @@ class ChatController extends Controller
     {
         $message = trim($request->message);
 
-        if (!$message || strlen($message) > 300) {
+        if (!$message || strlen($message) > 2000) {
             return response()->json(['reply' => 'Invalid message.']);
         }
 
@@ -74,6 +74,12 @@ class ChatController extends Controller
             if ($this->isGreeting($message)) {
                 $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
                 return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
+            }
+
+            if ($this->isAgentConnectRequest($message)) {
+                $reply = "Let me connect you with our team. Please share more details about your requirement so we can assist you better.";
+                $this->saveHistory($rawMessage, $reply, 'bot');
+                return response()->json(['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId]);
             }
 
             $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
@@ -217,22 +223,26 @@ class ChatController extends Controller
                     'contents' => [
                         [
                             'parts' => [
-                                ['text' => "You are DevXCloud Growth Advisor — professional and consultative.
+                                ['text' => "You are DevXCloud Growth Advisor — a professional growth consultant.
 
-Your job is to match the user's query to the BEST matching FAQ answer from the list below. The user may write in Roman Urdu (Hinglish), make spelling mistakes, or use creative spellings — understand the INTENT, not the exact words.
+Your job is to help users who ask about their specific business challenges. The user may write in Roman Urdu (Hinglish), make spelling mistakes, or use creative spellings — understand the INTENT, not the exact words.
 
 Rules:
-- Use ONLY the FAQ data below. Never generate answers outside the FAQ.
-- If the user asks about 'devxcloud' with ANY spelling (devxxcloud, devvscloud, dxcloud, etc.), treat it as 'devxcloud'.
-- If you find a matching FAQ, return its answer EXACTLY as written — do not rewrite or summarize.
-- If the question is a greeting (hi, hello, etc.), return the greeting answer from the FAQ.
-- If the user asks multiple questions, pick the MOST relevant single FAQ match.
-- If NO FAQ matches the user's intent, reply with exactly: NO_MATCH
-- Keep answers SHORT — 3 to 5 lines maximum. No long paragraphs.
-- Do NOT use markdown, bold, italic, bullet points, or emojis.
-- Sound professional, consultative, and natural — not robotic, not hype.
+- Read the user's query carefully. Note their business name, location, and specific problem if mentioned.
+- Use the FAQ data below as REFERENCE to understand what DevXCloud offers and stay accurate, but do NOT limit yourself to FAQ answers.
+- Write a personalized, professional reply that:
+  * Acknowledges their specific situation (business name, problem, goals)
+  * Shows understanding of their challenge
+  * Relates their problem to relevant DevXCloud solutions (reference FAQ for accuracy)
+  * If you find a matching FAQ, you may reference its content naturally in your reply
+  * Ends with a polite suggestion to explore next steps
+- Keep replies 4 to 6 lines max. Professional tone, natural, not hype.
+- Do NOT use markdown, bold, italic, or emojis.
+- If you use numbers (1, 2, 3 etc.), put each on a new line.
+- Always end your response with a closing line like: 'To get proper guidance for your business, I would recommend connecting with our team so we can understand your needs better and suggest the right approach.'
+- If the user's question is completely outside DevXCloud's scope, politely explain that and offer to connect with the team.
 
-FAQ Data:
+FAQ Data (for reference):
 $faqText
 
 User Query: $rawMessage"
@@ -271,10 +281,7 @@ User Query: $rawMessage"
             Cache::put($geminiCacheKey, $finalReply, 3600);
             $this->saveHistory($rawMessage, $finalReply, 'bot');
 
-            $res = ['reply' => $finalReply];
-            $options = $this->getFaqOptions($finalReply);
-            if (!empty($options)) $res['options'] = $options;
-            $res['message_id'] = $savedMsgId;
+            $res = ['reply' => $finalReply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId];
             return response()->json($res);
 
         } catch (\Exception $e) {
@@ -384,6 +391,30 @@ User Query: $rawMessage"
                 return true;
             }
         }
+        return false;
+    }
+
+    private function isAgentConnectRequest($message)
+    {
+        $msg = mb_strtolower(trim($message));
+
+        $patterns = [
+            '/\b(agent|human)\b/i',
+            '/\btalk\s*to\s*(someone|person|human|agent|team)\b/i',
+            '/\bspeak\s*to\s*(someone|person|human|agent|team)\b/i',
+            '/\bconnect\s*(me\s*)?(to|with)\s*(an?\s*)?(agent|human|person|team|someone)\b/i',
+            '/\btransfer\s*(me\s*)?to\s*(an?\s*)?(agent|human)\b/i',
+            '/\b(kisi|someone)\s*(se\s*)?(baat|talk)/i',
+            '/\b(team|agent)\s*se\s*baat/i',
+            '/\bmujhe\s*(kisi\s*)?(se\s*)?(baat|connect|milwa)/i',
+        ];
+
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $msg)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
