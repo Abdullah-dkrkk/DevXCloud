@@ -96,6 +96,7 @@
     padding: 10px 14px;
     max-width: calc(100% - 42px);
     min-width: 60px;
+    white-space: pre-line;
 }
 
 .chat-msg--user .chat-msg__bubble {

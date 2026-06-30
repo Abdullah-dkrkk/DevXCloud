@@ -73,6 +73,27 @@ via OpenCode's subagent system. Activate any agent with `@agent-name`.
 5. Mark complete
 ```
 
+## Pending Implementation
+
+### Chatbot — "Connect me to an agent" detection
+**When user types agent-connect keywords, implement in `ChatController@reply()`:**
+
+1. **Pre-check keywords:** `agent|human|talk to someone|connect|baat karni hai|speak to person|team se baat|kisi se baat`
+
+2. **Bot reply:**
+   > "Let me connect you with our team. Please share more details about your requirement so we can assist you better."
+
+3. **Show 3 buttons:** `Get Personalized Guidance | Book Discovery Call | Explore Services` (existing fallback options)
+
+4. **Existing flow untouched** — form submit → ticket create → agent connects.
+
+---
+
+### Chatbot — Message length limit
+**In `ChatController@reply()` line 29:** change `300` → `2000`
+
+---
+
 ## Agent Locations
 
 - Source agents: `D:\laragon\www\agency-agents\`
