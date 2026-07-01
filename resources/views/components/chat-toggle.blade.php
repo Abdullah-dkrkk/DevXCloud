@@ -99,6 +99,19 @@
     white-space: pre-line;
 }
 
+.chat-msg__bubble ul {
+    padding-left: 16px;
+    /* margin: 0; */
+}
+
+.chat-msg__bubble p {
+    margin: 6px 0;
+}
+
+.chat-msg__bubble li {
+    margin: 2px 0;
+}
+
 .chat-msg--user .chat-msg__bubble {
     background: #0176D3;
     color: #fff;
@@ -806,7 +819,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var bubble = document.createElement('div');
         bubble.className = 'chat-msg__bubble';
-        bubble.textContent = text;
+        bubble.innerHTML = text;
         msg.appendChild(bubble);
 
         if (options && options.length > 0) {
@@ -1629,7 +1642,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var bubble = document.createElement('div');
         bubble.className = 'chat-msg__bubble';
-        bubble.textContent = text;
+        bubble.innerHTML = text;
         msg.appendChild(bubble);
 
         body.appendChild(msg);
