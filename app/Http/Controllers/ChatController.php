@@ -69,17 +69,45 @@ class ChatController extends Controller
         }
 
         if ($request->boolean('bot_mode')) {
-            $rawMessage = $message;
+            $b = $message;
 
-            if ($this->isGreeting($message)) {
-                $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
-                return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
+            $lowerB = mb_strtolower(trim($message));
+            if ($lowerB === 'hi') {
+                return response()->json(['reply' => 'Hi! How can I help you?', 'message_id' => $savedMsgId]);
+            }
+
+            if ($this->isCustomQuery($message)) {
+                $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
+                    return ChatbotFaq::select('question', 'answer')->get();
+                });
+                $faqText = $this->getRelevantFaqText($message, $faqs);
+
+                $reply = $this->callAI($message, $faqText);
+                if (!$reply) {
+                    $res = ['reply' => self::FALLBACK_MESSAGE];
+                    $res['options'] = self::FALLBACK_OPTIONS;
+                    $res['message_id'] = $savedMsgId;
+                    return response()->json($res);
+                }
+
+                $res = ['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId];
+                return response()->json($res);
             }
 
             if ($this->isAgentConnectRequest($message)) {
                 $reply = "Let me connect you with our team. Please share more details about your requirement so we can assist you better.";
-                $this->saveHistory($rawMessage, $reply, 'bot');
+                $this->saveHistory($b, $reply, 'bot');
                 return response()->json(['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId]);
+            }
+
+            if ($this->isFuzzyGreeting($message)) {
+                $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
+                return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
+            }
+
+            if ($this->isGreeting($message)) {
+                $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
+                return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
             }
 
             $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
@@ -92,7 +120,7 @@ class ChatController extends Controller
                 return response()->json($res);
             }
 
-            $exactMatch = $this->exactMatch($rawMessage, $faqs);
+            $exactMatch = $this->exactMatch($b, $faqs);
             if ($exactMatch) {
                 $res = ['reply' => $exactMatch];
                 $options = $this->getFaqOptions($exactMatch);
@@ -101,9 +129,9 @@ class ChatController extends Controller
                 return response()->json($res);
             }
 
-            $bestMatch = $this->bestMatch($rawMessage, $faqs);
+            $bestMatch = $this->bestMatch($b, $faqs);
             if ($bestMatch) {
-                $multi = $this->tryMultiQuestion($rawMessage, $faqs, $bestMatch);
+                $multi = $this->tryMultiQuestion($b, $faqs, $bestMatch);
                 if ($multi) {
                     $res = ['reply' => $multi];
                     $options = $this->getFaqOptions($multi);
@@ -127,6 +155,39 @@ class ChatController extends Controller
 
         $rawMessage = $message;
 
+        $lowerMsg = mb_strtolower(trim($message));
+
+        if ($lowerMsg === 'hi') {
+            $reply = 'Hi! How can I help you?';
+            $this->saveHistory($rawMessage, $reply, 'bot');
+            return response()->json(['reply' => $reply, 'message_id' => $savedMsgId]);
+        }
+
+        if ($this->isCustomQuery($message)) {
+            $faqs = Cache::remember('chatbot_faqs_all', 86400, function () {
+                return ChatbotFaq::select('question', 'answer')->get();
+            });
+            $faqText = $this->getRelevantFaqText($rawMessage, $faqs);
+
+            $reply = $this->callAI($rawMessage, $faqText);
+            if (!$reply) {
+                $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
+                $res = ['reply' => self::FALLBACK_MESSAGE];
+                $res['options'] = self::FALLBACK_OPTIONS;
+                $res['message_id'] = $savedMsgId;
+                return response()->json($res);
+            }
+
+            $this->saveHistory($rawMessage, $reply, 'bot');
+            return response()->json(['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId]);
+        }
+
+        if ($this->isAgentConnectRequest($message)) {
+            $reply = "Let me connect you with our team. Please share more details about your requirement so we can assist you better.";
+            $this->saveHistory($rawMessage, $reply, 'bot');
+            return response()->json(['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId]);
+        }
+
         $recent = ChatHistory::where('question', $rawMessage)
             ->where('asked_at', '>=', now()->subMinutes(5))
             ->orderBy('asked_at', 'desc')
@@ -142,6 +203,12 @@ class ChatController extends Controller
             }
             $res['message_id'] = $savedMsgId;
             return response()->json($res);
+        }
+
+        if ($this->isFuzzyGreeting($message)) {
+            $greeting = "Welcome to DevXCloud Growth Advisor. I'm here to help you understand how we build growth systems — ask me anything about our solutions, pricing, or how we work.";
+            $this->saveHistory($rawMessage, $greeting, 'bot');
+            return response()->json(['reply' => $greeting, 'message_id' => $savedMsgId]);
         }
 
         if ($this->isGreeting($message)) {
@@ -191,20 +258,11 @@ class ChatController extends Controller
             return response()->json($res);
         }
 
-        $faqText = "";
-        foreach ($faqs as $faq) {
-            $questions = explode('|', $faq->question);
-            foreach ($questions as $q) {
-                $trimmed = trim($q);
-                if ($trimmed) {
-                    $faqText .= "Q: {$trimmed}\nA: {$faq->answer}\n\n";
-                }
-            }
-        }
+        $faqText = $this->getRelevantFaqText($rawMessage, $faqs);
 
-        $geminiCacheKey = 'gemini_' . md5($rawMessage . sha1($faqText));
+        $cacheKey = 'ai_' . md5($rawMessage . sha1($faqText));
 
-        $cachedReply = Cache::get($geminiCacheKey);
+        $cachedReply = Cache::get($cacheKey);
         if ($cachedReply !== null) {
             $this->saveHistory($rawMessage, $cachedReply, 'bot');
             $res = ['reply' => $cachedReply];
@@ -214,84 +272,20 @@ class ChatController extends Controller
             return response()->json($res);
         }
 
-        try {
-            $apiKey = config('services.gemini.api_key');
-
-            $response = Http::timeout(10)->post(
-                "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={$apiKey}",
-                [
-                    'contents' => [
-                        [
-                            'parts' => [
-                                ['text' => "You are DevXCloud Growth Advisor — a professional growth consultant.
-
-Your job is to help users who ask about their specific business challenges. The user may write in Roman Urdu (Hinglish), make spelling mistakes, or use creative spellings — understand the INTENT, not the exact words.
-
-Rules:
-- Read the user's query carefully. Note their business name, location, and specific problem if mentioned.
-- Use the FAQ data below as REFERENCE to understand what DevXCloud offers and stay accurate, but do NOT limit yourself to FAQ answers.
-- Write a personalized, professional reply that:
-  * Acknowledges their specific situation (business name, problem, goals)
-  * Shows understanding of their challenge
-  * Relates their problem to relevant DevXCloud solutions (reference FAQ for accuracy)
-  * If you find a matching FAQ, you may reference its content naturally in your reply
-  * Ends with a polite suggestion to explore next steps
-- Keep replies 4 to 6 lines max. Professional tone, natural, not hype.
-- Do NOT use markdown, bold, italic, or emojis.
-- If you use numbers (1, 2, 3 etc.), put each on a new line.
-- Always end your response with a closing line like: 'To get proper guidance for your business, I would recommend connecting with our team so we can understand your needs better and suggest the right approach.'
-- If the user's question is completely outside DevXCloud's scope, politely explain that and offer to connect with the team.
-
-FAQ Data (for reference):
-$faqText
-
-User Query: $rawMessage"
-                            ]
-                        ]
-                    ]
-                ],
-                'generationConfig' => [
-                        'temperature' => 0.1,
-                        'maxOutputTokens' => 800
-                    ]
-                ]
-            );
-
-            if (!$response->successful()) {
-                Log::error('Gemini API Error: ' . $response->body());
-                $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
-                $res = ['reply' => self::FALLBACK_MESSAGE];
-                $res['options'] = self::FALLBACK_OPTIONS;
-                $res['message_id'] = $savedMsgId;
-                return response()->json($res);
-            }
-
-            $data = $response->json();
-            $reply = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
-
-            if (!$reply || str_contains(strtoupper($reply), 'NO_MATCH')) {
-                $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
-                $res = ['reply' => self::FALLBACK_MESSAGE];
-                $res['options'] = self::FALLBACK_OPTIONS;
-                $res['message_id'] = $savedMsgId;
-                return response()->json($res);
-            }
-
-            $finalReply = trim($reply);
-            Cache::put($geminiCacheKey, $finalReply, 3600);
-            $this->saveHistory($rawMessage, $finalReply, 'bot');
-
-            $res = ['reply' => $finalReply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId];
-            return response()->json($res);
-
-        } catch (\Exception $e) {
-            Log::error('Gemini Exception: ' . $e->getMessage());
+        $reply = $this->callAI($rawMessage, $faqText);
+        if (!$reply) {
             $this->saveHistory($rawMessage, self::FALLBACK_MESSAGE, 'bot');
             $res = ['reply' => self::FALLBACK_MESSAGE];
             $res['options'] = self::FALLBACK_OPTIONS;
             $res['message_id'] = $savedMsgId;
             return response()->json($res);
         }
+
+        Cache::put($cacheKey, $reply, 3600);
+        $this->saveHistory($rawMessage, $reply, 'bot');
+
+        $res = ['reply' => $reply, 'options' => self::FALLBACK_OPTIONS, 'message_id' => $savedMsgId];
+        return response()->json($res);
     }
 
     private function isFallback($answer)
@@ -394,19 +388,211 @@ User Query: $rawMessage"
         return false;
     }
 
+    private function isFuzzyGreeting($message)
+    {
+        $msg = mb_strtolower(trim($message));
+        $len = mb_strlen($msg);
+        if ($len < 2 || $len > 6) return false;
+
+        $known = ['hi', 'hey', 'hello', 'hallo', 'yo', 'sup'];
+        $maxDist = ($len <= 4) ? 2 : 1;
+
+        foreach ($known as $greeting) {
+            if (levenshtein($msg, $greeting) <= $maxDist) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function isCustomQuery($message)
+    {
+        $msg = mb_strtolower(trim($message));
+        $len = mb_strlen($msg);
+
+        if ($len < 20) return false;
+
+        $catA = [
+            '/\b(i have a|i hv a|i run a|i own a|i started a|i operate)\b.*\b(business|compan(y|ies)|brand|store|shop|startup|restaurant|service|venture|firm|kitchen|agency|cafe|studio)\b/is',
+            '/\b(my business|my company|my brand|my store|my startup|my shop|my restaurant|my service|my venture|my firm)\b/is',
+            '/\b(business|company|brand|store|shop|startup|restaurant|service)\s*(named|called|name is|nam)\b/is',
+            '/\b(i sell|i provide|i offer|i make|i create|i manufacture)\b.*\b(product|service|food|meal|kit|recipe|cloth|tech|consult|coach|course|item|good|solution)\b/is',
+            '/\b(strug(g)?l(ing|in)?|facing|facin|wasting|wastin|burning|losing|draining)\b.*\b(result|outcome|growth|sale|customer|traffic|lead|roi|money|progress|traction|convers(ion)?|signup|order|revenue)\b/is',
+            '/\b(not getting|not getin|not seeing|not seein|havent seen|haven\'?t seen|no result|poor result|bad result|hardly any|barely)\b.*\b(result|outcome|growth|sale|customer|traffic|lead|roi|money|progress|traction|convers(ion)?|signup|order|revenue)\b/is',
+            '/\b(wasted|wast|burnt|burning|losing|draining|throwing)\b.*\b(money|budget|fund|dollar|resource|time|thousand|hundred|lakh|crore)\b/is',
+            '/\b(guide me|suggest me|advise me|help me with my|help me figure|help me fix|help me solve|help me grow|help me scale)\b/is',
+            '/\b(what should i|how can i|how do i|can you help|could you help)\b.*\b(do|fix|solve|improve|grow|market|sell|get|customer|traffic|sale|revenue|start|scale|approach|strategy|next step|plan)\b/is',
+            '/\b(located|based|situated|operating)\s*(in|at)\s+\b/is',
+            '/\b(need help with my|need advice on my|need guidance for my|need suggestion for my)\b/is',
+            '/\b(hv|dnt|idk|pls|plz|struglin|busines|businness|compani|lctd|locatd|vgn|sel|wit|wht|nam)\b/is',
+        ];
+
+        $catB = [
+            '/\b(commerceai|launchpadai|scalecloud|greenscale|elitescale)\b/is',
+            '/\b(pricing?|cost|price|charge|fee|rate|plan|subscription|package|budget|afford|how much)\b/is',
+            '/\b(how does|how do|what is|tell me about|explain)\b.*\b(commerceai|launchpadai|scalecloud|greenscale|elitescale|devxcloud|platform|service|solution|tool|feature|growth|market|seo|ads?|software|system)\b/is',
+            '/\b(what is|what are|what\'?s the)\b.*\b(pricing?|cost|price|charge|fee|rate|plan|package|subscription)\b/is',
+        ];
+
+        $hasA = false;
+        $hasB = false;
+
+        foreach ($catA as $p) { if (preg_match($p, $msg)) { $hasA = true; break; } }
+        foreach ($catB as $p) { if (preg_match($p, $msg)) { $hasB = true; break; } }
+
+        if ($len > 120) return true;
+        if ($hasB && !$hasA) return false;
+        if ($hasA) return true;
+
+        return false;
+    }
+
+    private function getRelevantFaqText($rawMessage, $faqs, $maxEntries = 10)
+    {
+        $keywords = array_unique(preg_split('/[\s\p{P}]+/u', mb_strtolower($rawMessage)));
+        $keywords = array_filter($keywords, fn($w) => mb_strlen($w) > 2);
+        $stopwords = ['the','and','for','are','but','not','you','all','can','had','her','was','one','our','out','has','have','been','some','them','than','what','when','why','which','will','with','your','about','into','over','after','still','also','its','just','only','other','their','this','that','how','who','where','mere','aap','yeh','hai','koi','apna','apne','hain','kaun','kya','kab','kahan','kis','woh','uska','unki','unka','isliye','kyunki'];
+
+        $scored = [];
+        foreach ($faqs as $faq) {
+            $questions = explode('|', $faq->question);
+            $score = 0;
+            foreach ($questions as $q) {
+                $qWords = array_unique(preg_split('/[\s\p{P}]+/u', mb_strtolower(trim($q))));
+                $qWords = array_filter($qWords, fn($w) => mb_strlen($w) > 2 && !in_array($w, $stopwords));
+                $matches = array_intersect($keywords, $qWords);
+                $score += count($matches);
+            }
+            $scored[] = ['faq' => $faq, 'score' => $score];
+        }
+
+        usort($scored, fn($a, $b) => $b['score'] <=> $a['score']);
+
+        $selected = array_slice($scored, 0, $maxEntries);
+
+        if ($selected[0]['score'] === 0) {
+            $selected = array_slice($scored, 0, 5);
+        }
+
+        $faqText = '';
+        foreach ($selected as $item) {
+            $faq = $item['faq'];
+            $questions = explode('|', $faq->question);
+            foreach ($questions as $q) {
+                $trimmed = trim($q);
+                if ($trimmed) {
+                    $faqText .= "Q: {$trimmed}\nA: {$faq->answer}\n\n";
+                }
+            }
+        }
+
+        return $faqText;
+    }
+
+    private function callAI($rawMessage, $faqText)
+    {
+        try {
+            if (mb_strlen($faqText) > 12000) {
+                $faqText = mb_substr($faqText, 0, 12000);
+            }
+
+            $apiKey = config('services.groq.api_key');
+
+            $response = Http::timeout(10)->withHeaders([
+                'Authorization' => "Bearer {$apiKey}",
+                'Content-Type' => 'application/json',
+            ])->post('https://api.groq.com/openai/v1/chat/completions', [
+                'model' => 'meta-llama/llama-4-scout-17b-16e-instruct',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => "You are DevXCloud Growth Advisor \u2014 a professional growth consultant.
+
+Your job is to help users who ask about their specific business challenges. The user may write in Roman Urdu (Hinglish), make spelling mistakes, or use creative spellings \u2014 understand the INTENT, not the exact words.
+
+Rules:
+- Read the user's query carefully. Note their business name, location, and specific problem if mentioned.
+- Use the FAQ data below as REFERENCE to understand what DevXCloud offers and stay accurate, but do NOT limit yourself to FAQ answers.
+- Write a personalized, professional reply that:
+  * Acknowledges their specific situation (business name, problem, goals)
+  * Shows understanding of their challenge
+  * Relates their problem to relevant DevXCloud solutions (reference FAQ for accuracy)
+  * If you find a matching FAQ, you may reference its content naturally in your reply
+  * Ends with a polite suggestion to explore next steps
+- Keep replies concise (4-6 short paragraphs). Professional tone, natural, not hype.
+- You may use simple HTML for formatting: <b>bold</b>, <ul><li>bullet points</li></ul>. Do NOT use markdown (** or *) and do NOT use asterisks for bullets. Always use <ul><li> for lists.
+- Use bullet points (<ul><li>...</li></ul>) when listing multiple items.
+- Always end your response with a closing line like: 'To get proper guidance for your business, I would recommend connecting with our team so we can understand your needs better and suggest the right approach.'
+- If the user's question is completely outside DevXCloud's scope, politely explain that and offer to connect with the team.
+
+FAQ Data (for reference):
+$faqText
+
+User Query: $rawMessage",
+                    ],
+                ],
+                'temperature' => 0.1,
+                'max_tokens' => 1200,
+            ]);
+
+            if (!$response->successful()) {
+                Log::error('Groq API Error: ' . $response->body());
+                return null;
+            }
+
+            $data = $response->json();
+            $reply = $data['choices'][0]['message']['content'] ?? null;
+            if (!$reply) {
+                Log::error('Groq API: unexpected response structure', $data ?? []);
+                return null;
+            }
+
+            return $this->formatAIResponse($reply);
+        } catch (\Exception $e) {
+            Log::error('Groq API Exception: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    private function formatAIResponse($text)
+    {
+        $text = strip_tags($text, '<b><strong><i><em><u><ul><ol><li><br><p>');
+        if (!str_contains($text, '<ul>')) {
+            $text = preg_replace('/^[*\-]\s+(.+)$/m', '<li>$1</li>', $text);
+            $text = preg_replace('/(<li>.*?<\/li>)(\n<li>.*?<\/li>)+/s', '<ul>$0</ul>', $text);
+        }
+        $text = preg_replace('/\*\*(.+?)\*\*/', '$1', $text);
+        $text = preg_replace('/\*(.+?)\*/', '$1', $text);
+        $text = preg_replace('/`(.+?)`/', '$1', $text);
+        $text = preg_replace('/~~(.+?)~~/', '$1', $text);
+        $text = preg_replace('/^#{1,6}\s+/m', '', $text);
+        $text = preg_replace('/\[([^\]]+)\]\([^)]+\)/', '$1', $text);
+        $text = preg_replace('/\n+(?=\s*<\/(ul|ol|li|p)>)/i', '', $text);
+        $text = preg_replace('/<\/(ul|ol|li|p)>\K\s*\n+/i', '', $text);
+        $text = preg_replace('/\n+(?=\s*<(ul|ol|li|p)\b)/i', '', $text);
+        $text = preg_replace("/\n{3,}/", "\n\n", $text);
+        $text = preg_replace("/[ \t]+\n/", "\n", $text);
+        return trim($text);
+    }
+
     private function isAgentConnectRequest($message)
     {
         $msg = mb_strtolower(trim($message));
 
         $patterns = [
-            '/\b(agent|human)\b/i',
-            '/\btalk\s*to\s*(someone|person|human|agent|team)\b/i',
-            '/\bspeak\s*to\s*(someone|person|human|agent|team)\b/i',
-            '/\bconnect\s*(me\s*)?(to|with)\s*(an?\s*)?(agent|human|person|team|someone)\b/i',
-            '/\btransfer\s*(me\s*)?to\s*(an?\s*)?(agent|human)\b/i',
-            '/\b(kisi|someone)\s*(se\s*)?(baat|talk)/i',
-            '/\b(team|agent)\s*se\s*baat/i',
-            '/\bmujhe\s*(kisi\s*)?(se\s*)?(baat|connect|milwa)/i',
+            '/\b(agent|ajent|egent|agnet|gaent|gent|human|insaan|insan|customer\s*service|support)\b/i',
+            '/\btalk\s*to\s*(someone|somone|person|human|agent|ajent|team|customer\s*service|support)\b/i',
+            '/\bspeak\s*to\s*(someone|somone|person|human|agent|ajent|team|customer\s*service|support)\b/i',
+            '/\b(connect|conect|connct|connet)\s*(me\s*)?(to|with)\s*(an?\s*)?(agent|ajent|human|person|team|someone|somone|customer\s*service|support)\b/i',
+            '/\btransfer\s*(me\s*)?to\s*(an?\s*)?(agent|ajent|human|support)\b/i',
+            '/\b(kisi|kise|someone|somone|insaan|insan)\s*(se\s*)?(baat|bat|bath|talk)/i',
+            '/\b(team|agent|ajent)\s*se\s*(baat|bat|bath)/i',
+            '/\bmujhe\s*(kisi|kise|insaan|insan)?\s*(se\s*)?(baat|bat|bath|connect|conect|milwa|lagwa|lagao|mila)/i',
+            '/\b(baat|bat|bath|connect|conect)\s*(karo|kro|karao|karwao|karado|karvado|lagao|lagwao)/i',
+            '/\b(connect|conect|transfer)\s*(kar|karo|kro|do|de|diye|karde|lagwa|lagao|mila)/i',
+            '/\b(connect|conect|connct|connet)\s+(as soon as possible|asap|jaldi|turant|abhi|now|urgent|immediately|fast)\b/i',
+            '/\bmujhe\s*(connect|conect|agent|ajent|human|insaan|insan)\s*(se\s*)?(baat|bat|bath|karni|karna|chahiye|do|milwa|lagwa)/i',
+            '/\b(connect|conect|connct|connet)\s*(me\s*)?(with|to)\s*(customer\s*service|support|customer\s*support|help)\b/i',
         ];
 
         foreach ($patterns as $pattern) {
