@@ -73,24 +73,22 @@ via OpenCode's subagent system. Activate any agent with `@agent-name`.
 5. Mark complete
 ```
 
-## Pending Implementation
+## Completed Work
 
-### Chatbot — "Connect me to an agent" detection
-**When user types agent-connect keywords, implement in `ChatController@reply()`:**
+### Chatbot — "Connect me to an agent" detection ✅
+- **Keywords:** `agent|human|talk to someone|connect|baat karni hai|speak to person|team se baat|kisi se baat` (and more)
+- **Reply:** "Let me connect you with our team..."
+- **Buttons:** `Get Personalized Guidance | Book Discovery Call | Explore Services`
+- Detection implemented in `ChatController::isAgentConnectRequest()` — called in both `bot_mode` and main flow paths.
 
-1. **Pre-check keywords:** `agent|human|talk to someone|connect|baat karni hai|speak to person|team se baat|kisi se baat`
+### Chatbot — Message length limit ✅
+- `ChatController@reply()` line 29: limit changed from `300` → `2000`
 
-2. **Bot reply:**
-   > "Let me connect you with our team. Please share more details about your requirement so we can assist you better."
-
-3. **Show 3 buttons:** `Get Personalized Guidance | Book Discovery Call | Explore Services` (existing fallback options)
-
-4. **Existing flow untouched** — form submit → ticket create → agent connects.
-
----
-
-### Chatbot — Message length limit
-**In `ChatController@reply()` line 29:** change `300` → `2000`
+### Logo & Branding Update — July 4 ✅
+- New `logo.svg` added to project root
+- Updated design: `public/images/logo-updated.svg`
+- Old logo archived: `public/images/logo.svg` → `previous-logo.svg`
+- Asset reference updated in `resources/views/components/application-logo.blade.php`
 
 ---
 
