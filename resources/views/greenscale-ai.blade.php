@@ -99,10 +99,9 @@
                 </div>
                 <div class="col-lg-6">
                 <div class="h-100 d-flex align-items-center justify-content-center">
-                        <video class="img-fluid" controls autoplay muted loop style="height: 78%; width: 70%; max-width: 550px;     max-height: 300px;">
-                            <source src="{{ asset('videos/hero-section-video.mp4') }}" type="video/mp4">
-                            Your browser does not support HTML video.
-                        </video>
+                        <a href="javascript:void(0);" class="devx-video-trigger" data-video="{{ asset('videos/greenscale-section-video.mp4') }}">
+                            <img src="{{ asset('images/thumbnails/devxcloud-hero-section-thumbnail.jpeg') }}" alt="GreenScale Section Video Thumbnail" style="width: 80%; cursor: pointer; border-radius: 12px; margin-left: 30px; margin-bottom: 30px;">
+                        </a>
                     </div>
                 </div>
             </div>

@@ -428,9 +428,10 @@
             <button class="devx-video-close" id="closeVideoModal">&times;</button>
 
             <div class="devx-video-wrapper">
-                <video id="devxDemoVideo" controls muted playsinline>
+                <video id="devxDemoVideo" controls playsinline>
                     <source src="" type="video/mp4">
                 </video>
+                <button id="devxUnmuteBtn" class="devx-unmute-btn" style="display:none;">🔊 Unmute</button>
             </div>
         </div>
     </div>
@@ -592,6 +593,23 @@
         const video = document.getElementById('devxDemoVideo');
         const videoSource = video ? video.querySelector('source') : null;
         const closeBtn = document.getElementById('closeVideoModal');
+        const unmuteBtn = document.getElementById('devxUnmuteBtn');
+
+        function showUnmuteButton() {
+            if (unmuteBtn) unmuteBtn.style.display = 'block';
+        }
+
+        function hideUnmuteButton() {
+            if (unmuteBtn) unmuteBtn.style.display = 'none';
+        }
+
+        if (unmuteBtn) {
+            unmuteBtn.addEventListener('click', function () {
+                video.muted = false;
+                video.volume = 1;
+                hideUnmuteButton();
+            });
+        }
 
         document.querySelectorAll('.devx-video-trigger').forEach(button => {
             button.addEventListener('click', () => {
@@ -604,10 +622,26 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
 
-                video.muted = true;
+                video.muted = false;
                 video.currentTime = 0;
-                video.play();
+
+                var playPromise = video.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        hideUnmuteButton();
+                    }).catch(() => {
+                        video.muted = true;
+                        video.play().then(() => {
+                            showUnmuteButton();
+                        });
+                    });
+                }
             });
+        });
+
+        video.addEventListener('playing', function () {
+            if (!video.muted) hideUnmuteButton();
         });
 
         function closeModal() {
